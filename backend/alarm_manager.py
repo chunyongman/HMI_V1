@@ -182,13 +182,7 @@ class AlarmManager:
                         new_alarms.append(alarm)
                         self.active_alarms[alarm_id] = alarm  # ID를 키로 사용하여 무제한 누적
                         logger.info(f"✅ [AlarmManager] 새 알람 생성: {alarm_id} ({alarm_tag})")
-                else:
-                    # 정상 조건 - 해당 태그의 활성 알람 자동 해제
-                    alarms_to_remove = [aid for aid, alarm in self.active_alarms.items() if alarm.tag == alarm_tag]
-                    for aid in alarms_to_remove:
-                        alarm = self.active_alarms.pop(aid)
-                        self.alarm_history.append(alarm)
-                        logger.info(f"✅ [AlarmManager] 알람 자동 해제 (조건 정상 복귀): {alarm.message}")
+                # 정상 조건이어도 자동 해제하지 않음 (사용자가 확인할 때까지 유지)
 
             # Low 체크 (T1만)
             if tag == "T1":
@@ -212,13 +206,7 @@ class AlarmManager:
                             )
                             new_alarms.append(alarm)
                             self.active_alarms[alarm_id] = alarm
-                    else:
-                        # 정상 조건 - 해당 태그의 활성 알람 자동 해제
-                        alarms_to_remove = [aid for aid, alarm in self.active_alarms.items() if alarm.tag == alarm_tag]
-                        for aid in alarms_to_remove:
-                            alarm = self.active_alarms.pop(aid)
-                            self.alarm_history.append(alarm)
-                            logger.info(f"✅ [AlarmManager] 알람 자동 해제 (조건 정상 복귀): {alarm.message}")
+                    # 정상 조건이어도 자동 해제하지 않음 (사용자가 확인할 때까지 유지)
 
         # 압력 체크 (센서 키는 DPX1, DPX2)
         px1 = sensors.get("DPX1")  # CSW PP Disc Press (kg/cm² 또는 bar)
@@ -241,13 +229,7 @@ class AlarmManager:
                     )
                     new_alarms.append(alarm)
                     self.active_alarms[alarm_id] = alarm
-            else:
-                # 정상 조건 - 해당 태그의 활성 알람 자동 해제
-                alarms_to_remove = [aid for aid, alarm in self.active_alarms.items() if alarm.tag == alarm_tag]
-                for aid in alarms_to_remove:
-                    alarm = self.active_alarms.pop(aid)
-                    self.alarm_history.append(alarm)
-                    logger.info(f"✅ [AlarmManager] 알람 자동 해제 (조건 정상 복귀): {alarm.message}")
+            # 정상 조건이어도 자동 해제하지 않음 (사용자가 확인할 때까지 유지)
 
             # High 체크
             alarm_tag = "PX1_HIGH"
@@ -267,13 +249,7 @@ class AlarmManager:
                     )
                     new_alarms.append(alarm)
                     self.active_alarms[alarm_id] = alarm
-            else:
-                # 정상 조건 - 해당 태그의 활성 알람 자동 해제
-                alarms_to_remove = [aid for aid, alarm in self.active_alarms.items() if alarm.tag == alarm_tag]
-                for aid in alarms_to_remove:
-                    alarm = self.active_alarms.pop(aid)
-                    self.alarm_history.append(alarm)
-                    logger.info(f"✅ [AlarmManager] 알람 자동 해제 (조건 정상 복귀): {alarm.message}")
+            # 정상 조건이어도 자동 해제하지 않음 (사용자가 확인할 때까지 유지)
 
         # E/R 차압 체크 (DPX2)
         px2 = sensors.get("DPX2")  # E/R Diff Press (Pa)
@@ -295,13 +271,7 @@ class AlarmManager:
                     )
                     new_alarms.append(alarm)
                     self.active_alarms[alarm_id] = alarm
-            else:
-                # 정상 조건 - 해당 태그의 활성 알람 자동 해제
-                alarms_to_remove = [aid for aid, alarm in self.active_alarms.items() if alarm.tag == alarm_tag]
-                for aid in alarms_to_remove:
-                    alarm = self.active_alarms.pop(aid)
-                    self.alarm_history.append(alarm)
-                    logger.info(f"✅ [AlarmManager] 알람 자동 해제 (조건 정상 복귀): {alarm.message}")
+            # 정상 조건이어도 자동 해제하지 않음 (사용자가 확인할 때까지 유지)
 
         # 기관 부하 체크 (PU1)
         pu1 = sensors.get("PU1")  # M/E Load (%)
@@ -329,13 +299,7 @@ class AlarmManager:
                     new_alarms.append(alarm)
                     self.active_alarms[alarm_id] = alarm
                     logger.info(f"✅ [AlarmManager] 새 알람 생성: {alarm_id} ({alarm_tag})")
-            else:
-                # 정상 조건 - 해당 태그의 활성 알람 자동 해제
-                alarms_to_remove = [aid for aid, alarm in self.active_alarms.items() if alarm.tag == alarm_tag]
-                for aid in alarms_to_remove:
-                    alarm = self.active_alarms.pop(aid)
-                    self.alarm_history.append(alarm)
-                    logger.info(f"✅ [AlarmManager] 알람 자동 해제 (조건 정상 복귀): {alarm.message}")
+            # 정상 조건이어도 자동 해제하지 않음 (사용자가 확인할 때까지 유지)
 
         return new_alarms
 

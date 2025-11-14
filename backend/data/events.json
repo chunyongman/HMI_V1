@@ -1,6 +1,38 @@
 {
   "events": [
     {
+      "id": "EVT202511141320240003",
+      "time": "2025-11-14T13:20:24.113746",
+      "type": "alarm",
+      "user": "Operator",
+      "message": "Alarm ALM202511141320100003 acknowledged",
+      "details": null
+    },
+    {
+      "id": "EVT202511141317280002",
+      "time": "2025-11-14T13:17:28.482949",
+      "type": "alarm",
+      "user": "Operator",
+      "message": "Alarm ALM202511141317100002 acknowledged",
+      "details": null
+    },
+    {
+      "id": "EVT202511141317260001",
+      "time": "2025-11-14T13:17:26.517019",
+      "type": "alarm",
+      "user": "Operator",
+      "message": "Alarm ALM202511141317100001 acknowledged",
+      "details": null
+    },
+    {
+      "id": "EVT202511141307590005",
+      "time": "2025-11-14T13:07:59.535475",
+      "type": "alarm",
+      "user": "Operator",
+      "message": "Alarm ALM202511141307450003 acknowledged",
+      "details": null
+    },
+    {
       "id": "EVT202511141306270004",
       "time": "2025-11-14T13:06:27.799803",
       "type": "control",
@@ -33,11 +65,19 @@
       "details": null
     },
     {
-      "id": "EVT202511141307590005",
-      "time": "2025-11-14T13:07:59.535475",
-      "type": "alarm",
+      "id": "EVT202511141320540004",
+      "time": "2025-11-14T13:20:54.040378",
+      "type": "control",
       "user": "Operator",
-      "message": "Alarm ALM202511141307450003 acknowledged",
+      "message": "SWP1 STOP command executed",
+      "details": null
+    },
+    {
+      "id": "EVT202511141320590005",
+      "time": "2025-11-14T13:20:59.902895",
+      "type": "control",
+      "user": "Operator",
+      "message": "SWP1 START command executed",
       "details": null
     }
   ]
