@@ -27,6 +27,7 @@ function App() {
   const [audioContext, setAudioContext] = useState(null)
   const [alarmSoundMuted, setAlarmSoundMuted] = useState(false) // Mute 상태
   const prevAlarmIdsRef = useRef(new Set())
+  const prevCriticalAlarmIdsRef = useRef(new Set()) // CRITICAL 알람 ID 추적
   const isFirstRenderRef = useRef(true)
   const alarmSoundIntervalRef = useRef(null) // 연속 경고음 인터벌
   const alarmsRef = useRef([]) // 최신 alarms 상태를 참조하기 위한 ref
@@ -186,10 +187,22 @@ function App() {
   useEffect(() => {
     const hasUnacknowledged = alarms.some(a => !a.acknowledged)
 
+    // 현재 미확인 CRITICAL 알람 ID 세트
+    const currentCriticalAlarmIds = new Set(
+      alarms.filter(a => !a.acknowledged && a.level === 'critical').map(a => a.id)
+    )
+
+    // 새로운 CRITICAL 알람 감지 (이전에 없었던 ID)
+    const newCriticalAlarmIds = Array.from(currentCriticalAlarmIds).filter(
+      id => !prevCriticalAlarmIdsRef.current.has(id)
+    )
+
     // 상세 디버그 로그
     console.log('🔍 [App] 알람 상태 체크:', {
       총알람: alarms.length,
       미확인알람: hasUnacknowledged,
+      현재위험알람: currentCriticalAlarmIds.size,
+      새위험알람: newCriticalAlarmIds.length,
       muted: alarmSoundMuted,
       audioContext: !!audioContext,
       intervalActive: !!alarmSoundIntervalRef.current
@@ -199,9 +212,19 @@ function App() {
     console.log('📋 [App] 알람 목록:', alarms.map(a => ({
       id: a.id,
       tag: a.tag,
+      level: a.level,
       message: a.message,
       acknowledged: a.acknowledged
     })))
+
+    // 새로운 CRITICAL 알람 발생 시 음소거 해제
+    if (newCriticalAlarmIds.length > 0 && alarmSoundMuted) {
+      console.log('🔴 [App] 새로운 위험 알람 발생 - 음소거 자동 해제', newCriticalAlarmIds)
+      setAlarmSoundMuted(false)
+    }
+
+    // CRITICAL 알람 ID 추적 업데이트
+    prevCriticalAlarmIdsRef.current = currentCriticalAlarmIds
 
     if (hasUnacknowledged && audioContext && !alarmSoundMuted) {
       // 미확인 알람이 있는데 경고음이 울리지 않고 있으면 시작

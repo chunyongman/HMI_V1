@@ -36,12 +36,15 @@ function Settings() {
     fan_max_hz: 60,
 
     // 운전 설정
-    swp_1p_time: 120,
+    swp_1p_time: 240,
     swp_2p_time: 240,
     swp_op_time: 1,
     swp_speed_limit: 300,
-    
-    fwp_1p_chg_time: 180,
+
+    fwp_1p_chg_time: 240,
+    fwp_2p_chg_time: 240,
+    fwp_op_time: 1,
+    fwp_speed_limit: 300,
     meg_load_lmt1: 30,
     meg_load_lmt2: 20,
   })
@@ -377,37 +380,61 @@ function OperationSettings({ settings, onChange }) {
           min={1}
           max={6}
         />
-        <SettingItem 
-          label="최저속도 운전 시간" 
-          value={settings.swp_speed_limit} 
+        <SettingItem
+          label="최적속도 운전 시간"
+          value={settings.swp_speed_limit}
           unit="초"
           onChange={(v) => onChange('swp_speed_limit', v)}
           min={0}
           max={600}
         />
-        <SettingItem 
-          label="FWP 펌프 전환 시간" 
-          value={settings.fwp_1p_chg_time} 
+        <SettingItem
+          label="FWP 1펌프 운전 시간"
+          value={settings.fwp_1p_chg_time}
           unit="분"
           onChange={(v) => onChange('fwp_1p_chg_time', v)}
           min={1}
           max={1000}
         />
+        <SettingItem
+          label="FWP 2펌프 운전 시간"
+          value={settings.fwp_2p_chg_time}
+          unit="분"
+          onChange={(v) => onChange('fwp_2p_chg_time', v)}
+          min={1}
+          max={1000}
+        />
+        <SettingItem
+          label="FWP 운전 순서"
+          value={settings.fwp_op_time}
+          unit=""
+          onChange={(v) => onChange('fwp_op_time', v)}
+          min={1}
+          max={6}
+        />
+        <SettingItem
+          label="최적속도 운전 시간"
+          value={settings.fwp_speed_limit}
+          unit="초"
+          onChange={(v) => onChange('fwp_speed_limit', v)}
+          min={0}
+          max={600}
+        />
       </div>
 
       <h3>🔥 M/E 부하 설정</h3>
       <div className="settings-grid">
-        <SettingItem 
-          label="M/E 운전 신호 설정" 
-          value={settings.meg_load_lmt1} 
+        <SettingItem
+          label="운항 부하 기준값"
+          value={settings.meg_load_lmt1}
           unit="%"
           onChange={(v) => onChange('meg_load_lmt1', v)}
           min={0}
           max={100}
         />
-        <SettingItem 
-          label="출항 모드 해제 설정" 
-          value={settings.meg_load_lmt2} 
+        <SettingItem
+          label="정박 부하 기준값"
+          value={settings.meg_load_lmt2}
           unit="%"
           onChange={(v) => onChange('meg_load_lmt2', v)}
           min={0}

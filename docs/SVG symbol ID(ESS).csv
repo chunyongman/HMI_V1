@@ -1,0 +1,40 @@
+Name ,Symbol ID,±‚¡∏ ID_No,X,Y
+TX1,TX1,g1455,815.457,311.482
+TX2,TX2,g1463,558.574,144.775
+TX3,TX3,g1457,557.774,289.149
+TX4,TX4,g1461,313.213,146.775
+TX5,TX5,g1459,426.544,422.924
+TX6,TX6,,,
+TX7,TX7,,,
+DPX1,DPX1,g1453,946.421,430.102
+DPX2,DPX2,,,
+LT Pump No.1,LT_Pump_1,g229,244.243,372.093
+LT Pump No.2,LT_Pump_2,g245,244.243,459.033
+LT Pump No.3,LT_Pump_3,g261,244.243,545.963
+SW Pump No.1,SW_Pump_1,g103,599.923,476.633
+SW Pump No.2,SW_Pump_2,g1046,695.023,476.633
+SW Pump No.3,SW_Pump_3,g119,786.444,476.633
+LT Pump No.1 Mode selection,LT_Pump1_Mode,g1201,271.938,414.438
+LT Pump No.2 Mode selection,LT_Pump2_Mode,g1218,271.938,501.17
+LT Pump No.3 Mode selection,LT_Pump3_Mode,g1235,271.938,588.117
+SW Pump No.1 Mode selection,SW_Pump1_Mode,g1335,755.745,479.144
+SW Pump No.2 Mode selection,SW_Pump2_Mode,g1352,787.583,479.144
+SW Pump No.3 Mode selection,SW_Pump3_Mode,g1369,844.46,479.144
+LT Pump No.1 running hour,LT_Pump1_hour,g1262,307.042,399.606
+LT Pump No.2 running hour,LT_Pump2_hour,g1290,307.042,487.847
+LT Pump No.3 running hour,LT_Pump3_hour,g1318,307.042,574.679
+SW Pump No.1 running hour,SW_Pump1_hour,g1396,663.851,519.946
+SW Pump No.2 running hour,SW_Pump2_hour,g1423,757.072,519.946
+SW Pump No.3 running hour,SW_Pump3_hour,g1450,845.297,519.946
+LT Pump No.1 Auto display,LT_Pump1_Auto,text1252,306.386,365.029
+LT Pump No.2 Auto display,LT_Pump2_Auto,text1280,306.386,451.278
+LT Pump No.3 Auto display,LT_Pump3_Auto,text1308,306.386,540.11
+SW Pump No.1 Auto display,SW_Pump1_Auto,text1386,654.989,494.283
+SW Pump No.2 Auto display,SW_Pump2_Auto,text1413,747.203,494.283
+SW Pump No.3 Auto display,SW_Pump3_Auto,text1440,835.412,494.283
+LT Pump No.1 Hz(VFD),LT_Pump1_Hz,text1253,304.441,373.529
+LT Pump No.2 Hz(VFD),LT_Pump2_Hz,text1281,304.441,459.778
+LT Pump No.3 Hz(VFD),LT_Pump3_Hz,text1309,304.441,548.609
+SW Pump No.1 Hz(VFD),SW_Pump1_Hz,text1387,653.045,502.783
+SW Pump No.2 Hz(VFD),SW_Pump2_Hz,text1414,745.259,502.783
+SW Pump No.3 Hz(VFD),SW_Pump3_Hz,text1441,833.468,502.783

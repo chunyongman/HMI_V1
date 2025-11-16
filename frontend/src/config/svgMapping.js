@@ -1,17 +1,17 @@
 // SVG Symbol ID와 센서/펌프 데이터 매핑 설정
-// 실제 SVG 파일에서 확인한 ID 기반
+// CSV 파일 (SVG symbol ID(ESS).csv) 기반
 
 export const sensorMapping = {
-  // 온도 센서 - SVG에 라벨만 있고 값 표시 요소는 동적 추가 필요
-  TX1: { labelId: 'text147', unit: '°C', decimal: 1 },
-  TX2: { labelId: 'text1125', unit: '°C', decimal: 1 },
-  TX3: { labelId: 'text1147', unit: '°C', decimal: 1 },
-  TX4: { labelId: 'text278', unit: '°C', decimal: 1 },
-  TX5: { labelId: 'text1151', unit: '°C', decimal: 1 },
+  // 온도 센서 - 직접 ID 사용
+  TX1: { labelId: 'TX1', unit: '°C', decimal: 1 },  // CSW PP Disc Temp
+  TX2: { labelId: 'TX2', unit: '°C', decimal: 1 },  // CSW PP Suct Temp
+  TX3: { labelId: 'TX3', unit: '°C', decimal: 1 },  // CSW Cooler CSW Out
+  TX4: { labelId: 'TX4', unit: '°C', decimal: 1 },  // FW Cooler FW In
+  TX5: { labelId: 'TX5', unit: '°C', decimal: 1 },  // FW Cooler FW Out
 
   // 압력 센서
-  PX1: { labelId: 'text1073', unit: ' kg/cm²', decimal: 2 },
-  DPX1: { labelId: 'text1073', unit: ' kg/cm²', decimal: 2 },  // PX1과 동일한 위치 (백엔드에서 DPX1로 전송)
+  PX1: { labelId: 'DPX1', unit: ' bar', decimal: 2 },  // CSW Pressure
+  DPX1: { labelId: 'DPX1', unit: ' bar', decimal: 2 },  // DPX1
 }
 
 export const pumpMapping = {
@@ -19,25 +19,28 @@ export const pumpMapping = {
   0: { // LT Pump No.1
     name: 'LT_Pump_1',
     symbolIds: {
-      mode: 'text1201',           // MAN 표시
-      hz: 'LT_Pump1_Hz',          // Hz(VFD) 표시
-      runningHour: 'text1262'     // Running hour 표시
+      mode: 'LT_Pump1_Mode',
+      hz: 'LT_Pump1_Hz',
+      runningHour: 'LT_Pump1_hour',
+      auto: 'LT_Pump1_Auto'
     }
   },
   1: { // LT Pump No.2
     name: 'LT_Pump_2',
     symbolIds: {
-      mode: 'text1218',
+      mode: 'LT_Pump2_Mode',
       hz: 'LT_Pump2_Hz',
-      runningHour: 'text1290'
+      runningHour: 'LT_Pump2_hour',
+      auto: 'LT_Pump2_Auto'
     }
   },
   2: { // LT Pump No.3
     name: 'LT_Pump_3',
     symbolIds: {
-      mode: 'text1235',
+      mode: 'LT_Pump3_Mode',
       hz: 'LT_Pump3_Hz',
-      runningHour: 'text1318'
+      runningHour: 'LT_Pump3_hour_',
+      auto: 'LT_Pump3_Auto'  // SVG에 없을 수 있음
     }
   },
 
@@ -45,25 +48,28 @@ export const pumpMapping = {
   3: { // SW Pump No.1
     name: 'SW_Pump_1',
     symbolIds: {
-      mode: 'text1335',
+      mode: 'SW_Pump1_Mode',
       hz: 'SW_Pump1_Hz',
-      runningHour: 'text1396'
+      runningHour: 'SW_Pump1_hour',
+      auto: 'SW_Pump1_Auto'
     }
   },
   4: { // SW Pump No.2
     name: 'SW_Pump_2',
     symbolIds: {
-      mode: 'text1352',
-      hz: 'text1414',
-      runningHour: 'text1423'
+      mode: 'SW_Pump2_Mode',
+      hz: 'SW_Pump2_Hz',
+      runningHour: 'SW_Pump2_hour',
+      auto: 'SW_Pump2_Auto'
     }
   },
   5: { // SW Pump No.3
     name: 'SW_Pump_3',
     symbolIds: {
-      mode: 'text1369',
+      mode: 'SW_Pump3_Mode',
       hz: 'SW_Pump3_Hz',
-      runningHour: 'text1450'
+      runningHour: 'SW_Pump3_hour',
+      auto: 'SW_Pump3_Auto'
     }
   }
 }

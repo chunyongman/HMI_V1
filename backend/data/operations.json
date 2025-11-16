@@ -1,3 +1,28 @@
 {
-  "records": {}
+  "records": {
+    "SWP1_2025-11-16": {
+      "equipment_name": "SWP1",
+      "date": "2025-11-16",
+      "runtime_hours": 0.11237585638888889,
+      "start_count": 2,
+      "energy_kwh": 14.833613043333333,
+      "saved_kwh": 4.450083912999999
+    },
+    "SWP2_2025-11-16": {
+      "equipment_name": "SWP2",
+      "date": "2025-11-16",
+      "runtime_hours": 0.06335086166666666,
+      "start_count": 0,
+      "energy_kwh": 8.36231374,
+      "saved_kwh": 2.5086941219999996
+    },
+    "SWP3_2025-11-16": {
+      "equipment_name": "SWP3",
+      "date": "2025-11-16",
+      "runtime_hours": 0,
+      "start_count": 1,
+      "energy_kwh": 0,
+      "saved_kwh": 0
+    }
+  }
 }

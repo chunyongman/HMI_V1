@@ -100,14 +100,11 @@ function DynamicSVGDiagram({ sensors = {}, pumps = [], onPumpCommand }) {
         const allOldTexts = svgElement.querySelectorAll(`#${valueId}`)
         allOldTexts.forEach(el => el.remove())
 
-        // 라벨 위치 정보 가져오기
-        const transform = labelElement.getAttribute('transform')
-        const match = transform?.match(/matrix\(([\d\.\s\-]+)\)/)
-
-        if (match) {
-          const matrixValues = match[1].split(' ').map(Number)
-          const baseX = matrixValues[4] + 25  // 라벨 오른쪽
-          const baseY = matrixValues[5]
+        // 라벨 위치 정보 가져오기 (bounding box 사용)
+        try {
+          const bbox = labelElement.getBBox()
+          const baseX = bbox.x + bbox.width + 5  // 라벨 오른쪽에 약간의 간격
+          const baseY = bbox.y + bbox.height / 2 + 3  // 중앙 정렬
 
           // 텍스트만 생성 (배경 없음) - 모든 센서 동일하게
           const textElement = document.createElementNS('http://www.w3.org/2000/svg', 'text')
@@ -117,11 +114,13 @@ function DynamicSVGDiagram({ sensors = {}, pumps = [], onPumpCommand }) {
           textElement.setAttribute('font-family', 'Arial, sans-serif')
           textElement.setAttribute('font-size', '10')
           textElement.setAttribute('fill', '#000000')
-          textElement.setAttribute('font-weight', 'normal')  // normal로 통일
-          textElement.style.fontWeight = 'normal'
+          textElement.setAttribute('font-weight', 'bold')
+          textElement.style.fontWeight = 'bold'
           textElement.textContent = `${value}${mapping.unit}`
 
-          labelElement.parentNode.appendChild(textElement)
+          svgElement.appendChild(textElement)
+        } catch (e) {
+          console.warn(`센서 ${sensorKey} 위치 계산 실패:`, e)
         }
       }
     })
@@ -181,6 +180,74 @@ function DynamicSVGDiagram({ sensors = {}, pumps = [], onPumpCommand }) {
       if (hzElement) {
         hzElement.setAttribute('fill', '#000000')
         hzElement.setAttribute('font-weight', 'bold')
+      }
+
+      // 펌프 회전 애니메이션 및 색상 제어 (running 상태에 따라)
+      const pumpName = mapping.name  // 'LT_Pump_1', 'SW_Pump_1' 등
+      const impellerClass = `impeller-${pumpName}`
+      const impellerElement = svgElement.querySelector(`.${impellerClass}`)
+
+      // 펌프 전체 그룹 요소 찾기
+      const pumpGroupElement = svgElement.querySelector(`#${pumpName}`)
+
+      if (impellerElement && pumpGroupElement) {
+        // 펌프 그룹 내의 모든 fill 속성을 가진 요소 찾기 (impeller 제외)
+        const fillElements = pumpGroupElement.querySelectorAll('[fill]')
+
+        if (pump.running) {
+          // 운전 중이면 애니메이션 활성화
+          impellerElement.style.animationPlayState = 'running'
+
+          // 펌프 색상을 밝은 파란색으로 변경
+          fillElements.forEach(el => {
+            // impeller 내부 요소는 제외
+            if (!el.closest('.impeller-' + pumpName) || el === impellerElement) {
+              const currentFill = el.getAttribute('fill')
+              // 원본 색상 저장 (아직 저장 안 했으면)
+              if (!el.hasAttribute('data-original-fill')) {
+                el.setAttribute('data-original-fill', currentFill)
+              }
+              // 파란색 계열로 변경 (더 밝고 선명하게)
+              if (currentFill.includes('#06b6d4')) {
+                el.setAttribute('fill', '#22d3ee')  // 밝은 cyan
+              } else if (currentFill.includes('#0891b2')) {
+                el.setAttribute('fill', '#06b6d4')  // 중간 cyan
+              } else if (currentFill.includes('#0e7490')) {
+                el.setAttribute('fill', '#0891b2')  // 어두운 cyan
+              } else if (!currentFill.includes('url')) {
+                el.setAttribute('fill', '#22d3ee')  // 기본값
+              }
+            }
+          })
+        } else {
+          // 정지 중이면 애니메이션 일시정지
+          impellerElement.style.animationPlayState = 'paused'
+
+          // 펌프 색상을 회색으로 변경
+          fillElements.forEach(el => {
+            // impeller 내부 요소는 제외
+            if (!el.closest('.impeller-' + pumpName) || el === impellerElement) {
+              const originalFill = el.getAttribute('data-original-fill')
+              const currentFill = el.getAttribute('fill')
+
+              // 회색 계열로 변경 (gradient는 제외)
+              if (!currentFill.includes('url')) {
+                if (originalFill && originalFill.includes('#06b6d4')) {
+                  el.setAttribute('fill', '#94a3b8')  // 밝은 회색
+                } else if (originalFill && originalFill.includes('#0891b2')) {
+                  el.setAttribute('fill', '#64748b')  // 중간 회색
+                } else if (originalFill && originalFill.includes('#0e7490')) {
+                  el.setAttribute('fill', '#475569')  // 어두운 회색
+                } else {
+                  el.setAttribute('fill', '#94a3b8')  // 기본 회색
+                }
+              }
+            }
+          })
+        }
+        console.log(`✅ 펌프 ${index} (${pumpName}) 상태: ${pump.running ? '🔵 운전중 (파란색)' : '⚪ 정지 (회색)'}`)
+      } else {
+        console.warn(`❌ 펌프 ${index} 요소 없음 - impeller: ${!!impellerElement}, group: ${!!pumpGroupElement}`)
       }
     })
   }

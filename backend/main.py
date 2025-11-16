@@ -355,6 +355,9 @@ async def broadcast_realtime_data():
     last_sensors = {}
     last_equipment = []
 
+    # 운전 이력 추적을 위한 상태 저장
+    equipment_status_tracker = {}  # {장비명: {"status": "running/stopped", "start_time": timestamp}}
+
     while True:
         try:
             # 센서 및 장비 데이터 수집 (WebSocket 연결 여부와 무관하게 항상 실행)
@@ -392,6 +395,89 @@ async def broadcast_realtime_data():
 
             # 알람 요약 정보
             alarm_summary = alarm_manager.get_alarm_summary()
+
+            # 운전 이력 추적 (장비 상태 변화 감지)
+            if equipment:
+                current_time = datetime.now()
+                for eq in equipment:
+                    eq_name = eq.get("name", "")
+                    # "running" 필드를 기준으로 상태 판단
+                    eq_status = "running" if eq.get("running", False) else "stopped"
+
+                    # 장비 상태 추적 초기화
+                    if eq_name not in equipment_status_tracker:
+                        equipment_status_tracker[eq_name] = {
+                            "status": eq_status,
+                            "start_time": current_time if eq_status == "running" else None
+                        }
+
+                    previous_status = equipment_status_tracker[eq_name]["status"]
+
+                    # 상태 변화 감지: stopped → running (장비 시작)
+                    if previous_status != "running" and eq_status == "running":
+                        equipment_status_tracker[eq_name]["status"] = "running"
+                        equipment_status_tracker[eq_name]["start_time"] = current_time
+
+                        # 시작 이벤트 로그
+                        alarm_manager.add_event(
+                            EventType.CONTROL,
+                            "System",
+                            f"{eq_name} 운전 시작 (Started)"
+                        )
+
+                        # 시작 횟수 기록
+                        alarm_manager.update_operation_record(
+                            equipment_name=eq_name,
+                            runtime_hours=0,
+                            energy_kwh=0,
+                            saved_kwh=0,
+                            start_count=1
+                        )
+                        logger.info(f"⚙️ {eq_name} 운전 시작")
+
+                    # 상태 변화 감지: running → stopped (장비 정지)
+                    elif previous_status == "running" and eq_status != "running":
+                        start_time = equipment_status_tracker[eq_name]["start_time"]
+                        equipment_status_tracker[eq_name]["status"] = "stopped"
+                        equipment_status_tracker[eq_name]["start_time"] = None
+
+                        if start_time:
+                            # 가동 시간 계산 (시간 단위)
+                            runtime_seconds = (current_time - start_time).total_seconds()
+                            runtime_hours = runtime_seconds / 3600
+
+                            # 전력 소비 계산 (장비별 정격 전력)
+                            if "SWP" in eq_name:
+                                power_kw = 132  # Sea Water Pump: 132kW
+                            elif "FWP" in eq_name:
+                                power_kw = 75   # Fresh Water Pump: 75kW
+                            elif "FAN" in eq_name:
+                                power_kw = 54.3  # E/R Ventilation Fan: 54.3kW
+                            else:
+                                power_kw = 0
+
+                            energy_kwh = power_kw * runtime_hours
+
+                            # VFD 사용 시 절감 전력 (예: 30% 절감)
+                            vfd_mode = eq.get("vfd_mode", False)
+                            saved_kwh = energy_kwh * 0.3 if vfd_mode else 0
+
+                            # 정지 이벤트 로그
+                            alarm_manager.add_event(
+                                EventType.CONTROL,
+                                "System",
+                                f"{eq_name} 운전 정지 (Stopped) - {runtime_hours:.2f}h, {energy_kwh:.2f}kWh"
+                            )
+
+                            # 운전 이력 업데이트
+                            alarm_manager.update_operation_record(
+                                equipment_name=eq_name,
+                                runtime_hours=runtime_hours,
+                                energy_kwh=energy_kwh,
+                                saved_kwh=saved_kwh,
+                                start_count=0
+                            )
+                            logger.info(f"⚙️ {eq_name} 운전 정지 - {runtime_hours:.2f}시간, {energy_kwh:.2f}kWh")
 
             # WebSocket 클라이언트에 데이터 전송 (연결이 있을 때만)
             if active_connections:

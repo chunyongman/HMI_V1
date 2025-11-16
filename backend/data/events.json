@@ -1,3 +1,276 @@
 {
-  "events": []
+  "events": [
+    {
+      "id": "EVT202511161144400001",
+      "time": "2025-11-16T11:44:40.958301",
+      "type": "alarm",
+      "user": "Operator",
+      "message": "Alarm ALM202511161144330001 acknowledged",
+      "details": null
+    },
+    {
+      "id": "EVT202511161144420002",
+      "time": "2025-11-16T11:44:42.595337",
+      "type": "alarm",
+      "user": "Operator",
+      "message": "Alarm ALM202511161144330002 acknowledged",
+      "details": null
+    },
+    {
+      "id": "EVT202511161149420003",
+      "time": "2025-11-16T11:49:42.538777",
+      "type": "control",
+      "user": "Operator",
+      "message": "SWP1 STOP command executed",
+      "details": null
+    },
+    {
+      "id": "EVT202511161149430004",
+      "time": "2025-11-16T11:49:43.129466",
+      "type": "control",
+      "user": "System",
+      "message": "SWP1 운전 정지 (Stopped) - 0.10h, 13.58kWh",
+      "details": null
+    },
+    {
+      "id": "EVT202511161149540005",
+      "time": "2025-11-16T11:49:54.426263",
+      "type": "control",
+      "user": "Operator",
+      "message": "SWP1 START command executed",
+      "details": null
+    },
+    {
+      "id": "EVT202511161149550006",
+      "time": "2025-11-16T11:49:55.243154",
+      "type": "control",
+      "user": "System",
+      "message": "SWP1 운전 시작 (Started)",
+      "details": null
+    },
+    {
+      "id": "EVT202511161150400007",
+      "time": "2025-11-16T11:50:40.395962",
+      "type": "alarm",
+      "user": "Operator",
+      "message": "Alarm ALM202511161150330005 acknowledged",
+      "details": null
+    },
+    {
+      "id": "EVT202511161150410008",
+      "time": "2025-11-16T11:50:41.716171",
+      "type": "alarm",
+      "user": "Operator",
+      "message": "Alarm ALM202511161150330006 acknowledged",
+      "details": null
+    },
+    {
+      "id": "EVT202511161150480009",
+      "time": "2025-11-16T11:50:48.969968",
+      "type": "alarm",
+      "user": "Operator",
+      "message": "Alarm ALM202511161147320003 acknowledged",
+      "details": null
+    },
+    {
+      "id": "EVT202511161150500010",
+      "time": "2025-11-16T11:50:50.868711",
+      "type": "alarm",
+      "user": "Operator",
+      "message": "Alarm ALM202511161147320004 acknowledged",
+      "details": null
+    },
+    {
+      "id": "EVT202511161159320011",
+      "time": "2025-11-16T11:59:32.074158",
+      "type": "alarm",
+      "user": "Operator",
+      "message": "Alarm ALM202511161153330007 acknowledged",
+      "details": null
+    },
+    {
+      "id": "EVT202511161159330012",
+      "time": "2025-11-16T11:59:33.073550",
+      "type": "alarm",
+      "user": "Operator",
+      "message": "Alarm ALM202511161156320009 acknowledged",
+      "details": null
+    },
+    {
+      "id": "EVT202511161159330013",
+      "time": "2025-11-16T11:59:33.697036",
+      "type": "alarm",
+      "user": "Operator",
+      "message": "Alarm ALM202511161153330008 acknowledged",
+      "details": null
+    },
+    {
+      "id": "EVT202511161159350014",
+      "time": "2025-11-16T11:59:35.440101",
+      "type": "alarm",
+      "user": "Operator",
+      "message": "Alarm ALM202511161159330010 acknowledged",
+      "details": null
+    },
+    {
+      "id": "EVT202511161202420015",
+      "time": "2025-11-16T12:02:42.844112",
+      "type": "alarm",
+      "user": "Operator",
+      "message": "Alarm ALM202511161202320012 acknowledged",
+      "details": null
+    },
+    {
+      "id": "EVT202511161202430016",
+      "time": "2025-11-16T12:02:43.661332",
+      "type": "alarm",
+      "user": "Operator",
+      "message": "Alarm ALM202511161202320011 acknowledged",
+      "details": null
+    },
+    {
+      "id": "EVT202511161208520001",
+      "time": "2025-11-16T12:08:52.143347",
+      "type": "alarm",
+      "user": "Operator",
+      "message": "Alarm ALM202511161208420001 acknowledged",
+      "details": null
+    },
+    {
+      "id": "EVT202511161208520002",
+      "time": "2025-11-16T12:08:52.933727",
+      "type": "alarm",
+      "user": "Operator",
+      "message": "Alarm ALM202511161208420002 acknowledged",
+      "details": null
+    },
+    {
+      "id": "EVT202511161210550001",
+      "time": "2025-11-16T12:10:55.297049",
+      "type": "control",
+      "user": "Operator",
+      "message": "SWP1 STOP command executed",
+      "details": null
+    },
+    {
+      "id": "EVT202511161210550002",
+      "time": "2025-11-16T12:10:55.711650",
+      "type": "control",
+      "user": "System",
+      "message": "SWP1 운전 정지 (Stopped) - 0.01h, 1.26kWh",
+      "details": null
+    },
+    {
+      "id": "EVT202511161211020003",
+      "time": "2025-11-16T12:11:02.399052",
+      "type": "control",
+      "user": "Operator",
+      "message": "SWP1 START command executed",
+      "details": null
+    },
+    {
+      "id": "EVT202511161211020004",
+      "time": "2025-11-16T12:11:02.783548",
+      "type": "control",
+      "user": "System",
+      "message": "SWP1 운전 시작 (Started)",
+      "details": null
+    },
+    {
+      "id": "EVT202511161211360005",
+      "time": "2025-11-16T12:11:36.666304",
+      "type": "alarm",
+      "user": "Operator",
+      "message": "Alarm ALM202511161211210001 acknowledged",
+      "details": null
+    },
+    {
+      "id": "EVT202511161211380006",
+      "time": "2025-11-16T12:11:38.097415",
+      "type": "alarm",
+      "user": "Operator",
+      "message": "Alarm ALM202511161211210002 acknowledged",
+      "details": null
+    },
+    {
+      "id": "EVT202511161213490001",
+      "time": "2025-11-16T12:13:49.654763",
+      "type": "alarm",
+      "user": "Operator",
+      "message": "Alarm ALM202511161213420001 acknowledged",
+      "details": null
+    },
+    {
+      "id": "EVT202511161213500002",
+      "time": "2025-11-16T12:13:50.996069",
+      "type": "alarm",
+      "user": "Operator",
+      "message": "Alarm ALM202511161213420002 acknowledged",
+      "details": null
+    },
+    {
+      "id": "EVT202511161217360001",
+      "time": "2025-11-16T12:17:36.558714",
+      "type": "alarm",
+      "user": "Operator",
+      "message": "Alarm ALM202511161217280001 acknowledged",
+      "details": null
+    },
+    {
+      "id": "EVT202511161217370002",
+      "time": "2025-11-16T12:17:37.865921",
+      "type": "alarm",
+      "user": "Operator",
+      "message": "Alarm ALM202511161217280002 acknowledged",
+      "details": null
+    },
+    {
+      "id": "EVT202511161220150003",
+      "time": "2025-11-16T12:20:15.519895",
+      "type": "control",
+      "user": "Operator",
+      "message": "SWP2 STOP command executed",
+      "details": null
+    },
+    {
+      "id": "EVT202511161220160004",
+      "time": "2025-11-16T12:20:16.467920",
+      "type": "control",
+      "user": "System",
+      "message": "SWP2 운전 정지 (Stopped) - 0.06h, 8.36kWh",
+      "details": null
+    },
+    {
+      "id": "EVT202511161220200005",
+      "time": "2025-11-16T12:20:20.500153",
+      "type": "control",
+      "user": "Operator",
+      "message": "SWP3 START command executed",
+      "details": null
+    },
+    {
+      "id": "EVT202511161220200006",
+      "time": "2025-11-16T12:20:20.520831",
+      "type": "control",
+      "user": "System",
+      "message": "SWP3 운전 시작 (Started)",
+      "details": null
+    },
+    {
+      "id": "EVT202511161220330007",
+      "time": "2025-11-16T12:20:33.766551",
+      "type": "alarm",
+      "user": "Operator",
+      "message": "Alarm ALM202511161220280003 acknowledged",
+      "details": null
+    },
+    {
+      "id": "EVT202511161220340008",
+      "time": "2025-11-16T12:20:34.534334",
+      "type": "alarm",
+      "user": "Operator",
+      "message": "Alarm ALM202511161220280004 acknowledged",
+      "details": null
+    }
+  ]
 }
