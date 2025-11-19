@@ -35,6 +35,20 @@ if not exist "frontend\node_modules" (
     exit /b 1
 )
 
+REM 기존 프로세스 정리
+echo [준비] 기존 실행 중인 프로세스 확인 및 정리 중...
+for /f "tokens=5" %%a in ('netstat -ano ^| findstr :5173 ^| findstr LISTENING 2^>nul') do (
+    echo     - 포트 5173 사용 중인 프로세스 종료 중... (PID: %%a^)
+    taskkill /F /PID %%a >nul 2>&1
+)
+for /f "tokens=5" %%a in ('netstat -ano ^| findstr :8000 ^| findstr LISTENING 2^>nul') do (
+    echo     - 포트 8000 사용 중인 프로세스 종료 중... (PID: %%a^)
+    taskkill /F /PID %%a >nul 2>&1
+)
+timeout /t 2 /nobreak >nul
+echo     ✓ 준비 완료
+echo.
+
 echo [1/3] PLC 시뮬레이터 시작 중...
 start "PLC 시뮬레이터" cmd /k "cd /d %~dp0 && backend\venv\Scripts\python.exe simulator\plc_simulator.py"
 timeout /t 5 /nobreak >nul

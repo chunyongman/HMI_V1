@@ -1,12 +1,12 @@
 .settings {
   display: flex;
   flex-direction: column;
-  gap: 0.75rem;
-  max-width: 1400px;
+  gap: 1rem;
+  max-width: 1800px;
   margin: 0 auto;
   height: 100%;
-  overflow: auto;
-  padding: 0 1rem;
+  overflow: hidden;
+  padding: 0 1.5rem;
 }
 
 .settings-header {
@@ -68,15 +68,17 @@
   border-radius: 0.75rem;
   padding: 1rem;
   flex: 1;
-  overflow: auto;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
 }
 
 .settings-section h3 {
-  font-size: 1.125rem;
-  font-weight: 600;
+  font-size: 1.25rem;
+  font-weight: 700;
   color: #f1f5f9;
   margin-bottom: 1rem;
-  padding-bottom: 0.5rem;
+  padding-bottom: 0.75rem;
   border-bottom: 2px solid #334155;
 }
 
@@ -110,9 +112,10 @@
 }
 
 .setting-item label {
-  font-size: 0.8rem;
-  font-weight: 500;
+  font-size: 0.75rem;
+  font-weight: 600;
   color: #cbd5e1;
+  text-transform: uppercase;
 }
 
 .setting-input-group {
@@ -124,12 +127,12 @@
 .setting-input-group input {
   flex: 0 1 auto;
   width: 120px;
-  padding: 0.5rem;
+  padding: 0.75rem;
   background: #0f172a;
   border: 2px solid #334155;
   border-radius: 0.5rem;
   color: #e2e8f0;
-  font-size: 0.95rem;
+  font-size: 1rem;
   font-weight: 600;
   transition: all 0.2s;
 }
@@ -150,10 +153,10 @@
 /* 출항 모드 */
 .departure-mode-card {
   background: #0f172a;
-  padding: 2rem;
+  padding: 1rem;
   border-radius: 0.75rem;
-  border: 1px solid #334155;
-  margin-bottom: 2rem;
+  border: 2px solid #334155;
+  margin-bottom: 1rem;
 }
 
 .departure-status {
@@ -166,14 +169,15 @@
 }
 
 .status-label {
-  font-size: 0.875rem;
+  font-size: 0.75rem;
   color: #94a3b8;
-  font-weight: 500;
+  font-weight: 600;
+  text-transform: uppercase;
 }
 
 .status-badge {
-  padding: 0.5rem 1rem;
-  border-radius: 0.5rem;
+  padding: 0.4rem 0.875rem;
+  border-radius: 1.5rem;
   font-size: 0.875rem;
   font-weight: 600;
 }
@@ -226,31 +230,33 @@
 
 /* 시스템 정보 */
 .system-info {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  max-width: 800px;
+  flex: 1;
 }
 
 .info-card {
   background: #0f172a;
-  padding: 1.5rem;
-  border-radius: 0.75rem;
-  border: 1px solid #334155;
+  padding: 0.75rem;
+  border-radius: 0.5rem;
+  border: 2px solid #334155;
 }
 
 .info-card h4 {
   font-size: 1rem;
-  font-weight: 600;
+  font-weight: 700;
   color: #f1f5f9;
-  margin-bottom: 1rem;
-  padding-bottom: 0.75rem;
+  margin-bottom: 0.5rem;
+  padding-bottom: 0.4rem;
   border-bottom: 1px solid #334155;
 }
 
 .info-row {
   display: flex;
   justify-content: space-between;
-  padding: 0.75rem 0;
+  padding: 0.4rem 0;
   border-bottom: 1px solid #1e293b;
 }
 
@@ -260,13 +266,15 @@
 
 .info-row span:first-child {
   color: #94a3b8;
-  font-size: 0.875rem;
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
 }
 
 .info-row span:last-child {
   color: #60a5fa;
-  font-weight: 600;
-  font-size: 0.875rem;
+  font-weight: 700;
+  font-size: 1rem;
 }
 
 /* 푸터 */
@@ -281,12 +289,12 @@
 }
 
 .btn-save {
-  padding: 1rem 3rem;
+  padding: 0.75rem 2rem;
   background: linear-gradient(135deg, #10b981 0%, #059669 100%);
   border: none;
   border-radius: 0.5rem;
   color: white;
-  font-size: 1.125rem;
+  font-size: 1rem;
   font-weight: 700;
   cursor: pointer;
   transition: all 0.2s;

@@ -123,6 +123,10 @@ function AutoManControl({ equipment = [], pumps = [], fans = [], onCommand }) {
     }
   }
 
+  const swpEquipment = allEquipment.slice(0, 3)  // SWP 3개
+  const fwpEquipment = allEquipment.slice(3, 6)  // FWP 3개
+  const fanEquipment = allEquipment.slice(6, 10) // FAN 4개
+
   return (
     <div className="automan-section">
       <div className="automan-description">
@@ -130,49 +134,50 @@ function AutoManControl({ equipment = [], pumps = [], fans = [], onCommand }) {
         <p>각 장비의 운전 모드(자동/수동)와 VFD 모드를 설정할 수 있습니다.</p>
       </div>
 
-      {/* 해수 펌프 */}
-      <div className="pump-mode-section">
-        <h4>🌊 해수 펌프 (Sea Water Pump)</h4>
-        <div className="mode-grid">
-          {allEquipment.slice(0, 3).map((item, idx) => (
+      {/* 3개 열로 배치: SWP | FWP | FAN */}
+      <div className="mode-grid-3col">
+        {/* SWP 열 */}
+        <div className="mode-column">
+          <h4 className="column-title">🌊 해수 펌프 (SWP)</h4>
+          {swpEquipment.map((item, idx) => (
             <EquipmentModeCard
               key={idx}
               equipment={item}
               modes={modes[item.name]}
               onSetMode={(type, value) => setMode(item.name, type, value)}
+              isFan={false}
             />
           ))}
         </div>
-      </div>
 
-      {/* 청수 펌프 */}
-      <div className="pump-mode-section">
-        <h4>💧 청수 펌프 (Fresh Water Pump)</h4>
-        <div className="mode-grid">
-          {allEquipment.slice(3, 6).map((item, idx) => (
+        {/* FWP 열 */}
+        <div className="mode-column">
+          <h4 className="column-title">💧 청수 펌프 (FWP)</h4>
+          {fwpEquipment.map((item, idx) => (
             <EquipmentModeCard
-              key={idx}
+              key={idx + 3}
               equipment={item}
               modes={modes[item.name]}
               onSetMode={(type, value) => setMode(item.name, type, value)}
+              isFan={false}
             />
           ))}
         </div>
-      </div>
 
-      {/* E/R 팬 */}
-      <div className="pump-mode-section">
-        <h4>🌀 Engine Room 팬 (E/R Fan)</h4>
-        <div className="mode-grid">
-          {allEquipment.slice(6, 10).map((item, idx) => (
-            <EquipmentModeCard
-              key={idx}
-              equipment={item}
-              modes={modes[item.name]}
-              onSetMode={(type, value) => setMode(item.name, type, value)}
-              isFan={true}
-            />
-          ))}
+        {/* FAN 열 */}
+        <div className="mode-column fan-column">
+          <h4 className="column-title">🌀 E/R 팬 (FAN)</h4>
+          <div className="fan-cards-grid">
+            {fanEquipment.map((item, idx) => (
+              <EquipmentModeCard
+                key={idx + 6}
+                equipment={item}
+                modes={modes[item.name]}
+                onSetMode={(type, value) => setMode(item.name, type, value)}
+                isFan={true}
+              />
+            ))}
+          </div>
         </div>
       </div>
     </div>
@@ -461,59 +466,65 @@ function VFDDetailCard({ equipment, isFan = false }) {
       </div>
 
       <div className="vfd-info-grid">
-        <div className="vfd-info-section">
-          <h5>📊 운전 데이터</h5>
-          <VFDInfoRow label="현재 주파수" value={`${equipment.frequency?.toFixed(1) || 0} Hz`} />
-          <VFDInfoRow label="출력 주파수" value={`${equipment.frequency?.toFixed(1) || 0} Hz`} />
-          <VFDInfoRow label="목표 주파수" value={`60.0 Hz`} />
-          <VFDInfoRow label="현재 전류" value={`${(equipment.power_kw * 2.5).toFixed(1)} A`} />
-          <VFDInfoRow label="출력 전압" value={`440 V`} />
-          {isFan && (
+        {/* 좌측 열 */}
+        <div className="vfd-info-column">
+          <div className="vfd-info-section">
+            <h5>📊 운전 데이터</h5>
+            <VFDInfoRow label="현재 주파수" value={`${equipment.frequency?.toFixed(1) || 0} Hz`} />
+            <VFDInfoRow label="출력 주파수" value={`${equipment.frequency?.toFixed(1) || 0} Hz`} />
+            <VFDInfoRow label="목표 주파수" value={`60.0 Hz`} />
+            <VFDInfoRow label="현재 전류" value={`${(equipment.power_kw * 2.5).toFixed(1)} A`} />
+            <VFDInfoRow label="출력 전압" value={`440 V`} />
+            {isFan && (
+              <VFDInfoRow
+                label="운전 방향"
+                value={equipment.running_fwd ? '정방향 (FWD)' :
+                       equipment.running_bwd ? '역방향 (BWD)' : '정지'}
+              />
+            )}
+          </div>
+
+          <div className="vfd-info-section">
+            <h5>⚡ 전력 데이터</h5>
+            <VFDInfoRow label="순시 전력" value={`${equipment.power_kw || 0} kW`} />
+            <VFDInfoRow label="평균 전력" value={`${equipment.avg_power || 0} kW`} />
+            <VFDInfoRow label="역률" value={`0.95`} />
+            <VFDInfoRow label="효율" value={`94.5 %`} />
             <VFDInfoRow
-              label="운전 방향"
-              value={equipment.running_fwd ? '정방향 (FWD)' :
-                     equipment.running_bwd ? '역방향 (BWD)' : '정지'}
+              label="절감률"
+              value={`${equipment.saved_ratio || 0} %`}
+              highlight
             />
-          )}
+          </div>
         </div>
 
-        <div className="vfd-info-section">
-          <h5>⚡ 전력 데이터</h5>
-          <VFDInfoRow label="순시 전력" value={`${equipment.power_kw || 0} kW`} />
-          <VFDInfoRow label="평균 전력" value={`${equipment.avg_power || 0} kW`} />
-          <VFDInfoRow label="역률" value={`0.95`} />
-          <VFDInfoRow label="효율" value={`94.5 %`} />
-          <VFDInfoRow
-            label="절감률"
-            value={`${equipment.saved_ratio || 0} %`}
-            highlight
-          />
-        </div>
+        {/* 우측 열 */}
+        <div className="vfd-info-column">
+          <div className="vfd-info-section">
+            <h5>🕐 운전 시간</h5>
+            <VFDInfoRow
+              label="ESS 운전 시간"
+              value={`${equipment.run_hours?.toLocaleString() || 0} h`}
+            />
+            <VFDInfoRow
+              label="총 운전 시간"
+              value={`${(equipment.run_hours * 1.5)?.toLocaleString() || 0} h`}
+            />
+            <VFDInfoRow
+              label="절감 전력량"
+              value={`${equipment.saved_kwh?.toLocaleString() || 0} kWh`}
+              highlight
+            />
+          </div>
 
-        <div className="vfd-info-section">
-          <h5>🕐 운전 시간</h5>
-          <VFDInfoRow
-            label="ESS 운전 시간"
-            value={`${equipment.run_hours?.toLocaleString() || 0} h`}
-          />
-          <VFDInfoRow
-            label="총 운전 시간"
-            value={`${(equipment.run_hours * 1.5)?.toLocaleString() || 0} h`}
-          />
-          <VFDInfoRow
-            label="절감 전력량"
-            value={`${equipment.saved_kwh?.toLocaleString() || 0} kWh`}
-            highlight
-          />
-        </div>
-
-        <div className="vfd-info-section">
-          <h5>🛡️ 상태 정보</h5>
-          <VFDInfoRow label="운전 모드" value={equipment.ess_mode ? 'ESS 모드' : '일반 모드'} />
-          <VFDInfoRow label="제어 모드" value={`자동`} />
-          <VFDInfoRow label="VFD 온도" value={`42 °C`} />
-          <VFDInfoRow label="모터 온도" value={`38 °C`} />
-          <VFDInfoRow label="알람 상태" value={`정상`} success />
+          <div className="vfd-info-section">
+            <h5>🛡️ 상태 정보</h5>
+            <VFDInfoRow label="운전 모드" value={equipment.ess_mode ? 'ESS 모드' : '일반 모드'} />
+            <VFDInfoRow label="제어 모드" value={`자동`} />
+            <VFDInfoRow label="VFD 온도" value={`42 °C`} />
+            <VFDInfoRow label="모터 온도" value={`38 °C`} />
+            <VFDInfoRow label="알람 상태" value={`정상`} success />
+          </div>
         </div>
       </div>
     </div>

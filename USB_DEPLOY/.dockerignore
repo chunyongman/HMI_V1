@@ -1,0 +1,43 @@
+# 전체 프로젝트용 .dockerignore
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+venv/
+env/
+
+# Node
+node_modules/
+dist/
+
+# 환경 변수
+.env
+.env.local
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Git
+.git/
+.gitignore
+
+# 문서
+docs/
+*.md
+!README.md
+
+# 테스트
+test_results/
+
+# 배치 파일 (일부 제외)
+*.bat
+!START_DOCKER.bat
+!STOP_DOCKER.bat

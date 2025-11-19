@@ -6,6 +6,7 @@ FastAPI + WebSocket으로 실시간 데이터 제공
 
 import asyncio
 import logging
+import random
 from datetime import datetime
 from typing import Dict, Any, List
 from pathlib import Path
@@ -154,6 +155,160 @@ async def get_fans():
     return {
         "success": True,
         "data": fans,
+        "timestamp": datetime.now().isoformat()
+    }
+
+
+# ===== VFD 예방진단 API (공유 파일에서 읽기) =====
+
+@app.get("/api/vfd/diagnostics")
+async def get_vfd_diagnostics():
+    """VFD 예방진단 데이터 조회 (Edge AI 분석 결과)"""
+    import json
+    from pathlib import Path
+
+    shared_file = Path("C:/shared/vfd_diagnostics.json")
+
+    # 1. 먼저 공유 파일이 있으면 읽기 (Edge AI 데이터 우선)
+    if shared_file.exists():
+        try:
+            with open(shared_file, 'r', encoding='utf-8') as f:
+                data = json.load(f)
+
+            return {
+                "success": True,
+                "data": data,
+                "timestamp": datetime.now().isoformat()
+            }
+        except Exception as e:
+            logger.error(f"VFD 진단 데이터 읽기 실패: {e}")
+
+    # 2. 공유 파일이 없으면 PLC 시뮬레이션 데이터로 VFD 진단 생성 (HMI 자체 생성)
+    logger.debug("공유 파일 없음 - PLC 데이터로 VFD 진단 생성")
+
+    # PLC 클라이언트에서 장비 데이터 가져오기
+    equipment_data = plc_client.get_all_equipment_data()
+
+    vfd_diagnostics = {}
+
+    for eq in equipment_data:
+        # 장비 이름 (name 필드)
+        eq_name = eq.get("name", "")
+
+        # VFD가 있는 장비만 처리 (펌프와 팬)
+        if not eq_name:
+            continue
+
+        # 장비 이름을 VFD ID로 변환 (SWP1 -> SW_PUMP_1)
+        if "SWP" in eq_name:
+            vfd_id = eq_name.replace("SWP", "SW_PUMP_")
+        elif "FWP" in eq_name:
+            vfd_id = eq_name.replace("FWP", "FW_PUMP_")
+        elif "FAN" in eq_name:
+            vfd_id = eq_name.replace("FAN", "ER_FAN_")
+        else:
+            continue
+
+        # 장비 데이터에서 값 추출 (딕셔너리 형태)
+        freq = eq.get("frequency", 0.0)
+        # 팬은 running_fwd 또는 running_bwd로 확인
+        is_running = eq.get("running", False) or eq.get("running_fwd", False) or eq.get("running_bwd", False)
+        run_hours = eq.get("run_hours", 0)
+
+        # 온도 시뮬레이션 (주파수와 운전 상태 기반)
+        if is_running and freq > 0:
+            # 운전 중: 주파수에 비례한 온도 (45Hz일 때 약 65-75도)
+            base_temp = 55 + (freq / 60.0) * 20
+            temp = base_temp + random.uniform(-2, 2)  # 약간의 변동
+        else:
+            # 정지 중: 낮은 온도
+            temp = 35 + random.uniform(-3, 3)
+
+        # 전류 시뮬레이션 (주파수에 비례)
+        current = (freq / 60.0) * 150 if is_running else 0.0
+
+        # 온도 기반 상태 등급
+        if temp > 75:
+            status_grade = "critical"
+            severity_score = 85
+            maintenance_priority = 5
+            anomaly_score = 80
+            anomaly_patterns = ["MOTOR_OVERTEMP"]
+        elif temp > 70:
+            status_grade = "warning"
+            severity_score = 65
+            maintenance_priority = 3
+            anomaly_score = 60
+            anomaly_patterns = ["MOTOR_TEMP_HIGH", "HEATSINK_OVERTEMP"]
+        elif temp > 60:
+            status_grade = "caution"
+            severity_score = 35
+            maintenance_priority = 1
+            anomaly_score = 30
+            anomaly_patterns = []
+        else:
+            status_grade = "normal"
+            severity_score = 15
+            maintenance_priority = 0
+            anomaly_score = 10
+            anomaly_patterns = []
+
+        # 온도 추세 (간단 계산)
+        temp_rise_rate = 0.05 if is_running else -0.02
+        predicted_temp_30min = temp + (temp_rise_rate * 30)
+        logger.info(f"✅ VFD {vfd_id}: running={is_running}, temp_rise_rate={temp_rise_rate}, predicted={predicted_temp_30min}")
+
+        if temp_rise_rate > 0.03:
+            temp_trend = "rising"
+        elif temp_rise_rate < -0.03:
+            temp_trend = "falling"
+        else:
+            temp_trend = "stable"
+
+        vfd_diagnostics[vfd_id] = {
+            "vfd_id": vfd_id,
+            "timestamp": datetime.now().isoformat(),
+
+            # 실시간 운전 데이터
+            "current_frequency_hz": freq,
+            "output_current_a": current,
+            "output_voltage_v": 400,
+            "dc_bus_voltage_v": 540,
+            "motor_temperature_c": temp,
+            "heatsink_temperature_c": temp - 10,
+
+            # 진단 결과
+            "status_grade": status_grade,
+            "severity_score": severity_score,
+            "anomaly_patterns": anomaly_patterns,
+            "recommendation": f"{vfd_id} 정상 운전 중" if status_grade == "normal" else f"{vfd_id} 온도 상승 주의",
+
+            # 누적 통계
+            "cumulative_runtime_hours": run_hours,
+            "trip_count": 0,
+            "error_count": 0,
+            "warning_count": 0,
+
+            # 예측 데이터
+            "predicted_temp_30min": predicted_temp_30min,
+            "temp_rise_rate": temp_rise_rate,
+            "temp_trend": temp_trend,
+            "remaining_life_percent": 100.0,
+            "estimated_days_to_maintenance": 1282,
+            "anomaly_score": anomaly_score,
+            "maintenance_priority": maintenance_priority,
+            "prediction_confidence": 0.85,
+        }
+
+    response_data = {
+        "timestamp": datetime.now().isoformat(),
+        "vfd_count": len(vfd_diagnostics),
+        "vfd_diagnostics": vfd_diagnostics
+    }
+
+    return {
+        "success": True,
+        "data": response_data,
         "timestamp": datetime.now().isoformat()
     }
 
@@ -479,6 +634,17 @@ async def broadcast_realtime_data():
                             )
                             logger.info(f"⚙️ {eq_name} 운전 정지 - {runtime_hours:.2f}시간, {energy_kwh:.2f}kWh")
 
+            # VFD 진단 데이터 읽기 (Edge AI 분석 결과)
+            vfd_diagnostics = None
+            try:
+                from pathlib import Path
+                shared_file = Path("C:/shared/vfd_diagnostics.json")
+                if shared_file.exists():
+                    with open(shared_file, 'r', encoding='utf-8') as f:
+                        vfd_diagnostics = json.load(f)
+            except Exception as e:
+                logger.debug(f"VFD 진단 데이터 읽기 실패 (무시): {e}")
+
             # WebSocket 클라이언트에 데이터 전송 (연결이 있을 때만)
             if active_connections:
                 # 하위 호환성을 위해 pumps도 함께 전송
@@ -489,6 +655,7 @@ async def broadcast_realtime_data():
                     "sensors": sensors,
                     "equipment": equipment,
                     "pumps": pumps,  # 하위 호환용
+                    "vfd_diagnostics": vfd_diagnostics,  # VFD 예방진단 (NEW)
                     "alarms": alarm_manager.get_active_alarms(),  # 활성 알람 목록
                     "alarm_summary": alarm_summary,  # 알람 요약
                     "timestamp": datetime.now().isoformat()

@@ -9,6 +9,7 @@ import AlarmPanel from './components/AlarmPanel'
 import Settings from './components/Settings'
 import AdvancedControl from './components/AdvancedControl'
 import History from './components/History'
+import VFDDiagnostics from './components/VFDDiagnostics'
 import './App.css'
 
 function App() {
@@ -414,6 +415,12 @@ function App() {
         >
           🔔 알람
         </button>
+        <button
+          className={activeTab === 'vfd_diagnostics' ? 'active' : ''}
+          onClick={() => setActiveTab('vfd_diagnostics')}
+        >
+          🔍 VFD 진단
+        </button>
       </nav>
 
       {/* 메인 컨텐츠 */}
@@ -477,6 +484,9 @@ function App() {
             alarmSoundMuted={alarmSoundMuted}
             onToggleMute={toggleAlarmMute}
           />
+        )}
+        {activeTab === 'vfd_diagnostics' && (
+          <VFDDiagnostics />
         )}
       </main>
 

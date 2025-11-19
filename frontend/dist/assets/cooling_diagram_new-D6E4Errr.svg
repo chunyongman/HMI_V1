@@ -7,30 +7,30 @@
    fill-rule="evenodd"
    xml:space="preserve"
    id="svg1465"
-   sodipodi:docname="도면_Final_완성본.svg"
+   sodipodi:docname="도면_Final_Rev0_20251117.svg"
    inkscape:version="1.4.2 (f4327f4, 2025-05-13)"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:xlink="http://www.w3.org/1999/xlink"
    xmlns="http://www.w3.org/2000/svg"
-   xmlns:svg="http://www.w3.org/2000/svg"><sodipodi:namedview
+   xmlns:svg="http://www.w3.org/2000/svg" style="background-color: #1a1f35;"><sodipodi:namedview
    id="namedview1465"
-   pagecolor="#ffffff"
+   pagecolor="#1a1f35"
    bordercolor="#000000"
    borderopacity="0.25"
    inkscape:showpageshadow="2"
    inkscape:pageopacity="0.0"
    inkscape:pagecheckerboard="0"
    inkscape:deskcolor="#d1d1d1"
-   inkscape:zoom="2.9720584"
-   inkscape:cx="713.31034"
-   inkscape:cy="504.53248"
+   inkscape:zoom="2.1015627"
+   inkscape:cx="608.83267"
+   inkscape:cy="344.74347"
    inkscape:window-width="1920"
    inkscape:window-height="1009"
    inkscape:window-x="-8"
    inkscape:window-y="-8"
    inkscape:window-maximized="1"
-   inkscape:current-layer="g1441" />
+   inkscape:current-layer="svg1465" />
 <defs
    id="defs1"><rect
    x="478.45629"
@@ -98,6 +98,7 @@
    style="stop-color:#cc0000;stop-opacity:1"
    id="stop7" />
 </linearGradient>
+<rect x="0" y="0" width="1024" height="768" fill="#1a1f35" />
 <clipPath
    id="clipId0">
 <path
@@ -492,18 +493,22 @@
    d="M 0,768 H 1024 V 0 H 0 Z"
    id="path1-82"
    data-element-id="element-0-1761788125775" />
-</clipPath></defs>
+</clipPath>
+
+
+
+</defs>
 <g
    clip-path="url(#clipId0)"
    fill="none"
-   stroke="rgb(0,0,0)"
+   stroke="#ffffff"
    stroke-width="0.1"
    id="g1"
    data-element-id="element-1-1761788125775"
    style="cursor: pointer;" />
 <g
    id="g221"
-   transform="translate(7.42108,2.6541314)"><path
+   transform="translate(7.1687293,2.6541314)"><path
      d="M 3.3602943,709.43517 H 1007.2811 V 40.217066 H 3.3602943 Z"
      id="path2"
      data-element-id="element-3-1761788125775"
@@ -512,7 +517,7 @@
 
 <g
    clip-path="url(#clipId0)"
-   fill="rgb(204,236,255)"
+   fill="none"
    stroke="rgb(204,236,255)"
    stroke-width="0.25"
    fill-opacity="0.498039"
@@ -542,7 +547,7 @@
 </g>
 <g
    clip-path="url(#clipId0)"
-   fill="#ccecff"
+   fill="none"
    stroke="#ccecff"
    stroke-width="0.25"
    fill-opacity="0.498039"
@@ -555,46 +560,6 @@
    id="path4"
    data-element-id="element-9-1761788125775"
    class="" />
-</g><g
-   clip-path="url(#clipId0-94)"
-   fill="none"
-   stroke="#172c51"
-   stroke-width="0.09"
-   id="g1386-2"
-   data-element-id="element-1866-1761788125777"
-   transform="matrix(1.0368214,0,0,1.0633738,-369.71388,-161.01281)">
-<polyline
-   points="642.519,494.403 643.431,492.198 645.636,491.286 "
-   id="polyline1379-4"
-   data-element-id="element-1867-1761788125777" />
-<polyline
-   points="645.636,491.286 674.819,491.286 "
-   id="polyline1380-5"
-   data-element-id="element-1868-1761788125777" />
-<polyline
-   points="674.819,491.286 677.023,492.198 677.935,494.403 "
-   id="polyline1381-5"
-   data-element-id="element-1869-1761788125777" />
-<polyline
-   points="677.935,494.403 677.935,506.869 "
-   id="polyline1382-1"
-   data-element-id="element-1870-1761788125777" />
-<polyline
-   points="677.935,506.869 677.023,509.074 674.819,509.986 "
-   id="polyline1383-7"
-   data-element-id="element-1871-1761788125777" />
-<polyline
-   points="674.819,509.986 645.636,509.986 "
-   id="polyline1384-1"
-   data-element-id="element-1872-1761788125777" />
-<polyline
-   points="645.636,509.986 643.431,509.074 642.519,506.869 "
-   id="polyline1385-1"
-   data-element-id="element-1873-1761788125777" />
-<polyline
-   points="642.519,506.869 642.519,494.403 "
-   id="polyline1386-5"
-   data-element-id="element-1874-1761788125777" />
 </g>
 <g
    clip-path="url(#clipId0)"
@@ -611,8 +576,8 @@
 </g>
 <g
    clip-path="url(#clipId0)"
-   fill="rgb(0,0,102)"
-   stroke="rgb(0,0,102)"
+   fill="#ffffff"
+   stroke="#ffffff"
    stroke-width="0"
    id="g8"
    data-element-id="element-12-1761788125775"
@@ -641,8 +606,8 @@
 </g>
 <g
    clip-path="url(#clipId0)"
-   fill="rgb(192,0,0)"
-   stroke="rgb(192,0,0)"
+   fill="#ffffff"
+   stroke="#ffffff"
    stroke-width="0"
    id="g10"
    data-element-id="element-16-1761788125775"
@@ -869,7 +834,7 @@
 <g
    clip-path="url(#clipId0)"
    fill="none"
-   stroke="rgb(0,0,0)"
+   stroke="#ffffff"
    stroke-width="0.53"
    id="g49"
    data-element-id="element-59-1761788125775"
@@ -883,7 +848,7 @@
 <g
    clip-path="url(#clipId0)"
    fill="none"
-   stroke="rgb(0,0,0)"
+   stroke="#ffffff"
    stroke-width="0.7"
    id="g50"
    data-element-id="element-61-1761788125775"
@@ -1330,7 +1295,7 @@
 <g
    clip-path="url(#clipId0)"
    fill="none"
-   stroke="rgb(0,0,0)"
+   stroke="#ffffff"
    stroke-width="0.7"
    id="g61"
    data-element-id="element-79-1761788125775"
@@ -1424,7 +1389,7 @@
        width="40"
        height="40"
        rx="4"
-       fill="#d0d0d0"
+       fill="#2a2a2a"
        stroke="#707070"
        stroke-width="2.5"
        id="rect1" /><rect
@@ -1445,7 +1410,7 @@
        width="16"
        height="22"
        rx="2"
-       fill="#d0d0d0"
+       fill="#2a2a2a"
        stroke="#707070"
        stroke-width="2"
        id="rect4" /><rect
@@ -1498,14 +1463,14 @@
        y="24"
        width="6"
        height="8"
-       fill="#a8a8a8"
+       fill="#1a1a1a"
        stroke="#707070"
        stroke-width="1"
        id="rect7" /></g></g>
 <g
    clip-path="url(#clipId0)"
    fill="none"
-   stroke="rgb(0,0,0)"
+   stroke="#ffffff"
    stroke-width="0.7"
    id="g75"
    data-element-id="element-101-1761788125775"
@@ -1586,36 +1551,33 @@
    data-element-id="element-122-1761788125775"
    style="cursor: pointer;" />
 </g>
-<g
-   clip-path="url(#clipId0)"
-   fill="rgb(0,0,255)"
-   stroke="rgb(0,0,255)"
-   stroke-width="0"
-   id="g87"
-   data-element-id="element-123-1761788125775"
-   style="cursor: pointer;">
 <text
-   transform="matrix(6.731 0 -0 6.70503 628.592 475.155)"
-   font-family="Bahnschrift,'sans-serif'"
-   font-size="1.4081"
+   transform="scale(1.0019347,0.99806903)"
+   font-family="Bahnschrift, sans-serif"
+   font-size="9.45962px"
    id="text85"
    data-element-id="element-124-1761788125775"
-   style="cursor: pointer;">NO.1</text>
-<text
-   transform="matrix(6.72669 0 -0 6.70503 716.597 475.155)"
-   font-family="Bahnschrift,'sans-serif'"
-   font-size="1.4081"
+   style="fill:#0000ff;stroke:#0000ff;stroke-width:0"
+   x="595.43994"
+   y="476.07431">NO.1</text><text
+   transform="scale(1.0016139,0.9983887)"
+   font-family="Bahnschrift, sans-serif"
+   font-size="9.45659px"
    id="text86"
    data-element-id="element-125-1761788125775"
-   style="cursor: pointer;">NO.2</text>
-<text
-   transform="matrix(6.72809 0 -0 6.70503 808.033 475.141)"
-   font-family="Bahnschrift,'sans-serif'"
-   font-size="1.4081"
+   style="fill:#0000ff;stroke:#0000ff;stroke-width:0"
+   x="689.48425"
+   y="475.92184">NO.2</text><text
+   transform="scale(1.0017181,0.99828482)"
+   font-family="Bahnschrift, sans-serif"
+   font-size="9.45757px"
    id="text87"
    data-element-id="element-126-1761788125775"
-   style="cursor: pointer;">NO.3</text>
-</g>
+   style="fill:#0000ff;stroke:#0000ff;stroke-width:0"
+   x="780.69165"
+   y="475.95737">NO.3</text>
+
+
 <g
    clip-path="url(#clipId0)"
    fill="none"
@@ -1623,7 +1585,7 @@
    stroke-width="0.7"
    id="g89"
    data-element-id="element-127-1761788125775"
-   transform="matrix(1.022608,0,0,1.0057172,-14.140168,-0.83481464)">
+   transform="matrix(1.0297149,0,0,1.0057001,-17.845084,-0.83055197)">
 <polyline
    points="740.786,178.163 740.786,321.715 632.083,321.715 "
    id="polyline87"
@@ -1884,7 +1846,7 @@
 <g
    clip-path="url(#clipId0)"
    fill="none"
-   stroke="rgb(0,0,0)"
+   stroke="#ffffff"
    stroke-width="0.53"
    id="g105"
    data-element-id="element-163-1761788125775"
@@ -2130,7 +2092,7 @@
 <g
    clip-path="url(#clipId0)"
    fill="none"
-   stroke="rgb(0,0,0)"
+   stroke="#ffffff"
    stroke-width="0.53"
    id="g124"
    data-element-id="element-203-1761788125775"
@@ -2178,7 +2140,7 @@
    width="40"
    height="40"
    rx="4"
-   fill="#d0d0d0"
+   fill="#2a2a2a"
    stroke="#707070"
    stroke-width="2.5"
    id="rect15" />
@@ -2202,7 +2164,7 @@
    width="16"
    height="22"
    rx="2"
-   fill="#d0d0d0"
+   fill="#2a2a2a"
    stroke="#707070"
    stroke-width="2"
    id="rect18" />
@@ -2256,7 +2218,7 @@
    y="24"
    width="6"
    height="8"
-   fill="#a8a8a8"
+   fill="#1a1a1a"
    stroke="#707070"
    stroke-width="1"
    id="rect21" />
@@ -2284,7 +2246,7 @@
 <g
    clip-path="url(#clipId0)"
    fill="rgb(0,0,0)"
-   stroke="rgb(0,0,0)"
+   stroke="#ffffff"
    stroke-width="0.25"
    fill-opacity="0.498039"
    stroke-opacity="0.498039"
@@ -2335,7 +2297,7 @@
    width="40"
    height="40"
    rx="4"
-   fill="#d0d0d0"
+   fill="#2a2a2a"
    stroke="#707070"
    stroke-width="2.5"
    id="rect67" />
@@ -2359,7 +2321,7 @@
    width="16"
    height="22"
    rx="2"
-   fill="#d0d0d0"
+   fill="#2a2a2a"
    stroke="#707070"
    stroke-width="2"
    id="rect70" />
@@ -2413,7 +2375,7 @@
    y="24"
    width="6"
    height="8"
-   fill="#a8a8a8"
+   fill="#1a1a1a"
    stroke="#707070"
    stroke-width="1"
    id="rect72" />
@@ -2479,7 +2441,7 @@
 <g
    clip-path="url(#clipId0)"
    fill="none"
-   stroke="rgb(0,0,0)"
+   stroke="#ffffff"
    stroke-width="0.53"
    id="g138"
    data-element-id="element-231-1761788125775"
@@ -2493,7 +2455,7 @@
 <g
    clip-path="url(#clipId0)"
    fill="none"
-   stroke="rgb(0,0,0)"
+   stroke="#ffffff"
    stroke-width="0.7"
    id="g139"
    data-element-id="element-233-1761788125775"
@@ -2547,7 +2509,7 @@
    id="g220"><g
      clip-path="url(#clipId0)"
      fill="none"
-     stroke="rgb(0,0,0)"
+     stroke="#ffffff"
      stroke-width="0.53"
      id="g141"
      data-element-id="element-236-1761788125775"
@@ -2565,7 +2527,7 @@
 </g><g
      clip-path="url(#clipId0)"
      fill="none"
-     stroke="rgb(0,0,0)"
+     stroke="#ffffff"
      stroke-width="0.53"
      id="g143"
      data-element-id="element-241-1761788125775"
@@ -2578,7 +2540,7 @@
 </g><g
      clip-path="url(#clipId0)"
      fill="none"
-     stroke="rgb(0,0,0)"
+     stroke="#ffffff"
      stroke-width="0.53"
      id="g145"
      data-element-id="element-245-1761788125775"
@@ -2592,7 +2554,7 @@
 <g
    clip-path="url(#clipId0)"
    fill="none"
-   stroke="rgb(255,0,0)"
+   stroke="#ffffff"
    stroke-width="0.35"
    id="g147"
    data-element-id="element-247-1761788125775"
@@ -2614,7 +2576,7 @@
    cx="0"
    cy="0"
    r="12"
-   fill="#ecf0f1"
+   fill="none"
    stroke="#95a5a6"
    stroke-width="1.5"
    id="circle74" />
@@ -2650,7 +2612,7 @@
    font-size="11.067px"
    id="text147"
    data-element-id="element-252-1761788125775"
-   style="fill:#ff0000;stroke:#ff0000;stroke-width:0"
+   style="fill:#ffffff;stroke:#ffffff;stroke-width:0"
    x="825.03577"
    y="310.57797">TX1</text><text
    transform="scale(1.0012395,0.998762)"
@@ -2658,7 +2620,7 @@
    font-size="11.0601px"
    id="text148"
    data-element-id="element-253-1761788125775"
-   style="fill:#ff0000;stroke:#ff0000;stroke-width:0"
+   style="fill:#ffffff;stroke:#ffffff;stroke-width:0"
    x="819.67999"
    y="297.78366">To ESS</text>
 
@@ -2666,7 +2628,7 @@
 <g
    clip-path="url(#clipId0)"
    fill="none"
-   stroke="rgb(0,0,0)"
+   stroke="#ffffff"
    stroke-width="0.7"
    id="g149"
    data-element-id="element-254-1761788125775"
@@ -2696,7 +2658,7 @@
 <g
    clip-path="url(#clipId0)"
    fill="none"
-   stroke="rgb(0,0,0)"
+   stroke="#ffffff"
    stroke-width="0.53"
    id="g151"
    data-element-id="element-258-1761788125775"
@@ -2707,89 +2669,11 @@
    data-element-id="element-259-1761788125775"
    style="cursor: pointer;" />
 </g>
-<g
-   clip-path="url(#clipId0)"
-   fill="rgb(255,255,255)"
-   stroke="rgb(255,255,255)"
-   stroke-width="1"
-   id="g164"
-   data-element-id="element-260-1761788125775"
-   style="cursor: pointer;">
-<path
-   d="M818.026,349.492 817.143,345.137 818.026,340.782 z"
-   id="path151"
-   data-element-id="element-261-1761788125775"
-   style="cursor: pointer;" />
-<path
-   d="M818.026,349.492 818.026,340.782 820.434,353.05 z"
-   id="path152"
-   data-element-id="element-262-1761788125775"
-   style="cursor: pointer;" />
-<path
-   d="M820.434,353.05 818.026,340.782 820.434,337.225 z"
-   id="path153"
-   data-element-id="element-263-1761788125775"
-   style="cursor: pointer;" />
-<path
-   d="M820.434,353.05 820.434,337.225 824.006,355.449 z"
-   id="path154"
-   data-element-id="element-264-1761788125775"
-   style="cursor: pointer;" />
-<path
-   d="M824.006,355.449 820.434,337.225 824.006,334.825 z"
-   id="path155"
-   data-element-id="element-265-1761788125775"
-   style="cursor: pointer;" />
-<path
-   d="M824.006,355.449 824.006,334.825 828.382,356.328 z"
-   id="path156"
-   data-element-id="element-266-1761788125775"
-   style="cursor: pointer;" />
-<path
-   d="M828.382,356.328 824.006,334.825 828.382,333.946 z"
-   id="path157"
-   data-element-id="element-267-1761788125775"
-   style="cursor: pointer;" />
-<path
-   d="M828.382,356.328 828.382,333.946 832.757,355.449 z"
-   id="path158"
-   data-element-id="element-268-1761788125775"
-   style="cursor: pointer;" />
-<path
-   d="M832.757,355.449 828.382,333.946 832.757,334.825 z"
-   id="path159"
-   data-element-id="element-269-1761788125775"
-   style="cursor: pointer;" />
-<path
-   d="M832.757,355.449 832.757,334.825 836.33,353.05 z"
-   id="path160"
-   data-element-id="element-270-1761788125775"
-   style="cursor: pointer;" />
-<path
-   d="M836.33,353.05 832.757,334.825 836.33,337.225 z"
-   id="path161"
-   data-element-id="element-271-1761788125775"
-   style="cursor: pointer;" />
-<path
-   d="M836.33,353.05 836.33,337.225 838.737,349.492 z"
-   id="path162"
-   data-element-id="element-272-1761788125775"
-   style="cursor: pointer;" />
-<path
-   d="M838.737,349.492 836.33,337.225 838.737,340.782 z"
-   id="path163"
-   data-element-id="element-273-1761788125775"
-   style="cursor: pointer;" />
-<path
-   d="M838.737,349.492 838.737,340.782 839.62,345.137 z"
-   id="path164"
-   data-element-id="element-274-1761788125775"
-   style="cursor: pointer;" />
-</g>
+
 <g
    clip-path="url(#clipId0)"
    fill="none"
-   stroke="rgb(255,0,0)"
+   stroke="#ffffff"
    stroke-width="0.35"
    id="g165"
    data-element-id="element-275-1761788125775"
@@ -2802,8 +2686,8 @@
 </g>
 <g
    clip-path="url(#clipId0)"
-   fill="rgb(255,0,0)"
-   stroke="rgb(255,0,0)"
+   fill="#ffffff"
+   stroke="#ffffff"
    stroke-width="0"
    id="g166"
    data-element-id="element-277-1761788125775"
@@ -2819,7 +2703,7 @@
 <g
    clip-path="url(#clipId0)"
    fill="none"
-   stroke="rgb(0,0,0)"
+   stroke="#ffffff"
    stroke-width="0.7"
    id="g167"
    data-element-id="element-279-1761788125775"
@@ -2830,89 +2714,11 @@
    data-element-id="element-280-1761788125775"
    style="cursor: pointer;" />
 </g>
-<g
-   clip-path="url(#clipId0)"
-   fill="rgb(255,255,255)"
-   stroke="rgb(255,255,255)"
-   stroke-width="1"
-   id="g180"
-   data-element-id="element-281-1761788125775"
-   style="cursor: pointer;">
-<path
-   d="M914.227,351.49 912.955,345.184 914.227,338.878 z"
-   id="path167"
-   data-element-id="element-282-1761788125775"
-   style="cursor: pointer;" />
-<path
-   d="M914.227,351.49 914.227,338.878 917.698,356.638 z"
-   id="path168"
-   data-element-id="element-283-1761788125775"
-   style="cursor: pointer;" />
-<path
-   d="M917.698,356.638 914.227,338.878 917.698,333.73 z"
-   id="path169"
-   data-element-id="element-284-1761788125775"
-   style="cursor: pointer;" />
-<path
-   d="M917.698,356.638 917.698,333.73 922.846,360.109 z"
-   id="path170"
-   data-element-id="element-285-1761788125775"
-   style="cursor: pointer;" />
-<path
-   d="M922.846,360.109 917.698,333.73 922.846,330.26 z"
-   id="path171"
-   data-element-id="element-286-1761788125775"
-   style="cursor: pointer;" />
-<path
-   d="M922.846,360.109 922.846,330.26 929.152,361.381 z"
-   id="path172"
-   data-element-id="element-287-1761788125775"
-   style="cursor: pointer;" />
-<path
-   d="M929.152,361.381 922.846,330.26 929.152,328.987 z"
-   id="path173"
-   data-element-id="element-288-1761788125775"
-   style="cursor: pointer;" />
-<path
-   d="M929.152,361.381 929.152,328.987 935.458,360.109 z"
-   id="path174"
-   data-element-id="element-289-1761788125775"
-   style="cursor: pointer;" />
-<path
-   d="M935.458,360.109 929.152,328.987 935.458,330.26 z"
-   id="path175"
-   data-element-id="element-290-1761788125775"
-   style="cursor: pointer;" />
-<path
-   d="M935.458,360.109 935.458,330.26 940.606,356.638 z"
-   id="path176"
-   data-element-id="element-291-1761788125775"
-   style="cursor: pointer;" />
-<path
-   d="M940.606,356.638 935.458,330.26 940.606,333.73 z"
-   id="path177"
-   data-element-id="element-292-1761788125775"
-   style="cursor: pointer;" />
-<path
-   d="M940.606,356.638 940.606,333.73 944.076,351.49 z"
-   id="path178"
-   data-element-id="element-293-1761788125775"
-   style="cursor: pointer;" />
-<path
-   d="M944.076,351.49 940.606,333.73 944.076,338.878 z"
-   id="path179"
-   data-element-id="element-294-1761788125775"
-   style="cursor: pointer;" />
-<path
-   d="M944.076,351.49 944.076,338.878 945.349,345.184 z"
-   id="path180"
-   data-element-id="element-295-1761788125775"
-   style="cursor: pointer;" />
-</g>
+
 <g
    clip-path="url(#clipId0)"
    fill="none"
-   stroke="rgb(0,0,0)"
+   stroke="#ffffff"
    stroke-width="0.53"
    id="g181"
    data-element-id="element-296-1761788125775"
@@ -2926,7 +2732,7 @@
 <g
    clip-path="url(#clipId0)"
    fill="rgb(0,0,0)"
-   stroke="rgb(0,0,0)"
+   stroke="#ffffff"
    stroke-width="0"
    id="g182"
    data-element-id="element-298-1761788125775"
@@ -2949,7 +2755,7 @@
 <g
    clip-path="url(#clipId0)"
    fill="none"
-   stroke="rgb(0,0,0)"
+   stroke="#ffffff"
    stroke-width="0.53"
    id="g183"
    data-element-id="element-301-1761788125775"
@@ -2960,89 +2766,11 @@
    data-element-id="element-302-1761788125775"
    style="cursor: pointer;" />
 </g>
-<g
-   clip-path="url(#clipId0)"
-   fill="rgb(255,255,255)"
-   stroke="rgb(255,255,255)"
-   stroke-width="1"
-   id="g196"
-   data-element-id="element-303-1761788125775"
-   style="cursor: pointer;">
-<path
-   d="M914.227,399.278 912.955,392.972 914.227,386.666 z"
-   id="path183"
-   data-element-id="element-304-1761788125775"
-   style="cursor: pointer;" />
-<path
-   d="M914.227,399.278 914.227,386.666 917.698,404.426 z"
-   id="path184"
-   data-element-id="element-305-1761788125775"
-   style="cursor: pointer;" />
-<path
-   d="M917.698,404.426 914.227,386.666 917.698,381.518 z"
-   id="path185"
-   data-element-id="element-306-1761788125775"
-   style="cursor: pointer;" />
-<path
-   d="M917.698,404.426 917.698,381.518 922.846,407.897 z"
-   id="path186"
-   data-element-id="element-307-1761788125775"
-   style="cursor: pointer;" />
-<path
-   d="M922.846,407.897 917.698,381.518 922.846,378.048 z"
-   id="path187"
-   data-element-id="element-308-1761788125775"
-   style="cursor: pointer;" />
-<path
-   d="M922.846,407.897 922.846,378.048 929.152,409.169 z"
-   id="path188"
-   data-element-id="element-309-1761788125775"
-   style="cursor: pointer;" />
-<path
-   d="M929.152,409.169 922.846,378.048 929.152,376.775 z"
-   id="path189"
-   data-element-id="element-310-1761788125775"
-   style="cursor: pointer;" />
-<path
-   d="M929.152,409.169 929.152,376.775 935.458,407.897 z"
-   id="path190"
-   data-element-id="element-311-1761788125775"
-   style="cursor: pointer;" />
-<path
-   d="M935.458,407.897 929.152,376.775 935.458,378.048 z"
-   id="path191"
-   data-element-id="element-312-1761788125775"
-   style="cursor: pointer;" />
-<path
-   d="M935.458,407.897 935.458,378.048 940.606,404.426 z"
-   id="path192"
-   data-element-id="element-313-1761788125775"
-   style="cursor: pointer;" />
-<path
-   d="M940.606,404.426 935.458,378.048 940.606,381.518 z"
-   id="path193"
-   data-element-id="element-314-1761788125775"
-   style="cursor: pointer;" />
-<path
-   d="M940.606,404.426 940.606,381.518 944.076,399.278 z"
-   id="path194"
-   data-element-id="element-315-1761788125775"
-   style="cursor: pointer;" />
-<path
-   d="M944.076,399.278 940.606,381.518 944.076,386.666 z"
-   id="path195"
-   data-element-id="element-316-1761788125775"
-   style="cursor: pointer;" />
-<path
-   d="M944.076,399.278 944.076,386.666 945.349,392.972 z"
-   id="path196"
-   data-element-id="element-317-1761788125775"
-   style="cursor: pointer;" />
-</g>
+
 <g
    clip-path="url(#clipId0)"
    fill="none"
-   stroke="rgb(0,0,0)"
+   stroke="#ffffff"
    stroke-width="0.53"
    id="g197"
    data-element-id="element-318-1761788125775"
@@ -3056,7 +2784,7 @@
 <g
    clip-path="url(#clipId0)"
    fill="rgb(0,0,0)"
-   stroke="rgb(0,0,0)"
+   stroke="#ffffff"
    stroke-width="0"
    id="g198"
    data-element-id="element-320-1761788125775"
@@ -3079,7 +2807,7 @@
 <g
    clip-path="url(#clipId0)"
    fill="none"
-   stroke="rgb(0,0,0)"
+   stroke="#ffffff"
    stroke-width="0.53"
    id="g199"
    data-element-id="element-323-1761788125775"
@@ -3093,7 +2821,7 @@
 <g
    clip-path="url(#clipId0)"
    fill="none"
-   stroke="rgb(0,0,0)"
+   stroke="#ffffff"
    stroke-width="0.7"
    id="g200"
    data-element-id="element-325-1761788125775"
@@ -3107,7 +2835,7 @@
 <g
    clip-path="url(#clipId0)"
    fill="none"
-   stroke="rgb(255,0,0)"
+   stroke="#ffffff"
    stroke-width="0.35"
    id="g201"
    data-element-id="element-327-1761788125775"
@@ -3120,8 +2848,8 @@
 </g>
 <g
    clip-path="url(#clipId0)"
-   fill="rgb(255,0,0)"
-   stroke="rgb(255,0,0)"
+   fill="#ffffff"
+   stroke="#ffffff"
    stroke-width="0"
    id="g202"
    data-element-id="element-329-1761788125775"
@@ -3157,7 +2885,7 @@
 <g
    clip-path="url(#clipId0)"
    fill="none"
-   stroke="rgb(0,0,0)"
+   stroke="#ffffff"
    stroke-width="0.53"
    id="g204"
    data-element-id="element-334-1761788125775"
@@ -3192,7 +2920,7 @@
 <g
    clip-path="url(#clipId0)"
    fill="none"
-   stroke="rgb(0,0,0)"
+   stroke="#ffffff"
    stroke-width="0.53"
    id="g206"
    data-element-id="element-339-1761788125775"
@@ -3222,7 +2950,7 @@
 <g
    clip-path="url(#clipId0)"
    fill="none"
-   stroke="rgb(0,0,0)"
+   stroke="#ffffff"
    stroke-width="0.53"
    id="g211"
    data-element-id="element-343-1761788125775"
@@ -3256,7 +2984,7 @@
 <g
    clip-path="url(#clipId0)"
    fill="none"
-   stroke="rgb(0,0,0)"
+   stroke="#ffffff"
    stroke-width="0.7"
    id="g213"
    data-element-id="element-349-1761788125775"
@@ -3543,7 +3271,7 @@
 <g
    clip-path="url(#clipId0)"
    fill="none"
-   stroke="rgb(0,0,0)"
+   stroke="#ffffff"
    stroke-width="0.53"
    id="g231"
    data-element-id="element-389-1761788125775"
@@ -3793,7 +3521,7 @@
 <g
    clip-path="url(#clipId0)"
    fill="none"
-   stroke="rgb(0,0,0)"
+   stroke="#ffffff"
    stroke-width="0.53"
    id="g247"
    data-element-id="element-423-1761788125775"
@@ -4038,7 +3766,7 @@
 <g
    clip-path="url(#clipId0)"
    fill="none"
-   stroke="rgb(0,0,0)"
+   stroke="#ffffff"
    stroke-width="0.53"
    id="g263"
    data-element-id="element-457-1761788125775"
@@ -4048,7 +3776,7 @@
 <g
    clip-path="url(#clipId0)"
    fill="none"
-   stroke="rgb(255,0,0)"
+   stroke="#ffffff"
    stroke-width="0.7"
    id="g264"
    data-element-id="element-459-1761788125775"
@@ -4068,7 +3796,7 @@
 <g
    clip-path="url(#clipId0)"
    fill="none"
-   stroke="#ff0000"
+   stroke="#ffffff"
    stroke-width="0.53"
    id="g278"
    data-element-id="element-477-1761788125775"
@@ -4080,7 +3808,7 @@
    cx="0"
    cy="0"
    r="12"
-   fill="#ecf0f1"
+   fill="none"
    stroke="#95a5a6"
    stroke-width="1.5"
    id="circle93" />
@@ -4116,15 +3844,15 @@
    font-size="11.0631px"
    id="text278"
    data-element-id="element-480-1761788125775"
-   style="fill:#ff0000;stroke:#ff0000;stroke-width:0"
-   x="323.85675"
+   style="fill:#ffffff;stroke:#ffffff;stroke-width:0"
+   x="317.86581"
    y="144.218">TX4</text><text
    transform="scale(1.0004556,0.9995446)"
    font-family="Bahnschrift, sans-serif"
    font-size="11.0514px"
    id="text279"
    data-element-id="element-481-1761788125775"
-   style="fill:#ff0000;stroke:#ff0000;stroke-width:0"
+   style="fill:#ffffff;stroke:#ffffff;stroke-width:0"
    x="349.81961"
    y="129.80711">To ESS for</text><text
    transform="scale(0.99914111,1.0008596)"
@@ -4132,9 +3860,17 @@
    font-size="11.0369px"
    id="text280"
    data-element-id="element-482-1761788125775"
-   style="fill:#ff0000;stroke:#ff0000;stroke-width:0"
+   style="fill:#ffffff;stroke:#ffffff;stroke-width:0"
    x="350.38995"
-   y="142.8452">F.W Pump Control</text>
+   y="142.8452">F.W Pump Control</text><text
+   transform="scale(0.99914113,1.0008596)"
+   font-family="Bahnschrift, sans-serif"
+   font-size="11.0369px"
+   id="text280-4"
+   data-element-id="element-482-1761788125775"
+   style="fill:#ffffff;stroke:#ffffff;stroke-width:0"
+   x="467.84015"
+   y="475.98264">C.W Pump Control</text>
 
 
 <g
@@ -4233,7 +3969,7 @@
        width="40"
        height="40"
        rx="4"
-       fill="#d0d0d0"
+       fill="#2a2a2a"
        stroke="#707070"
        stroke-width="2.5"
        id="rect13" /><rect
@@ -4254,7 +3990,7 @@
        width="16"
        height="22"
        rx="2"
-       fill="#d0d0d0"
+       fill="#2a2a2a"
        stroke="#707070"
        stroke-width="2"
        id="rect22" /><rect
@@ -4307,7 +4043,7 @@
        y="24"
        width="6"
        height="8"
-       fill="#a8a8a8"
+       fill="#1a1a1a"
        stroke="#707070"
        stroke-width="1"
        id="rect25" /></g></g><g
@@ -4320,7 +4056,7 @@
        width="40"
        height="40"
        rx="4"
-       fill="#d0d0d0"
+       fill="#2a2a2a"
        stroke="#707070"
        stroke-width="2.5"
        id="rect26" /><rect
@@ -4341,7 +4077,7 @@
        width="16"
        height="22"
        rx="2"
-       fill="#d0d0d0"
+       fill="#2a2a2a"
        stroke="#707070"
        stroke-width="2"
        id="rect29" /><rect
@@ -4394,7 +4130,7 @@
        y="24"
        width="6"
        height="8"
-       fill="#a8a8a8"
+       fill="#1a1a1a"
        stroke="#707070"
        stroke-width="1"
        id="rect32" /></g></g>
@@ -4403,7 +4139,7 @@
 <g
    clip-path="url(#clipId0)"
    fill="rgb(0,0,0)"
-   stroke="rgb(0,0,0)"
+   stroke="#ffffff"
    stroke-width="0.25"
    fill-opacity="0.498039"
    stroke-opacity="0.498039"
@@ -4457,7 +4193,7 @@
    width="40"
    height="40"
    rx="4"
-   fill="#d0d0d0"
+   fill="#2a2a2a"
    stroke="#707070"
    stroke-width="2.5"
    id="rect104" />
@@ -4481,7 +4217,7 @@
    width="16"
    height="22"
    rx="2"
-   fill="#d0d0d0"
+   fill="#2a2a2a"
    stroke="#707070"
    stroke-width="2"
    id="rect107" />
@@ -4535,7 +4271,7 @@
    y="24"
    width="6"
    height="8"
-   fill="#a8a8a8"
+   fill="#1a1a1a"
    stroke="#707070"
    stroke-width="1"
    id="rect109" />
@@ -4563,7 +4299,7 @@
 <g
    clip-path="url(#clipId0)"
    fill="rgb(0,0,0)"
-   stroke="rgb(0,0,0)"
+   stroke="#ffffff"
    stroke-width="0.25"
    fill-opacity="0.498039"
    stroke-opacity="0.498039"
@@ -4615,7 +4351,7 @@
    width="40"
    height="40"
    rx="4"
-   fill="#d0d0d0"
+   fill="#2a2a2a"
    stroke="#707070"
    stroke-width="2.5"
    id="rect128" />
@@ -4639,7 +4375,7 @@
    width="16"
    height="22"
    rx="2"
-   fill="#d0d0d0"
+   fill="#2a2a2a"
    stroke="#707070"
    stroke-width="2"
    id="rect131" />
@@ -4693,7 +4429,7 @@
    y="24"
    width="6"
    height="8"
-   fill="#a8a8a8"
+   fill="#1a1a1a"
    stroke="#707070"
    stroke-width="1"
    id="rect133" />
@@ -4721,7 +4457,7 @@
 <g
    clip-path="url(#clipId0)"
    fill="rgb(0,0,0)"
-   stroke="rgb(0,0,0)"
+   stroke="#ffffff"
    stroke-width="0.25"
    fill-opacity="0.498039"
    stroke-opacity="0.498039"
@@ -4773,7 +4509,7 @@
    width="40"
    height="40"
    rx="4"
-   fill="#d0d0d0"
+   fill="#2a2a2a"
    stroke="#707070"
    stroke-width="2.5"
    id="rect149" />
@@ -4797,7 +4533,7 @@
    width="16"
    height="22"
    rx="2"
-   fill="#d0d0d0"
+   fill="#2a2a2a"
    stroke="#707070"
    stroke-width="2"
    id="rect152" />
@@ -4851,7 +4587,7 @@
    y="24"
    width="6"
    height="8"
-   fill="#a8a8a8"
+   fill="#1a1a1a"
    stroke="#707070"
    stroke-width="1"
    id="rect154" />
@@ -4877,7 +4613,7 @@
 <g
    clip-path="url(#clipId0)"
    fill="none"
-   stroke="rgb(0,0,0)"
+   stroke="#ffffff"
    stroke-width="0.7"
    id="g307"
    data-element-id="element-536-1761788125775"
@@ -4896,7 +4632,7 @@
 <g
    clip-path="url(#clipId0)"
    fill="none"
-   stroke="rgb(0,0,0)"
+   stroke="#ffffff"
    stroke-width="0.53"
    id="g308"
    data-element-id="element-539-1761788125775"
@@ -4910,7 +4646,7 @@
 <g
    clip-path="url(#clipId0)"
    fill="rgb(0,0,0)"
-   stroke="rgb(0,0,0)"
+   stroke="#ffffff"
    stroke-width="0"
    id="g309"
    data-element-id="element-541-1761788125775"
@@ -4926,7 +4662,7 @@
 <g
    clip-path="url(#clipId0)"
    fill="none"
-   stroke="#000000"
+   stroke="#ffffff"
    stroke-width="0.7"
    id="g310"
    data-element-id="element-543-1761788125775"
@@ -5006,7 +4742,7 @@
        width="40"
        height="40"
        rx="4"
-       fill="#d0d0d0"
+       fill="#2a2a2a"
        stroke="#707070"
        stroke-width="2.5"
        id="rect33" /><rect
@@ -5027,7 +4763,7 @@
        width="16"
        height="22"
        rx="2"
-       fill="#d0d0d0"
+       fill="#2a2a2a"
        stroke="#707070"
        stroke-width="2"
        id="rect36" /><rect
@@ -5080,7 +4816,7 @@
        y="24"
        width="6"
        height="8"
-       fill="#a8a8a8"
+       fill="#1a1a1a"
        stroke="#707070"
        stroke-width="1"
        id="rect39" /></g></g>
@@ -5114,7 +4850,7 @@
        width="40"
        height="40"
        rx="4"
-       fill="#d0d0d0"
+       fill="#2a2a2a"
        stroke="#707070"
        stroke-width="2.5"
        id="rect40" /><rect
@@ -5135,7 +4871,7 @@
        width="16"
        height="22"
        rx="2"
-       fill="#d0d0d0"
+       fill="#2a2a2a"
        stroke="#707070"
        stroke-width="2"
        id="rect43" /><rect
@@ -5188,7 +4924,7 @@
        y="24"
        width="6"
        height="8"
-       fill="#a8a8a8"
+       fill="#1a1a1a"
        stroke="#707070"
        stroke-width="1"
        id="rect46" /></g></g>
@@ -5238,7 +4974,7 @@
        width="40"
        height="40"
        rx="4"
-       fill="#d0d0d0"
+       fill="#2a2a2a"
        stroke="#707070"
        stroke-width="2.5"
        id="rect47" /><rect
@@ -5259,7 +4995,7 @@
        width="16"
        height="22"
        rx="2"
-       fill="#d0d0d0"
+       fill="#2a2a2a"
        stroke="#707070"
        stroke-width="2"
        id="rect53" /><rect
@@ -5312,7 +5048,7 @@
        y="24"
        width="6"
        height="8"
-       fill="#a8a8a8"
+       fill="#1a1a1a"
        stroke="#707070"
        stroke-width="1"
        id="rect61" /></g></g>
@@ -5906,8 +5642,8 @@
 </g>
 <g
    clip-path="url(#clipId0)"
-   fill="rgb(192,0,0)"
-   stroke="rgb(192,0,0)"
+   fill="#ffffff"
+   stroke="#ffffff"
    stroke-width="0"
    id="g464"
    data-element-id="element-728-1761788125776"
@@ -5944,7 +5680,7 @@
 <g
    clip-path="url(#clipId0)"
    fill="none"
-   stroke="rgb(0,0,0)"
+   stroke="#ffffff"
    stroke-width="0.7"
    id="g465"
    data-element-id="element-733-1761788125776"
@@ -5955,89 +5691,11 @@
    data-element-id="element-734-1761788125776"
    style="cursor: pointer;" />
 </g>
-<g
-   clip-path="url(#clipId0)"
-   fill="rgb(255,255,255)"
-   stroke="rgb(255,255,255)"
-   stroke-width="1"
-   id="g478"
-   data-element-id="element-735-1761788125776"
-   style="cursor: pointer;">
-<path
-   d="M157.449,531.718 156.566,527.363 157.449,523.008 z"
-   id="path465"
-   data-element-id="element-736-1761788125776"
-   style="cursor: pointer;" />
-<path
-   d="M157.449,531.718 157.449,523.008 159.857,535.276 z"
-   id="path466"
-   data-element-id="element-737-1761788125776"
-   style="cursor: pointer;" />
-<path
-   d="M159.857,535.276 157.449,523.008 159.857,519.451 z"
-   id="path467"
-   data-element-id="element-738-1761788125776"
-   style="cursor: pointer;" />
-<path
-   d="M159.857,535.276 159.857,519.451 163.429,537.675 z"
-   id="path468"
-   data-element-id="element-739-1761788125776"
-   style="cursor: pointer;" />
-<path
-   d="M163.429,537.675 159.857,519.451 163.429,517.052 z"
-   id="path469"
-   data-element-id="element-740-1761788125776"
-   style="cursor: pointer;" />
-<path
-   d="M163.429,537.675 163.429,517.052 167.805,538.555 z"
-   id="path470"
-   data-element-id="element-741-1761788125776"
-   style="cursor: pointer;" />
-<path
-   d="M167.805,538.555 163.429,517.052 167.805,516.172 z"
-   id="path471"
-   data-element-id="element-742-1761788125776"
-   style="cursor: pointer;" />
-<path
-   d="M167.805,538.555 167.805,516.172 172.181,537.675 z"
-   id="path472"
-   data-element-id="element-743-1761788125776"
-   style="cursor: pointer;" />
-<path
-   d="M172.181,537.675 167.805,516.172 172.181,517.052 z"
-   id="path473"
-   data-element-id="element-744-1761788125776"
-   style="cursor: pointer;" />
-<path
-   d="M172.181,537.675 172.181,517.052 175.753,535.276 z"
-   id="path474"
-   data-element-id="element-745-1761788125776"
-   style="cursor: pointer;" />
-<path
-   d="M175.753,535.276 172.181,517.052 175.753,519.451 z"
-   id="path475"
-   data-element-id="element-746-1761788125776"
-   style="cursor: pointer;" />
-<path
-   d="M175.753,535.276 175.753,519.451 178.161,531.718 z"
-   id="path476"
-   data-element-id="element-747-1761788125776"
-   style="cursor: pointer;" />
-<path
-   d="M178.161,531.718 175.753,519.451 178.161,523.008 z"
-   id="path477"
-   data-element-id="element-748-1761788125776"
-   style="cursor: pointer;" />
-<path
-   d="M178.161,531.718 178.161,523.008 179.044,527.363 z"
-   id="path478"
-   data-element-id="element-749-1761788125776"
-   style="cursor: pointer;" />
-</g>
+
 <g
    clip-path="url(#clipId0)"
    fill="none"
-   stroke="rgb(0,0,0)"
+   stroke="#ffffff"
    stroke-width="0.53"
    id="g479"
    data-element-id="element-750-1761788125776"
@@ -6051,7 +5709,7 @@
 <g
    clip-path="url(#clipId0)"
    fill="rgb(0,0,0)"
-   stroke="rgb(0,0,0)"
+   stroke="#ffffff"
    stroke-width="0"
    id="g480"
    data-element-id="element-752-1761788125776"
@@ -6102,7 +5760,7 @@
    id="g267"><g
      clip-path="url(#clipId0)"
      fill="none"
-     stroke="rgb(0,0,0)"
+     stroke="#ffffff"
      stroke-width="0.53"
      id="g481"
      data-element-id="element-754-1761788125776"
@@ -6120,7 +5778,7 @@
 </g><g
      clip-path="url(#clipId0)"
      fill="none"
-     stroke="rgb(0,0,0)"
+     stroke="#ffffff"
      stroke-width="0.53"
      id="g483"
      data-element-id="element-759-1761788125776"
@@ -6133,7 +5791,7 @@
 </g><g
      clip-path="url(#clipId0)"
      fill="none"
-     stroke="rgb(0,0,0)"
+     stroke="#ffffff"
      stroke-width="0.53"
      id="g485"
      data-element-id="element-763-1761788125776"
@@ -6144,89 +5802,11 @@
    data-element-id="element-764-1761788125776"
    style="cursor: pointer;" />
 </g></g>
-<g
-   clip-path="url(#clipId0)"
-   fill="rgb(255,255,255)"
-   stroke="rgb(255,255,255)"
-   stroke-width="1"
-   id="g498"
-   data-element-id="element-765-1761788125776"
-   style="cursor: pointer;">
-<path
-   d="M153.117,578.529 151.844,572.224 153.117,565.918 z"
-   id="path485"
-   data-element-id="element-766-1761788125776"
-   style="cursor: pointer;" />
-<path
-   d="M153.117,578.529 153.117,565.918 156.587,583.678 z"
-   id="path486"
-   data-element-id="element-767-1761788125776"
-   style="cursor: pointer;" />
-<path
-   d="M156.587,583.678 153.117,565.918 156.587,560.769 z"
-   id="path487"
-   data-element-id="element-768-1761788125776"
-   style="cursor: pointer;" />
-<path
-   d="M156.587,583.678 156.587,560.769 161.735,587.148 z"
-   id="path488"
-   data-element-id="element-769-1761788125776"
-   style="cursor: pointer;" />
-<path
-   d="M161.735,587.148 156.587,560.769 161.735,557.299 z"
-   id="path489"
-   data-element-id="element-770-1761788125776"
-   style="cursor: pointer;" />
-<path
-   d="M161.735,587.148 161.735,557.299 168.041,588.42 z"
-   id="path490"
-   data-element-id="element-771-1761788125776"
-   style="cursor: pointer;" />
-<path
-   d="M168.041,588.42 161.735,557.299 168.041,556.027 z"
-   id="path491"
-   data-element-id="element-772-1761788125776"
-   style="cursor: pointer;" />
-<path
-   d="M168.041,588.42 168.041,556.027 174.347,587.148 z"
-   id="path492"
-   data-element-id="element-773-1761788125776"
-   style="cursor: pointer;" />
-<path
-   d="M174.347,587.148 168.041,556.027 174.347,557.299 z"
-   id="path493"
-   data-element-id="element-774-1761788125776"
-   style="cursor: pointer;" />
-<path
-   d="M174.347,587.148 174.347,557.299 179.495,583.678 z"
-   id="path494"
-   data-element-id="element-775-1761788125776"
-   style="cursor: pointer;" />
-<path
-   d="M179.495,583.678 174.347,557.299 179.495,560.769 z"
-   id="path495"
-   data-element-id="element-776-1761788125776"
-   style="cursor: pointer;" />
-<path
-   d="M179.495,583.678 179.495,560.769 182.966,578.529 z"
-   id="path496"
-   data-element-id="element-777-1761788125776"
-   style="cursor: pointer;" />
-<path
-   d="M182.966,578.529 179.495,560.769 182.966,565.918 z"
-   id="path497"
-   data-element-id="element-778-1761788125776"
-   style="cursor: pointer;" />
-<path
-   d="M182.966,578.529 182.966,565.918 184.238,572.224 z"
-   id="path498"
-   data-element-id="element-779-1761788125776"
-   style="cursor: pointer;" />
-</g>
+
 <g
    clip-path="url(#clipId0)"
    fill="none"
-   stroke="rgb(0,0,0)"
+   stroke="#ffffff"
    stroke-width="0.53"
    id="g499"
    data-element-id="element-780-1761788125776"
@@ -6240,7 +5820,7 @@
 <g
    clip-path="url(#clipId0)"
    fill="rgb(0,0,0)"
-   stroke="rgb(0,0,0)"
+   stroke="#ffffff"
    stroke-width="0"
    id="g500"
    data-element-id="element-782-1761788125776"
@@ -6263,7 +5843,7 @@
 <g
    clip-path="url(#clipId0)"
    fill="none"
-   stroke="rgb(0,0,0)"
+   stroke="#ffffff"
    stroke-width="0.53"
    id="g501"
    data-element-id="element-785-1761788125776"
@@ -6277,7 +5857,7 @@
 <g
    clip-path="url(#clipId0)"
    fill="none"
-   stroke="rgb(0,0,0)"
+   stroke="#ffffff"
    stroke-width="0.7"
    id="g502"
    data-element-id="element-787-1761788125776"
@@ -6316,7 +5896,7 @@
        width="40"
        height="40"
        rx="4"
-       fill="#d0d0d0"
+       fill="#2a2a2a"
        stroke="#707070"
        stroke-width="2.5"
        id="rect6" /><rect
@@ -6337,7 +5917,7 @@
        width="16"
        height="22"
        rx="2"
-       fill="#d0d0d0"
+       fill="#2a2a2a"
        stroke="#707070"
        stroke-width="2"
        id="rect31" /><rect
@@ -6390,7 +5970,7 @@
        y="24"
        width="6"
        height="8"
-       fill="#a8a8a8"
+       fill="#1a1a1a"
        stroke="#707070"
        stroke-width="1"
        id="rect45" /></g></g>
@@ -6815,17 +6395,17 @@
    stroke-width="1"
    id="g847"
    data-element-id="element-881-1761788125776"
-   transform="translate(4)">
+   transform="matrix(0.98374974,0,0,1.0005545,16.365737,-0.10076363)">
 <path
-   d="m 579.573,178.376 v -1.181 l 1.441,1.181 z"
+   d="m 577.53996,178.376 v -1.181 l 1.441,1.181 z"
    id="path586"
    data-element-id="element-882-1761788125776" />
 <path
-   d="m 581.014,178.376 -1.441,-1.181 h 1.441 z"
+   d="m 578.98096,178.376 -1.441,-1.181 h 1.441 z"
    id="path587"
    data-element-id="element-883-1761788125776" />
 <path
-   d="m 581.226,180.895 -0.212,-0.056 0.212,-0.811 z"
+   d="m 579.19296,180.895 -0.212,-0.056 0.212,-0.811 z"
    id="path588"
    data-element-id="element-884-1761788125776" />
 <path
@@ -6833,19 +6413,19 @@
    id="path589"
    data-element-id="element-885-1761788125776" />
 <path
-   d="m 581.226,178.376 -0.212,-1.181 h 0.212 z"
+   d="m 579.19296,178.376 -0.212,-1.181 h 0.212 z"
    id="path590"
    data-element-id="element-886-1761788125776" />
 <path
-   d="m 581.226,175.542 -0.212,-0.81 0.212,-0.057 z"
+   d="m 579.19296,175.542 -0.212,-0.81 0.212,-0.057 z"
    id="path591"
    data-element-id="element-887-1761788125776" />
 <path
-   d="m 581.226,180.895 v -0.867 l 0.59,1.023 z"
+   d="m 579.19296,180.895 v -0.867 l 0.59,1.023 z"
    id="path592"
    data-element-id="element-888-1761788125776" />
 <path
-   d="m 581.816,181.051 -0.59,-1.023 0.59,-0.344 z"
+   d="m 579.78296,181.051 -0.59,-1.023 0.59,-0.344 z"
    id="path593"
    data-element-id="element-889-1761788125776" />
 <path
@@ -6853,123 +6433,123 @@
    id="path594"
    data-element-id="element-890-1761788125776" />
 <path
-   d="m 581.816,178.376 -0.59,-1.181 h 0.59 z"
+   d="m 579.78296,178.376 -0.59,-1.181 h 0.59 z"
    id="path595"
    data-element-id="element-891-1761788125776" />
 <path
-   d="m 581.226,175.542 v -0.867 l 0.59,1.212 z"
+   d="m 579.19296,175.542 v -0.867 l 0.59,1.212 z"
    id="path596"
    data-element-id="element-892-1761788125776" />
 <path
-   d="m 581.816,175.887 -0.59,-1.212 0.59,-0.156 z"
+   d="m 579.78296,175.887 -0.59,-1.212 0.59,-0.156 z"
    id="path597"
    data-element-id="element-893-1761788125776" />
 <path
-   d="m 581.816,181.051 v -1.367 l 2.243,0.058 z"
+   d="m 579.78296,181.051 v -1.367 l 2.243,0.058 z"
    id="path598"
    data-element-id="element-894-1761788125776" />
 <path
-   d="m 584.059,179.742 -2.243,-0.058 2.243,-1.308 z"
+   d="m 582.02596,179.742 -2.243,-0.058 2.243,-1.308 z"
    id="path599"
    data-element-id="element-895-1761788125776" />
 <path
-   d="m 581.816,178.376 v -1.181 l 2.243,1.181 z"
+   d="m 579.78296,178.376 v -1.181 l 2.243,1.181 z"
    id="path600"
    data-element-id="element-896-1761788125776" />
 <path
-   d="m 584.059,178.376 -2.243,-1.181 h 2.243 z"
+   d="m 582.02596,178.376 -2.243,-1.181 h 2.243 z"
    id="path601"
    data-element-id="element-897-1761788125776" />
 <path
-   d="m 581.816,175.887 v -1.368 l 2.243,2.676 z"
+   d="m 579.78296,175.887 v -1.368 l 2.243,2.676 z"
    id="path602"
    data-element-id="element-898-1761788125776" />
 <path
-   d="m 584.059,177.195 -2.243,-2.676 2.243,1.309 z"
+   d="m 582.02596,177.195 -2.243,-2.676 2.243,1.309 z"
    id="path603"
    data-element-id="element-899-1761788125776" />
 <path
-   d="m 584.059,179.742 v -1.366 l 10e-4,1.366 z"
+   d="m 579.99292,179.742 v -1.366 l 10e-4,1.366 z"
    id="path604"
    data-element-id="element-900-1761788125776" />
 <path
-   d="m 584.06,179.742 -10e-4,-1.366 h 10e-4 z"
+   d="m 582.02696,179.742 -10e-4,-1.366 h 10e-4 z"
    id="path605"
    data-element-id="element-901-1761788125776" />
 <path
-   d="m 584.059,178.376 v -1.181 l 10e-4,1.181 z"
+   d="m 579.99292,178.376 v -1.181 l 10e-4,1.181 z"
    id="path606"
    data-element-id="element-902-1761788125776" />
 <path
-   d="m 584.06,178.376 -10e-4,-1.181 h 10e-4 z"
+   d="m 579.99392,178.376 -10e-4,-1.181 h 10e-4 z"
    id="path607"
    data-element-id="element-903-1761788125776" />
 <path
-   d="m 584.059,177.195 v -1.367 l 10e-4,1.367 z"
+   d="m 579.99292,177.195 v -1.367 l 10e-4,1.367 z"
    id="path608"
    data-element-id="element-904-1761788125776" />
 <path
-   d="m 584.06,177.195 -10e-4,-1.367 h 10e-4 z"
+   d="m 579.99392,177.195 -10e-4,-1.367 h 10e-4 z"
    id="path609"
    data-element-id="element-905-1761788125776" />
 <path
-   d="m 584.06,179.742 v -1.366 l 1.011,0.776 z"
+   d="m 582.02696,179.742 v -1.366 l 1.011,0.776 z"
    id="path610"
    data-element-id="element-906-1761788125776" />
 <path
-   d="m 585.071,179.152 -1.011,-0.776 h 1.011 z"
+   d="m 583.03796,179.152 -1.011,-0.776 h 1.011 z"
    id="path611"
    data-element-id="element-907-1761788125776" />
 <path
-   d="m 584.06,178.376 v -1.181 l 1.011,0.59 z"
+   d="m 579.99392,178.376 v -1.181 l 1.011,0.59 z"
    id="path612"
    data-element-id="element-908-1761788125776" />
 <path
-   d="m 584.06,177.195 v -1.367 l 1.011,1.367 z"
+   d="m 582.02696,177.195 v -1.367 l 1.011,1.367 z"
    id="path613"
    data-element-id="element-909-1761788125776" />
 <path
-   d="m 585.071,177.195 -1.011,-1.367 1.011,0.591 z"
+   d="m 583.03796,177.195 -1.011,-1.367 1.011,0.591 z"
    id="path614"
    data-element-id="element-910-1761788125776" />
 <path
-   d="m 585.071,179.152 v -0.776 l 0.877,0.264 z"
+   d="m 583.03796,179.152 v -0.776 l 0.877,0.264 z"
    id="path615"
    data-element-id="element-911-1761788125776" />
 <path
-   d="m 585.948,178.64 -0.877,-0.264 h 0.877 z"
+   d="m 583.91496,178.64 -0.877,-0.264 h 0.877 z"
    id="path616"
    data-element-id="element-912-1761788125776" />
 <path
-   d="m 585.948,178.297 -0.877,-0.512 0.877,-0.511 z"
+   d="m 583.91496,178.297 -0.877,-0.512 0.877,-0.511 z"
    id="path617"
    data-element-id="element-913-1761788125776" />
 <path
-   d="m 585.071,177.195 v -0.776 l 0.877,0.776 z"
+   d="m 583.03796,177.195 v -0.776 l 0.877,0.776 z"
    id="path618"
    data-element-id="element-914-1761788125776" />
 <path
-   d="m 585.948,177.195 -0.877,-0.776 0.877,0.512 z"
+   d="m 583.91496,177.195 -0.877,-0.776 0.877,0.512 z"
    id="path619"
    data-element-id="element-915-1761788125776" />
 <path
-   d="m 585.948,178.64 v -0.264 l 0.292,0.094 z"
+   d="m 583.91496,178.64 v -0.264 l 0.292,0.094 z"
    id="path620"
    data-element-id="element-916-1761788125776" />
 <path
-   d="m 586.24,178.47 -0.292,-0.094 h 0.292 z"
+   d="m 584.20696,178.47 -0.292,-0.094 h 0.292 z"
    id="path621"
    data-element-id="element-917-1761788125776" />
 <path
-   d="m 585.948,177.195 v -0.264 l 0.292,0.264 z"
+   d="m 581.88192,177.195 v -0.264 l 0.292,0.264 z"
    id="path622"
    data-element-id="element-918-1761788125776" />
 <path
-   d="m 586.24,177.195 -0.292,-0.264 0.292,0.17 z"
+   d="m 584.20696,177.195 -0.292,-0.264 0.292,0.17 z"
    id="path623"
    data-element-id="element-919-1761788125776" />
 <path
-   d="m 586.24,178.47 v -1.369 l 1.172,0.684 z"
+   d="m 584.20696,178.47 v -1.369 l 1.172,0.684 z"
    id="path624"
    data-element-id="element-920-1761788125776" />
 <path
@@ -8273,7 +7853,7 @@
 <g
    clip-path="url(#clipId0)"
    fill="none"
-   stroke="rgb(0,0,0)"
+   stroke="#ffffff"
    stroke-width="0.7"
    id="g947"
    data-element-id="element-1244-1761788125776"
@@ -8698,7 +8278,7 @@
 <g
    clip-path="url(#clipId0)"
    fill="none"
-   stroke="rgb(0,0,0)"
+   stroke="#ffffff"
    stroke-width="0.7"
    id="g1020"
    data-element-id="element-1325-1761788125776"
@@ -8713,7 +8293,7 @@
    id="g271"><g
      clip-path="url(#clipId0)"
      fill="none"
-     stroke="rgb(0,0,0)"
+     stroke="#ffffff"
      stroke-width="0.53"
      id="g80"
      data-element-id="element-112-1761788125775"
@@ -8726,7 +8306,7 @@
 </g><g
      clip-path="url(#clipId0)"
      fill="none"
-     stroke="rgb(0,0,0)"
+     stroke="#ffffff"
      stroke-width="0.53"
      id="g82"
      data-element-id="element-116-1761788125775"
@@ -8742,13 +8322,13 @@
        id="polyline1020-2"
        data-element-id="element-1328-1761788125776"
        transform="translate(-652.501,-0.8145457)"
-       style="fill:none;stroke:#000000;stroke-width:0.53"
+       style="fill:none;stroke:#ffffff;stroke-width:0.53"
        clip-path="url(#clipPath269)" /><polyline
        points="916.449,616.942 924.005,616.942 "
        id="polyline1021-3"
        data-element-id="element-1329-1761788125776"
        transform="translate(-652.501,-0.8145457)"
-       style="fill:none;stroke:#000000;stroke-width:0.53"
+       style="fill:none;stroke:#ffffff;stroke-width:0.53"
        clip-path="url(#clipPath268)" /></g></g>
 
 
@@ -8789,7 +8369,7 @@
    id="g219"><g
      clip-path="url(#clipId0)"
      fill="none"
-     stroke="rgb(0,0,0)"
+     stroke="#ffffff"
      stroke-width="0.53"
      id="g1021"
      data-element-id="element-1327-1761788125776"
@@ -8807,7 +8387,7 @@
 </g><g
      clip-path="url(#clipId0)"
      fill="none"
-     stroke="rgb(0,0,0)"
+     stroke="#ffffff"
      stroke-width="0.53"
      id="g1023"
      data-element-id="element-1332-1761788125776"
@@ -8820,7 +8400,7 @@
 </g><g
      clip-path="url(#clipId0)"
      fill="none"
-     stroke="rgb(0,0,0)"
+     stroke="#ffffff"
      stroke-width="0.53"
      id="g1025"
      data-element-id="element-1336-1761788125776"
@@ -8834,7 +8414,7 @@
 <g
    clip-path="url(#clipId0)"
    fill="none"
-   stroke="rgb(0,0,0)"
+   stroke="#ffffff"
    stroke-width="0.7"
    id="g1026"
    data-element-id="element-1338-1761788125776"
@@ -8859,7 +8439,7 @@
        width="40"
        height="40"
        rx="4"
-       fill="#d0d0d0"
+       fill="#2a2a2a"
        stroke="#707070"
        stroke-width="2.5"
        id="rect65" /><rect
@@ -8880,7 +8460,7 @@
        width="16"
        height="22"
        rx="2"
-       fill="#d0d0d0"
+       fill="#2a2a2a"
        stroke="#707070"
        stroke-width="2"
        id="rect73" /><rect
@@ -8933,7 +8513,7 @@
        y="24"
        width="6"
        height="8"
-       fill="#a8a8a8"
+       fill="#1a1a1a"
        stroke="#707070"
        stroke-width="1"
        id="rect95" /></g></g>
@@ -9199,7 +8779,7 @@
        width="40"
        height="40"
        rx="4"
-       fill="#d0d0d0"
+       fill="#2a2a2a"
        stroke="#707070"
        stroke-width="2.5"
        id="rect96" /><rect
@@ -9220,7 +8800,7 @@
        width="16"
        height="22"
        rx="2"
-       fill="#d0d0d0"
+       fill="#2a2a2a"
        stroke="#707070"
        stroke-width="2"
        id="rect99" /><rect
@@ -9273,7 +8853,7 @@
        y="24"
        width="6"
        height="8"
-       fill="#a8a8a8"
+       fill="#1a1a1a"
        stroke="#707070"
        stroke-width="1"
        id="rect102" /></g></g><g
@@ -9286,7 +8866,7 @@
        width="40"
        height="40"
        rx="4"
-       fill="#d0d0d0"
+       fill="#2a2a2a"
        stroke="#707070"
        stroke-width="2.5"
        id="rect103" /><rect
@@ -9307,7 +8887,7 @@
        width="16"
        height="22"
        rx="2"
-       fill="#d0d0d0"
+       fill="#2a2a2a"
        stroke="#707070"
        stroke-width="2"
        id="rect111" /><rect
@@ -9360,7 +8940,7 @@
        y="24"
        width="6"
        height="8"
-       fill="#a8a8a8"
+       fill="#1a1a1a"
        stroke="#707070"
        stroke-width="1"
        id="rect114" /></g></g>
@@ -9369,7 +8949,7 @@
 <g
    clip-path="url(#clipId0)"
    fill="rgb(0,0,0)"
-   stroke="rgb(0,0,0)"
+   stroke="#ffffff"
    stroke-width="0.25"
    fill-opacity="0.498039"
    stroke-opacity="0.498039"
@@ -9420,7 +9000,7 @@
    width="40"
    height="40"
    rx="4"
-   fill="#d0d0d0"
+   fill="#2a2a2a"
    stroke="#707070"
    stroke-width="2.5"
    id="rect190" />
@@ -9444,7 +9024,7 @@
    width="16"
    height="22"
    rx="2"
-   fill="#d0d0d0"
+   fill="#2a2a2a"
    stroke="#707070"
    stroke-width="2"
    id="rect193" />
@@ -9498,7 +9078,7 @@
    y="24"
    width="6"
    height="8"
-   fill="#a8a8a8"
+   fill="#1a1a1a"
    stroke="#707070"
    stroke-width="1"
    id="rect195" />
@@ -9524,7 +9104,7 @@
 <g
    clip-path="url(#clipId0)"
    fill="none"
-   stroke="rgb(0,0,0)"
+   stroke="#ffffff"
    stroke-width="0.7"
    id="g1059"
    data-element-id="element-1407-1761788125776"
@@ -9539,7 +9119,7 @@
 <g
    clip-path="url(#clipId0)"
    fill="none"
-   stroke="#ff0000"
+   stroke="#ffffff"
    stroke-width="0.35"
    id="g1073"
    data-element-id="element-1424-1761788125776"
@@ -9603,18 +9183,21 @@
 </g>
 <g
    clip-path="url(#clipId0)"
-   fill="#ff0000"
-   stroke="#ff0000"
+   fill="#ffffff"
+   stroke="#ffffff"
    stroke-width="0"
    id="g1074"
    data-element-id="element-1426-1761788125776"
    transform="translate(42)">
 <text
-   transform="matrix(6.43892,0,0,6.43683,914.812,428)"
+   transform="scale(1.0001623,0.99983769)"
    font-family="Bahnschrift, sans-serif"
-   font-size="1.4081px"
+   font-size="9.06517px"
    id="text1073"
-   data-element-id="element-1427-1761788125776">DPX1</text>
+   data-element-id="element-1427-1761788125776"
+   x="916.66321"
+   y="428.06949"
+   style="stroke-width:0">PX1</text>
 </g>
 <g
    clip-path="url(#clipId0)"
@@ -9979,32 +9562,32 @@
 </g><text
    transform="scale(1.0010633,0.99893782)"
    font-family="Bahnschrift, sans-serif"
-   font-size="14.1772px"
+   font-size="11px"
    id="text1081-4"
    data-element-id="element-1442-1761788125776"
    x="490.00989"
-   y="337.51697"
-   style="stroke-width:0"><tspan
+   y="339.5191"
+   style="fill:#ffffff;stroke-width:0"><tspan
      sodipodi:role="line"
      id="tspan1-8"
      x="490.00989"
-     y="337.51697"
-     style="text-align:center;text-anchor:middle;stroke-width:0">NO.2</tspan><tspan
+     y="339.5191"
+     style="text-align:center;text-anchor:middle;fill:#ffffff;stroke-width:0">NO.2</tspan><tspan
      sodipodi:role="line"
      id="tspan2-8"
      x="490.00989"
-     y="355.23846"
-     style="text-align:center;text-anchor:middle;stroke-width:0">Central</tspan><tspan
+     y="353.2691"
+     style="text-align:center;text-anchor:middle;fill:#ffffff;stroke-width:0">Central</tspan><tspan
      sodipodi:role="line"
      x="490.00989"
-     y="372.95996"
+     y="367.0191"
      id="tspan3-2"
-     style="text-align:center;text-anchor:middle;stroke-width:0">F.W.</tspan><tspan
+     style="text-align:center;text-anchor:middle;fill:#ffffff;stroke-width:0">F.W.</tspan><tspan
      sodipodi:role="line"
      x="490.00989"
-     y="390.68146"
+     y="380.7691"
      id="tspan4-4"
-     style="text-align:center;text-anchor:middle;stroke-width:0">CLR</tspan></text>
+     style="text-align:center;text-anchor:middle;fill:#ffffff;stroke-width:0">CLR</tspan></text>
 <g
    clip-path="url(#clipId0)"
    fill="#8faadc"
@@ -10165,7 +9748,7 @@
    id="rect121"
    style="fill:url(#linearGradient49)" />
   <polygon
-   points="15,41 5,37 15,33 "
+   points="15,33 15,41 5,37 "
    fill="url(#redFlow1)"
    stroke="#cc0000"
    stroke-width="1"
@@ -10204,7 +9787,7 @@
    id="rect60"
    style="fill:url(#linearGradient51)" />
   <polygon
-   points="15,171 5,167 15,163 "
+   points="15,163 15,171 5,167 "
    fill="url(#blueFlow1)"
    stroke="#0066cc"
    stroke-width="1"
@@ -10243,7 +9826,7 @@
    id="rect122"
    style="fill:url(#linearGradient53)" />
   <polygon
-   points="185,41 195,37 185,33 "
+   points="185,33 185,41 195,37 "
    fill="url(#redFlow1)"
    stroke="#cc0000"
    stroke-width="1"
@@ -10281,7 +9864,7 @@
    id="rect215"
    style="fill:url(#linearGradient55)" />
   <polygon
-   points="185,171 195,167 185,163 "
+   points="185,163 185,171 195,167 "
    fill="url(#blueFlow1)"
    stroke="#0066cc"
    stroke-width="1"
@@ -10365,32 +9948,32 @@
 <text
    transform="scale(1.0010633,0.99893782)"
    font-family="Bahnschrift, sans-serif"
-   font-size="14.1772px"
+   font-size="11px"
    id="text1081"
    data-element-id="element-1442-1761788125776"
-   x="487.02759"
-   y="191.87381"
-   style="stroke-width:0"><tspan
+   x="486.0144"
+   y="193.87593"
+   style="fill:#ffffff;stroke-width:0"><tspan
      sodipodi:role="line"
      id="tspan1"
-     x="487.02759"
-     y="191.87381"
-     style="text-align:center;text-anchor:middle;stroke-width:0">NO.1</tspan><tspan
+     x="486.0144"
+     y="193.87593"
+     style="text-align:center;text-anchor:middle;fill:#ffffff;stroke-width:0">NO.1</tspan><tspan
      sodipodi:role="line"
      id="tspan2"
-     x="487.02759"
-     y="209.59531"
-     style="text-align:center;text-anchor:middle;stroke-width:0">Central</tspan><tspan
+     x="486.0144"
+     y="207.62593"
+     style="text-align:center;text-anchor:middle;fill:#ffffff;stroke-width:0">Central</tspan><tspan
      sodipodi:role="line"
-     x="487.02759"
-     y="227.31682"
+     x="486.0144"
+     y="221.37593"
      id="tspan3"
-     style="text-align:center;text-anchor:middle;stroke-width:0">F.W.</tspan><tspan
+     style="text-align:center;text-anchor:middle;fill:#ffffff;stroke-width:0">F.W.</tspan><tspan
      sodipodi:role="line"
-     x="487.02759"
-     y="245.03831"
+     x="486.0144"
+     y="235.12593"
      id="tspan4"
-     style="text-align:center;text-anchor:middle;stroke-width:0">CLR</tspan></text>
+     style="text-align:center;text-anchor:middle;fill:#ffffff;stroke-width:0">CLR</tspan></text>
 </g>
 
 <g
@@ -10436,7 +10019,7 @@
        width="40"
        height="40"
        rx="4"
-       fill="#d0d0d0"
+       fill="#2a2a2a"
        stroke="#707070"
        stroke-width="2.5"
        id="rect62" /><rect
@@ -10457,7 +10040,7 @@
        width="16"
        height="22"
        rx="2"
-       fill="#d0d0d0"
+       fill="#2a2a2a"
        stroke="#707070"
        stroke-width="2"
        id="rect80" /><rect
@@ -10510,7 +10093,7 @@
        y="24"
        width="6"
        height="8"
-       fill="#a8a8a8"
+       fill="#1a1a1a"
        stroke="#707070"
        stroke-width="1"
        id="rect101" /></g></g>
@@ -10662,7 +10245,7 @@
 <g
    clip-path="url(#clipId0)"
    fill="none"
-   stroke="rgb(0,0,0)"
+   stroke="#ffffff"
    stroke-width="0.7"
    id="g1123"
    data-element-id="element-1492-1761788125776"
@@ -10676,7 +10259,7 @@
 <g
    clip-path="url(#clipId0)"
    fill="none"
-   stroke="rgb(255,0,0)"
+   stroke="#ffffff"
    stroke-width="0.7"
    id="g1124"
    data-element-id="element-1494-1761788125776"
@@ -10690,7 +10273,7 @@
 <g
    clip-path="url(#clipId0)"
    fill="none"
-   stroke="#ff0000"
+   stroke="#ffffff"
    stroke-width="0.53"
    id="g1125"
    data-element-id="element-1496-1761788125776"
@@ -10702,7 +10285,7 @@
    cx="0"
    cy="0"
    r="12"
-   fill="#ecf0f1"
+   fill="none"
    stroke="#95a5a6"
    stroke-width="1.5"
    id="circle216" />
@@ -10738,7 +10321,7 @@
    font-size="11.0625px"
    id="text1125"
    data-element-id="element-1499-1761788125776"
-   style="fill:#ff0000;stroke:#ff0000;stroke-width:0"
+   style="fill:#ffffff;stroke:#ffffff;stroke-width:0"
    x="568.08978"
    y="141.20599">TX2</text><text
    transform="scale(1.0012395,0.998762)"
@@ -10746,7 +10329,7 @@
    font-size="11.0601px"
    id="text1126"
    data-element-id="element-1500-1761788125776"
-   style="fill:#ff0000;stroke:#ff0000;stroke-width:0"
+   style="fill:#ffffff;stroke:#ffffff;stroke-width:0"
    x="595.47491"
    y="132.96661">To ESS</text>
 
@@ -10754,7 +10337,7 @@
 <g
    clip-path="url(#clipId0)"
    fill="none"
-   stroke="rgb(0,0,0)"
+   stroke="#ffffff"
    stroke-width="0.53"
    id="g1127"
    data-element-id="element-1501-1761788125776"
@@ -10828,7 +10411,7 @@
        width="40"
        height="40"
        rx="4"
-       fill="#d0d0d0"
+       fill="#2a2a2a"
        stroke="#707070"
        stroke-width="2.5"
        id="rect123" /><rect
@@ -10849,7 +10432,7 @@
        width="16"
        height="22"
        rx="2"
-       fill="#d0d0d0"
+       fill="#2a2a2a"
        stroke="#707070"
        stroke-width="2"
        id="rect126" /><rect
@@ -10902,7 +10485,7 @@
        y="24"
        width="6"
        height="8"
-       fill="#a8a8a8"
+       fill="#1a1a1a"
        stroke="#707070"
        stroke-width="1"
        id="rect132" /></g></g>
@@ -10951,7 +10534,7 @@
        width="40"
        height="40"
        rx="4"
-       fill="#d0d0d0"
+       fill="#2a2a2a"
        stroke="#707070"
        stroke-width="2.5"
        id="rect134" /><rect
@@ -10972,7 +10555,7 @@
        width="16"
        height="22"
        rx="2"
-       fill="#d0d0d0"
+       fill="#2a2a2a"
        stroke="#707070"
        stroke-width="2"
        id="rect137" /><rect
@@ -11025,7 +10608,7 @@
        y="24"
        width="6"
        height="8"
-       fill="#a8a8a8"
+       fill="#1a1a1a"
        stroke="#707070"
        stroke-width="1"
        id="rect140" /></g></g>
@@ -11074,7 +10657,7 @@
        width="40"
        height="40"
        rx="4"
-       fill="#d0d0d0"
+       fill="#2a2a2a"
        stroke="#707070"
        stroke-width="2.5"
        id="rect155" /><rect
@@ -11095,7 +10678,7 @@
        width="16"
        height="22"
        rx="2"
-       fill="#d0d0d0"
+       fill="#2a2a2a"
        stroke="#707070"
        stroke-width="2"
        id="rect158" /><rect
@@ -11148,14 +10731,14 @@
        y="24"
        width="6"
        height="8"
-       fill="#a8a8a8"
+       fill="#1a1a1a"
        stroke="#707070"
        stroke-width="1"
        id="rect161" /></g></g>
 <g
    clip-path="url(#clipId0)"
    fill="none"
-   stroke="rgb(0,0,0)"
+   stroke="#ffffff"
    stroke-width="0.7"
    id="g1145"
    data-element-id="element-1537-1761788125776"
@@ -11169,7 +10752,7 @@
 <g
    clip-path="url(#clipId0)"
    fill="none"
-   stroke="#ff0000"
+   stroke="#ffffff"
    stroke-width="0.7"
    id="g1146"
    data-element-id="element-1539-1761788125776"
@@ -11182,7 +10765,7 @@
 <g
    clip-path="url(#clipId0)"
    fill="none"
-   stroke="#ff0000"
+   stroke="#ffffff"
    stroke-width="0.53"
    id="g1147"
    data-element-id="element-1541-1761788125776"
@@ -11194,7 +10777,7 @@
    cx="0"
    cy="0"
    r="12"
-   fill="#ecf0f1"
+   fill="none"
    stroke="#95a5a6"
    stroke-width="1.5"
    id="circle162" />
@@ -11230,7 +10813,7 @@
    font-size="11.0667px"
    id="text1147"
    data-element-id="element-1544-1761788125776"
-   style="fill:#ff0000;stroke:#ff0000;stroke-width:0"
+   style="fill:#ffffff;stroke:#ffffff;stroke-width:0"
    x="567.78302"
    y="288.52908">TX3</text><text
    transform="scale(1.0012395,0.99876203)"
@@ -11238,7 +10821,7 @@
    font-size="11.0601px"
    id="text1148"
    data-element-id="element-1545-1761788125776"
-   style="fill:#ff0000;stroke:#ff0000;stroke-width:0"
+   style="fill:#ffffff;stroke:#ffffff;stroke-width:0"
    x="551.83398"
    y="271.87961">To ESS</text>
 
@@ -11246,7 +10829,7 @@
 <g
    clip-path="url(#clipId0)"
    fill="none"
-   stroke="rgb(0,0,0)"
+   stroke="#ffffff"
    stroke-width="0.53"
    id="g1149"
    data-element-id="element-1546-1761788125776"
@@ -11279,7 +10862,7 @@
 <g
    clip-path="url(#clipId0)"
    fill="none"
-   stroke="#ff0000"
+   stroke="#ffffff"
    stroke-width="0.53"
    id="g1151"
    data-element-id="element-1551-1761788125776"
@@ -11291,7 +10874,7 @@
    cx="0"
    cy="0"
    r="12"
-   fill="#ecf0f1"
+   fill="none"
    stroke="#95a5a6"
    stroke-width="1.5"
    id="circle29" />
@@ -11323,8 +10906,8 @@
 </g>
 <g
    clip-path="url(#clipId0)"
-   fill="#ff0000"
-   stroke="#ff0000"
+   fill="#ffffff"
+   stroke="#ffffff"
    stroke-width="0"
    id="g1152"
    data-element-id="element-1553-1761788125776"
@@ -11340,29 +10923,28 @@
    points="410.144,452.707 433.188,452.707 "
    id="polyline1152"
    data-element-id="element-1556-1761788125776"
-   style="fill:none;stroke:#ff0000;stroke-width:0.7" /><polyline
+   style="fill:none;stroke:#ffffff;stroke-width:0.7" /><polyline
    points="456.421,452.707 505.247,452.707 "
    id="polyline1153"
    data-element-id="element-1557-1761788125776"
-   style="fill:none;stroke:#ff0000;stroke-width:0.7"
+   style="fill:none;stroke:#ffffff;stroke-width:0.7"
    transform="translate(4)" />
 
 
 <g
    clip-path="url(#clipId0)"
-   fill="rgb(255,0,0)"
-   stroke="rgb(255,0,0)"
+   fill="#ffffff"
+   stroke="#ffffff"
    stroke-width="0"
    id="g1154"
    data-element-id="element-1558-1761788125776"
    style="cursor: pointer;">
 <text
-   transform="matrix(7.86435 0 -0 7.84489 468.354 464.279)"
-   font-family="Bahnschrift,'sans-serif'"
-   font-size="1.4081"
+   transform="matrix(7.86435,0,0,7.84489,468.354,464.279)"
+   font-family="Bahnschrift, sans-serif"
+   font-size="1.4081px"
    id="text1153"
-   data-element-id="element-1559-1761788125776"
-   style="cursor: pointer;">To ESS</text>
+   data-element-id="element-1559-1761788125776">To ESS for</text>
 </g>
 
 <text
@@ -11372,7 +10954,7 @@
    font-size="14.1692px"
    id="text1157"
    data-element-id="element-1566-1761788125776"
-   style="fill:#000000;stroke:#000000;stroke-width:0"
+   style="fill:#ffffff;stroke:#ffffff;stroke-width:0"
    x="492.09509"
    y="513.03802">Main Cooling</text><text
    transform="scale(0.98491222,1.0153189)"
@@ -11381,7 +10963,7 @@
    font-size="13.9706px"
    id="text1158"
    data-element-id="element-1567-1761788125776"
-   style="fill:#000000;stroke:#000000;stroke-width:0"
+   style="fill:#ffffff;stroke:#ffffff;stroke-width:0"
    x="503.03064"
    y="521.91974">S.W. Pump</text><text
    transform="scale(0.9910849,1.0089953)"
@@ -11390,18 +10972,18 @@
    font-size="14.0395px"
    id="text1159"
    data-element-id="element-1568-1761788125776"
-   style="fill:#000000;stroke:#000000;stroke-width:0"
+   style="fill:#ffffff;stroke:#ffffff;stroke-width:0"
    x="257.66409"
-   y="327.03424">LT COOLING</text><text
+   y="327.03424">LT Cooling</text><text
    transform="scale(0.9768332,1.0237162)"
    font-family="Calibri, sans-serif"
    font-weight="bold"
    font-size="13.8376px"
    id="text1160"
    data-element-id="element-1569-1761788125776"
-   style="fill:#000000;stroke:#000000;stroke-width:0"
+   style="fill:#ffffff;stroke:#ffffff;stroke-width:0"
    x="261.45099"
-   y="338.93768">F.W. PUMP</text>
+   y="338.93768">F.W. Pump</text>
 
 
 <g
@@ -11409,7 +10991,7 @@
    transform="translate(0,4)"><g
      clip-path="url(#clipId0)"
      fill="none"
-     stroke="#000000"
+     stroke="#ffffff"
      stroke-width="0.7"
      id="g1157"
      data-element-id="element-1560-1761788125776">
@@ -11432,7 +11014,7 @@
 </g><g
      clip-path="url(#clipId0)"
      fill="none"
-     stroke="#000000"
+     stroke="#ffffff"
      stroke-width="0.7"
      id="g1161"
      data-element-id="element-1570-1761788125776">
@@ -11485,7 +11067,7 @@
        width="40"
        height="40"
        rx="4"
-       fill="#d0d0d0"
+       fill="#2a2a2a"
        stroke="#707070"
        stroke-width="2.5"
        id="rect164" /><rect
@@ -11506,7 +11088,7 @@
        width="16"
        height="22"
        rx="2"
-       fill="#d0d0d0"
+       fill="#2a2a2a"
        stroke="#707070"
        stroke-width="2"
        id="rect167" /><rect
@@ -11559,14 +11141,14 @@
        y="24"
        width="6"
        height="8"
-       fill="#a8a8a8"
+       fill="#1a1a1a"
        stroke="#707070"
        stroke-width="1"
        id="rect173" /></g></g>
 <g
    clip-path="url(#clipId0)"
    fill="none"
-   stroke="rgb(0,0,0)"
+   stroke="#ffffff"
    stroke-width="0.7"
    id="g1167"
    data-element-id="element-1583-1761788125776"
@@ -11626,7 +11208,7 @@
        width="40"
        height="40"
        rx="4"
-       fill="#d0d0d0"
+       fill="#2a2a2a"
        stroke="#707070"
        stroke-width="2.5"
        id="rect174" /><rect
@@ -11647,7 +11229,7 @@
        width="16"
        height="22"
        rx="2"
-       fill="#d0d0d0"
+       fill="#2a2a2a"
        stroke="#707070"
        stroke-width="2"
        id="rect177" /><rect
@@ -11700,14 +11282,14 @@
        y="24"
        width="6"
        height="8"
-       fill="#a8a8a8"
+       fill="#1a1a1a"
        stroke="#707070"
        stroke-width="1"
        id="rect180" /></g></g>
 <g
    clip-path="url(#clipId0)"
    fill="none"
-   stroke="rgb(0,0,0)"
+   stroke="#ffffff"
    stroke-width="0.7"
    id="g1174"
    data-element-id="element-1597-1761788125776"
@@ -11767,7 +11349,7 @@
        width="40"
        height="40"
        rx="4"
-       fill="#d0d0d0"
+       fill="#2a2a2a"
        stroke="#707070"
        stroke-width="2.5"
        id="rect184" /><rect
@@ -11788,7 +11370,7 @@
        width="16"
        height="22"
        rx="2"
-       fill="#d0d0d0"
+       fill="#2a2a2a"
        stroke="#707070"
        stroke-width="2"
        id="rect187" /><rect
@@ -11841,14 +11423,14 @@
        y="24"
        width="6"
        height="8"
-       fill="#a8a8a8"
+       fill="#1a1a1a"
        stroke="#707070"
        stroke-width="1"
        id="rect194" /></g></g>
 <g
    clip-path="url(#clipId0)"
    fill="rgb(0,0,0)"
-   stroke="rgb(0,0,0)"
+   stroke="#ffffff"
    stroke-width="0"
    id="g1185"
    data-element-id="element-1611-1761788125777"
@@ -11902,616 +11484,20 @@
    data-element-id="element-1617-1761788125777"
    style="cursor: pointer;">Chest(S)</text>
 </g>
-<g
-   clip-path="url(#clipId0)"
-   fill="rgb(231,230,230)"
-   stroke="rgb(231,230,230)"
-   stroke-width="1"
-   id="g1194"
-   data-element-id="element-1618-1761788125777"
-   style="cursor: pointer;">
-<path
-   d="M255.778,420.707 255.778,413.025 256.34,422.065 z"
-   id="path1185"
-   data-element-id="element-1619-1761788125777"
-   style="cursor: pointer;" />
-<path
-   d="M256.34,422.065 255.778,413.025 256.34,411.667 z"
-   id="path1186"
-   data-element-id="element-1620-1761788125777"
-   style="cursor: pointer;" />
-<path
-   d="M256.34,422.065 256.34,411.667 257.698,422.627 z"
-   id="path1187"
-   data-element-id="element-1621-1761788125777"
-   style="cursor: pointer;" />
-<path
-   d="M257.698,422.627 256.34,411.667 257.698,411.105 z"
-   id="path1188"
-   data-element-id="element-1622-1761788125777"
-   style="cursor: pointer;" />
-<path
-   d="M257.698,422.627 257.698,411.105 286.157,422.627 z"
-   id="path1189"
-   data-element-id="element-1623-1761788125777"
-   style="cursor: pointer;" />
-<path
-   d="M286.157,422.627 257.698,411.105 286.157,411.105 z"
-   id="path1190"
-   data-element-id="element-1624-1761788125777"
-   style="cursor: pointer;" />
-<path
-   d="M286.157,422.627 286.157,411.105 287.516,422.065 z"
-   id="path1191"
-   data-element-id="element-1625-1761788125777"
-   style="cursor: pointer;" />
-<path
-   d="M287.516,422.065 286.157,411.105 287.516,411.667 z"
-   id="path1192"
-   data-element-id="element-1626-1761788125777"
-   style="cursor: pointer;" />
-<path
-   d="M287.516,422.065 287.516,411.667 288.077,420.707 z"
-   id="path1193"
-   data-element-id="element-1627-1761788125777"
-   style="cursor: pointer;" />
-<path
-   d="M288.077,420.707 287.516,411.667 288.077,413.025 z"
-   id="path1194"
-   data-element-id="element-1628-1761788125777"
-   style="cursor: pointer;" />
-</g>
-<g
-   clip-path="url(#clipId0)"
-   fill="none"
-   stroke="#172c51"
-   stroke-width="0.09"
-   id="g11111"
-   data-element-id="element-1629-1761788125777"
-   transform="translate(-0.1)">
-<polyline
-   points="255.778,413.025 256.34,411.667 257.698,411.105 "
-   id="polyline1194"
-   data-element-id="element-1630-1761788125777" />
-<polyline
-   points="257.698,411.105 286.157,411.105 "
-   id="polyline1195"
-   data-element-id="element-1631-1761788125777" />
-<polyline
-   points="286.157,411.105 287.516,411.667 288.077,413.025 "
-   id="polyline1196"
-   data-element-id="element-1632-1761788125777" />
-<polyline
-   points="288.077,413.025 288.077,420.707 "
-   id="polyline1197"
-   data-element-id="element-1633-1761788125777" />
-<polyline
-   points="288.077,420.707 287.516,422.065 286.157,422.627 "
-   id="polyline1198"
-   data-element-id="element-1634-1761788125777" />
-<polyline
-   points="286.157,422.627 257.698,422.627 "
-   id="polyline1199"
-   data-element-id="element-1635-1761788125777" />
-<polyline
-   points="257.698,422.627 256.34,422.065 255.778,420.707 "
-   id="polyline1200"
-   data-element-id="element-1636-1761788125777" />
-<polyline
-   points="255.778,420.707 255.778,413.025 "
-   id="polyline1201"
-   data-element-id="element-1637-1761788125777" />
-</g>
-<g
-   clip-path="url(#clipId0)"
-   fill="rgb(0,0,0)"
-   stroke="rgb(0,0,0)"
-   stroke-width="0"
-   id="LT_Pump1_Mode"
-   data-element-id="element-1638-1761788125777"
-   style="cursor: pointer;">
-<text
-   transform="matrix(5.27796 0 -0 5.27549 263.295 419.713)"
-   font-family="Calibri,'sans-serif'"
-   font-size="1.57532"
-   id="text1201"
-   data-element-id="element-1639-1761788125777"
-   style="cursor: pointer;">MAN</text>
-</g>
-<g
-   clip-path="url(#clipId0)"
-   fill="rgb(231,230,230)"
-   stroke="rgb(231,230,230)"
-   stroke-width="1"
-   id="g1211"
-   data-element-id="element-1640-1761788125777"
-   style="cursor: pointer;">
-<path
-   d="M255.778,507.515 255.778,499.897 256.335,508.863 z"
-   id="path1202"
-   data-element-id="element-1641-1761788125777"
-   style="cursor: pointer;" />
-<path
-   d="M256.335,508.863 255.778,499.897 256.335,498.549 z"
-   id="path1203"
-   data-element-id="element-1642-1761788125777"
-   style="cursor: pointer;" />
-<path
-   d="M256.335,508.863 256.335,498.549 257.683,509.419 z"
-   id="path1204"
-   data-element-id="element-1643-1761788125777"
-   style="cursor: pointer;" />
-<path
-   d="M257.683,509.419 256.335,498.549 257.683,497.992 z"
-   id="path1205"
-   data-element-id="element-1644-1761788125777"
-   style="cursor: pointer;" />
-<path
-   d="M257.683,509.419 257.683,497.992 286.173,509.419 z"
-   id="path1206"
-   data-element-id="element-1645-1761788125777"
-   style="cursor: pointer;" />
-<path
-   d="M286.173,509.419 257.683,497.992 286.173,497.992 z"
-   id="path1207"
-   data-element-id="element-1646-1761788125777"
-   style="cursor: pointer;" />
-<path
-   d="M286.173,509.419 286.173,497.992 287.521,508.863 z"
-   id="path1208"
-   data-element-id="element-1647-1761788125777"
-   style="cursor: pointer;" />
-<path
-   d="M287.521,508.863 286.173,497.992 287.521,498.549 z"
-   id="path1209"
-   data-element-id="element-1648-1761788125777"
-   style="cursor: pointer;" />
-<path
-   d="M287.521,508.863 287.521,498.549 288.077,507.515 z"
-   id="path1210"
-   data-element-id="element-1649-1761788125777"
-   style="cursor: pointer;" />
-<path
-   d="M288.077,507.515 287.521,498.549 288.077,499.897 z"
-   id="path1211"
-   data-element-id="element-1650-1761788125777"
-   style="cursor: pointer;" />
-</g>
-<g
-   clip-path="url(#clipId0)"
-   fill="none"
-   stroke="#172c51"
-   stroke-width="0.09"
-   id="g13415"
-   data-element-id="element-1651-1761788125777"
-   transform="translate(-0.1,5e-4)">
-<polyline
-   points="255.778,499.897 256.335,498.549 257.683,497.992 "
-   id="polyline1211"
-   data-element-id="element-1652-1761788125777" />
-<polyline
-   points="257.683,497.992 286.173,497.992 "
-   id="polyline1212"
-   data-element-id="element-1653-1761788125777" />
-<polyline
-   points="286.173,497.992 287.521,498.549 288.077,499.897 "
-   id="polyline1213"
-   data-element-id="element-1654-1761788125777" />
-<polyline
-   points="288.077,499.897 288.077,507.515 "
-   id="polyline1214"
-   data-element-id="element-1655-1761788125777" />
-<polyline
-   points="288.077,507.515 287.521,508.863 286.173,509.419 "
-   id="polyline1215"
-   data-element-id="element-1656-1761788125777" />
-<polyline
-   points="286.173,509.419 257.683,509.419 "
-   id="polyline1216"
-   data-element-id="element-1657-1761788125777" />
-<polyline
-   points="257.683,509.419 256.335,508.863 255.778,507.515 "
-   id="polyline1217"
-   data-element-id="element-1658-1761788125777" />
-<polyline
-   points="255.778,507.515 255.778,499.897 "
-   id="polyline1218"
-   data-element-id="element-1659-1761788125777" />
-</g>
-<g
-   clip-path="url(#clipId0)"
-   fill="#000000"
-   stroke="#000000"
-   stroke-width="0"
-   id="LT_Pump2_Mode"
-   data-element-id="element-1660-1761788125777"
-   transform="translate(0,-0.09972636)">
-<text
-   transform="matrix(5.27796,0,0,5.27549,263.295,506.545)"
-   font-family="Calibri, sans-serif"
-   font-size="1.57532px"
-   id="text1218"
-   data-element-id="element-1661-1761788125777">MAN</text>
-</g>
-<g
-   clip-path="url(#clipId0)"
-   fill="rgb(231,230,230)"
-   stroke="rgb(231,230,230)"
-   stroke-width="1"
-   id="g1228"
-   data-element-id="element-1662-1761788125777"
-   style="cursor: pointer;">
-<path
-   d="M255.778,594.386 255.778,586.705 256.34,595.745 z"
-   id="path1219"
-   data-element-id="element-1663-1761788125777"
-   style="cursor: pointer;" />
-<path
-   d="M256.34,595.745 255.778,586.705 256.34,585.346 z"
-   id="path1220"
-   data-element-id="element-1664-1761788125777"
-   style="cursor: pointer;" />
-<path
-   d="M256.34,595.745 256.34,585.346 257.698,596.306 z"
-   id="path1221"
-   data-element-id="element-1665-1761788125777"
-   style="cursor: pointer;" />
-<path
-   d="M257.698,596.306 256.34,585.346 257.698,584.784 z"
-   id="path1222"
-   data-element-id="element-1666-1761788125777"
-   style="cursor: pointer;" />
-<path
-   d="M257.698,596.306 257.698,584.784 286.157,596.306 z"
-   id="path1223"
-   data-element-id="element-1667-1761788125777"
-   style="cursor: pointer;" />
-<path
-   d="M286.157,596.306 257.698,584.784 286.157,584.784 z"
-   id="path1224"
-   data-element-id="element-1668-1761788125777"
-   style="cursor: pointer;" />
-<path
-   d="M286.157,596.306 286.157,584.784 287.516,595.745 z"
-   id="path1225"
-   data-element-id="element-1669-1761788125777"
-   style="cursor: pointer;" />
-<path
-   d="M287.516,595.745 286.157,584.784 287.516,585.346 z"
-   id="path1226"
-   data-element-id="element-1670-1761788125777"
-   style="cursor: pointer;" />
-<path
-   d="M287.516,595.745 287.516,585.346 288.077,594.386 z"
-   id="path1227"
-   data-element-id="element-1671-1761788125777"
-   style="cursor: pointer;" />
-<path
-   d="M288.077,594.386 287.516,585.346 288.077,586.705 z"
-   id="path1228"
-   data-element-id="element-1672-1761788125777"
-   style="cursor: pointer;" />
-</g>
-<g
-   clip-path="url(#clipId0)"
-   fill="none"
-   stroke="#172c51"
-   stroke-width="0.09"
-   id="g354545"
-   data-element-id="element-1673-1761788125777"
-   transform="translate(-0.1)">
-<polyline
-   points="255.778,586.705 256.34,585.346 257.698,584.784 "
-   id="polyline1228"
-   data-element-id="element-1674-1761788125777" />
-<polyline
-   points="257.698,584.784 286.157,584.784 "
-   id="polyline1229"
-   data-element-id="element-1675-1761788125777" />
-<polyline
-   points="286.157,584.784 287.516,585.346 288.077,586.705 "
-   id="polyline1230"
-   data-element-id="element-1676-1761788125777" />
-<polyline
-   points="288.077,586.705 288.077,594.386 "
-   id="polyline1231"
-   data-element-id="element-1677-1761788125777" />
-<polyline
-   points="288.077,594.386 287.516,595.745 286.157,596.306 "
-   id="polyline1232"
-   data-element-id="element-1678-1761788125777" />
-<polyline
-   points="286.157,596.306 257.698,596.306 "
-   id="polyline1233"
-   data-element-id="element-1679-1761788125777" />
-<polyline
-   points="257.698,596.306 256.34,595.745 255.778,594.386 "
-   id="polyline1234"
-   data-element-id="element-1680-1761788125777" />
-<polyline
-   points="255.778,594.386 255.778,586.705 "
-   id="polyline1235"
-   data-element-id="element-1681-1761788125777" />
-</g>
-<g
-   clip-path="url(#clipId0)"
-   fill="rgb(0,0,0)"
-   stroke="rgb(0,0,0)"
-   stroke-width="0"
-   id="LT_Pump3_Mode"
-   data-element-id="element-1682-1761788125777"
-   style="cursor: pointer;">
-<text
-   transform="matrix(5.27796 0 -0 5.27549 263.295 593.392)"
-   font-family="Calibri,'sans-serif'"
-   font-size="1.57532"
-   id="text1235"
-   data-element-id="element-1683-1761788125777"
-   style="cursor: pointer;">MAN</text>
-</g>
-<g
-   clip-path="url(#clipId0)"
-   fill="#ccecff"
-   stroke="#ccecff"
-   stroke-width="1"
-   id="g1245"
-   data-element-id="element-1684-1761788125777"
-   transform="matrix(0.99834766,0,0,1.000043,0.72818593,-4.0756401)">
-<path
-   d="m 296.955,381.639 v -12.466 l 0.912,14.671 z"
-   id="path1236"
-   data-element-id="element-1685-1761788125777" />
-<path
-   d="m 297.867,383.844 -0.912,-14.671 0.912,-2.205 z"
-   id="path1237"
-   data-element-id="element-1686-1761788125777" />
-<path
-   d="m 297.867,383.844 v -16.876 l 2.204,17.788 z"
-   id="path1238"
-   data-element-id="element-1687-1761788125777" />
-<path
-   d="m 300.071,384.756 -2.204,-17.788 2.204,-0.912 z"
-   id="path1239"
-   data-element-id="element-1688-1761788125777" />
-<path
-   d="m 300.071,384.756 v -18.7 l 29.278,18.7 z"
-   id="path1240"
-   data-element-id="element-1689-1761788125777" />
-<path
-   d="m 329.349,384.756 -29.278,-18.7 h 29.278 z"
-   id="path1241"
-   data-element-id="element-1690-1761788125777" />
-<path
-   d="m 329.349,384.756 v -18.7 l 2.204,17.788 z"
-   id="path1242"
-   data-element-id="element-1691-1761788125777" />
-<path
-   d="m 331.553,383.844 -2.204,-17.788 2.204,0.912 z"
-   id="path1243"
-   data-element-id="element-1692-1761788125777" />
-<path
-   d="m 331.553,383.844 v -16.876 l 0.912,14.671 z"
-   id="path1244"
-   data-element-id="element-1693-1761788125777" />
-<path
-   d="m 332.465,381.639 -0.912,-14.671 0.912,2.205 z"
-   id="path1245"
-   data-element-id="element-1694-1761788125777" />
-</g><g
-   clip-path="url(#clipId0-94-9)"
-   fill="none"
-   stroke="#172c51"
-   stroke-width="0.09"
-   id="g1386-2-3"
-   data-element-id="element-1866-1761788125777"
-   transform="matrix(1.0368214,0,0,1.0633738,-369.86685,14.141683)">
-<polyline
-   points="642.519,494.403 643.431,492.198 645.636,491.286 "
-   id="polyline1379-4-1"
-   data-element-id="element-1867-1761788125777" />
-<polyline
-   points="645.636,491.286 674.819,491.286 "
-   id="polyline1380-5-2"
-   data-element-id="element-1868-1761788125777" />
-<polyline
-   points="674.819,491.286 677.023,492.198 677.935,494.403 "
-   id="polyline1381-5-3"
-   data-element-id="element-1869-1761788125777" />
-<polyline
-   points="677.935,494.403 677.935,506.869 "
-   id="polyline1382-1-3"
-   data-element-id="element-1870-1761788125777" />
-<polyline
-   points="677.935,506.869 677.023,509.074 674.819,509.986 "
-   id="polyline1383-7-4"
-   data-element-id="element-1871-1761788125777" />
-<polyline
-   points="674.819,509.986 645.636,509.986 "
-   id="polyline1384-1-1"
-   data-element-id="element-1872-1761788125777" />
-<polyline
-   points="645.636,509.986 643.431,509.074 642.519,506.869 "
-   id="polyline1385-1-1"
-   data-element-id="element-1873-1761788125777" />
-<polyline
-   points="642.519,506.869 642.519,494.403 "
-   id="polyline1386-5-3"
-   data-element-id="element-1874-1761788125777" />
-</g><g
-   clip-path="url(#clipId0-94-5)"
-   fill="none"
-   stroke="#172c51"
-   stroke-width="0.09"
-   id="g1386-2-2"
-   data-element-id="element-1866-1761788125777"
-   transform="matrix(1.0368214,0,0,1.0633738,-370.52112,-75.315563)">
-<polyline
-   points="642.519,494.403 643.431,492.198 645.636,491.286 "
-   id="polyline1379-4-4"
-   data-element-id="element-1867-1761788125777" />
-<polyline
-   points="645.636,491.286 674.819,491.286 "
-   id="polyline1380-5-8"
-   data-element-id="element-1868-1761788125777" />
-<polyline
-   points="674.819,491.286 677.023,492.198 677.935,494.403 "
-   id="polyline1381-5-6"
-   data-element-id="element-1869-1761788125777" />
-<polyline
-   points="677.935,494.403 677.935,506.869 "
-   id="polyline1382-1-5"
-   data-element-id="element-1870-1761788125777" />
-<polyline
-   points="677.935,506.869 677.023,509.074 674.819,509.986 "
-   id="polyline1383-7-0"
-   data-element-id="element-1871-1761788125777" />
-<polyline
-   points="674.819,509.986 645.636,509.986 "
-   id="polyline1384-1-9"
-   data-element-id="element-1872-1761788125777" />
-<polyline
-   points="645.636,509.986 643.431,509.074 642.519,506.869 "
-   id="polyline1385-1-0"
-   data-element-id="element-1873-1761788125777" />
-<polyline
-   points="642.519,506.869 642.519,494.403 "
-   id="polyline1386-5-0"
-   data-element-id="element-1874-1761788125777" />
-</g><g
-   clip-path="url(#clipId0-2)"
-   fill="#ccecff"
-   stroke="#ccecff"
-   stroke-width="1"
-   id="g1245-6"
-   data-element-id="element-1684-1761788125777"
-   transform="matrix(0.99834766,0,0,1.000043,-0.07905919,81.621605)">
-<path
-   d="m 296.955,381.639 v -12.466 l 0.912,14.671 z"
-   id="path1236-1"
-   data-element-id="element-1685-1761788125777" />
-<path
-   d="m 297.867,383.844 -0.912,-14.671 0.912,-2.205 z"
-   id="path1237-3"
-   data-element-id="element-1686-1761788125777" />
-<path
-   d="m 297.867,383.844 v -16.876 l 2.204,17.788 z"
-   id="path1238-8"
-   data-element-id="element-1687-1761788125777" />
-<path
-   d="m 300.071,384.756 -2.204,-17.788 2.204,-0.912 z"
-   id="path1239-9"
-   data-element-id="element-1688-1761788125777" />
-<path
-   d="m 300.071,384.756 v -18.7 l 29.278,18.7 z"
-   id="path1240-3"
-   data-element-id="element-1689-1761788125777" />
-<path
-   d="m 329.349,384.756 -29.278,-18.7 h 29.278 z"
-   id="path1241-4"
-   data-element-id="element-1690-1761788125777" />
-<path
-   d="m 329.349,384.756 v -18.7 l 2.204,17.788 z"
-   id="path1242-4"
-   data-element-id="element-1691-1761788125777" />
-<path
-   d="m 331.553,383.844 -2.204,-17.788 2.204,0.912 z"
-   id="path1243-6"
-   data-element-id="element-1692-1761788125777" />
-<path
-   d="m 331.553,383.844 v -16.876 l 0.912,14.671 z"
-   id="path1244-0"
-   data-element-id="element-1693-1761788125777" />
-<path
-   d="m 332.465,381.639 -0.912,-14.671 0.912,2.205 z"
-   id="path1245-6"
-   data-element-id="element-1694-1761788125777" />
-</g>
 
-<g
-   clip-path="url(#clipId0)"
-   fill="#000000"
-   stroke="#000000"
-   stroke-width="0"
-   id="g1253"
-   data-element-id="element-1701-1761788125777"
-   transform="translate(0,-4)">
-<text
-   transform="matrix(4.49152,0,0,4.49615,306.265,373.57)"
-   font-family="Calibri, sans-serif"
-   font-size="1.57532px"
-   id="LT_Pump1_Auto"
-   data-element-id="element-1702-1761788125777">AUTO</text>
-<text
-   transform="matrix(4.46296,0,0,4.49615,304.094,382.07)"
-   font-family="Calibri, sans-serif"
-   font-size="1.57532px"
-   id="LT_Pump1_Hz"
-   data-element-id="element-1703-1761788125777">50.3 Hz</text>
-</g>
-<g
-   clip-path="url(#clipId0)"
-   fill="#e7e6e6"
-   stroke="#e7e6e6"
-   stroke-width="1"
-   id="g1262"
-   data-element-id="element-1704-1761788125777"
-   transform="translate(2,-8)">
-<path
-   d="m 296.105,414.851 v -8.814 l 0.644,10.373 z"
-   id="path1253"
-   data-element-id="element-1705-1761788125777" />
-<path
-   d="m 296.749,416.41 -0.644,-10.373 0.644,-1.56 z"
-   id="path1254"
-   data-element-id="element-1706-1761788125777" />
-<path
-   d="m 296.749,416.41 v -11.933 l 1.56,12.578 z"
-   id="path1255"
-   data-element-id="element-1707-1761788125777" />
-<path
-   d="m 298.309,417.055 -1.56,-12.578 1.56,-0.644 z"
-   id="path1256"
-   data-element-id="element-1708-1761788125777" />
-<path
-   d="m 298.309,417.055 v -13.222 l 31.008,13.222 z"
-   id="path1257"
-   data-element-id="element-1709-1761788125777" />
-<path
-   d="m 329.317,417.055 -31.008,-13.222 h 31.008 z"
-   id="path1258"
-   data-element-id="element-1710-1761788125777" />
-<path
-   d="m 329.317,417.055 v -13.222 l 1.559,12.577 z"
-   id="path1259"
-   data-element-id="element-1711-1761788125777" />
-<path
-   d="m 330.876,416.41 -1.559,-12.577 1.559,0.644 z"
-   id="path1260"
-   data-element-id="element-1712-1761788125777" />
-<path
-   d="m 330.876,416.41 v -11.933 l 0.645,10.374 z"
-   id="path1261"
-   data-element-id="element-1713-1761788125777" />
-<path
-   d="m 331.521,414.851 -0.645,-10.374 0.645,1.56 z"
-   id="path1262"
-   data-element-id="element-1714-1761788125777" />
-</g>
-<g
-   clip-path="url(#clipId0)"
-   fill="#000000"
-   stroke="#000000"
-   stroke-width="0"
-   id="g1263"
-   data-element-id="element-1715-1761788125777"
-   transform="translate(2,-8)">
-<text
-   transform="matrix(5.27647,0,0,5.27549,304.336,413.259)"
-   font-family="Calibri, sans-serif"
-   font-size="1.57532px"
-   id="LT_Pump1_hour"
-   data-element-id="element-1716-1761788125777">100 h</text>
-</g>
+
+
+
+
+
+
+
+
+
+
+
+
+
 <g
    clip-path="url(#clipId0)"
    fill="#0000ff"
@@ -12535,91 +11521,9 @@
 </g>
 
 
-<g
-   clip-path="url(#clipId0)"
-   fill="#000000"
-   stroke="#000000"
-   stroke-width="0"
-   id="g1281"
-   data-element-id="element-1737-1761788125777"
-   transform="translate(0,-6)">
-<text
-   transform="matrix(4.49152,0,0,4.49615,306.265,461.819)"
-   font-family="Calibri, sans-serif"
-   font-size="1.57532px"
-   id="LT_Pump2_Auto"
-   data-element-id="element-1738-1761788125777">AUTO</text>
-<text
-   transform="matrix(4.46296,0,0,4.49615,304.094,470.319)"
-   font-family="Calibri, sans-serif"
-   font-size="1.57532px"
-   id="LT_Pump2_Hz"
-   data-element-id="element-1739-1761788125777">50.3 Hz</text>
-</g>
-<g
-   clip-path="url(#clipId0)"
-   fill="#e7e6e6"
-   stroke="#e7e6e6"
-   stroke-width="1"
-   id="g1290"
-   data-element-id="element-1740-1761788125777"
-   transform="translate(2,-8)">
-<path
-   d="m 296.105,503.06 v -8.814 l 0.644,10.374 z"
-   id="path1281"
-   data-element-id="element-1741-1761788125777" />
-<path
-   d="m 296.749,504.62 -0.644,-10.374 0.644,-1.56 z"
-   id="path1282"
-   data-element-id="element-1742-1761788125777" />
-<path
-   d="m 296.749,504.62 v -11.934 l 1.56,12.578 z"
-   id="path1283"
-   data-element-id="element-1743-1761788125777" />
-<path
-   d="m 298.309,505.264 -1.56,-12.578 1.56,-0.644 z"
-   id="path1284"
-   data-element-id="element-1744-1761788125777" />
-<path
-   d="m 298.309,505.264 v -13.222 l 31.008,13.222 z"
-   id="path1285"
-   data-element-id="element-1745-1761788125777" />
-<path
-   d="m 329.317,505.264 -31.008,-13.222 h 31.008 z"
-   id="path1286"
-   data-element-id="element-1746-1761788125777" />
-<path
-   d="m 329.317,505.264 v -13.222 l 1.559,12.578 z"
-   id="path1287"
-   data-element-id="element-1747-1761788125777" />
-<path
-   d="m 330.876,504.62 -1.559,-12.578 1.559,0.644 z"
-   id="path1288"
-   data-element-id="element-1748-1761788125777" />
-<path
-   d="m 330.876,504.62 v -11.934 l 0.645,10.374 z"
-   id="path1289"
-   data-element-id="element-1749-1761788125777" />
-<path
-   d="m 331.521,503.06 -0.645,-10.374 0.645,1.56 z"
-   id="path1290"
-   data-element-id="element-1750-1761788125777" />
-</g>
-<g
-   clip-path="url(#clipId0)"
-   fill="#000000"
-   stroke="#000000"
-   stroke-width="0"
-   id="g1291"
-   data-element-id="element-1751-1761788125777"
-   transform="translate(2,-8)">
-<text
-   transform="matrix(5.27647,0,0,5.27549,304.336,501.5)"
-   font-family="Calibri, sans-serif"
-   font-size="1.57532px"
-   id="LT_Pump2_hour"
-   data-element-id="element-1752-1761788125777">100 h</text>
-</g>
+
+
+
 <g
    clip-path="url(#clipId0)"
    fill="#0000ff"
@@ -12641,1223 +11545,47 @@
    id="text1292"
    data-element-id="element-1755-1761788125777">.3</text>
 </g>
-<g
-   clip-path="url(#clipId0)"
-   fill="#ccecff"
-   stroke="#ccecff"
-   stroke-width="1"
-   id="g1301"
-   data-element-id="element-1756-1761788125777"
-   transform="translate(0,-4)">
-<path
-   d="m 296.955,556.735 v -12.466 l 0.912,14.671 z"
-   id="path1292"
-   data-element-id="element-1757-1761788125777" />
-<path
-   d="m 297.867,558.94 -0.912,-14.671 0.912,-2.205 z"
-   id="path1293"
-   data-element-id="element-1758-1761788125777" />
-<path
-   d="m 297.867,558.94 v -16.876 l 2.204,17.788 z"
-   id="path1294"
-   data-element-id="element-1759-1761788125777" />
-<path
-   d="m 300.071,559.852 -2.204,-17.788 2.204,-0.912 z"
-   id="path1295"
-   data-element-id="element-1760-1761788125777" />
-<path
-   d="m 300.071,559.852 v -18.7 l 29.278,18.7 z"
-   id="path1296"
-   data-element-id="element-1761-1761788125777" />
-<path
-   d="m 329.349,559.852 -29.278,-18.7 h 29.278 z"
-   id="path1297"
-   data-element-id="element-1762-1761788125777" />
-<path
-   d="m 329.349,559.852 v -18.7 l 2.204,17.788 z"
-   id="path1298"
-   data-element-id="element-1763-1761788125777" />
-<path
-   d="m 331.553,558.94 -2.204,-17.788 2.204,0.912 z"
-   id="path1299"
-   data-element-id="element-1764-1761788125777" />
-<path
-   d="m 331.553,558.94 v -16.876 l 0.912,14.671 z"
-   id="path1300"
-   data-element-id="element-1765-1761788125777" />
-<path
-   d="m 332.465,556.735 -0.912,-14.671 0.912,2.205 z"
-   id="path1301"
-   data-element-id="element-1766-1761788125777" />
-</g>
-
-<g
-   clip-path="url(#clipId0)"
-   fill="#000000"
-   stroke="#000000"
-   stroke-width="0"
-   id="g1309"
-   data-element-id="element-1773-1761788125777"
-   transform="translate(0,-4)">
-<text
-   transform="matrix(4.49152,0,0,4.49615,306.265,548.651)"
-   font-family="Calibri, sans-serif"
-   font-size="1.57532px"
-   id="text1308"
-   data-element-id="element-1774-1761788125777">AUTO</text>
-<text
-   transform="scale(0.99630946,1.0037042)"
-   font-family="Calibri, sans-serif"
-   font-size="7.05674px"
-   id="LT_Pump3_Hz"
-   x="305.2207"
-   y="555.09381"
-   style="stroke-width:0"
-   data-element-id="element-1775-1761788125777">50.3 Hz</text>
-</g>
-<g
-   clip-path="url(#clipId0)"
-   fill="#e7e6e6"
-   stroke="#e7e6e6"
-   stroke-width="1"
-   id="g1245848"
-   data-element-id="element-1776-1761788125777"
-   transform="translate(2,-8)">
-<path
-   d="m 296.105,589.853 v -8.815 l 0.644,10.374 z"
-   id="path1309"
-   data-element-id="element-1777-1761788125777" />
-<path
-   d="m 296.749,591.412 -0.644,-10.374 0.644,-1.559 z"
-   id="path1310"
-   data-element-id="element-1778-1761788125777" />
-<path
-   d="m 296.749,591.412 v -11.933 l 1.56,12.577 z"
-   id="path1311"
-   data-element-id="element-1779-1761788125777" />
-<path
-   d="m 298.309,592.056 -1.56,-12.577 1.56,-0.645 z"
-   id="path1312"
-   data-element-id="element-1780-1761788125777" />
-<path
-   d="m 298.309,592.056 v -13.222 l 31.008,13.222 z"
-   id="path1313"
-   data-element-id="element-1781-1761788125777" />
-<path
-   d="m 329.317,592.056 -31.008,-13.222 h 31.008 z"
-   id="path1314"
-   data-element-id="element-1782-1761788125777" />
-<path
-   d="m 329.317,592.056 v -13.222 l 1.559,12.578 z"
-   id="path1315"
-   data-element-id="element-1783-1761788125777" />
-<path
-   d="m 330.876,591.412 -1.559,-12.578 1.559,0.645 z"
-   id="path1316"
-   data-element-id="element-1784-1761788125777" />
-<path
-   d="m 330.876,591.412 v -11.933 l 0.645,10.374 z"
-   id="path1317"
-   data-element-id="element-1785-1761788125777" />
-<path
-   d="m 331.521,589.853 -0.645,-10.374 0.645,1.559 z"
-   id="path1318"
-   data-element-id="element-1786-1761788125777" />
-</g>
-<g
-   clip-path="url(#clipId0)"
-   fill="#000000"
-   stroke="#000000"
-   stroke-width="0"
-   id="g1319"
-   data-element-id="element-1787-1761788125777"
-   transform="translate(2,-8)">
-<text
-   transform="matrix(5.27647,0,0,5.27549,304.336,588.332)"
-   font-family="Calibri, sans-serif"
-   font-size="1.57532px"
-   id="LT_Pump3_hour_"
-   data-element-id="element-1788-1761788125777">100 h</text>
-</g>
 
 
 
-<g
-   clip-path="url(#clipId0)"
-   fill="#e7e6e6"
-   stroke="#e7e6e6"
-   stroke-width="1"
-   id="g1345"
-   data-element-id="element-1811-1761788125777"
-   transform="translate(133.5539,-50.342007)">
-<path
-   d="m 694.746,536.398 v -7.681 l 0.562,9.04 z"
-   id="path1336"
-   data-element-id="element-1812-1761788125777" />
-<path
-   d="m 695.308,537.757 -0.562,-9.04 0.562,-1.358 z"
-   id="path1337"
-   data-element-id="element-1813-1761788125777" />
-<path
-   d="m 695.308,537.757 v -10.398 l 1.358,10.96 z"
-   id="path1338"
-   data-element-id="element-1814-1761788125777" />
-<path
-   d="m 696.666,538.319 -1.358,-10.96 1.358,-0.562 z"
-   id="path1339"
-   data-element-id="element-1815-1761788125777" />
-<path
-   d="m 696.666,538.319 v -11.522 l 28.459,11.522 z"
-   id="path1340"
-   data-element-id="element-1816-1761788125777" />
-<path
-   d="m 725.125,538.319 -28.459,-11.522 h 28.459 z"
-   id="path1341"
-   data-element-id="element-1817-1761788125777" />
-<path
-   d="m 725.125,538.319 v -11.522 l 1.358,10.96 z"
-   id="path1342"
-   data-element-id="element-1818-1761788125777" />
-<path
-   d="m 726.483,537.757 -1.358,-10.96 1.358,0.562 z"
-   id="path1343"
-   data-element-id="element-1819-1761788125777" />
-<path
-   d="m 726.483,537.757 v -10.398 l 0.562,9.039 z"
-   id="path1344"
-   data-element-id="element-1820-1761788125777" />
-<path
-   d="m 727.045,536.398 -0.562,-9.039 0.562,1.358 z"
-   id="path1345"
-   data-element-id="element-1821-1761788125777" />
-</g>
-<g
-   clip-path="url(#clipId0)"
-   fill="none"
-   stroke="#172c51"
-   stroke-width="0.09"
-   id="g13777"
-   data-element-id="element-1822-1761788125777"
-   transform="matrix(1.0622758,0,0,1.101569,89.425319,-104.48857)">
-<polyline
-   points="694.746,528.717 695.308,527.359 696.666,526.797 "
-   id="polyline1345"
-   data-element-id="element-1823-1761788125777" />
-<polyline
-   points="696.666,526.797 725.125,526.797 "
-   id="polyline1346"
-   data-element-id="element-1824-1761788125777" />
-<polyline
-   points="725.125,526.797 726.483,527.359 727.045,528.717 "
-   id="polyline1347"
-   data-element-id="element-1825-1761788125777" />
-<polyline
-   points="727.045,528.717 727.045,536.398 "
-   id="polyline1348"
-   data-element-id="element-1826-1761788125777" />
-<polyline
-   points="727.045,536.398 726.483,537.757 725.125,538.319 "
-   id="polyline1349"
-   data-element-id="element-1827-1761788125777" />
-<polyline
-   points="725.125,538.319 696.666,538.319 "
-   id="polyline1350"
-   data-element-id="element-1828-1761788125777" />
-<polyline
-   points="696.666,538.319 695.308,537.757 694.746,536.398 "
-   id="polyline1351"
-   data-element-id="element-1829-1761788125777" />
-<polyline
-   points="694.746,536.398 694.746,528.717 "
-   id="polyline1352"
-   data-element-id="element-1830-1761788125777" />
-</g>
-<g
-   clip-path="url(#clipId0)"
-   fill="#000000"
-   stroke="#000000"
-   stroke-width="0"
-   id="SW_Pump3_Mode"
-   data-element-id="element-1831-1761788125777"
-   transform="translate(133.55368,-50.985726)">
-<text
-   transform="matrix(5.27796,0,0,5.27549,702.263,535.405)"
-   font-family="Calibri, sans-serif"
-   font-size="1.57532px"
-   id="text1352"
-   data-element-id="element-1832-1761788125777">MAN</text>
-</g><g
-   clip-path="url(#clipId0-9)"
-   fill="#e7e6e6"
-   stroke="#e7e6e6"
-   stroke-width="1"
-   id="g1355"
-   data-element-id="element-1811-1761788125777"
-   transform="matrix(0.97612625,0,0,0.90210244,61.393665,1.0103132)">
-<path
-   d="m 694.746,536.398 v -7.681 l 0.562,9.04 z"
-   id="path1336-5"
-   data-element-id="element-1812-1761788125777" />
-<path
-   d="m 695.308,537.757 -0.562,-9.04 0.562,-1.358 z"
-   id="path1337-5"
-   data-element-id="element-1813-1761788125777" />
-<path
-   d="m 695.308,537.757 v -10.398 l 1.358,10.96 z"
-   id="path1338-1"
-   data-element-id="element-1814-1761788125777" />
-<path
-   d="m 696.666,538.319 -1.358,-10.96 1.358,-0.562 z"
-   id="path1339-7"
-   data-element-id="element-1815-1761788125777" />
-<path
-   d="m 696.666,538.319 v -11.522 l 28.459,11.522 z"
-   id="path1340-1"
-   data-element-id="element-1816-1761788125777" />
-<path
-   d="m 725.125,538.319 -28.459,-11.522 h 28.459 z"
-   id="path1341-1"
-   data-element-id="element-1817-1761788125777" />
-<path
-   d="m 725.125,538.319 v -11.522 l 1.358,10.96 z"
-   id="path1342-5"
-   data-element-id="element-1818-1761788125777" />
-<path
-   d="m 726.483,537.757 -1.358,-10.96 1.358,0.562 z"
-   id="path1343-2"
-   data-element-id="element-1819-1761788125777" />
-<path
-   d="m 726.483,537.757 v -10.398 l 0.562,9.039 z"
-   id="path1344-7"
-   data-element-id="element-1820-1761788125777" />
-<path
-   d="m 727.045,536.398 -0.562,-9.039 0.562,1.358 z"
-   id="path1345-6"
-   data-element-id="element-1821-1761788125777" />
-</g><g
-   clip-path="url(#clipId0-9)"
-   fill="none"
-   stroke="#172c51"
-   stroke-width="0.09"
-   id="g1352-1"
-   data-element-id="element-1822-1761788125777"
-   transform="translate(44.838277,-50.986)">
-<polyline
-   points="694.746,528.717 695.308,527.359 696.666,526.797 "
-   id="polyline1345-4"
-   data-element-id="element-1823-1761788125777" />
-<polyline
-   points="696.666,526.797 725.125,526.797 "
-   id="polyline1346-2"
-   data-element-id="element-1824-1761788125777" />
-<polyline
-   points="725.125,526.797 726.483,527.359 727.045,528.717 "
-   id="polyline1347-3"
-   data-element-id="element-1825-1761788125777" />
-<polyline
-   points="727.045,528.717 727.045,536.398 "
-   id="polyline1348-2"
-   data-element-id="element-1826-1761788125777" />
-<polyline
-   points="727.045,536.398 726.483,537.757 725.125,538.319 "
-   id="polyline1349-2"
-   data-element-id="element-1827-1761788125777" />
-<polyline
-   points="725.125,538.319 696.666,538.319 "
-   id="polyline1350-1"
-   data-element-id="element-1828-1761788125777" />
-<polyline
-   points="696.666,538.319 695.308,537.757 694.746,536.398 "
-   id="polyline1351-6"
-   data-element-id="element-1829-1761788125777" />
-<polyline
-   points="694.746,536.398 694.746,528.717 "
-   id="polyline1352-8"
-   data-element-id="element-1830-1761788125777" />
-</g><g
-   clip-path="url(#clipId0-9)"
-   fill="#000000"
-   stroke="#000000"
-   stroke-width="0"
-   id="SW_Pump2_Mode"
-   data-element-id="element-1831-1761788125777"
-   transform="translate(44.83868,-50.985726)">
-<text
-   transform="matrix(5.27796,0,0,5.27549,702.263,535.405)"
-   font-family="Calibri, sans-serif"
-   font-size="1.57532px"
-   id="text1352-7"
-   data-element-id="element-1832-1761788125777">MAN</text>
-</g><g
-   clip-path="url(#clipId0-9-1)"
-   fill="#e7e6e6"
-   stroke="#e7e6e6"
-   stroke-width="1"
-   id="g1345-4-5"
-   data-element-id="element-1811-1761788125777"
-   transform="translate(-47.228641,-49.531015)">
-<path
-   d="m 694.746,536.398 v -7.681 l 0.562,9.04 z"
-   id="path1336-5-4"
-   data-element-id="element-1812-1761788125777" />
-<path
-   d="m 695.308,537.757 -0.562,-9.04 0.562,-1.358 z"
-   id="path1337-5-3"
-   data-element-id="element-1813-1761788125777" />
-<path
-   d="m 695.308,537.757 v -10.398 l 1.358,10.96 z"
-   id="path1338-1-1"
-   data-element-id="element-1814-1761788125777" />
-<path
-   d="m 696.666,538.319 -1.358,-10.96 1.358,-0.562 z"
-   id="path1339-7-2"
-   data-element-id="element-1815-1761788125777" />
-<path
-   d="m 696.666,538.319 v -11.522 l 28.459,11.522 z"
-   id="path1340-1-3"
-   data-element-id="element-1816-1761788125777" />
-<path
-   d="m 725.125,538.319 -28.459,-11.522 h 28.459 z"
-   id="path1341-1-3"
-   data-element-id="element-1817-1761788125777" />
-<path
-   d="m 725.125,538.319 v -11.522 l 1.358,10.96 z"
-   id="path1342-5-4"
-   data-element-id="element-1818-1761788125777" />
-<path
-   d="m 726.483,537.757 -1.358,-10.96 1.358,0.562 z"
-   id="path1343-2-1"
-   data-element-id="element-1819-1761788125777" />
-<path
-   d="m 726.483,537.757 v -10.398 l 0.562,9.039 z"
-   id="path1344-7-1"
-   data-element-id="element-1820-1761788125777" />
-<path
-   d="m 727.045,536.398 -0.562,-9.039 0.562,1.358 z"
-   id="path1345-6-3"
-   data-element-id="element-1821-1761788125777" />
-</g><g
-   clip-path="url(#clipId0-9-1)"
-   fill="none"
-   stroke="#172c51"
-   stroke-width="0.09"
-   id="g54545"
-   data-element-id="element-1822-1761788125777"
-   transform="translate(-47.1285,-50.986)">
-<polyline
-   points="694.746,528.717 695.308,527.359 696.666,526.797 "
-   id="polyline1345-4-7"
-   data-element-id="element-1823-1761788125777" />
-<polyline
-   points="696.666,526.797 725.125,526.797 "
-   id="polyline1346-2-4"
-   data-element-id="element-1824-1761788125777" />
-<polyline
-   points="725.125,526.797 726.483,527.359 727.045,528.717 "
-   id="polyline1347-3-2"
-   data-element-id="element-1825-1761788125777" />
-<polyline
-   points="727.045,528.717 727.045,536.398 "
-   id="polyline1348-2-7"
-   data-element-id="element-1826-1761788125777" />
-<polyline
-   points="727.045,536.398 726.483,537.757 725.125,538.319 "
-   id="polyline1349-2-7"
-   data-element-id="element-1827-1761788125777" />
-<polyline
-   points="725.125,538.319 696.666,538.319 "
-   id="polyline1350-1-9"
-   data-element-id="element-1828-1761788125777" />
-<polyline
-   points="696.666,538.319 695.308,537.757 694.746,536.398 "
-   id="polyline1351-6-3"
-   data-element-id="element-1829-1761788125777" />
-<polyline
-   points="694.746,536.398 694.746,528.717 "
-   id="polyline1352-8-1"
-   data-element-id="element-1830-1761788125777" />
-</g><g
-   clip-path="url(#clipId0-9-1)"
-   fill="#000000"
-   stroke="#000000"
-   stroke-width="0"
-   id="SW_Pump1_Mode"
-   data-element-id="element-1831-1761788125777"
-   transform="translate(-47.228641,-50.986)"
-   style="display:inline">
-<text
-   transform="matrix(5.27796,0,0,5.27549,702.263,535.405)"
-   font-family="Calibri, sans-serif"
-   font-size="1.57532px"
-   id="text1352-7-8"
-   data-element-id="element-1832-1761788125777">MAN</text>
-</g>
 
 
 
-<g
-   clip-path="url(#clipId0)"
-   fill="#ccecff"
-   stroke="#ccecff"
-   stroke-width="1"
-   id="g1379"
-   data-element-id="element-1855-1761788125777"
-   transform="translate(3)">
-<path
-   d="m 642.519,506.869 v -12.466 l 0.912,14.671 z"
-   id="path1370"
-   data-element-id="element-1856-1761788125777" />
-<path
-   d="m 643.431,509.074 -0.912,-14.671 0.912,-2.205 z"
-   id="path1371"
-   data-element-id="element-1857-1761788125777" />
-<path
-   d="m 643.431,509.074 v -16.876 l 2.205,17.788 z"
-   id="path1372"
-   data-element-id="element-1858-1761788125777" />
-<path
-   d="m 645.636,509.986 -2.205,-17.788 2.205,-0.912 z"
-   id="path1373"
-   data-element-id="element-1859-1761788125777" />
-<path
-   d="m 645.636,509.986 v -18.7 l 29.183,18.7 z"
-   id="path1374"
-   data-element-id="element-1860-1761788125777" />
-<path
-   d="m 674.819,509.986 -29.183,-18.7 h 29.183 z"
-   id="path1375"
-   data-element-id="element-1861-1761788125777" />
-<path
-   d="m 674.819,509.986 v -18.7 l 2.204,17.788 z"
-   id="path1376"
-   data-element-id="element-1862-1761788125777" />
-<path
-   d="m 677.023,509.074 -2.204,-17.788 2.204,0.912 z"
-   id="path1377"
-   data-element-id="element-1863-1761788125777" />
-<path
-   d="m 677.023,509.074 v -16.876 l 0.912,14.671 z"
-   id="path1378"
-   data-element-id="element-1864-1761788125777" />
-<path
-   d="m 677.935,506.869 -0.912,-14.671 0.912,2.205 z"
-   id="path1379"
-   data-element-id="element-1865-1761788125777" />
-</g>
-<g
-   clip-path="url(#clipId0)"
-   fill="none"
-   stroke="#172c51"
-   stroke-width="0.09"
-   id="g1386"
-   data-element-id="element-1866-1761788125777"
-   transform="translate(3)">
-<polyline
-   points="642.519,494.403 643.431,492.198 645.636,491.286 "
-   id="polyline1379"
-   data-element-id="element-1867-1761788125777" />
-<polyline
-   points="645.636,491.286 674.819,491.286 "
-   id="polyline1380"
-   data-element-id="element-1868-1761788125777" />
-<polyline
-   points="674.819,491.286 677.023,492.198 677.935,494.403 "
-   id="polyline1381"
-   data-element-id="element-1869-1761788125777" />
-<polyline
-   points="677.935,494.403 677.935,506.869 "
-   id="polyline1382"
-   data-element-id="element-1870-1761788125777" />
-<polyline
-   points="677.935,506.869 677.023,509.074 674.819,509.986 "
-   id="polyline1383"
-   data-element-id="element-1871-1761788125777" />
-<polyline
-   points="674.819,509.986 645.636,509.986 "
-   id="polyline1384"
-   data-element-id="element-1872-1761788125777" />
-<polyline
-   points="645.636,509.986 643.431,509.074 642.519,506.869 "
-   id="polyline1385"
-   data-element-id="element-1873-1761788125777" />
-<polyline
-   points="642.519,506.869 642.519,494.403 "
-   id="polyline1386"
-   data-element-id="element-1874-1761788125777" />
-</g>
-<g
-   clip-path="url(#clipId0)"
-   fill="#000000"
-   stroke="#000000"
-   stroke-width="0"
-   id="g1387"
-   data-element-id="element-1875-1761788125777"
-   transform="translate(3)">
-<text
-   transform="matrix(4.49152,0,0,4.49615,651.868,498.824)"
-   font-family="Calibri, sans-serif"
-   font-size="1.57532px"
-   id="SW_Pump1_Auto"
-   data-element-id="element-1876-1761788125777">AUTO</text>
-<text
-   transform="matrix(4.46296,0,0,4.49615,649.698,507.324)"
-   font-family="Calibri, sans-serif"
-   font-size="1.57532px"
-   id="SW_Pump1_Hz"
-   data-element-id="element-1877-1761788125777">50.3 Hz</text>
-</g>
-<g
-   clip-path="url(#clipId0)"
-   fill="#e7e6e6"
-   stroke="#e7e6e6"
-   stroke-width="1"
-   id="g1396"
-   data-element-id="element-1878-1761788125777"
-   transform="translate(2)">
-<path
-   d="m 644.03,524.31 v -8.815 l 0.645,10.374 z"
-   id="path1387"
-   data-element-id="element-1879-1761788125777" />
-<path
-   d="m 644.675,525.869 -0.645,-10.374 0.645,-1.559 z"
-   id="path1388"
-   data-element-id="element-1880-1761788125777" />
-<path
-   d="m 644.675,525.869 v -11.933 l 1.559,12.577 z"
-   id="path1389"
-   data-element-id="element-1881-1761788125777" />
-<path
-   d="m 646.234,526.513 -1.559,-12.577 1.559,-0.644 z"
-   id="path1390"
-   data-element-id="element-1882-1761788125777" />
-<path
-   d="m 646.234,526.513 v -13.221 l 31.009,13.221 z"
-   id="path1391"
-   data-element-id="element-1883-1761788125777" />
-<path
-   d="m 677.243,526.513 -31.009,-13.221 h 31.009 z"
-   id="path1392"
-   data-element-id="element-1884-1761788125777" />
-<path
-   d="m 677.243,526.513 v -13.221 l 1.559,12.577 z"
-   id="path1393"
-   data-element-id="element-1885-1761788125777" />
-<path
-   d="m 678.802,525.869 -1.559,-12.577 1.559,0.644 z"
-   id="path1394"
-   data-element-id="element-1886-1761788125777" />
-<path
-   d="m 678.802,525.869 v -11.933 l 0.644,10.374 z"
-   id="path1395"
-   data-element-id="element-1887-1761788125777" />
-<path
-   d="m 679.446,524.31 -0.644,-10.374 0.644,1.559 z"
-   id="path1396"
-   data-element-id="element-1888-1761788125777" />
-</g>
-<g
-   clip-path="url(#clipId0)"
-   fill="#000000"
-   stroke="#000000"
-   stroke-width="0"
-   id="g1397"
-   data-element-id="element-1889-1761788125777"
-   transform="translate(2)">
-<text
-   transform="matrix(5.27647,0,0,5.27549,652.356,522.734)"
-   font-family="Calibri, sans-serif"
-   font-size="1.57532px"
-   id="SW_Pump1_hour"
-   data-element-id="element-1890-1761788125777">100 h</text>
-</g>
-<g
-   clip-path="url(#clipId0)"
-   fill="rgb(204,236,255)"
-   stroke="rgb(204,236,255)"
-   stroke-width="1"
-   id="g1406"
-   data-element-id="element-1891-1761788125777"
-   style="cursor: pointer;">
-<path
-   d="M737.812,506.869 737.812,494.403 738.724,509.074 z"
-   id="path1397"
-   data-element-id="element-1892-1761788125777"
-   style="cursor: pointer;" />
-<path
-   d="M738.724,509.074 737.812,494.403 738.724,492.198 z"
-   id="path1398"
-   data-element-id="element-1893-1761788125777"
-   style="cursor: pointer;" />
-<path
-   d="M738.724,509.074 738.724,492.198 740.928,509.986 z"
-   id="path1399"
-   data-element-id="element-1894-1761788125777"
-   style="cursor: pointer;" />
-<path
-   d="M740.928,509.986 738.724,492.198 740.928,491.286 z"
-   id="path1400"
-   data-element-id="element-1895-1761788125777"
-   style="cursor: pointer;" />
-<path
-   d="M740.928,509.986 740.928,491.286 770.111,509.986 z"
-   id="path1401"
-   data-element-id="element-1896-1761788125777"
-   style="cursor: pointer;" />
-<path
-   d="M770.111,509.986 740.928,491.286 770.111,491.286 z"
-   id="path1402"
-   data-element-id="element-1897-1761788125777"
-   style="cursor: pointer;" />
-<path
-   d="M770.111,509.986 770.111,491.286 772.315,509.074 z"
-   id="path1403"
-   data-element-id="element-1898-1761788125777"
-   style="cursor: pointer;" />
-<path
-   d="M772.315,509.074 770.111,491.286 772.315,492.198 z"
-   id="path1404"
-   data-element-id="element-1899-1761788125777"
-   style="cursor: pointer;" />
-<path
-   d="M772.315,509.074 772.315,492.198 773.227,506.869 z"
-   id="path1405"
-   data-element-id="element-1900-1761788125777"
-   style="cursor: pointer;" />
-<path
-   d="M773.227,506.869 772.315,492.198 773.227,494.403 z"
-   id="path1406"
-   data-element-id="element-1901-1761788125777"
-   style="cursor: pointer;" />
-</g>
-<g
-   clip-path="url(#clipId0)"
-   fill="none"
-   stroke="rgb(23,44,81)"
-   stroke-width="0.09"
-   id="g1413"
-   data-element-id="element-1902-1761788125777"
-   style="cursor: pointer;">
-<polyline
-   points="737.812,494.403 738.724,492.198 740.928,491.286 "
-   id="polyline1406"
-   data-element-id="element-1903-1761788125777"
-   style="cursor: pointer;" />
-<polyline
-   points="740.928,491.286 770.111,491.286 "
-   id="polyline1407"
-   data-element-id="element-1904-1761788125777"
-   style="cursor: pointer;" />
-<polyline
-   points="770.111,491.286 772.315,492.198 773.227,494.403 "
-   id="polyline1408"
-   data-element-id="element-1905-1761788125777"
-   style="cursor: pointer;" />
-<polyline
-   points="773.227,494.403 773.227,506.869 "
-   id="polyline1409"
-   data-element-id="element-1906-1761788125777"
-   style="cursor: pointer;" />
-<polyline
-   points="773.227,506.869 772.315,509.074 770.111,509.986 "
-   id="polyline1410"
-   data-element-id="element-1907-1761788125777"
-   style="cursor: pointer;" />
-<polyline
-   points="770.111,509.986 740.928,509.986 "
-   id="polyline1411"
-   data-element-id="element-1908-1761788125777"
-   style="cursor: pointer;" />
-<polyline
-   points="740.928,509.986 738.724,509.074 737.812,506.869 "
-   id="polyline1412"
-   data-element-id="element-1909-1761788125777"
-   style="cursor: pointer;" />
-<polyline
-   points="737.812,506.869 737.812,494.403 "
-   id="polyline1413"
-   data-element-id="element-1910-1761788125777"
-   style="cursor: pointer;" />
-</g>
-<g
-   clip-path="url(#clipId0)"
-   fill="rgb(0,0,0)"
-   stroke="rgb(0,0,0)"
-   stroke-width="0"
-   id="g1414"
-   data-element-id="element-1911-1761788125777"
-   style="cursor: pointer;">
-<text
-   transform="matrix(4.49152 0 -0 4.49615 747.082 498.824)"
-   font-family="Calibri,'sans-serif'"
-   font-size="1.57532"
-   id="SW_Pump2_Auto"
-   data-element-id="element-1912-1761788125777"
-   style="cursor: pointer;">AUTO</text>
-<text
-   transform="matrix(4.46296 0 -0 4.49615 744.912 507.324)"
-   font-family="Calibri,'sans-serif'"
-   font-size="1.57532"
-   id="SW_Pump2_Hz"
-   data-element-id="element-1913-1761788125777"
-   style="cursor: pointer;">50.3 Hz</text>
-</g>
-<g
-   clip-path="url(#clipId0)"
-   fill="rgb(231,230,230)"
-   stroke="rgb(231,230,230)"
-   stroke-width="1"
-   id="g1318"
-   data-element-id="element-1914-1761788125777"
-   style="cursor: pointer;">
-<path
-   d="M739.228,524.31 739.228,515.495 739.873,525.869 z"
-   id="path1414"
-   data-element-id="element-1915-1761788125777"
-   style="cursor: pointer;" />
-<path
-   d="M739.873,525.869 739.228,515.495 739.873,513.936 z"
-   id="path1415"
-   data-element-id="element-1916-1761788125777"
-   style="cursor: pointer;" />
-<path
-   d="M739.873,525.869 739.873,513.936 741.432,526.513 z"
-   id="path1416"
-   data-element-id="element-1917-1761788125777"
-   style="cursor: pointer;" />
-<path
-   d="M741.432,526.513 739.873,513.936 741.432,513.292 z"
-   id="path1417"
-   data-element-id="element-1918-1761788125777"
-   style="cursor: pointer;" />
-<path
-   d="M741.432,526.513 741.432,513.292 772.535,526.513 z"
-   id="path1418"
-   data-element-id="element-1919-1761788125777"
-   style="cursor: pointer;" />
-<path
-   d="M772.535,526.513 741.432,513.292 772.535,513.292 z"
-   id="path1419"
-   data-element-id="element-1920-1761788125777"
-   style="cursor: pointer;" />
-<path
-   d="M772.535,526.513 772.535,513.292 774.094,525.869 z"
-   id="path1420"
-   data-element-id="element-1921-1761788125777"
-   style="cursor: pointer;" />
-<path
-   d="M774.094,525.869 772.535,513.292 774.094,513.936 z"
-   id="path1421"
-   data-element-id="element-1922-1761788125777"
-   style="cursor: pointer;" />
-<path
-   d="M774.094,525.869 774.094,513.936 774.738,524.31 z"
-   id="path1422"
-   data-element-id="element-1923-1761788125777"
-   style="cursor: pointer;" />
-<path
-   d="M774.738,524.31 774.094,513.936 774.738,515.495 z"
-   id="path1423"
-   data-element-id="element-1924-1761788125777"
-   style="cursor: pointer;" />
-</g>
-<g
-   clip-path="url(#clipId0)"
-   fill="rgb(0,0,0)"
-   stroke="rgb(0,0,0)"
-   stroke-width="0"
-   id="g1424"
-   data-element-id="element-1925-1761788125777"
-   style="cursor: pointer;">
-<text
-   transform="matrix(5.27647 0 -0 5.27549 747.577 522.734)"
-   font-family="Calibri,'sans-serif'"
-   font-size="1.57532"
-   id="SW_Pump2_hour"
-   data-element-id="element-1926-1761788125777"
-   style="cursor: pointer;">100 h</text>
-</g>
-<g
-   clip-path="url(#clipId0)"
-   fill="rgb(204,236,255)"
-   stroke="rgb(204,236,255)"
-   stroke-width="1"
-   id="g1433"
-   data-element-id="element-1927-1761788125777"
-   style="cursor: pointer;">
-<path
-   d="M826.021,506.869 826.021,494.403 826.933,509.074 z"
-   id="path1424"
-   data-element-id="element-1928-1761788125777"
-   style="cursor: pointer;" />
-<path
-   d="M826.933,509.074 826.021,494.403 826.933,492.198 z"
-   id="path1425"
-   data-element-id="element-1929-1761788125777"
-   style="cursor: pointer;" />
-<path
-   d="M826.933,509.074 826.933,492.198 829.137,509.986 z"
-   id="path1426"
-   data-element-id="element-1930-1761788125777"
-   style="cursor: pointer;" />
-<path
-   d="M829.137,509.986 826.933,492.198 829.137,491.286 z"
-   id="path1427"
-   data-element-id="element-1931-1761788125777"
-   style="cursor: pointer;" />
-<path
-   d="M829.137,509.986 829.137,491.286 858.32,509.986 z"
-   id="path1428"
-   data-element-id="element-1932-1761788125777"
-   style="cursor: pointer;" />
-<path
-   d="M858.32,509.986 829.137,491.286 858.32,491.286 z"
-   id="path1429"
-   data-element-id="element-1933-1761788125777"
-   style="cursor: pointer;" />
-<path
-   d="M858.32,509.986 858.32,491.286 860.525,509.074 z"
-   id="path1430"
-   data-element-id="element-1934-1761788125777"
-   style="cursor: pointer;" />
-<path
-   d="M860.525,509.074 858.32,491.286 860.525,492.198 z"
-   id="path1431"
-   data-element-id="element-1935-1761788125777"
-   style="cursor: pointer;" />
-<path
-   d="M860.525,509.074 860.525,492.198 861.437,506.869 z"
-   id="path1432"
-   data-element-id="element-1936-1761788125777"
-   style="cursor: pointer;" />
-<path
-   d="M861.437,506.869 860.525,492.198 861.437,494.403 z"
-   id="path1433"
-   data-element-id="element-1937-1761788125777"
-   style="cursor: pointer;" />
-</g>
-<g
-   clip-path="url(#clipId0)"
-   fill="none"
-   stroke="rgb(23,44,81)"
-   stroke-width="0.09"
-   id="g1440"
-   data-element-id="element-1938-1761788125777"
-   style="cursor: pointer;">
-<polyline
-   points="826.021,494.403 826.933,492.198 829.137,491.286 "
-   id="polyline1433"
-   data-element-id="element-1939-1761788125777"
-   style="cursor: pointer;" />
-<polyline
-   points="829.137,491.286 858.32,491.286 "
-   id="polyline1434"
-   data-element-id="element-1940-1761788125777"
-   style="cursor: pointer;" />
-<polyline
-   points="858.32,491.286 860.525,492.198 861.437,494.403 "
-   id="polyline1435"
-   data-element-id="element-1941-1761788125777"
-   style="cursor: pointer;" />
-<polyline
-   points="861.437,494.403 861.437,506.869 "
-   id="polyline1436"
-   data-element-id="element-1942-1761788125777"
-   style="cursor: pointer;" />
-<polyline
-   points="861.437,506.869 860.525,509.074 858.32,509.986 "
-   id="polyline1437"
-   data-element-id="element-1943-1761788125777"
-   style="cursor: pointer;" />
-<polyline
-   points="858.32,509.986 829.137,509.986 "
-   id="polyline1438"
-   data-element-id="element-1944-1761788125777"
-   style="cursor: pointer;" />
-<polyline
-   points="829.137,509.986 826.933,509.074 826.021,506.869 "
-   id="polyline1439"
-   data-element-id="element-1945-1761788125777"
-   style="cursor: pointer;" />
-<polyline
-   points="826.021,506.869 826.021,494.403 "
-   id="polyline1440"
-   data-element-id="element-1946-1761788125777"
-   style="cursor: pointer;" />
-</g>
-<g
-   clip-path="url(#clipId0)"
-   fill="rgb(0,0,0)"
-   stroke="rgb(0,0,0)"
-   stroke-width="0"
-   id="g1441"
-   data-element-id="element-1947-1761788125777"
-   style="cursor: pointer;">
-<text
-   transform="matrix(4.49152 0 -0 4.49615 835.291 498.824)"
-   font-family="Calibri,'sans-serif'"
-   font-size="1.57532"
-   id="SW_Pump3_Auto"
-   data-element-id="element-1948-1761788125777"
-   style="cursor: pointer;">AUTO</text>
-<text
-   transform="matrix(4.46296 0 -0 4.49615 833.121 507.324)"
-   font-family="Calibri,'sans-serif'"
-   font-size="1.57532"
-   id="SW_Pump3_Hz"
-   data-element-id="element-1949-1761788125777"
-   style="cursor: pointer;">50.3 Hz</text>
-</g>
-<g
-   clip-path="url(#clipId0)"
-   fill="rgb(231,230,230)"
-   stroke="rgb(231,230,230)"
-   stroke-width="1"
-   id="g1450"
-   data-element-id="element-1950-1761788125777"
-   style="cursor: pointer;">
-<path
-   d="M827.437,524.31 827.437,515.495 828.082,525.869 z"
-   id="path1441"
-   data-element-id="element-1951-1761788125777"
-   style="cursor: pointer;" />
-<path
-   d="M828.082,525.869 827.437,515.495 828.082,513.936 z"
-   id="path1442"
-   data-element-id="element-1952-1761788125777"
-   style="cursor: pointer;" />
-<path
-   d="M828.082,525.869 828.082,513.936 829.641,526.513 z"
-   id="path1443"
-   data-element-id="element-1953-1761788125777"
-   style="cursor: pointer;" />
-<path
-   d="M829.641,526.513 828.082,513.936 829.641,513.292 z"
-   id="path1444"
-   data-element-id="element-1954-1761788125777"
-   style="cursor: pointer;" />
-<path
-   d="M829.641,526.513 829.641,513.292 860.744,526.513 z"
-   id="path1445"
-   data-element-id="element-1955-1761788125777"
-   style="cursor: pointer;" />
-<path
-   d="M860.744,526.513 829.641,513.292 860.744,513.292 z"
-   id="path1446"
-   data-element-id="element-1956-1761788125777"
-   style="cursor: pointer;" />
-<path
-   d="M860.744,526.513 860.744,513.292 862.303,525.869 z"
-   id="path1447"
-   data-element-id="element-1957-1761788125777"
-   style="cursor: pointer;" />
-<path
-   d="M862.303,525.869 860.744,513.292 862.303,513.936 z"
-   id="path1448"
-   data-element-id="element-1958-1761788125777"
-   style="cursor: pointer;" />
-<path
-   d="M862.303,525.869 862.303,513.936 862.948,524.31 z"
-   id="path1449"
-   data-element-id="element-1959-1761788125777"
-   style="cursor: pointer;" />
-<path
-   d="M862.948,524.31 862.303,513.936 862.948,515.495 z"
-   id="path1450"
-   data-element-id="element-1960-1761788125777"
-   style="cursor: pointer;" />
-</g>
-<g
-   clip-path="url(#clipId0)"
-   fill="rgb(0,0,0)"
-   stroke="rgb(0,0,0)"
-   stroke-width="0"
-   id="g1451"
-   data-element-id="element-1961-1761788125777"
-   style="cursor: pointer;">
-<text
-   transform="matrix(5.27647 0 -0 5.27549 835.802 522.734)"
-   font-family="Calibri,'sans-serif'"
-   font-size="1.57532"
-   id="SW_Pump3_hour"
-   data-element-id="element-1962-1761788125777"
-   style="cursor: pointer;">100 h</text>
-</g>
-<g
-   clip-path="url(#clipId0)"
-   fill="#ffffff"
-   stroke="#ffffff"
-   stroke-width="0.25"
-   fill-opacity="0.498039"
-   stroke-opacity="0.498039"
-   id="g1452"
-   data-element-id="element-1963-1761788125777"
-   transform="translate(8)">
-<path
-   d="m 938.596,444.726 h 39.005 v -14.449 h -39.005 z"
-   id="path1451"
-   data-element-id="element-1964-1761788125777" />
-</g>
-<g
-   clip-path="url(#clipId0)"
-   fill="none"
-   stroke="#ffffff"
-   stroke-width="0.35"
-   id="DPX1"
-   data-element-id="element-1965-1761788125777"
-   transform="translate(8)">
-<polyline
-   points="938.596,444.726 977.601,444.726 977.601,430.277 938.596,430.277 938.596,444.726 "
-   id="polyline1452"
-   data-element-id="element-1966-1761788125777" />
-</g>
-<g
-   clip-path="url(#clipId0)"
-   fill="rgb(255,255,255)"
-   stroke="rgb(255,255,255)"
-   stroke-width="0.25"
-   fill-opacity="0.498039"
-   stroke-opacity="0.498039"
-   id="g1454"
-   data-element-id="element-1967-1761788125777"
-   style="cursor: pointer;">
-<path
-   d="M815.632,326.107 854.637,326.107 854.637,311.657 815.632,311.657 z"
-   id="path1453"
-   data-element-id="element-1968-1761788125777"
-   style="cursor: pointer;" />
-</g>
-<g
-   clip-path="url(#clipId0)"
-   fill="none"
-   stroke="rgb(255,255,255)"
-   stroke-width="0.35"
-   id="TX1"
-   data-element-id="element-1969-1761788125777"
-   style="cursor: pointer;">
-<polyline
-   points="815.632,326.107 854.637,326.107 854.637,311.657 815.632,311.657 815.632,326.107 "
-   id="polyline1454"
-   data-element-id="element-1970-1761788125777"
-   style="cursor: pointer;" />
-</g>
-<g
-   clip-path="url(#clipId0)"
-   fill="rgb(255,255,255)"
-   stroke="rgb(255,255,255)"
-   stroke-width="0.25"
-   fill-opacity="0.498039"
-   stroke-opacity="0.498039"
-   id="g1456"
-   data-element-id="element-1971-1761788125777"
-   style="cursor: pointer;">
-<path
-   d="M557.899,303.63 596.904,303.63 596.904,289.274 557.899,289.274 z"
-   id="path1455"
-   data-element-id="element-1972-1761788125777"
-   style="cursor: pointer;" />
-</g>
-<g
-   clip-path="url(#clipId0)"
-   fill="none"
-   stroke="rgb(255,255,255)"
-   stroke-width="0.35"
-   id="TX3"
-   data-element-id="element-1973-1761788125777"
-   style="cursor: pointer;">
-<polyline
-   points="557.899,303.63 596.904,303.63 596.904,289.274 557.899,289.274 557.899,303.63 "
-   id="polyline1456"
-   data-element-id="element-1974-1761788125777"
-   style="cursor: pointer;" />
-</g>
-<g
-   clip-path="url(#clipId0)"
-   fill="rgb(255,255,255)"
-   stroke="rgb(255,255,255)"
-   stroke-width="0.25"
-   fill-opacity="0.498039"
-   stroke-opacity="0.498039"
-   id="g1458"
-   data-element-id="element-1975-1761788125777"
-   style="cursor: pointer;">
-<path
-   d="M426.719,437.549 465.723,437.549 465.723,423.099 426.719,423.099 z"
-   id="path1457"
-   data-element-id="element-1976-1761788125777"
-   style="cursor: pointer;" />
-</g>
-<g
-   clip-path="url(#clipId0)"
-   fill="none"
-   stroke="rgb(255,255,255)"
-   stroke-width="0.35"
-   id="TX5"
-   data-element-id="element-1977-1761788125777"
-   style="cursor: pointer;">
-<polyline
-   points="426.719,437.549 465.723,437.549 465.723,423.099 426.719,423.099 426.719,437.549 "
-   id="polyline1458"
-   data-element-id="element-1978-1761788125777"
-   style="cursor: pointer;" />
-</g>
-<g
-   clip-path="url(#clipId0)"
-   fill="rgb(255,255,255)"
-   stroke="rgb(255,255,255)"
-   stroke-width="0.25"
-   fill-opacity="0.498039"
-   stroke-opacity="0.498039"
-   id="g1460"
-   data-element-id="element-1979-1761788125777"
-   style="cursor: pointer;">
-<path
-   d="M313.388,161.4 352.298,161.4 352.298,146.95 313.388,146.95 z"
-   id="path1459"
-   data-element-id="element-1980-1761788125777"
-   style="cursor: pointer;" />
-</g>
-<g
-   clip-path="url(#clipId0)"
-   fill="none"
-   stroke="rgb(255,255,255)"
-   stroke-width="0.35"
-   id="TX4"
-   data-element-id="element-1981-1761788125777"
-   style="cursor: pointer;">
-<polyline
-   points="313.388,161.4 352.298,161.4 352.298,146.95 313.388,146.95 313.388,161.4 "
-   id="polyline1460"
-   data-element-id="element-1982-1761788125777"
-   style="cursor: pointer;" />
-</g>
-<g
-   clip-path="url(#clipId0)"
-   fill="#ffffff"
-   stroke="#ffffff"
-   stroke-width="0.25"
-   fill-opacity="0.498039"
-   stroke-opacity="0.498039"
-   id="g1462"
-   data-element-id="element-1983-1761788125777"
-   transform="translate(0,-2)">
-<path
-   d="m 558.749,161.4 h 39.005 v -14.45 h -39.005 z"
-   id="path1461"
-   data-element-id="element-1984-1761788125777" />
-</g>
-<g
-   clip-path="url(#clipId0)"
-   fill="none"
-   stroke="#ffffff"
-   stroke-width="0.35"
-   id="TX2"
-   data-element-id="element-1985-1761788125777"
-   transform="translate(0,-2)">
-<polyline
-   points="558.749,161.4 597.754,161.4 597.754,146.95 558.749,146.95 558.749,161.4 "
-   id="polyline1462"
-   data-element-id="element-1986-1761788125777" />
-</g>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 <text
@@ -13866,7 +11594,7 @@
    style="text-align:start;writing-mode:lr-tb;direction:ltr;white-space:pre;shape-inside:url(#rect11);display:inline;fill:#ffffff" /><g
    clip-path="url(#clipId0)"
    fill="none"
-   stroke="#000000"
+   stroke="#ffffff"
    stroke-width="0.53"
    id="g78"
    data-element-id="element-107-1761788125775"
@@ -14007,7 +11735,7 @@
    y="-8.8000002"
    width="2.5"
    height="6.8000002"
-   fill="#95a5a6"
+   fill="none"
    stroke="#7f8c8d"
    stroke-width="0.25"
    id="rect197" />
@@ -14117,7 +11845,7 @@
    y="-10.3"
    width="8.6000004"
    height="5.5"
-   fill="#ecf0f1"
+   fill="none"
    stroke="#bdc3c7"
    stroke-width="0.25"
    rx="0.5"
@@ -14144,4 +11872,124 @@
    id="rect201" />
 </g>
 
-</g></svg>
+</g><g clip-path="url(#clipId0)" id="g_auto_hz_bg_SW_Pump1">
+<rect x="650" y="365" width="73" height="25" rx="2" ry="2"
+      fill="rgba(10, 10, 10, 0.95)" stroke="#333333" stroke-width="0.8" />
+</g>
+<g clip-path="url(#clipId0)" fill="#ffffff" stroke="#ffffff" stroke-width="0" id="g_SW_Pump1_text">
+<text x="833" y="502" font-family="Calibri, sans-serif" font-size="7px"
+      id="SW_Pump1_Auto">AUTO</text>
+<text x="584" y="483" font-family="Calibri, sans-serif" font-size="7px"
+      id="SW_Pump1_Hz">50.3 Hz</text>
+</g>
+<g clip-path="url(#clipId0)" fill="#ffffff" stroke="none" id="g_SW_Pump1_rh">
+<text x="867" y="534" font-family="Calibri, sans-serif" font-size="6px"
+      id="SW_Pump1_RunningHour">0.0 h</text>
+</g>
+<g clip-path="url(#clipId0)" id="g_SW_Pump1_vfd">
+<rect x="650" y="522" width="73" height="18" rx="2" ry="2"
+      fill="#2a2a2a" stroke="#444444" stroke-width="0.8" />
+<text x="616" y="517" font-family="Calibri, sans-serif" font-size="6px"
+      fill="#ffffff" text-anchor="middle" id="SW_Pump1_VFD">VFD</text>
+</g>
+<g clip-path="url(#clipId0)" id="g_auto_hz_bg_SW_Pump2">
+<rect x="743" y="486" width="73" height="25" rx="2" ry="2"
+      fill="rgba(10, 10, 10, 0.95)" stroke="#333333" stroke-width="0.8" />
+</g>
+<g clip-path="url(#clipId0)" fill="#ffffff" stroke="#ffffff" stroke-width="0" id="g_SW_Pump2_text">
+<text x="734" y="473" font-family="Calibri, sans-serif" font-size="7px"
+      id="SW_Pump2_Auto">AUTO</text>
+<text x="734" y="483" font-family="Calibri, sans-serif" font-size="7px"
+      id="SW_Pump2_Hz">50.3 Hz</text>
+</g>
+<g clip-path="url(#clipId0)" fill="#ffffff" stroke="none" id="g_SW_Pump2_rh">
+<text x="734" y="498" font-family="Calibri, sans-serif" font-size="6px"
+      id="SW_Pump2_RunningHour">0.0 h</text>
+</g>
+<g clip-path="url(#clipId0)" id="g_SW_Pump2_vfd">
+<rect x="743" y="522" width="73" height="18" rx="2" ry="2"
+      fill="#2a2a2a" stroke="#444444" stroke-width="0.8" />
+<text x="766" y="517" font-family="Calibri, sans-serif" font-size="6px"
+      fill="#ffffff" text-anchor="middle" id="SW_Pump2_VFD">VFD</text>
+</g>
+<g clip-path="url(#clipId0)" id="g_auto_hz_bg_SW_Pump3">
+<rect x="831" y="486" width="73" height="25" rx="2" ry="2"
+      fill="rgba(10, 10, 10, 0.95)" stroke="#333333" stroke-width="0.8" />
+</g>
+<g clip-path="url(#clipId0)" fill="#ffffff" stroke="#ffffff" stroke-width="0" id="g_SW_Pump3_text">
+<text x="884" y="473" font-family="Calibri, sans-serif" font-size="7px"
+      id="SW_Pump3_Auto">AUTO</text>
+<text x="884" y="483" font-family="Calibri, sans-serif" font-size="7px"
+      id="SW_Pump3_Hz">50.3 Hz</text>
+</g>
+<g clip-path="url(#clipId0)" fill="#ffffff" stroke="none" id="g_SW_Pump3_rh">
+<text x="884" y="498" font-family="Calibri, sans-serif" font-size="6px"
+      id="SW_Pump3_RunningHour">0.0 h</text>
+</g>
+<g clip-path="url(#clipId0)" id="g_SW_Pump3_vfd">
+<rect x="831" y="522" width="73" height="18" rx="2" ry="2"
+      fill="#2a2a2a" stroke="#444444" stroke-width="0.8" />
+<text x="916" y="517" font-family="Calibri, sans-serif" font-size="6px"
+      fill="#ffffff" text-anchor="middle" id="SW_Pump3_VFD">VFD</text>
+</g>
+<g clip-path="url(#clipId0)" id="g_auto_hz_bg_LT_Pump1">
+<rect x="302" y="357" width="73" height="25" rx="2" ry="2"
+      fill="rgba(10, 10, 10, 0.95)" stroke="#333333" stroke-width="0.8" />
+</g>
+<g clip-path="url(#clipId0)" fill="#ffffff" stroke="#ffffff" stroke-width="0" id="g_LT_Pump1_text">
+<text x="159" y="578" font-family="Calibri, sans-serif" font-size="7px"
+      id="LT_Pump1_Auto">AUTO</text>
+<text x="159" y="588" font-family="Calibri, sans-serif" font-size="7px"
+      id="LT_Pump1_Hz">50.3 Hz</text>
+</g>
+<g clip-path="url(#clipId0)" fill="#ffffff" stroke="none" id="g_LT_Pump1_rh">
+<text x="159" y="603" font-family="Calibri, sans-serif" font-size="6px"
+      id="LT_Pump1_RunningHour">0.0 h</text>
+</g>
+<g clip-path="url(#clipId0)" id="g_LT_Pump1_vfd">
+<rect x="302" y="479" width="73" height="18" rx="2" ry="2"
+      fill="#2a2a2a" stroke="#444444" stroke-width="0.8" />
+<text x="191" y="622" font-family="Calibri, sans-serif" font-size="6px"
+      fill="#ffffff" text-anchor="middle" id="LT_Pump1_VFD">VFD</text>
+</g>
+<g clip-path="url(#clipId0)" id="g_auto_hz_bg_LT_Pump2">
+<rect x="302" y="443" width="73" height="25" rx="2" ry="2"
+      fill="rgba(10, 10, 10, 0.95)" stroke="#333333" stroke-width="0.8" />
+</g>
+<g clip-path="url(#clipId0)" fill="#ffffff" stroke="#ffffff" stroke-width="0" id="g_LT_Pump2_text">
+<text x="309" y="578" font-family="Calibri, sans-serif" font-size="7px"
+      id="LT_Pump2_Auto">AUTO</text>
+<text x="309" y="588" font-family="Calibri, sans-serif" font-size="7px"
+      id="LT_Pump2_Hz">50.3 Hz</text>
+</g>
+<g clip-path="url(#clipId0)" fill="#ffffff" stroke="none" id="g_LT_Pump2_rh">
+<text x="309" y="603" font-family="Calibri, sans-serif" font-size="6px"
+      id="LT_Pump2_RunningHour">0.0 h</text>
+</g>
+<g clip-path="url(#clipId0)" id="g_LT_Pump2_vfd">
+<rect x="302" y="479" width="73" height="18" rx="2" ry="2"
+      fill="#2a2a2a" stroke="#444444" stroke-width="0.8" />
+<text x="341" y="622" font-family="Calibri, sans-serif" font-size="6px"
+      fill="#ffffff" text-anchor="middle" id="LT_Pump2_VFD">VFD</text>
+</g>
+<g clip-path="url(#clipId0)" id="g_auto_hz_bg_LT_Pump3">
+<rect x="302" y="532" width="73" height="25" rx="2" ry="2"
+      fill="rgba(10, 10, 10, 0.95)" stroke="#333333" stroke-width="0.8" />
+</g>
+<g clip-path="url(#clipId0)" fill="#ffffff" stroke="#ffffff" stroke-width="0" id="g_LT_Pump3_text">
+<text x="459" y="578" font-family="Calibri, sans-serif" font-size="7px"
+      id="LT_Pump3_Auto">AUTO</text>
+<text x="459" y="588" font-family="Calibri, sans-serif" font-size="7px"
+      id="LT_Pump3_Hz">50.3 Hz</text>
+</g>
+<g clip-path="url(#clipId0)" fill="#ffffff" stroke="none" id="g_LT_Pump3_rh">
+<text x="459" y="603" font-family="Calibri, sans-serif" font-size="6px"
+      id="LT_Pump3_RunningHour">0.0 h</text>
+</g>
+<g clip-path="url(#clipId0)" id="g_LT_Pump3_vfd">
+<rect x="302" y="568" width="73" height="18" rx="2" ry="2"
+      fill="#2a2a2a" stroke="#444444" stroke-width="0.8" />
+<text x="491" y="622" font-family="Calibri, sans-serif" font-size="6px"
+      fill="#ffffff" text-anchor="middle" id="LT_Pump3_VFD">VFD</text>
+</g>
+</svg>

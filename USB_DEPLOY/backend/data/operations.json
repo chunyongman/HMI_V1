@@ -1,0 +1,52 @@
+{
+  "records": {
+    "SWP1_2025-11-16": {
+      "equipment_name": "SWP1",
+      "date": "2025-11-16",
+      "runtime_hours": 0.11237585638888889,
+      "start_count": 2,
+      "energy_kwh": 14.833613043333333,
+      "saved_kwh": 4.450083912999999
+    },
+    "SWP2_2025-11-16": {
+      "equipment_name": "SWP2",
+      "date": "2025-11-16",
+      "runtime_hours": 0.06335086166666666,
+      "start_count": 0,
+      "energy_kwh": 8.36231374,
+      "saved_kwh": 2.5086941219999996
+    },
+    "SWP3_2025-11-16": {
+      "equipment_name": "SWP3",
+      "date": "2025-11-16",
+      "runtime_hours": 0,
+      "start_count": 1,
+      "energy_kwh": 0,
+      "saved_kwh": 0
+    },
+    "SWP1_2025-11-17": {
+      "equipment_name": "SWP1",
+      "date": "2025-11-17",
+      "runtime_hours": 0.6660149877777778,
+      "start_count": 2,
+      "energy_kwh": 87.91397838666667,
+      "saved_kwh": 8.306218227999999
+    },
+    "SWP3_2025-11-17": {
+      "equipment_name": "SWP3",
+      "date": "2025-11-17",
+      "runtime_hours": 0.015427675555555555,
+      "start_count": 1,
+      "energy_kwh": 2.0364531733333333,
+      "saved_kwh": 0.610935952
+    },
+    "SWP2_2025-11-17": {
+      "equipment_name": "SWP2",
+      "date": "2025-11-17",
+      "runtime_hours": 0.4691737463888889,
+      "start_count": 1,
+      "energy_kwh": 61.930934523333335,
+      "saved_kwh": 18.579280357
+    }
+  }
+}

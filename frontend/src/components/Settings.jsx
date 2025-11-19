@@ -125,13 +125,6 @@ function Settings() {
         )}
       </div>
 
-      {/* 저장 버튼 */}
-      <div className="settings-footer">
-        <button className="btn-save" onClick={handleSave}>
-          💾 설정 저장
-        </button>
-        {saved && <span className="save-success">✅ 저장 완료!</span>}
-      </div>
     </div>
   )
 }

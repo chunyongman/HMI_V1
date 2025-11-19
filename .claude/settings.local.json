@@ -46,7 +46,16 @@
       "Bash(cmd /c \"taskkill /F /IM python.exe\")",
       "Bash(git add:*)",
       "Bash(git commit:*)",
-      "Bash(cmd /c \"for /f \"tokens=5\" %a in (''netstat -ano ^| findstr :5173 ^| findstr LISTENING'') do taskkill /F /PID %a\")"
+      "Bash(cmd /c \"for /f \"tokens=5\" %a in (''netstat -ano ^| findstr :5173 ^| findstr LISTENING'') do taskkill /F /PID %a\")",
+      "Bash(cmd /c \"taskkill /F /PID 21140 && taskkill /F /PID 25132\")",
+      "Bash(copy cooling_diagram_new.svg cooling_diagram_new.svg.tmp)",
+      "Bash(cooling_diagram_new.svg)",
+      "Bash(cmd /c \"taskkill /F /IM node.exe\")",
+      "Bash(cmd /c \"taskkill /F /PID 29164 && taskkill /F /PID 24256\")",
+      "Bash(tasklist:*)",
+      "Bash(src/components/DynamicSVGDiagram.jsx)",
+      "Bash(cmd /c \"taskkill /F /PID 23912\")",
+      "Bash(copy:*)"
     ],
     "deny": [],
     "ask": []
