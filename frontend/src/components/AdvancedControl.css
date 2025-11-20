@@ -13,7 +13,7 @@
   background: #1e293b;
   border-radius: 0.75rem;
   padding: 0.75rem 1rem;
-  border-left: 4px solid #f59e0b;
+  border-left: 4px solid #3b82f6;
   display: none;
 }
 
@@ -56,7 +56,7 @@
 }
 
 .control-tabs button.active {
-  background: #f59e0b;
+  background: #6366f1;  /* 하위 탭: 인디고 */
   color: white;
 }
 
@@ -217,7 +217,7 @@
 }
 
 .switch-label {
-  font-size: 0.7rem;
+  font-size: 0.9rem;
   color: #cbd5e1;
   font-weight: 600;
   text-transform: uppercase;
@@ -242,12 +242,12 @@
 }
 
 .switch-buttons button:hover {
-  border-color: #f59e0b;
+  border-color: #3b82f6;
 }
 
 .switch-buttons button.active {
-  background: #f59e0b;
-  border-color: #f59e0b;
+  background: #3b82f6;  /* 하단 선택 버튼: 부드러운 파란색 */
+  border-color: #3b82f6;
   color: white;
 }
 
@@ -265,7 +265,7 @@
 
 .mode-info .info-row span:first-child {
   color: #94a3b8;
-  font-size: 0.7rem;
+  font-size: 0.9rem;
   font-weight: 600;
   text-transform: uppercase;
 }
@@ -315,7 +315,7 @@
 }
 
 .pid-parameter label {
-  font-size: 0.75rem;
+  font-size: 0.9rem;
   font-weight: 600;
   color: #cbd5e1;
   text-transform: uppercase;
@@ -363,7 +363,7 @@
 
 .btn-apply {
   padding: 0.75rem 2rem;
-  background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+  background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);  /* PID 적용 버튼: 부드러운 파란색 */
   border: none;
   border-radius: 0.5rem;
   color: white;
@@ -375,7 +375,7 @@
 
 .btn-apply:hover {
   transform: translateY(-2px);
-  box-shadow: 0 8px 16px rgba(245, 158, 11, 0.4);
+  box-shadow: 0 8px 16px rgba(37, 99, 235, 0.4);
 }
 
 /* VFD 정보 */
@@ -402,12 +402,12 @@
 }
 
 .pump-select-btn:hover {
-  border-color: #f59e0b;
+  border-color: #f97316;
 }
 
 .pump-select-btn.active {
-  background: #f59e0b;
-  border-color: #f59e0b;
+  background: #f97316;
+  border-color: #f97316;
   color: white;
 }
 
@@ -484,7 +484,7 @@
 
 .vfd-label {
   color: #94a3b8;
-  font-size: 0.75rem;
+  font-size: 0.9rem;
   font-weight: 600;
   text-transform: uppercase;
 }
@@ -496,7 +496,7 @@
 }
 
 .vfd-value.highlight {
-  color: #f59e0b;
+  color: #3b82f6;
   font-size: 1.25rem;
 }
 

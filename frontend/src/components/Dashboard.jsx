@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import './Dashboard.css'
 
 function Dashboard({ sensors = {}, pumps = [], fans = [] }) {
@@ -10,8 +10,107 @@ function Dashboard({ sensors = {}, pumps = [], fans = [] }) {
   const runningPumps = pumps.filter(p => p.running).length
   const runningFans = fans.filter(f => f.running_fwd || f.running_bwd).length
 
+  // 에너지 절감률 데이터
+  const [energySavings, setEnergySavings] = useState(null)
+
+  // AI 목표 주파수 제어 데이터
+  const [aiFreqControl, setAiFreqControl] = useState([])
+
+  // 에너지 절감 상세 요약 데이터
+  const [energySavingsSummary, setEnergySavingsSummary] = useState([])
+
+  // 에너지 절감률 데이터 가져오기
+  useEffect(() => {
+    const fetchEnergySavings = async () => {
+      try {
+        const response = await fetch('http://localhost:8000/api/energy-savings')
+        const result = await response.json()
+        if (result.success) {
+          setEnergySavings(result.data)
+        }
+      } catch (error) {
+        console.error('에너지 절감률 데이터 로드 실패:', error)
+      }
+    }
+
+    fetchEnergySavings()
+    const interval = setInterval(fetchEnergySavings, 2000) // 2초마다 업데이트
+
+    return () => clearInterval(interval)
+  }, [])
+
+  // AI 목표 주파수 제어 데이터 가져오기
+  useEffect(() => {
+    const fetchAiFreqControl = async () => {
+      try {
+        const response = await fetch('http://localhost:8000/api/ai-frequency-control')
+        const result = await response.json()
+        if (result.success) {
+          setAiFreqControl(result.data)
+        }
+      } catch (error) {
+        console.error('AI 주파수 제어 데이터 로드 실패:', error)
+      }
+    }
+
+    fetchAiFreqControl()
+    const interval = setInterval(fetchAiFreqControl, 2000) // 2초마다 업데이트
+
+    return () => clearInterval(interval)
+  }, [])
+
+  // 에너지 절감 상세 요약 데이터 가져오기
+  useEffect(() => {
+    const fetchEnergySavingsSummary = async () => {
+      try {
+        const response = await fetch('http://localhost:8000/api/energy-savings-summary')
+        const result = await response.json()
+        if (result.success) {
+          setEnergySavingsSummary(result.data)
+        }
+      } catch (error) {
+        console.error('에너지 절감 상세 요약 데이터 로드 실패:', error)
+      }
+    }
+
+    fetchEnergySavingsSummary()
+    const interval = setInterval(fetchEnergySavingsSummary, 2000) // 2초마다 업데이트
+
+    return () => clearInterval(interval)
+  }, [])
+
   return (
     <div className="dashboard">
+      {/* 에너지 절감률 */}
+      {energySavings && (
+        <section className="dashboard-section">
+          <h2>💡 에너지 절감률 (60Hz 고정 대비 VFD 가변)</h2>
+          <div className="energy-savings-container">
+            <EnergySavingsCard data={energySavings} />
+          </div>
+        </section>
+      )}
+
+      {/* Energy Saving Summary Table */}
+      {energySavingsSummary.length > 0 && (
+        <section className="dashboard-section">
+          <h2>📋 Energy Saving Summary Table</h2>
+          <div className="energy-summary-table-container">
+            <EnergySavingSummaryTable data={energySavingsSummary} />
+          </div>
+        </section>
+      )}
+
+      {/* AI 목표 vs 실제 주파수 현황 */}
+      {aiFreqControl.length > 0 && (
+        <section className="dashboard-section">
+          <h2>📈 AI 목표 vs 실제 주파수 현황</h2>
+          <div className="ai-freq-control-container">
+            <AIFrequencyControlTable data={aiFreqControl} />
+          </div>
+        </section>
+      )}
+
       {/* 시스템 개요 */}
       <section className="dashboard-section">
         <h2>📊 시스템 개요</h2>
@@ -161,16 +260,16 @@ function PumpCard({ pump }) {
           <span className="detail-value">{pump.power_kw || 0} kW</span>
         </div>
         <div className="pump-detail-row">
-          <span className="detail-label">절감 전력</span>
-          <span className="detail-value highlight">{pump.saved_kwh?.toLocaleString() || 0} kWh</span>
-        </div>
-        <div className="pump-detail-row">
           <span className="detail-label">절감률</span>
           <span className="detail-value highlight">{avgSavingRatio}%</span>
         </div>
         <div className="pump-detail-row">
           <span className="detail-label">운전 시간</span>
           <span className="detail-value">{pump.run_hours?.toLocaleString() || 0} h</span>
+        </div>
+        <div className="pump-detail-row">
+          <span className="detail-label">누적 절감 전력</span>
+          <span className="detail-value highlight">{pump.saved_kwh?.toLocaleString() || 0} kWh</span>
         </div>
       </div>
     </div>
@@ -220,10 +319,6 @@ function FanCard({ fan }) {
           <span className="detail-value">{fan.power_kw || 0} kW</span>
         </div>
         <div className="pump-detail-row">
-          <span className="detail-label">절감 전력</span>
-          <span className="detail-value highlight">{fan.saved_kwh?.toLocaleString() || 0} kWh</span>
-        </div>
-        <div className="pump-detail-row">
           <span className="detail-label">절감률</span>
           <span className="detail-value highlight">{avgSavingRatio}%</span>
         </div>
@@ -231,7 +326,213 @@ function FanCard({ fan }) {
           <span className="detail-label">운전 시간</span>
           <span className="detail-value">{fan.run_hours?.toLocaleString() || 0} h</span>
         </div>
+        <div className="pump-detail-row">
+          <span className="detail-label">누적 절감 전력</span>
+          <span className="detail-value highlight">{fan.saved_kwh?.toLocaleString() || 0} kWh</span>
+        </div>
       </div>
+    </div>
+  )
+}
+
+// 에너지 절감률 카드 컴포넌트
+function EnergySavingsCard({ data }) {
+  const { realtime, today, month } = data
+  const { total, swp, fwp, fan } = realtime
+
+  return (
+    <div className="energy-savings-card">
+      {/* 실시간 + 누적 절감 현황 */}
+      <div className="energy-total-section">
+        <div className="energy-total-header">
+          <h3>💡 에너지 절감 현황</h3>
+        </div>
+
+        {/* 실시간 절감률 */}
+        <div className="energy-total-info">
+          <div className="realtime-section">
+            <div className="section-title">🔴 실시간 순간 절감률</div>
+            <div className="energy-comparison">
+              <span className="energy-label">60Hz 고정:</span>
+              <span className="energy-value">{total.power_60hz.toLocaleString()} kW</span>
+            </div>
+            <div className="energy-comparison">
+              <span className="energy-label">VFD 가변:</span>
+              <span className="energy-value vfd-value">{total.power_vfd.toLocaleString()} kW</span>
+            </div>
+            <div className="energy-savings-highlight">
+              <span className="savings-label">절감 전력:</span>
+              <span className="savings-value">
+                {total.savings_kw.toLocaleString()} kW
+                <span className="savings-rate"> ({total.savings_rate}% ↓)</span>
+              </span>
+            </div>
+          </div>
+
+          {/* 누적 절감률 */}
+          <div className="accumulated-section">
+            <div className="accumulated-item">
+              <div className="section-title">📅 오늘 누적 (00:00부터)</div>
+              <div className="accumulated-value">
+                <span className="kwh-value">{today.total_kwh_saved.toLocaleString()} kWh</span>
+                <span className="rate-badge">평균 {today.avg_savings_rate}% 절감</span>
+              </div>
+            </div>
+            <div className="accumulated-item">
+              <div className="section-title">📊 이번 달 누적 (1일부터)</div>
+              <div className="accumulated-value">
+                <span className="kwh-value">{month.total_kwh_saved.toLocaleString()} kWh</span>
+                <span className="rate-badge">평균 {month.avg_savings_rate}% 절감</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* 시스템별 절감률 */}
+      <div className="energy-details-section">
+        <h4>시스템별 절감률</h4>
+        <div className="energy-systems-grid">
+          <SystemSavingsRow label="SWP" data={swp} color="#38bdf8" />
+          <SystemSavingsRow label="FWP" data={fwp} color="#34d399" />
+          <SystemSavingsRow label="E/R FAN" data={fan} color="#fbbf24" />
+        </div>
+      </div>
+    </div>
+  )
+}
+
+// 시스템별 절감률 행
+function SystemSavingsRow({ label, data, color }) {
+  return (
+    <div className="system-savings-row">
+      <div className="system-label" style={{ borderLeft: `4px solid ${color}` }}>
+        {label}
+      </div>
+      <div className="system-savings-data">
+        <div className="system-power">
+          <span className="power-value">{data.savings_kw} kW</span>
+        </div>
+        <div className="system-progress">
+          <div className="progress-bar-container">
+            <div
+              className="progress-bar-fill"
+              style={{
+                width: `${Math.min(data.savings_rate, 100)}%`,
+                backgroundColor: color
+              }}
+            />
+          </div>
+          <span className="progress-rate">{data.savings_rate}%</span>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+// AI 목표 주파수 제어 테이블 컴포넌트
+function AIFrequencyControlTable({ data }) {
+  // 그룹별로 데이터 정리
+  const groupedData = {
+    'SW 펌프': data.filter(item => item.group === 'SW 펌프'),
+    'FW 펌프': data.filter(item => item.group === 'FW 펌프'),
+    'E/R 팬': data.filter(item => item.group === 'E/R 팬')
+  }
+
+  return (
+    <div className="ai-freq-table-wrapper">
+      <table className="ai-freq-table">
+        <thead>
+          <tr>
+            <th>그룹</th>
+            <th>장비명</th>
+            <th>제어 모드</th>
+            <th>입력 조건</th>
+            <th>목표 주파수</th>
+            <th>실제 주파수</th>
+            <th>편차</th>
+            <th>판단</th>
+          </tr>
+        </thead>
+        <tbody>
+          {Object.entries(groupedData).map(([groupName, items]) => (
+            items.map((item, idx) => (
+              <tr key={`${groupName}-${idx}`} className={`status-${item.status}`}>
+                {idx === 0 && (
+                  <td rowSpan={items.length} className="group-cell">
+                    {groupName}
+                  </td>
+                )}
+                <td>{item.name}</td>
+                <td className={item.mode === 'AI 제어' ? 'mode-ai' : 'mode-stop'}>
+                  {item.mode}
+                </td>
+                <td className="input-conditions">{item.input_conditions}</td>
+                <td className="freq-value">{item.target_frequency.toFixed(1)} Hz</td>
+                <td className="freq-value">{item.actual_frequency.toFixed(1)} Hz</td>
+                <td className={`deviation ${Math.abs(item.deviation) < 0.3 ? 'good' : Math.abs(item.deviation) < 1.0 ? 'warning' : 'alert'}`}>
+                  {item.deviation >= 0 ? '+' : ''}{item.deviation.toFixed(2)} Hz
+                </td>
+                <td className="status-cell">
+                  {item.status === '정상' && <span className="status-badge status-normal">✓ 정상</span>}
+                  {item.status === '주의' && <span className="status-badge status-warning">⚠ 주의</span>}
+                  {item.status === '경고' && <span className="status-badge status-alert">⚠ 경고</span>}
+                  {item.status === '-' && <span className="status-badge status-stopped">-</span>}
+                </td>
+              </tr>
+            ))
+          ))}
+        </tbody>
+      </table>
+    </div>
+  )
+}
+
+// Energy Saving Summary Table 컴포넌트
+function EnergySavingSummaryTable({ data }) {
+  // 장비 타입 결정 함수
+  const getEquipmentType = (name) => {
+    if (name.startsWith('SWP')) return 'swp'
+    if (name.startsWith('FWP')) return 'fwp'
+    if (name.startsWith('FAN')) return 'fan'
+    return ''
+  }
+
+  return (
+    <div className="energy-summary-table-wrapper">
+      <table className="energy-summary-table">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Motor Capacity (kW)</th>
+            <th>Actual Freq. (Hz)</th>
+            <th>Actual Power (kW)</th>
+            <th>KW Average</th>
+            <th>Saved Power (kWh)</th>
+            <th>Saved Ratio (%)</th>
+            <th>Running Hours in ESS Mode</th>
+          </tr>
+        </thead>
+        <tbody>
+          {data.map((item, index) => {
+            const equipmentType = getEquipmentType(item.name)
+            return (
+              <tr key={index} className={`equipment-row ${equipmentType}`}>
+                <td className="name-cell">{item.name}</td>
+                <td className="numeric-cell">{item.motor_capacity}</td>
+                <td className="numeric-cell">{item.actual_freq}</td>
+                <td className="numeric-cell">{item.actual_power}</td>
+                <td className="numeric-cell">{item.kw_average}</td>
+                <td className="numeric-cell">{item.saved_kwh}</td>
+                <td className={`numeric-cell ratio-cell ${item.saved_ratio > 0 ? 'positive' : ''}`}>
+                  {item.saved_ratio}
+                </td>
+                <td className="numeric-cell">{item.run_hours_ess.toLocaleString()}</td>
+              </tr>
+            )
+          })}
+        </tbody>
+      </table>
     </div>
   )
 }

@@ -377,13 +377,7 @@ function App() {
           className={activeTab === 'control' ? 'active' : ''}
           onClick={() => setActiveTab('control')}
         >
-          ⚙️ 펌프 제어
-        </button>
-        <button
-          className={activeTab === 'fan' ? 'active' : ''}
-          onClick={() => setActiveTab('fan')}
-        >
-          🌀 팬 제어
+          ⚙️ 운전 제어
         </button>
         <button
           className={activeTab === 'advanced' ? 'active' : ''}
@@ -449,15 +443,9 @@ function App() {
         {activeTab === 'control' && (
           <PumpControl
             pumps={pumps}
+            fans={fans}
             onCommand={sendEquipmentCommand}
             onPumpCommand={sendPumpCommand}
-          />
-        )}
-        {activeTab === 'fan' && (
-          <PumpControl
-            pumps={fans}
-            isFanMode={true}
-            onCommand={sendEquipmentCommand}
           />
         )}
         {activeTab === 'advanced' && (

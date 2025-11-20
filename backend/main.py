@@ -45,6 +45,73 @@ alarm_manager = AlarmManager(data_dir="data")
 # WebSocket 연결 관리
 active_connections: List[WebSocket] = []
 
+# VFD 누적 통계 추적
+vfd_stats = {
+    "SW_PUMP_1": {"trip_count": 0, "error_count": 0, "warning_count": 0, "prev_patterns": []},
+    "SW_PUMP_2": {"trip_count": 0, "error_count": 0, "warning_count": 0, "prev_patterns": []},
+    "SW_PUMP_3": {"trip_count": 0, "error_count": 0, "warning_count": 0, "prev_patterns": []},
+    "FW_PUMP_1": {"trip_count": 0, "error_count": 0, "warning_count": 0, "prev_patterns": []},
+    "FW_PUMP_2": {"trip_count": 0, "error_count": 0, "warning_count": 0, "prev_patterns": []},
+    "FW_PUMP_3": {"trip_count": 0, "error_count": 0, "warning_count": 0, "prev_patterns": []},
+    "ER_FAN_1": {"trip_count": 0, "error_count": 0, "warning_count": 0, "prev_patterns": []},
+    "ER_FAN_2": {"trip_count": 0, "error_count": 0, "warning_count": 0, "prev_patterns": []},
+    "ER_FAN_3": {"trip_count": 0, "error_count": 0, "warning_count": 0, "prev_patterns": []},
+    "ER_FAN_4": {"trip_count": 0, "error_count": 0, "warning_count": 0, "prev_patterns": []},
+}
+
+# VFD 이상 상태 지속 추적 (확인 전까지 유지)
+vfd_anomaly_state = {
+    "SW_PUMP_1": None,
+    "SW_PUMP_2": None,
+    "SW_PUMP_3": None,
+    "FW_PUMP_1": None,
+    "FW_PUMP_2": None,
+    "FW_PUMP_3": None,
+    "ER_FAN_1": None,
+    "ER_FAN_2": None,
+    "ER_FAN_3": None,
+    "ER_FAN_4": None,
+}
+
+# VFD 이상 신호 주기 발생을 위한 변수
+vfd_anomaly_timer = {
+    "last_anomaly_time": None,
+    "interval_seconds": 120  # 2분 = 120초
+}
+
+# AI 목표 주파수 데이터 (EDGE AI에서 계산하여 PLC를 통해 받음)
+# target_frequency: AI가 계산한 목표 주파수
+# actual_frequency: 실제 VFD 피드백 주파수
+# deviation: 편차 (actual - target)
+# status: 정상/주의/경고
+ai_frequency_control = []
+
+# 에너지 절감 상세 요약 데이터 (각 장비별 상세 정보)
+energy_savings_summary = []
+
+# 에너지 절감률 데이터 (EDGE AI에서 계산하여 PLC를 통해 받음)
+# realtime: 실시간 순간 절감률
+# today: 오늘 누적 (00:00부터)
+# month: 이번 달 누적 (1일부터)
+energy_savings_data = {
+    "realtime": {
+        "total": {"power_60hz": 0, "power_vfd": 0, "savings_kw": 0, "savings_rate": 0},
+        "swp": {"power_60hz": 0, "power_vfd": 0, "savings_kw": 0, "savings_rate": 0},
+        "fwp": {"power_60hz": 0, "power_vfd": 0, "savings_kw": 0, "savings_rate": 0},
+        "fan": {"power_60hz": 0, "power_vfd": 0, "savings_kw": 0, "savings_rate": 0}
+    },
+    "today": {
+        "total_kwh_saved": 0.0,
+        "avg_savings_rate": 0.0,
+        "start_time": ""
+    },
+    "month": {
+        "total_kwh_saved": 0.0,
+        "avg_savings_rate": 0.0,
+        "start_time": ""
+    }
+}
+
 
 # 요청/응답 모델
 class EquipmentCommand(BaseModel):
@@ -59,6 +126,11 @@ class SettingUpdate(BaseModel):
 
 class AlarmAck(BaseModel):
     alarm_id: str
+    user: str = "Operator"
+
+
+class VFDAnomalyAck(BaseModel):
+    vfd_id: str
     user: str = "Operator"
 
 
@@ -164,6 +236,7 @@ async def get_fans():
 @app.get("/api/vfd/diagnostics")
 async def get_vfd_diagnostics():
     """VFD 예방진단 데이터 조회 (Edge AI 분석 결과)"""
+    logger.info("🔍 get_vfd_diagnostics() 함수 호출됨!!!")
     import json
     from pathlib import Path
 
@@ -188,6 +261,34 @@ async def get_vfd_diagnostics():
 
     # PLC 클라이언트에서 장비 데이터 가져오기
     equipment_data = plc_client.get_all_equipment_data()
+
+    # 2분마다 랜덤 VFD에 이상 신호 발생
+    from datetime import datetime, timedelta
+    current_time = datetime.now()
+
+    if vfd_anomaly_timer["last_anomaly_time"] is None:
+        # 첫 실행 시 타이머 시작
+        vfd_anomaly_timer["last_anomaly_time"] = current_time
+        logger.info("🕐 VFD 이상 신호 타이머 시작")
+
+    # 마지막 이상 발생으로부터 2분이 지났는지 확인
+    time_elapsed = (current_time - vfd_anomaly_timer["last_anomaly_time"]).total_seconds()
+    should_generate_anomaly = time_elapsed >= vfd_anomaly_timer["interval_seconds"]
+
+    # 2분마다 랜덤 VFD 선택하여 이상 신호 발생
+    target_vfd_for_anomaly = None
+    if should_generate_anomaly:
+        # 모든 VFD ID 리스트
+        all_vfd_ids = list(vfd_anomaly_state.keys())
+        # 이미 이상 상태가 없는 VFD만 선택 (중복 방지)
+        available_vfds = [vfd_id for vfd_id in all_vfd_ids if vfd_anomaly_state[vfd_id] is None]
+
+        if available_vfds:
+            target_vfd_for_anomaly = random.choice(available_vfds)
+            logger.info(f"⏰ 2분 경과 - 새 이상 신호 발생 대상: {target_vfd_for_anomaly}")
+            vfd_anomaly_timer["last_anomaly_time"] = current_time
+        else:
+            logger.info("⏰ 2분 경과 - 모든 VFD에 이미 이상 상태 존재, 대기 중")
 
     vfd_diagnostics = {}
 
@@ -227,31 +328,88 @@ async def get_vfd_diagnostics():
         # 전류 시뮬레이션 (주파수에 비례)
         current = (freq / 60.0) * 150 if is_running else 0.0
 
-        # 온도 기반 상태 등급
-        if temp > 75:
-            status_grade = "critical"
-            severity_score = 85
-            maintenance_priority = 5
-            anomaly_score = 80
-            anomaly_patterns = ["MOTOR_OVERTEMP"]
-        elif temp > 70:
-            status_grade = "warning"
-            severity_score = 65
-            maintenance_priority = 3
-            anomaly_score = 60
-            anomaly_patterns = ["MOTOR_TEMP_HIGH", "HEATSINK_OVERTEMP"]
-        elif temp > 60:
-            status_grade = "caution"
-            severity_score = 35
-            maintenance_priority = 1
-            anomaly_score = 30
-            anomaly_patterns = []
+        # 모든 가능한 이상 패턴 정의
+        all_anomaly_patterns = {
+            "critical": [
+                "MOTOR_OVERTEMP",
+                "DC_BUS_OVERVOLTAGE",
+                "OVERCURRENT_TRIP",
+                "BEARING_FAILURE",
+                "IGBT_FAULT"
+            ],
+            "warning": [
+                "MOTOR_TEMP_HIGH",
+                "HEATSINK_OVERTEMP",
+                "COOLING_FAN_DEGRADATION",
+                "VOLTAGE_FLUCTUATION",
+                "CURRENT_IMBALANCE"
+            ],
+            "caution": [
+                "TEMP_RISING_TREND",
+                "VIBRATION_INCREASED",
+                "EFFICIENCY_DEGRADATION",
+                "NOISE_LEVEL_HIGH"
+            ]
+        }
+
+        # 기존에 확인되지 않은 이상 상태가 있으면 그것을 계속 유지
+        if vfd_anomaly_state[vfd_id] is not None:
+            # 저장된 이상 상태 사용 - 확인될 때까지 계속 유지
+            persisted_state = vfd_anomaly_state[vfd_id]
+            status_grade = persisted_state["status_grade"]
+            severity_score = persisted_state["severity_score"]
+            maintenance_priority = persisted_state["maintenance_priority"]
+            anomaly_score = persisted_state["anomaly_score"]
+            anomaly_patterns = persisted_state["anomaly_patterns"]
+            temp = persisted_state["temp"]
+            logger.info(f"🔒 VFD {vfd_id}: 지속 중인 이상 상태 유지 - {status_grade}, 패턴: {anomaly_patterns}")
+        elif vfd_id == target_vfd_for_anomaly:
+            # 2분마다 선택된 VFD에 랜덤 이상 신호 발생
+            # 랜덤하게 주의/경고/위험 중 하나 선택
+            anomaly_type = random.choice(["caution", "warning", "critical"])
+
+            if anomaly_type == "critical":
+                status_grade = "critical"
+                severity_score = random.randint(80, 95)
+                maintenance_priority = 5
+                anomaly_score = random.randint(75, 90)
+                anomaly_patterns = [random.choice(all_anomaly_patterns["critical"])]
+                temp = random.uniform(75, 85)
+                logger.info(f"🔴 VFD {vfd_id}: 위험 신호 발생 - {anomaly_patterns}")
+            elif anomaly_type == "warning":
+                status_grade = "warning"
+                severity_score = random.randint(60, 75)
+                maintenance_priority = 3
+                anomaly_score = random.randint(55, 70)
+                anomaly_patterns = [random.choice(all_anomaly_patterns["warning"])]
+                temp = random.uniform(68, 75)
+                logger.info(f"🟠 VFD {vfd_id}: 경고 신호 발생 - {anomaly_patterns}")
+            else:  # caution
+                status_grade = "caution"
+                severity_score = random.randint(30, 45)
+                maintenance_priority = 1
+                anomaly_score = random.randint(25, 40)
+                anomaly_patterns = [random.choice(all_anomaly_patterns["caution"])]
+                temp = random.uniform(60, 68)
+                logger.info(f"🟡 VFD {vfd_id}: 주의 신호 발생 - {anomaly_patterns}")
+
+            # 이상 상태 저장 (확인될 때까지 유지)
+            vfd_anomaly_state[vfd_id] = {
+                "status_grade": status_grade,
+                "severity_score": severity_score,
+                "maintenance_priority": maintenance_priority,
+                "anomaly_score": anomaly_score,
+                "anomaly_patterns": anomaly_patterns,
+                "temp": temp
+            }
         else:
+            # 정상 상태
             status_grade = "normal"
-            severity_score = 15
+            severity_score = random.randint(10, 20)
             maintenance_priority = 0
-            anomaly_score = 10
+            anomaly_score = random.randint(5, 15)
             anomaly_patterns = []
+            # 온도는 기존 로직 유지 (정상 범위)
 
         # 온도 추세 (간단 계산)
         temp_rise_rate = 0.05 if is_running else -0.02
@@ -264,6 +422,20 @@ async def get_vfd_diagnostics():
             temp_trend = "falling"
         else:
             temp_trend = "stable"
+
+        # 경고 횟수 누적 (새로운 이상 패턴이 감지되면 카운트 증가)
+        stats = vfd_stats[vfd_id]
+        current_patterns_set = set(anomaly_patterns)
+        prev_patterns_set = set(stats["prev_patterns"])
+
+        # 새로 감지된 패턴이 있으면 경고 횟수 증가
+        new_patterns = current_patterns_set - prev_patterns_set
+        if new_patterns:
+            stats["warning_count"] += len(new_patterns)
+            logger.info(f"⚠️ {vfd_id}: 새 이상 패턴 감지 {new_patterns}, 누적 경고 횟수: {stats['warning_count']}")
+
+        # 현재 패턴 저장
+        stats["prev_patterns"] = anomaly_patterns
 
         vfd_diagnostics[vfd_id] = {
             "vfd_id": vfd_id,
@@ -285,9 +457,9 @@ async def get_vfd_diagnostics():
 
             # 누적 통계
             "cumulative_runtime_hours": run_hours,
-            "trip_count": 0,
-            "error_count": 0,
-            "warning_count": 0,
+            "trip_count": stats["trip_count"],
+            "error_count": stats["error_count"],
+            "warning_count": stats["warning_count"],
 
             # 예측 데이터
             "predicted_temp_30min": predicted_temp_30min,
@@ -452,6 +624,39 @@ async def acknowledge_alarm(ack: AlarmAck):
     }
 
 
+@app.post("/api/vfd/acknowledge")
+async def acknowledge_vfd_anomaly(ack: VFDAnomalyAck):
+    """VFD 이상 감지 확인 - 이상 상태 초기화"""
+    global vfd_anomaly_state
+
+    if ack.vfd_id not in vfd_anomaly_state:
+        raise HTTPException(status_code=404, detail="VFD not found")
+
+    # 이상 상태 확인 전 로그
+    before_state = vfd_anomaly_state[ack.vfd_id]
+    logger.info(f"🔍 VFD {ack.vfd_id}: 확인 전 상태 = {before_state}")
+
+    # 이상 상태 초기화
+    vfd_anomaly_state[ack.vfd_id] = None
+    logger.info(f"✅ VFD {ack.vfd_id}: 이상 감지 확인됨 - 상태 초기화 완료 (None)")
+
+    # 이벤트 로그
+    alarm_manager.add_event(
+        EventType.EQUIPMENT,
+        ack.user,
+        f"VFD {ack.vfd_id} anomaly acknowledged"
+    )
+
+    return {
+        "success": True,
+        "message": f"VFD {ack.vfd_id} anomaly acknowledged",
+        "vfd_id": ack.vfd_id,
+        "before_state": before_state,
+        "after_state": None,
+        "timestamp": datetime.now().isoformat()
+    }
+
+
 @app.get("/api/events")
 async def get_event_history(limit: int = 100, event_type: str = None):
     """이벤트 로그 조회"""
@@ -460,6 +665,38 @@ async def get_event_history(limit: int = 100, event_type: str = None):
         "success": True,
         "data": events,
         "count": len(events),
+        "timestamp": datetime.now().isoformat()
+    }
+
+
+@app.get("/api/energy-savings")
+async def get_energy_savings():
+    """에너지 절감률 데이터 조회 (EDGE AI에서 계산된 데이터)"""
+    return {
+        "success": True,
+        "data": energy_savings_data,
+        "timestamp": datetime.now().isoformat()
+    }
+
+
+@app.get("/api/ai-frequency-control")
+async def get_ai_frequency_control():
+    """AI 목표 주파수 제어 데이터 조회 (EDGE AI에서 계산된 데이터)"""
+    # EDGE AI에서 계산한 목표 주파수와 실제 VFD 피드백 주파수 비교
+    return {
+        "success": True,
+        "data": ai_frequency_control,
+        "timestamp": datetime.now().isoformat()
+    }
+
+
+@app.get("/api/energy-savings-summary")
+async def get_energy_savings_summary():
+    """에너지 절감 상세 요약 데이터 조회 (각 장비별 상세 정보)"""
+    # EDGE AI에서 계산한 각 장비별 에너지 절감 상세 데이터
+    return {
+        "success": True,
+        "data": energy_savings_summary,
         "timestamp": datetime.now().isoformat()
     }
 
@@ -500,6 +737,10 @@ async def websocket_endpoint(websocket: WebSocket):
         logger.error(f"WebSocket 오류: {e}")
         if websocket in active_connections:
             active_connections.remove(websocket)
+
+
+# calculate_energy_savings 함수 제거됨
+# 이제 PLC 클라이언트(EDGE AI 시뮬레이션)에서 계산된 데이터를 받아옴
 
 
 async def broadcast_realtime_data():
@@ -633,6 +874,20 @@ async def broadcast_realtime_data():
                                 start_count=0
                             )
                             logger.info(f"⚙️ {eq_name} 운전 정지 - {runtime_hours:.2f}시간, {energy_kwh:.2f}kWh")
+
+            # 에너지 절감률 데이터 수신 (PLC를 통해 EDGE AI에서 계산된 데이터)
+            if equipment:
+                energy_savings_data.update(plc_client.calculate_energy_savings_from_edge(equipment))
+
+            # AI 목표 주파수 제어 데이터 (EDGE AI에서 계산된 데이터)
+            global ai_frequency_control
+            if equipment:
+                ai_frequency_control = plc_client.calculate_ai_target_frequency(equipment)
+
+            # 에너지 절감 상세 요약 데이터 (EDGE AI에서 계산된 데이터)
+            global energy_savings_summary
+            if equipment:
+                energy_savings_summary = plc_client.calculate_energy_savings_summary(equipment)
 
             # VFD 진단 데이터 읽기 (Edge AI 분석 결과)
             vfd_diagnostics = None

@@ -63,29 +63,34 @@ export const pipingSensorMapping = pipingDataMapping.filter(item =>
 )
 
 // 펌프 데이터만 필터링
+// 백엔드 equipment 배열 순서: [SWP1, SWP2, SWP3, FWP1, FWP2, FWP3]
+// 화면 좌표: 우측=NO.1, 중앙=NO.2, 좌측=NO.3
+// SVG 그룹 이름을 화면 위치와 일치하도록 수정 완료
+// 운전제어 SWP1 → SVG SW_Pump_1 (화면 우측 NO.1)
+// 운전제어 SWP3 → SVG SW_Pump_3 (화면 좌측 NO.3)
 export const pipingPumpMapping = {
-  0: { // LT Pump No.1
-    name: 'LT_Pump_1',
-    data: pipingDataMapping.filter(item => item.name.includes('LT Pump No.1'))
-  },
-  1: { // LT Pump No.2
-    name: 'LT_Pump_2',
-    data: pipingDataMapping.filter(item => item.name.includes('LT Pump No.2'))
-  },
-  2: { // LT Pump No.3
-    name: 'LT_Pump_3',
-    data: pipingDataMapping.filter(item => item.name.includes('LT Pump No.3'))
-  },
-  3: { // SW Pump No.1
+  0: { // 백엔드 index 0 (SWP1) → SVG 우측 그룹 (SW_Pump_1)
     name: 'SW_Pump_1',
-    data: pipingDataMapping.filter(item => item.name.includes('SW Pump No.1'))
+    data: pipingDataMapping.filter(item => item.name.includes('SW Pump No.3'))
   },
-  4: { // SW Pump No.2
+  1: { // 백엔드 index 1 (SWP2) → SVG 중앙 그룹 (SW_Pump_2)
     name: 'SW_Pump_2',
     data: pipingDataMapping.filter(item => item.name.includes('SW Pump No.2'))
   },
-  5: { // SW Pump No.3
+  2: { // 백엔드 index 2 (SWP3) → SVG 좌측 그룹 (SW_Pump_3)
     name: 'SW_Pump_3',
-    data: pipingDataMapping.filter(item => item.name.includes('SW Pump No.3'))
+    data: pipingDataMapping.filter(item => item.name.includes('SW Pump No.1'))
+  },
+  3: { // 백엔드 index 3 (FWP1) → SVG 상단 그룹 (LT_Pump_1)
+    name: 'LT_Pump_1',
+    data: pipingDataMapping.filter(item => item.name.includes('LT Pump No.1'))
+  },
+  4: { // 백엔드 index 4 (FWP2) → SVG 중간 그룹 (LT_Pump_2)
+    name: 'LT_Pump_2',
+    data: pipingDataMapping.filter(item => item.name.includes('LT Pump No.2'))
+  },
+  5: { // 백엔드 index 5 (FWP3) → SVG 하단 그룹 (LT_Pump_3)
+    name: 'LT_Pump_3',
+    data: pipingDataMapping.filter(item => item.name.includes('LT Pump No.3'))
   }
 }

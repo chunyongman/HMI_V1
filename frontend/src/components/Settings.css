@@ -112,7 +112,7 @@
 }
 
 .setting-item label {
-  font-size: 0.75rem;
+  font-size: 0.9rem;
   font-weight: 600;
   color: #cbd5e1;
   text-transform: uppercase;
@@ -169,7 +169,7 @@
 }
 
 .status-label {
-  font-size: 0.75rem;
+  font-size: 0.9rem;
   color: #94a3b8;
   font-weight: 600;
   text-transform: uppercase;
@@ -209,7 +209,7 @@
 .btn-departure {
   width: 100%;
   padding: 1rem;
-  background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
+  background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
   border: none;
   border-radius: 0.5rem;
   color: white;
@@ -221,7 +221,7 @@
 
 .btn-departure:hover {
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(139, 92, 246, 0.4);
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4);
 }
 
 .btn-departure.active {
@@ -266,7 +266,7 @@
 
 .info-row span:first-child {
   color: #94a3b8;
-  font-size: 0.7rem;
+  font-size: 0.9rem;
   font-weight: 600;
   text-transform: uppercase;
 }

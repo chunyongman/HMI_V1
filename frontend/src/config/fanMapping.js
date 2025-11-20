@@ -1,64 +1,68 @@
 // E/R FAN System - SVG Symbol ID와 센서/팬 데이터 매핑 설정
-// fan_diagram.svg 파일의 실제 SVG ID 매핑 완료
+// fan_diagram1.svg 파일의 실제 SVG ID 매핑
 
 export const fanSensorMapping = {
   // 온도 센서
-  TX6: { labelId: 'TX6', unit: '°C', decimal: 1 },  // E/R Inside Temp
-  TX7: { labelId: 'TX7', unit: '°C', decimal: 1 },  // E/R Outside Temp
+  TX7: { labelId: 'TX7', x: 406, y: 293, unit: '°C', decimal: 1 },  // E/R Outside Temp
+  TX6: { labelId: 'TX6', x: 490, y: 311, unit: '°C', decimal: 1 },  // E/R Inside Temp
 
   // 압력 센서
-  DPX2: { labelId: 'DPX2', unit: ' Pa', decimal: 1 },  // E/R Diff Press
+  PX2: { labelId: 'Px2', x: 485.43, y: 470, unit: ' Pa', decimal: 1 },  // E/R Diff Press (Px2로 변경)
 
   // M/E 부하
-  PU1: { labelId: 'ME_Load', unit: '%', decimal: 1 },  // M/E Load
+  'M/E Load': { labelId: 'M/E Load', x: 505, y: 408, unit: '%', decimal: 1 },  // M/E Load
 }
 
 export const fanMapping = {
-  // E/R Fan 1
+  // E/R Fan 1 (VENT No.1)
   0: {
     name: 'FAN1',
-    symbolIds: {
-      mode: 'FAN1_Mode',         // FAN1_Mode (polyline group)
-      modeText: 'text428',       // MAN/AUTO 텍스트
-      auto: 'Fan1_Auto',         // AUTO 텍스트
-      hz: 'Fan1_Hz',             // Hz(VFD) 표시
-      runningHour: 'Fan1_hour'   // Running hour 표시 영역
+    led: 'fanLED207',              // VENT No.1 LED
+    fanId: 'fan206',               // Fan rotation element
+    positions: {
+      autoMan: { x: 722, y: 310 },   // Auto/Man mode 표시 위치
+      vfd: { x: 722, y: 321 },       // VFD/BYPASS 표시 위치
+      hz: { x: 722, y: 334 },        // Hz 표시 위치
+      hour: { x: 722, y: 345 }       // Running hour 표시 위치
     }
   },
 
-  // E/R Fan 2
+  // E/R Fan 2 (VENT No.2)
   1: {
     name: 'FAN2',
-    symbolIds: {
-      mode: 'FAN2_Mode',
-      modeText: 'text411',
-      auto: 'Fan2_Auto',
-      hz: 'Fan2_Hz',
-      runningHour: 'Fan2_hour'
+    led: 'fanLED207-9',            // VENT No.2 LED
+    fanId: 'fan205',               // Fan rotation element
+    positions: {
+      autoMan: { x: 668, y: 310 },
+      vfd: { x: 668, y: 321 },
+      hz: { x: 668, y: 334 },
+      hour: { x: 668, y: 345 }
     }
   },
 
-  // E/R Fan 3
+  // E/R Fan 3 (VENT No.3)
   2: {
     name: 'FAN3',
-    symbolIds: {
-      mode: 'FAN3_Mode',
-      modeText: 'text464',
-      auto: 'Fan3_Auto',
-      hz: 'Fan3_Hz',
-      runningHour: 'Fan3_hour'
+    led: 'fanLED207-4',            // VENT No.3 LED
+    fanId: 'fan204',               // Fan rotation element
+    positions: {
+      autoMan: { x: 352, y: 310 },
+      vfd: { x: 352, y: 321 },
+      hz: { x: 352, y: 334 },
+      hour: { x: 352, y: 345 }
     }
   },
 
-  // E/R Fan 4
+  // E/R Fan 4 (VENT No.4)
   3: {
     name: 'FAN4',
-    symbolIds: {
-      mode: 'FAN4_Mode',
-      modeText: 'text447',
-      auto: 'Fan4_Auto',
-      hz: 'Fan4_Hz',
-      runningHour: 'Fan4_hour'
+    led: 'fanLED207-6',            // VENT No.4 LED
+    fanId: 'fan203',               // Fan rotation element
+    positions: {
+      autoMan: { x: 296, y: 310 },
+      vfd: { x: 296, y: 321 },
+      hz: { x: 296, y: 334 },
+      hour: { x: 296, y: 345 }
     }
   }
 }

@@ -55,6 +55,78 @@
       "start_count": 1,
       "energy_kwh": 6.7404203166666665,
       "saved_kwh": 2.022126095
+    },
+    "SWP1_2025-11-19": {
+      "equipment_name": "SWP1",
+      "date": "2025-11-19",
+      "runtime_hours": 2.431693003888889,
+      "start_count": 1,
+      "energy_kwh": 320.98347651333336,
+      "saved_kwh": 0
+    },
+    "SWP3_2025-11-19": {
+      "equipment_name": "SWP3",
+      "date": "2025-11-19",
+      "runtime_hours": 2.511806850833333,
+      "start_count": 1,
+      "energy_kwh": 331.55850431,
+      "saved_kwh": 99.467551293
+    },
+    "FAN1_2025-11-19": {
+      "equipment_name": "FAN1",
+      "date": "2025-11-19",
+      "runtime_hours": 7.2080624449999995,
+      "start_count": 3,
+      "energy_kwh": 391.3977907635,
+      "saved_kwh": 117.41933722904999
+    },
+    "FAN2_2025-11-19": {
+      "equipment_name": "FAN2",
+      "date": "2025-11-19",
+      "runtime_hours": 0.6105855702777777,
+      "start_count": 1,
+      "energy_kwh": 33.154796466083326,
+      "saved_kwh": 9.905124554049998
+    },
+    "FAN1_2025-11-20": {
+      "equipment_name": "FAN1",
+      "date": "2025-11-20",
+      "runtime_hours": 2.7068897055555556,
+      "start_count": 4,
+      "energy_kwh": 146.98411101166664,
+      "saved_kwh": 44.095233303499995
+    },
+    "FAN2_2025-11-20": {
+      "equipment_name": "FAN2",
+      "date": "2025-11-20",
+      "runtime_hours": 2.0829983652777777,
+      "start_count": 2,
+      "energy_kwh": 113.10681123458332,
+      "saved_kwh": 33.93204337037499
+    },
+    "FAN3_2025-11-20": {
+      "equipment_name": "FAN3",
+      "date": "2025-11-20",
+      "runtime_hours": 2.7983796258333333,
+      "start_count": 1,
+      "energy_kwh": 151.95201368275,
+      "saved_kwh": 45.585604104824995
+    },
+    "FAN4_2025-11-20": {
+      "equipment_name": "FAN4",
+      "date": "2025-11-20",
+      "runtime_hours": 3.257673872222222,
+      "start_count": 3,
+      "energy_kwh": 176.89169126166664,
+      "saved_kwh": 53.0675073785
+    },
+    "SWP1_2025-11-20": {
+      "equipment_name": "SWP1",
+      "date": "2025-11-20",
+      "runtime_hours": 0.45677696,
+      "start_count": 0,
+      "energy_kwh": 60.29455872,
+      "saved_kwh": 18.088367616
     }
   }
 }

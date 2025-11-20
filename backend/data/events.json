@@ -1,6 +1,254 @@
 {
   "events": [
     {
+      "id": "EVT202511191158500023",
+      "time": "2025-11-19T11:58:50.845744",
+      "type": "control",
+      "user": "System",
+      "message": "SWP1 운전 시작 (Started)",
+      "details": null
+    },
+    {
+      "id": "EVT202511191158500022",
+      "time": "2025-11-19T11:58:50.042115",
+      "type": "control",
+      "user": "Operator",
+      "message": "SWP1 START command executed",
+      "details": null
+    },
+    {
+      "id": "EVT202511191158460021",
+      "time": "2025-11-19T11:58:46.804257",
+      "type": "control",
+      "user": "System",
+      "message": "SWP3 운전 정지 (Stopped) - 2.51h, 331.56kWh",
+      "details": null
+    },
+    {
+      "id": "EVT202511191158460020",
+      "time": "2025-11-19T11:58:46.408256",
+      "type": "control",
+      "user": "Operator",
+      "message": "SWP3 STOP command executed",
+      "details": null
+    },
+    {
+      "id": "EVT202511191100330019",
+      "time": "2025-11-19T11:00:33.746028",
+      "type": "control",
+      "user": "Operator",
+      "message": "SWP1 VFD command executed",
+      "details": null
+    },
+    {
+      "id": "EVT202511191100330018",
+      "time": "2025-11-19T11:00:33.306287",
+      "type": "control",
+      "user": "Operator",
+      "message": "SWP1 AUTO command executed",
+      "details": null
+    },
+    {
+      "id": "EVT202511190941570017",
+      "time": "2025-11-19T09:41:57.703766",
+      "type": "control",
+      "user": "Operator",
+      "message": "SWP2 AUTO command executed",
+      "details": null
+    },
+    {
+      "id": "EVT202511190930460016",
+      "time": "2025-11-19T09:30:46.919397",
+      "type": "alarm",
+      "user": "Operator",
+      "message": "Alarm ALM202511190759570007 acknowledged",
+      "details": null
+    },
+    {
+      "id": "EVT202511190930450015",
+      "time": "2025-11-19T09:30:45.751049",
+      "type": "alarm",
+      "user": "Operator",
+      "message": "Alarm ALM202511190714570006 acknowledged",
+      "details": null
+    },
+    {
+      "id": "EVT202511190930440014",
+      "time": "2025-11-19T09:30:44.774374",
+      "type": "alarm",
+      "user": "Operator",
+      "message": "Alarm ALM202511190708570005 acknowledged",
+      "details": null
+    },
+    {
+      "id": "EVT202511190930430013",
+      "time": "2025-11-19T09:30:43.710938",
+      "type": "alarm",
+      "user": "Operator",
+      "message": "Alarm ALM202511190705570004 acknowledged",
+      "details": null
+    },
+    {
+      "id": "EVT202511190930420012",
+      "time": "2025-11-19T09:30:42.517969",
+      "type": "alarm",
+      "user": "Operator",
+      "message": "Alarm ALM202511190705570003 acknowledged",
+      "details": null
+    },
+    {
+      "id": "EVT202511190930410011",
+      "time": "2025-11-19T09:30:41.246995",
+      "type": "alarm",
+      "user": "Operator",
+      "message": "Alarm ALM202511190702570002 acknowledged",
+      "details": null
+    },
+    {
+      "id": "EVT202511190930390010",
+      "time": "2025-11-19T09:30:39.731088",
+      "type": "alarm",
+      "user": "Operator",
+      "message": "Alarm ALM202511190702570001 acknowledged",
+      "details": null
+    },
+    {
+      "id": "EVT202511190928140009",
+      "time": "2025-11-19T09:28:14.879606",
+      "type": "control",
+      "user": "Operator",
+      "message": "SWP1 MANUAL command executed",
+      "details": null
+    },
+    {
+      "id": "EVT202511190928040008",
+      "time": "2025-11-19T09:28:04.299592",
+      "type": "control",
+      "user": "System",
+      "message": "SWP3 운전 시작 (Started)",
+      "details": null
+    },
+    {
+      "id": "EVT202511190928040007",
+      "time": "2025-11-19T09:28:04.227140",
+      "type": "control",
+      "user": "Operator",
+      "message": "SWP3 START command executed",
+      "details": null
+    },
+    {
+      "id": "EVT202511190927510006",
+      "time": "2025-11-19T09:27:51.136659",
+      "type": "control",
+      "user": "System",
+      "message": "SWP1 운전 정지 (Stopped) - 2.43h, 320.98kWh",
+      "details": null
+    },
+    {
+      "id": "EVT202511190927500005",
+      "time": "2025-11-19T09:27:50.702641",
+      "type": "control",
+      "user": "Operator",
+      "message": "SWP1 STOP command executed",
+      "details": null
+    },
+    {
+      "id": "EVT202511190924590004",
+      "time": "2025-11-19T09:24:59.266127",
+      "type": "control",
+      "user": "Operator",
+      "message": "SWP1 BYPASS command executed",
+      "details": null
+    },
+    {
+      "id": "EVT202511190924480003",
+      "time": "2025-11-19T09:24:48.258597",
+      "type": "control",
+      "user": "Operator",
+      "message": "SWP2 MANUAL command executed",
+      "details": null
+    },
+    {
+      "id": "EVT202511190924470002",
+      "time": "2025-11-19T09:24:47.555540",
+      "type": "control",
+      "user": "Operator",
+      "message": "SWP1 AUTO command executed",
+      "details": null
+    },
+    {
+      "id": "EVT202511190747390001",
+      "time": "2025-11-19T07:47:39.480922",
+      "type": "control",
+      "user": "Operator",
+      "message": "SWP1 MANUAL command executed",
+      "details": null
+    },
+    {
+      "id": "EVT202511181629090004",
+      "time": "2025-11-18T16:29:09.560305",
+      "type": "control",
+      "user": "System",
+      "message": "SWP1 운전 시작 (Started)",
+      "details": null
+    },
+    {
+      "id": "EVT202511181629080003",
+      "time": "2025-11-18T16:29:08.871094",
+      "type": "control",
+      "user": "Operator",
+      "message": "SWP1 START command executed",
+      "details": null
+    },
+    {
+      "id": "EVT202511181628530002",
+      "time": "2025-11-18T16:28:53.401563",
+      "type": "control",
+      "user": "System",
+      "message": "SWP1 운전 정지 (Stopped) - 0.02h, 3.07kWh",
+      "details": null
+    },
+    {
+      "id": "EVT202511181628520001",
+      "time": "2025-11-18T16:28:52.713057",
+      "type": "control",
+      "user": "Operator",
+      "message": "SWP1 STOP command executed",
+      "details": null
+    },
+    {
+      "id": "EVT202511181605140002",
+      "time": "2025-11-18T16:05:14.976052",
+      "type": "alarm",
+      "user": "Operator",
+      "message": "Alarm ALM202511181605030002 acknowledged",
+      "details": null
+    },
+    {
+      "id": "EVT202511181605130001",
+      "time": "2025-11-18T16:05:13.771069",
+      "type": "alarm",
+      "user": "Operator",
+      "message": "Alarm ALM202511181605030001 acknowledged",
+      "details": null
+    },
+    {
+      "id": "EVT202511181559280002",
+      "time": "2025-11-18T15:59:28.509927",
+      "type": "control",
+      "user": "System",
+      "message": "SWP1 운전 정지 (Stopped) - 0.03h, 3.67kWh",
+      "details": null
+    },
+    {
+      "id": "EVT202511181559280001",
+      "time": "2025-11-18T15:59:28.194458",
+      "type": "control",
+      "user": "Operator",
+      "message": "SWP1 STOP command executed",
+      "details": null
+    },
+    {
       "id": "EVT202511171623020004",
       "time": "2025-11-17T16:23:02.842492",
       "type": "alarm",
@@ -1129,67 +1377,691 @@
       "details": null
     },
     {
-      "id": "EVT202511181559280001",
-      "time": "2025-11-18T15:59:28.194458",
+      "id": "EVT202511191324520024",
+      "time": "2025-11-19T13:24:52.877359",
+      "type": "control",
+      "user": "Operator",
+      "message": "SWP1 MANUAL command executed",
+      "details": null
+    },
+    {
+      "id": "EVT202511191324540025",
+      "time": "2025-11-19T13:24:54.092053",
+      "type": "control",
+      "user": "Operator",
+      "message": "SWP1 AUTO command executed",
+      "details": null
+    },
+    {
+      "id": "EVT202511191328430026",
+      "time": "2025-11-19T13:28:43.334059",
+      "type": "control",
+      "user": "Operator",
+      "message": "FAN1 STOP command executed",
+      "details": null
+    },
+    {
+      "id": "EVT202511191328430027",
+      "time": "2025-11-19T13:28:43.613533",
+      "type": "control",
+      "user": "System",
+      "message": "FAN1 운전 정지 (Stopped) - 6.45h, 350.03kWh",
+      "details": null
+    },
+    {
+      "id": "EVT202511191329010028",
+      "time": "2025-11-19T13:29:01.882572",
+      "type": "control",
+      "user": "Operator",
+      "message": "FAN1 START_BWD command executed",
+      "details": null
+    },
+    {
+      "id": "EVT202511191329020029",
+      "time": "2025-11-19T13:29:02.839771",
+      "type": "control",
+      "user": "System",
+      "message": "FAN1 운전 시작 (Started)",
+      "details": null
+    },
+    {
+      "id": "EVT202511191329570030",
+      "time": "2025-11-19T13:29:57.113188",
+      "type": "control",
+      "user": "Operator",
+      "message": "FAN1 START_FWD command executed",
+      "details": null
+    },
+    {
+      "id": "EVT202511191633030001",
+      "time": "2025-11-19T16:33:03.471447",
+      "type": "control",
+      "user": "Operator",
+      "message": "FAN1 STOP command executed",
+      "details": null
+    },
+    {
+      "id": "EVT202511191633040002",
+      "time": "2025-11-19T16:33:04.000768",
+      "type": "control",
+      "user": "System",
+      "message": "FAN1 운전 정지 (Stopped) - 0.57h, 31.07kWh",
+      "details": null
+    },
+    {
+      "id": "EVT202511191635090003",
+      "time": "2025-11-19T16:35:09.236654",
+      "type": "control",
+      "user": "Operator",
+      "message": "FAN1 START_FWD command executed",
+      "details": null
+    },
+    {
+      "id": "EVT202511191635100004",
+      "time": "2025-11-19T16:35:10.113794",
+      "type": "control",
+      "user": "System",
+      "message": "FAN1 운전 시작 (Started)",
+      "details": null
+    },
+    {
+      "id": "EVT202511191635120005",
+      "time": "2025-11-19T16:35:12.250827",
+      "type": "control",
+      "user": "Operator",
+      "message": "FAN2 STOP command executed",
+      "details": null
+    },
+    {
+      "id": "EVT202511191635130006",
+      "time": "2025-11-19T16:35:13.136971",
+      "type": "control",
+      "user": "System",
+      "message": "FAN2 운전 정지 (Stopped) - 0.61h, 33.02kWh",
+      "details": null
+    },
+    {
+      "id": "EVT202511191636070007",
+      "time": "2025-11-19T16:36:07.363805",
+      "type": "control",
+      "user": "Operator",
+      "message": "FAN2 MANUAL command executed",
+      "details": null
+    },
+    {
+      "id": "EVT202511191636080008",
+      "time": "2025-11-19T16:36:08.651917",
+      "type": "control",
+      "user": "Operator",
+      "message": "FAN2 BYPASS command executed",
+      "details": null
+    },
+    {
+      "id": "EVT202511191637580009",
+      "time": "2025-11-19T16:37:58.813715",
+      "type": "control",
+      "user": "Operator",
+      "message": "FAN1 STOP command executed",
+      "details": null
+    },
+    {
+      "id": "EVT202511191637590010",
+      "time": "2025-11-19T16:37:59.784764",
+      "type": "control",
+      "user": "System",
+      "message": "FAN1 운전 정지 (Stopped) - 0.05h, 2.56kWh",
+      "details": null
+    },
+    {
+      "id": "EVT202511191640540011",
+      "time": "2025-11-19T16:40:54.699868",
+      "type": "control",
+      "user": "Operator",
+      "message": "FAN1 START_FWD command executed",
+      "details": null
+    },
+    {
+      "id": "EVT202511191640550012",
+      "time": "2025-11-19T16:40:55.618430",
+      "type": "control",
+      "user": "System",
+      "message": "FAN1 운전 시작 (Started)",
+      "details": null
+    },
+    {
+      "id": "EVT202511191640570013",
+      "time": "2025-11-19T16:40:57.243025",
+      "type": "control",
+      "user": "Operator",
+      "message": "FAN2 START_FWD command executed",
+      "details": null
+    },
+    {
+      "id": "EVT202511191640570014",
+      "time": "2025-11-19T16:40:57.647184",
+      "type": "control",
+      "user": "System",
+      "message": "FAN2 운전 시작 (Started)",
+      "details": null
+    },
+    {
+      "id": "EVT202511191641050015",
+      "time": "2025-11-19T16:41:05.859879",
+      "type": "control",
+      "user": "Operator",
+      "message": "FAN2 STOP command executed",
+      "details": null
+    },
+    {
+      "id": "EVT202511191641060016",
+      "time": "2025-11-19T16:41:06.777438",
+      "type": "control",
+      "user": "System",
+      "message": "FAN2 운전 정지 (Stopped) - 0.00h, 0.14kWh",
+      "details": null
+    },
+    {
+      "id": "EVT202511191649280017",
+      "time": "2025-11-19T16:49:28.327377",
+      "type": "control",
+      "user": "Operator",
+      "message": "FAN1 STOP command executed",
+      "details": null
+    },
+    {
+      "id": "EVT202511191649280018",
+      "time": "2025-11-19T16:49:28.558975",
+      "type": "control",
+      "user": "System",
+      "message": "FAN1 운전 정지 (Stopped) - 0.14h, 7.74kWh",
+      "details": null
+    },
+    {
+      "id": "EVT202511200657590001",
+      "time": "2025-11-20T06:57:59.076197",
+      "type": "control",
+      "user": "Operator",
+      "message": "FAN1 STOP command executed",
+      "details": null
+    },
+    {
+      "id": "EVT202511200657590002",
+      "time": "2025-11-20T06:57:59.638089",
+      "type": "control",
+      "user": "System",
+      "message": "FAN1 운전 정지 (Stopped) - 0.02h, 1.20kWh",
+      "details": null
+    },
+    {
+      "id": "EVT202511200708510003",
+      "time": "2025-11-20T07:08:51.039236",
+      "type": "control",
+      "user": "Operator",
+      "message": "FAN1 START_FWD command executed",
+      "details": null
+    },
+    {
+      "id": "EVT202511200708510004",
+      "time": "2025-11-20T07:08:51.667891",
+      "type": "control",
+      "user": "System",
+      "message": "FAN1 운전 시작 (Started)",
+      "details": null
+    },
+    {
+      "id": "EVT202511200709020005",
+      "time": "2025-11-20T07:09:02.769541",
+      "type": "control",
+      "user": "Operator",
+      "message": "FAN2 STOP command executed",
+      "details": null
+    },
+    {
+      "id": "EVT202511200709020006",
+      "time": "2025-11-20T07:09:02.799682",
+      "type": "control",
+      "user": "System",
+      "message": "FAN2 운전 정지 (Stopped) - 0.21h, 11.20kWh",
+      "details": null
+    },
+    {
+      "id": "EVT202511200741330007",
+      "time": "2025-11-20T07:41:33.149530",
+      "type": "control",
+      "user": "Operator",
+      "message": "FAN2 START_FWD command executed",
+      "details": null
+    },
+    {
+      "id": "EVT202511200741330008",
+      "time": "2025-11-20T07:41:33.939920",
+      "type": "control",
+      "user": "System",
+      "message": "FAN2 운전 시작 (Started)",
+      "details": null
+    },
+    {
+      "id": "EVT202511200832250009",
+      "time": "2025-11-20T08:32:25.766474",
+      "type": "control",
+      "user": "Operator",
+      "message": "FAN1 STOP command executed",
+      "details": null
+    },
+    {
+      "id": "EVT202511200832260010",
+      "time": "2025-11-20T08:32:26.340283",
+      "type": "control",
+      "user": "System",
+      "message": "FAN1 운전 정지 (Stopped) - 1.39h, 75.64kWh",
+      "details": null
+    },
+    {
+      "id": "EVT202511200840560011",
+      "time": "2025-11-20T08:40:56.067857",
+      "type": "control",
+      "user": "Operator",
+      "message": "FAN1 START_FWD command executed",
+      "details": null
+    },
+    {
+      "id": "EVT202511200840560012",
+      "time": "2025-11-20T08:40:56.197490",
+      "type": "control",
+      "user": "System",
+      "message": "FAN1 운전 시작 (Started)",
+      "details": null
+    },
+    {
+      "id": "EVT202511200934090013",
+      "time": "2025-11-20T09:34:09.555089",
+      "type": "control",
+      "user": "Operator",
+      "message": "FAN2 STOP command executed",
+      "details": null
+    },
+    {
+      "id": "EVT202511200934090014",
+      "time": "2025-11-20T09:34:09.889918",
+      "type": "control",
+      "user": "System",
+      "message": "FAN2 운전 정지 (Stopped) - 1.88h, 101.90kWh",
+      "details": null
+    },
+    {
+      "id": "EVT202511200936020015",
+      "time": "2025-11-20T09:36:02.133182",
+      "type": "control",
+      "user": "Operator",
+      "message": "FAN2 START_BWD command executed",
+      "details": null
+    },
+    {
+      "id": "EVT202511200936020016",
+      "time": "2025-11-20T09:36:02.968466",
+      "type": "control",
+      "user": "System",
+      "message": "FAN2 운전 시작 (Started)",
+      "details": null
+    },
+    {
+      "id": "EVT202511200936180017",
+      "time": "2025-11-20T09:36:18.220654",
+      "type": "control",
+      "user": "Operator",
+      "message": "FAN1 STOP command executed",
+      "details": null
+    },
+    {
+      "id": "EVT202511200936190018",
+      "time": "2025-11-20T09:36:19.134577",
+      "type": "control",
+      "user": "System",
+      "message": "FAN1 운전 정지 (Stopped) - 0.92h, 50.12kWh",
+      "details": null
+    },
+    {
+      "id": "EVT202511200944200019",
+      "time": "2025-11-20T09:44:20.861500",
+      "type": "control",
+      "user": "Operator",
+      "message": "FAN1 START_FWD command executed",
+      "details": null
+    },
+    {
+      "id": "EVT202511200944210020",
+      "time": "2025-11-20T09:44:21.009220",
+      "type": "control",
+      "user": "System",
+      "message": "FAN1 운전 시작 (Started)",
+      "details": null
+    },
+    {
+      "id": "EVT202511200944330021",
+      "time": "2025-11-20T09:44:33.928411",
+      "type": "control",
+      "user": "Operator",
+      "message": "FAN3 STOP command executed",
+      "details": null
+    },
+    {
+      "id": "EVT202511200944340022",
+      "time": "2025-11-20T09:44:34.122227",
+      "type": "control",
+      "user": "System",
+      "message": "FAN3 운전 정지 (Stopped) - 2.80h, 151.95kWh",
+      "details": null
+    },
+    {
+      "id": "EVT202511200944370023",
+      "time": "2025-11-20T09:44:37.039324",
+      "type": "control",
+      "user": "Operator",
+      "message": "FAN4 STOP command executed",
+      "details": null
+    },
+    {
+      "id": "EVT202511200944370024",
+      "time": "2025-11-20T09:44:37.176261",
+      "type": "control",
+      "user": "System",
+      "message": "FAN4 운전 정지 (Stopped) - 2.80h, 152.00kWh",
+      "details": null
+    },
+    {
+      "id": "EVT202511200952220025",
+      "time": "2025-11-20T09:52:22.516817",
+      "type": "control",
+      "user": "Operator",
+      "message": "FAN3 START_BWD command executed",
+      "details": null
+    },
+    {
+      "id": "EVT202511200952230026",
+      "time": "2025-11-20T09:52:23.445714",
+      "type": "control",
+      "user": "System",
+      "message": "FAN3 운전 시작 (Started)",
+      "details": null
+    },
+    {
+      "id": "EVT202511200953310027",
+      "time": "2025-11-20T09:53:31.838387",
+      "type": "control",
+      "user": "Operator",
+      "message": "FAN4 START_FWD command executed",
+      "details": null
+    },
+    {
+      "id": "EVT202511200953320028",
+      "time": "2025-11-20T09:53:32.129030",
+      "type": "control",
+      "user": "System",
+      "message": "FAN4 운전 시작 (Started)",
+      "details": null
+    },
+    {
+      "id": "EVT202511201005580029",
+      "time": "2025-11-20T10:05:58.253881",
+      "type": "control",
+      "user": "Operator",
+      "message": "FAN1 START_BWD command executed",
+      "details": null
+    },
+    {
+      "id": "EVT202511201006280030",
+      "time": "2025-11-20T10:06:28.036529",
+      "type": "control",
+      "user": "Operator",
+      "message": "FAN1 STOP command executed",
+      "details": null
+    },
+    {
+      "id": "EVT202511201006280031",
+      "time": "2025-11-20T10:06:28.520184",
+      "type": "control",
+      "user": "System",
+      "message": "FAN1 운전 정지 (Stopped) - 0.37h, 20.02kWh",
+      "details": null
+    },
+    {
+      "id": "EVT202511201020550032",
+      "time": "2025-11-20T10:20:55.238475",
+      "type": "control",
+      "user": "Operator",
+      "message": "FAN4 STOP command executed",
+      "details": null
+    },
+    {
+      "id": "EVT202511201020550033",
+      "time": "2025-11-20T10:20:55.461691",
+      "type": "control",
+      "user": "System",
+      "message": "FAN4 운전 정지 (Stopped) - 0.46h, 24.79kWh",
+      "details": null
+    },
+    {
+      "id": "EVT202511201021120034",
+      "time": "2025-11-20T10:21:12.920667",
+      "type": "control",
+      "user": "Operator",
+      "message": "FAN4 START_FWD command executed",
+      "details": null
+    },
+    {
+      "id": "EVT202511201021130035",
+      "time": "2025-11-20T10:21:13.680539",
+      "type": "control",
+      "user": "System",
+      "message": "FAN4 운전 시작 (Started)",
+      "details": null
+    },
+    {
+      "id": "EVT202511201021200036",
+      "time": "2025-11-20T10:21:20.568665",
+      "type": "control",
+      "user": "Operator",
+      "message": "FAN4 STOP command executed",
+      "details": null
+    },
+    {
+      "id": "EVT202511201021200037",
+      "time": "2025-11-20T10:21:20.753112",
+      "type": "control",
+      "user": "System",
+      "message": "FAN4 운전 정지 (Stopped) - 0.00h, 0.11kWh",
+      "details": null
+    },
+    {
+      "id": "EVT202511201021240038",
+      "time": "2025-11-20T10:21:24.320293",
+      "type": "control",
+      "user": "Operator",
+      "message": "FAN4 START_BWD command executed",
+      "details": null
+    },
+    {
+      "id": "EVT202511201021240039",
+      "time": "2025-11-20T10:21:24.806153",
+      "type": "control",
+      "user": "System",
+      "message": "FAN4 운전 시작 (Started)",
+      "details": null
+    },
+    {
+      "id": "EVT202511201025240040",
+      "time": "2025-11-20T10:25:24.914427",
+      "type": "control",
+      "user": "Operator",
+      "message": "SWP1 MANUAL command executed",
+      "details": null
+    },
+    {
+      "id": "EVT202511201025250041",
+      "time": "2025-11-20T10:25:25.973502",
+      "type": "control",
+      "user": "Operator",
+      "message": "SWP1 AUTO command executed",
+      "details": null
+    },
+    {
+      "id": "EVT202511201026170042",
+      "time": "2025-11-20T10:26:17.703161",
+      "type": "control",
+      "user": "Operator",
+      "message": "SWP1 MANUAL command executed",
+      "details": null
+    },
+    {
+      "id": "EVT202511201026220043",
+      "time": "2025-11-20T10:26:22.446815",
+      "type": "control",
+      "user": "Operator",
+      "message": "SWP1 AUTO command executed",
+      "details": null
+    },
+    {
+      "id": "EVT202511201026270044",
+      "time": "2025-11-20T10:26:27.199180",
+      "type": "control",
+      "user": "Operator",
+      "message": "SWP1 MANUAL command executed",
+      "details": null
+    },
+    {
+      "id": "EVT202511201028030045",
+      "time": "2025-11-20T10:28:03.782893",
+      "type": "control",
+      "user": "Operator",
+      "message": "SWP1 AUTO command executed",
+      "details": null
+    },
+    {
+      "id": "EVT202511201041300046",
+      "time": "2025-11-20T10:41:30.020890",
+      "type": "control",
+      "user": "Operator",
+      "message": "FAN1 START_FWD command executed",
+      "details": null
+    },
+    {
+      "id": "EVT202511201041300047",
+      "time": "2025-11-20T10:41:30.899203",
+      "type": "control",
+      "user": "System",
+      "message": "FAN1 운전 시작 (Started)",
+      "details": null
+    },
+    {
+      "id": "EVT202511201041340048",
+      "time": "2025-11-20T10:41:34.707784",
+      "type": "control",
+      "user": "Operator",
+      "message": "FAN2 START_FWD command executed",
+      "details": null
+    },
+    {
+      "id": "EVT202511201041420049",
+      "time": "2025-11-20T10:41:42.259756",
+      "type": "control",
+      "user": "Operator",
+      "message": "FAN3 START_FWD command executed",
+      "details": null
+    },
+    {
+      "id": "EVT202511201043300050",
+      "time": "2025-11-20T10:43:30.837467",
+      "type": "alarm",
+      "user": "Operator",
+      "message": "Alarm ALM202511200657400001 acknowledged",
+      "details": null
+    },
+    {
+      "id": "EVT202511201043320051",
+      "time": "2025-11-20T10:43:32.114505",
+      "type": "alarm",
+      "user": "Operator",
+      "message": "Alarm ALM202511200657400002 acknowledged",
+      "details": null
+    },
+    {
+      "id": "EVT202511201043330052",
+      "time": "2025-11-20T10:43:33.690077",
+      "type": "alarm",
+      "user": "Operator",
+      "message": "Alarm ALM202511200700400003 acknowledged",
+      "details": null
+    },
+    {
+      "id": "EVT202511201043340053",
+      "time": "2025-11-20T10:43:34.628337",
+      "type": "alarm",
+      "user": "Operator",
+      "message": "Alarm ALM202511200700400004 acknowledged",
+      "details": null
+    },
+    {
+      "id": "EVT202511201043350054",
+      "time": "2025-11-20T10:43:35.570397",
+      "type": "alarm",
+      "user": "Operator",
+      "message": "Alarm ALM202511200703400005 acknowledged",
+      "details": null
+    },
+    {
+      "id": "EVT202511201043360055",
+      "time": "2025-11-20T10:43:36.587706",
+      "type": "alarm",
+      "user": "Operator",
+      "message": "Alarm ALM202511200709400006 acknowledged",
+      "details": null
+    },
+    {
+      "id": "EVT202511201043370056",
+      "time": "2025-11-20T10:43:37.611055",
+      "type": "alarm",
+      "user": "Operator",
+      "message": "Alarm ALM202511200754400007 acknowledged",
+      "details": null
+    },
+    {
+      "id": "EVT202511201512410001",
+      "time": "2025-11-20T15:12:41.049216",
       "type": "control",
       "user": "Operator",
       "message": "SWP1 STOP command executed",
       "details": null
     },
     {
-      "id": "EVT202511181559280002",
-      "time": "2025-11-18T15:59:28.509927",
+      "id": "EVT202511201512410002",
+      "time": "2025-11-20T15:12:41.160719",
       "type": "control",
       "user": "System",
-      "message": "SWP1 운전 정지 (Stopped) - 0.03h, 3.67kWh",
+      "message": "SWP1 운전 정지 (Stopped) - 0.46h, 60.29kWh",
       "details": null
     },
     {
-      "id": "EVT202511181605130001",
-      "time": "2025-11-18T16:05:13.771069",
-      "type": "alarm",
-      "user": "Operator",
-      "message": "Alarm ALM202511181605030001 acknowledged",
-      "details": null
-    },
-    {
-      "id": "EVT202511181605140002",
-      "time": "2025-11-18T16:05:14.976052",
-      "type": "alarm",
-      "user": "Operator",
-      "message": "Alarm ALM202511181605030002 acknowledged",
-      "details": null
-    },
-    {
-      "id": "EVT202511181628520001",
-      "time": "2025-11-18T16:28:52.713057",
+      "id": "EVT202511201550280001",
+      "time": "2025-11-20T15:50:28.264281",
       "type": "control",
       "user": "Operator",
-      "message": "SWP1 STOP command executed",
+      "message": "SWP1 BYPASS command executed",
       "details": null
     },
     {
-      "id": "EVT202511181628530002",
-      "time": "2025-11-18T16:28:53.401563",
-      "type": "control",
-      "user": "System",
-      "message": "SWP1 운전 정지 (Stopped) - 0.02h, 3.07kWh",
-      "details": null
-    },
-    {
-      "id": "EVT202511181629080003",
-      "time": "2025-11-18T16:29:08.871094",
+      "id": "EVT202511201601240002",
+      "time": "2025-11-20T16:01:24.437039",
       "type": "control",
       "user": "Operator",
-      "message": "SWP1 START command executed",
+      "message": "FWP1 MANUAL command executed",
       "details": null
     },
     {
-      "id": "EVT202511181629090004",
-      "time": "2025-11-18T16:29:09.560305",
+      "id": "EVT202511201602090003",
+      "time": "2025-11-20T16:02:09.652068",
       "type": "control",
-      "user": "System",
-      "message": "SWP1 운전 시작 (Started)",
+      "user": "Operator",
+      "message": "FAN1 START_BWD command executed",
       "details": null
     }
   ]

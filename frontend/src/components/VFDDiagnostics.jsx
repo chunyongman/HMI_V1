@@ -24,21 +24,22 @@ const VFDDiagnostics = () => {
         console.log('📊 VFD 진단 데이터 로드:', result.data);
         setDiagnosticsData(result.data);
 
-        // 누적 이상 패턴 업데이트 (새로운 패턴 추가, 기존 패턴 유지)
+        // 현재 이상 패턴 업데이트 (기존 패턴 유지 - 백엔드에서 지속 관리)
         setAccumulatedAnomalies(prev => {
-          const updated = { ...prev };
+          const updated = { ...prev };  // 기존 누적 패턴 유지
 
           // vfd_diagnostics는 객체이므로 Object.entries로 변환
           Object.entries(result.data.vfd_diagnostics).forEach(([vfdId, vfd]) => {
             const currentPatterns = vfd.anomaly_patterns || [];
-            const existingPatterns = prev[vfdId] || [];
 
-            // 기존 패턴과 새 패턴을 합치고 중복 제거
-            const mergedPatterns = [...new Set([...existingPatterns, ...currentPatterns])];
-
-            if (mergedPatterns.length > 0) {
-              updated[vfdId] = mergedPatterns;
+            // 패턴이 있으면 업데이트, 없으면 기존 패턴 유지
+            if (currentPatterns.length > 0) {
+              console.log(`📌 ${vfdId}: 새 패턴 감지 ->`, currentPatterns);
+              updated[vfdId] = currentPatterns;
+            } else if (prev[vfdId]) {
+              console.log(`🔒 ${vfdId}: 기존 패턴 유지 (백엔드 빈 패턴) ->`, prev[vfdId]);
             }
+            // 패턴이 없어도 기존 패턴을 유지 (백엔드에서 확인 전까지 유지)
           });
 
           return updated;
@@ -67,7 +68,7 @@ const VFDDiagnostics = () => {
   const getStatusColor = (status) => {
     switch (status) {
       case 'normal': return '#4CAF50'; // 녹색
-      case 'caution': return '#FFC107'; // 노란색
+      case 'caution': return '#9E9E9E'; // 회색
       case 'warning': return '#FF9800'; // 주황색
       case 'critical': return '#F44336'; // 빨간색
       default: return '#9E9E9E'; // 회색
@@ -104,21 +105,45 @@ const VFDDiagnostics = () => {
   };
 
   // 이상 감지 확인(Acknowledge) 함수
-  const acknowledgeAnomaly = (vfdId, patterns) => {
+  const acknowledgeAnomaly = async (vfdId, patterns) => {
     console.log(`✅ ${vfdId} 이상 감지 확인 - 패턴:`, patterns);
 
-    // 확인된 패턴 저장
-    setAcknowledgedAnomalies(prev => ({
-      ...prev,
-      [vfdId]: patterns
-    }));
+    try {
+      // 백엔드 API 호출하여 이상 상태 초기화
+      const response = await fetch('http://localhost:8000/api/vfd/acknowledge', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          vfd_id: vfdId,
+          user: 'Operator'
+        })
+      });
 
-    // 누적된 패턴 초기화
-    setAccumulatedAnomalies(prev => {
-      const updated = { ...prev };
-      delete updated[vfdId];
-      return updated;
-    });
+      if (!response.ok) {
+        throw new Error('Failed to acknowledge VFD anomaly');
+      }
+
+      const result = await response.json();
+      console.log(`✅ 백엔드에 ${vfdId} 이상 상태 초기화 요청 완료:`, result);
+
+      // 확인된 패턴 저장
+      setAcknowledgedAnomalies(prev => ({
+        ...prev,
+        [vfdId]: patterns
+      }));
+
+      // 누적된 패턴 초기화
+      setAccumulatedAnomalies(prev => {
+        const updated = { ...prev };
+        delete updated[vfdId];
+        console.log(`🗑️ ${vfdId} 누적 패턴 삭제됨, 업데이트된 상태:`, updated);
+        return updated;
+      });
+    } catch (error) {
+      console.error(`❌ ${vfdId} 이상 감지 확인 실패:`, error);
+    }
   };
 
   // 미확인 이상 패턴만 필터링 (누적된 패턴 사용)
@@ -168,91 +193,48 @@ const VFDDiagnostics = () => {
   const renderVFDCard = ([vfdId, vfd]) => {
     const statusColor = getStatusColor(vfd.status_grade);
     const statusText = getStatusText(vfd.status_grade);
+    const unacknowledgedPatterns = getUnacknowledgedPatterns(vfdId);
+    const hasAnomaly = unacknowledgedPatterns.length > 0;
 
     return (
       <div
         key={vfdId}
-        className={`vfd-card ${selectedVFD === vfdId ? 'selected' : ''}`}
-        style={{ borderLeft: `4px solid ${statusColor}` }}
+        className={`vfd-compact-card ${hasAnomaly ? 'has-anomaly' : ''}`}
+        style={{ borderTopColor: statusColor }}
         onClick={() => setSelectedVFD(vfdId)}
       >
-        <div className="vfd-card-header">
-          <h4>{vfdId.replace('_', ' ')}</h4>
-          <span className="vfd-status-badge" style={{ backgroundColor: statusColor }}>
+        <div className="vfd-compact-header">
+          <h4>{vfdId.replace('_', ' ').replace('SW PUMP', 'SWP').replace('FW PUMP', 'FWP').replace('ER FAN', 'FAN')}</h4>
+          <span className="vfd-compact-status" style={{ backgroundColor: statusColor }}>
             {statusText}
           </span>
         </div>
 
-        <div className="vfd-card-body">
-          <div className="vfd-metric">
+        <div className="vfd-compact-body">
+          <div className="vfd-compact-row">
             <span className="label">주파수</span>
             <span className="value">{vfd.current_frequency_hz?.toFixed(1) || '0.0'} Hz</span>
           </div>
-          <div className="vfd-metric">
-            <span className="label">출력 전류</span>
+          <div className="vfd-compact-row">
+            <span className="label">전력</span>
             <span className="value">{vfd.output_current_a?.toFixed(1) || '0.0'} A</span>
           </div>
-          <div className="vfd-metric">
-            <span className="label">모터 온도</span>
+          <div className="vfd-compact-row">
+            <span className="label">온도</span>
             <span className="value" style={{
               color: vfd.motor_temperature_c > 75 ? '#f44336' :
-                     vfd.motor_temperature_c > 70 ? '#ff9800' : '#e2e8f0'
+                     vfd.motor_temperature_c > 70 ? '#ff9800' : '#60a5fa'
             }}>
               {vfd.motor_temperature_c?.toFixed(1) || '0.0'}°C
             </span>
           </div>
-          <div className="vfd-metric">
-            <span className="label">온도 추세</span>
-            <span className="value predicted">
-              {getTrendIcon(vfd.temp_trend)} {vfd.temp_rise_rate?.toFixed(2) || '0.00'}°C/min
-            </span>
-          </div>
-          <div className="vfd-metric">
-            <span className="label">이상 점수</span>
-            <span className="value" style={{
-              color: vfd.anomaly_score > 75 ? '#f44336' :
-                     vfd.anomaly_score > 50 ? '#ff9800' :
-                     vfd.anomaly_score > 25 ? '#ffc107' : '#4caf50'
-            }}>
-              {vfd.anomaly_score?.toFixed(0) || '0'}/100
-            </span>
-          </div>
-          <div className="vfd-metric">
-            <span className="label">정비 권고</span>
-            <span className="value" style={{
-              color: vfd.maintenance_priority === 5 ? '#f44336' :
-                     vfd.maintenance_priority === 3 ? '#ff9800' :
-                     vfd.maintenance_priority === 1 ? '#ffc107' : '#4caf50'
-            }}>
-              {getMaintenancePriorityText(vfd.maintenance_priority)}
-            </span>
-          </div>
         </div>
 
-        <div className="vfd-card-footer">
-          <div className="footer-row">
-            <span className="runtime">⏱ {vfd.cumulative_runtime_hours?.toFixed(0) || 0}h</span>
-            <span className="life">💚 수명 {vfd.remaining_life_percent?.toFixed(0) || 100}%</span>
+        {hasAnomaly && (
+          <div className="vfd-compact-warning">
+            ⚠️ {unacknowledgedPatterns.length}개 이상
           </div>
-          {(() => {
-            const unacknowledgedPatterns = getUnacknowledgedPatterns(vfdId);
-            return unacknowledgedPatterns.length > 0 && (
-              <div className="footer-row warning" title={unacknowledgedPatterns.join(', ')}>
-                ⚠️ {unacknowledgedPatterns.length}개 이상 감지
-                <div className="anomaly-preview">
-                  {unacknowledgedPatterns.slice(0, 2).map((pattern, idx) => (
-                    <span key={idx} className="anomaly-tag">
-                      {pattern.replace('_', ' ')}
-                    </span>
-                  ))}
-                  {unacknowledgedPatterns.length > 2 && (
-                    <span className="anomaly-more">+{unacknowledgedPatterns.length - 2}</span>
-                  )}
-                </div>
-              </div>
-            );
-          })()}
-        </div>
+        )}
       </div>
     );
   };
@@ -265,7 +247,8 @@ const VFDDiagnostics = () => {
     if (!vfd) return null;
 
     return (
-      <div className="vfd-detail-panel">
+      <div className="vfd-modal-overlay" onClick={() => setSelectedVFD(null)}>
+        <div className="vfd-detail-panel" onClick={(e) => e.stopPropagation()}>
         <div className="detail-header">
           <h3>{selectedVFD.replace('_', ' ')} 상세 정보</h3>
           <button className="close-btn" onClick={() => setSelectedVFD(null)}>✕</button>
@@ -415,6 +398,7 @@ const VFDDiagnostics = () => {
             </div>
           </section>
         </div>
+        </div>
       </div>
     );
   };
@@ -438,7 +422,7 @@ const VFDDiagnostics = () => {
               정상 (0-20점)
             </span>
             <span className="legend-item">
-              <span className="legend-dot" style={{backgroundColor: '#FFC107'}}></span>
+              <span className="legend-dot" style={{backgroundColor: '#9E9E9E'}}></span>
               주의 (21-50점)
             </span>
             <span className="legend-item">
@@ -471,35 +455,33 @@ const VFDDiagnostics = () => {
         </div>
       </div>
 
-      <div className={`diagnostics-content ${selectedVFD ? 'panel-open' : ''}`}>
-        <div className="vfd-groups">
-          {/* SW 펌프 */}
-          <div className="vfd-group">
-            <h3>해수 펌프 (SW Pumps)</h3>
-            <div className="vfd-grid">
-              {swPumps.map(renderVFDCard)}
-            </div>
-          </div>
+      <div className="diagnostics-content">
+        <div className="vfd-grid-5col">
+          {/* 1행 1열: SWP1 */}
+          {swPumps[0] && renderVFDCard(swPumps[0])}
+          {/* 1행 2열: SWP2 */}
+          {swPumps[1] && renderVFDCard(swPumps[1])}
+          {/* 1행 3열: SWP3 */}
+          {swPumps[2] && renderVFDCard(swPumps[2])}
+          {/* 1행 4열: FAN1 */}
+          {erFans[0] && renderVFDCard(erFans[0])}
+          {/* 1행 5열: FAN2 */}
+          {erFans[1] && renderVFDCard(erFans[1])}
 
-          {/* FW 펌프 */}
-          <div className="vfd-group">
-            <h3>청수 펌프 (FW Pumps)</h3>
-            <div className="vfd-grid">
-              {fwPumps.map(renderVFDCard)}
-            </div>
-          </div>
-
-          {/* E/R 팬 */}
-          <div className="vfd-group">
-            <h3>기관실 팬 (E/R Fans)</h3>
-            <div className="vfd-grid">
-              {erFans.map(renderVFDCard)}
-            </div>
-          </div>
+          {/* 2행 1열: FWP1 */}
+          {fwPumps[0] && renderVFDCard(fwPumps[0])}
+          {/* 2행 2열: FWP2 */}
+          {fwPumps[1] && renderVFDCard(fwPumps[1])}
+          {/* 2행 3열: FWP3 */}
+          {fwPumps[2] && renderVFDCard(fwPumps[2])}
+          {/* 2행 4열: FAN3 */}
+          {erFans[2] && renderVFDCard(erFans[2])}
+          {/* 2행 5열: FAN4 */}
+          {erFans[3] && renderVFDCard(erFans[3])}
         </div>
-
-        {selectedVFD && renderDetailView()}
       </div>
+
+      {selectedVFD && renderDetailView()}
     </div>
   );
 };

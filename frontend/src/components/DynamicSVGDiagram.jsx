@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { sensorMapping, pumpMapping } from '../config/svgMapping'
 import { pipingDataMapping, pipingSensorMapping, pipingPumpMapping } from '../config/pipingMapping'
-import svgDiagram from '../assets/piping_diagram2.svg?raw'
+import svgDiagram from '../assets/piping_diagram3.svg?raw'
 import './DynamicSVGDiagram.css'
 
 function DynamicSVGDiagram({ sensors = {}, pumps = [], onPumpCommand }) {
@@ -436,7 +436,7 @@ function DynamicSVGDiagram({ sensors = {}, pumps = [], onPumpCommand }) {
         } else if (dataItem.name.includes('running hour')) {
           displayValue = `${pump.run_hours || 0}${dataItem.unit || ''}`
         } else if (dataItem.name.includes('VFD') && dataItem.name.includes('BYPASS')) {
-          displayValue = pump.vfd_mode ? 'VFD' : 'BYPASS'
+          displayValue = pump.vfd_mode ? 'VFD' : 'BYPA'
         } else if (dataItem.name.includes('Hz(VFD)')) {
           displayValue = `${pump.frequency?.toFixed(1) || '0.0'}${dataItem.unit || ''}`
         } else if (dataItem.type === 'pump') {
@@ -447,59 +447,62 @@ function DynamicSVGDiagram({ sensors = {}, pumps = [], onPumpCommand }) {
 
         if (!displayValue) return
 
-        // 그룹 생성
-        const group = document.createElementNS('http://www.w3.org/2000/svg', 'g')
-        group.setAttribute('id', `${valueId}_group`)
+        // 기존 그룹 요소 삭제
+        const oldGroup = svgElement.querySelector(`#${valueId}_group`)
+        if (oldGroup) oldGroup.remove()
 
-        // 모든 펌프에 Minimal Monochrome 스타일 적용
-        const bgFill = 'rgba(255, 255, 255, 0.1)'
+        // 텍스트 색상 결정 (팬 다이어그램과 동일)
         let textFill = '#ffffff'
-        const strokeColor = 'rgba(255, 255, 255, 0.3)'
-        const strokeWidth = '0.5'
-        const filter = 'none'
-        const fontSize = '9'
-        const fontFamily = 'Arial, sans-serif'
-
-        // AUTO/MANU와 VFD/BYPASS의 경우 모드에 따라 색상 변경
         if (dataItem.name.includes('Auto/Man mode')) {
-          textFill = pump.auto_mode ? '#ffffff' : '#000000'  // AUTO는 흰색, MANU는 검정색
+          textFill = pump.auto_mode ? '#00BFFF' : '#FF0000'
         } else if (dataItem.name.includes('VFD') && dataItem.name.includes('BYPASS')) {
-          textFill = pump.vfd_mode ? '#ffffff' : '#000000'  // VFD는 흰색, BYPASS는 검정색
+          textFill = pump.vfd_mode ? '#00BFFF' : '#FFA500'
+        } else if (dataItem.name.includes('Hz(VFD)')) {
+          textFill = '#FFFFFF'
+        } else if (dataItem.name.includes('running hour')) {
+          textFill = '#FFFFFF'
         }
 
-        // 텍스트 생성
+        const bgFill = 'rgba(0, 0, 0, 0.9)'
+        const fontSize = '9'
+        const fontFamily = 'Bahnschrift, sans-serif'
+        const fontWeight = 'bold'
+
+        // 텍스트 요소 생성 (크기 측정용)
         const textElement = document.createElementNS('http://www.w3.org/2000/svg', 'text')
         textElement.setAttribute('id', valueId)
-        textElement.setAttribute('x', dataItem.x + 4)
-        textElement.setAttribute('y', dataItem.y + 3.5)
+        textElement.setAttribute('x', dataItem.x + 6)
+        textElement.setAttribute('y', dataItem.y + 4)
         textElement.setAttribute('font-family', fontFamily)
         textElement.setAttribute('font-size', fontSize)
         textElement.setAttribute('fill', textFill)
-        textElement.setAttribute('font-weight', 'bold')
-        if (filter !== 'none') textElement.setAttribute('filter', filter)
+        textElement.setAttribute('font-weight', fontWeight)
+        textElement.setAttribute('text-anchor', 'start')
+        textElement.setAttribute('stroke', textFill)
+        textElement.setAttribute('stroke-width', '0.3')
         textElement.textContent = displayValue
 
-        // 크기 측정
+        // 임시로 추가하여 크기 측정
         svgElement.appendChild(textElement)
         const textBBox = textElement.getBBox()
         svgElement.removeChild(textElement)
 
-        // 배경 박스
+        // 배경 박스 생성
         const bgRect = document.createElementNS('http://www.w3.org/2000/svg', 'rect')
-        bgRect.setAttribute('x', dataItem.x - 1.5)
-        bgRect.setAttribute('y', dataItem.y - 7.5)
+        bgRect.setAttribute('x', dataItem.x - 1)
+        bgRect.setAttribute('y', dataItem.y - 9)
         bgRect.setAttribute('width', textBBox.width + 10)
-        bgRect.setAttribute('height', 15)
+        bgRect.setAttribute('height', 14)
         bgRect.setAttribute('rx', '3')
         bgRect.setAttribute('ry', '3')
         bgRect.setAttribute('fill', bgFill)
-        if (strokeColor !== 'none') {
-          bgRect.setAttribute('stroke', strokeColor)
-          bgRect.setAttribute('stroke-width', strokeWidth)
-        }
 
+        // 그룹 생성 및 요소 추가
+        const group = document.createElementNS('http://www.w3.org/2000/svg', 'g')
+        group.setAttribute('id', `${valueId}_group`)
         group.appendChild(bgRect)
         group.appendChild(textElement)
+
         svgElement.appendChild(group)
       })
 
@@ -519,7 +522,7 @@ function DynamicSVGDiagram({ sensors = {}, pumps = [], onPumpCommand }) {
           // 운전 중이면 애니메이션 활성화
           impellerElement.style.animationPlayState = 'running'
 
-          // 펌프 색상을 밝은 파란색으로 변경
+          // 펌프 색상을 진한 파란색으로 변경
           fillElements.forEach(el => {
             // impeller 내부 요소는 제외
             if (!el.closest('.impeller-' + pumpName) || el === impellerElement) {
@@ -528,15 +531,15 @@ function DynamicSVGDiagram({ sensors = {}, pumps = [], onPumpCommand }) {
               if (!el.hasAttribute('data-original-fill')) {
                 el.setAttribute('data-original-fill', currentFill)
               }
-              // 파란색 계열로 변경 (더 밝고 선명하게)
+              // 진한 파란색 계열로 변경
               if (currentFill.includes('#06b6d4')) {
-                el.setAttribute('fill', '#22d3ee')  // 밝은 cyan
+                el.setAttribute('fill', '#1E90FF')  // 밝은 진한 파란색 (DodgerBlue)
               } else if (currentFill.includes('#0891b2')) {
-                el.setAttribute('fill', '#06b6d4')  // 중간 cyan
+                el.setAttribute('fill', '#0066CC')  // 중간 진한 파란색
               } else if (currentFill.includes('#0e7490')) {
-                el.setAttribute('fill', '#0891b2')  // 어두운 cyan
+                el.setAttribute('fill', '#0052A3')  // 어두운 진한 파란색
               } else if (!currentFill.includes('url')) {
-                el.setAttribute('fill', '#22d3ee')  // 기본값
+                el.setAttribute('fill', '#1E90FF')  // 기본값 (진한 파란색)
               }
             }
           })

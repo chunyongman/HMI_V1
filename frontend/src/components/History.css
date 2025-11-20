@@ -52,7 +52,7 @@
 }
 
 .history-tabs button.active {
-  background: #3b82f6;
+  background: #8b5cf6;  /* 하위 탭: 보라색 */
   color: white;
 }
 
@@ -94,7 +94,7 @@
   font-size: 0.875rem;
 }
 
-.btn-export, .btn-search {
+.btn-export {
   padding: 0.5rem 1rem;
   background: #3b82f6;
   border: none;
@@ -105,6 +105,18 @@
   cursor: pointer;
   transition: all 0.2s;
   margin-left: auto;
+}
+
+.btn-search {
+  padding: 0.5rem 1rem;
+  background: #3b82f6;
+  border: none;
+  border-radius: 0.5rem;
+  color: white;
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
 }
 
 .btn-export:hover, .btn-search:hover {

@@ -1,9 +1,12 @@
 /* VFD 예방진단 스타일 - 다크 테마 */
 
 .vfd-diagnostics {
-  padding: 20px;
+  padding: 1rem 1.5rem;
   background: #1e293b;
-  min-height: 100vh;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
 }
 
 .vfd-diagnostics.loading,
@@ -24,23 +27,24 @@
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  margin-bottom: 24px;
-  padding: 20px;
+  margin-bottom: 0.75rem;
+  padding: 0.75rem 1rem;
   background: #2d3b4e;
-  border-radius: 12px;
+  border-radius: 0.75rem;
   border: 1px solid #3d4d63;
+  flex-shrink: 0;
 }
 
 .header-title h2 {
-  margin: 0 0 8px 0;
+  margin: 0 0 4px 0;
   color: #e2e8f0;
-  font-size: 26px;
+  font-size: 1.25rem;
 }
 
 .header-info {
   display: flex;
-  gap: 20px;
-  font-size: 15px;
+  gap: 1rem;
+  font-size: 0.875rem;
   color: #94a3b8;
 }
 
@@ -48,18 +52,18 @@
 .status-legend {
   display: flex;
   flex-direction: column;
-  gap: 8px;
-  padding: 12px;
+  gap: 0.5rem;
+  padding: 0.75rem;
   background: #1e293b;
-  border-radius: 8px;
+  border-radius: 0.5rem;
   border: 1px solid #3d4d63;
 }
 
 .legend-title {
-  font-size: 15px;
+  font-size: 0.875rem;
   font-weight: bold;
   color: #cbd5e1;
-  margin-bottom: 4px;
+  margin-bottom: 0.25rem;
 }
 
 .legend-items {
@@ -88,27 +92,28 @@
 .guide-panel {
   background: #1e3a5f;
   border-left: 4px solid #3b82f6;
-  border-radius: 8px;
-  padding: 16px;
-  margin-bottom: 20px;
+  border-radius: 0.5rem;
+  padding: 0.75rem;
+  margin-bottom: 0.75rem;
+  flex-shrink: 0;
 }
 
 .guide-panel h4 {
-  margin: 0 0 12px 0;
+  margin: 0 0 0.5rem 0;
   color: #60a5fa;
-  font-size: 18px;
+  font-size: 1rem;
 }
 
 .guide-items {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 8px;
+  gap: 0.5rem;
 }
 
 .guide-item {
-  font-size: 15px;
+  font-size: 0.9rem;
   color: #cbd5e1;
-  line-height: 1.6;
+  line-height: 1.4;
 }
 
 .guide-item strong {
@@ -119,31 +124,20 @@
 /* 본문 */
 .diagnostics-content {
   position: relative;
-  transition: margin-right 0.3s ease;
-}
-
-.diagnostics-content.panel-open {
-  margin-right: 520px; /* 패널 너비 500px + 여백 20px */
-}
-
-/* VFD 그룹 */
-.vfd-groups {
+  flex: 1;
+  overflow: hidden;
   display: flex;
   flex-direction: column;
-  gap: 24px;
 }
 
-.vfd-group h3 {
-  margin-bottom: 15px;
-  color: #e2e8f0;
-  font-size: 20px;
-  font-weight: 600;
-}
-
-.vfd-grid {
+/* 5x2 그리드 레이아웃 */
+.vfd-grid-5col {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 16px;
+  grid-template-columns: repeat(5, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  gap: 0.75rem;
+  flex: 1;
+  overflow: hidden;
 }
 
 /* VFD 카드 */
@@ -278,36 +272,134 @@
   font-weight: 600;
 }
 
-/* 상세 패널 */
-.vfd-detail-panel {
+/* 컴팩트 카드 스타일 */
+.vfd-compact-card {
+  background: #0f172a;
+  border-radius: 0.75rem;
+  padding: 1.25rem;
+  border: 2px solid #334155;
+  border-top: 4px solid #334155;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.vfd-compact-card:hover {
+  transform: translateY(-2px);
+  border-color: #3b82f6;
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.2);
+}
+
+.vfd-compact-card.has-anomaly {
+  border-color: #fbbf24;
+  box-shadow: 0 0 12px rgba(251, 191, 36, 0.2);
+}
+
+.vfd-compact-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.75rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid #334155;
+}
+
+.vfd-compact-header h4 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #f1f5f9;
+  margin: 0;
+}
+
+.vfd-compact-status {
+  padding: 0.35rem 0.85rem;
+  border-radius: 1rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: white;
+}
+
+.vfd-compact-body {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+}
+
+.vfd-compact-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.875rem;
+}
+
+.vfd-compact-row .label {
+  color: #94a3b8;
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 0.95rem;
+}
+
+.vfd-compact-row .value {
+  color: #60a5fa;
+  font-weight: 700;
+  font-size: 1.25rem;
+}
+
+.vfd-compact-warning {
+  margin-top: 0.75rem;
+  padding: 0.65rem;
+  background: rgba(251, 191, 36, 0.1);
+  border-radius: 0.5rem;
+  text-align: center;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #fbbf24;
+}
+
+/* 모달 오버레이 */
+.vfd-modal-overlay {
   position: fixed;
   top: 0;
+  left: 0;
   right: 0;
-  width: 500px;
-  height: 100vh;
-  background: #1e293b;
-  box-shadow: -4px 0 16px rgba(0,0,0,0.5);
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.7);
   z-index: 1000;
-  overflow-y: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(4px);
+}
+
+/* 상세 패널 - 모달로 변경 */
+.vfd-detail-panel {
+  width: 85%;
+  max-width: 850px;
+  height: 85vh;
+  background: #1e293b;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+  z-index: 1001;
+  overflow: hidden;
+  border-radius: 1rem;
+  border: 2px solid #3b82f6;
+  display: flex;
+  flex-direction: column;
 }
 
 .detail-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 20px;
+  padding: 0.75rem 1rem;
   border-bottom: 1px solid #3d4d63;
-  position: sticky;
-  top: 0;
   background: #2d3b4e;
-  z-index: 10;
+  flex-shrink: 0;
 }
 
 .detail-header h3 {
   margin: 0;
-  font-size: 20px;
+  font-size: 1.1rem;
   color: #e2e8f0;
-  font-weight: 600;
+  font-weight: 700;
 }
 
 .close-btn {
@@ -330,49 +422,56 @@
 }
 
 .detail-body {
-  padding: 20px;
+  padding: 0.75rem;
   background: #1e293b;
+  flex: 1;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
 }
 
 .detail-section {
-  margin-bottom: 24px;
+  margin-bottom: 0;
+  flex-shrink: 0;
 }
 
 .detail-section h4 {
-  margin: 0 0 12px 0;
-  font-size: 15px;
+  margin: 0 0 0.5rem 0;
+  font-size: 0.95rem;
   color: #cbd5e1;
   border-left: 3px solid #3b82f6;
-  padding-left: 10px;
-  font-weight: 600;
+  padding-left: 0.5rem;
+  font-weight: 700;
 }
 
 .detail-grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 10px;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.5rem;
 }
 
 .detail-item {
   display: flex;
   flex-direction: column;
-  gap: 4px;
-  padding: 12px;
+  gap: 0.15rem;
+  padding: 0.5rem;
   background: #2d3b4e;
-  border-radius: 8px;
+  border-radius: 0.5rem;
   border: 1px solid #3d4d63;
 }
 
 .detail-item .label {
-  font-size: 11px;
+  font-size: 0.9rem;
   color: #94a3b8;
   text-transform: uppercase;
   letter-spacing: 0.5px;
+  font-weight: 600;
 }
 
 .detail-item .value {
-  font-size: 16px;
-  font-weight: 600;
+  font-size: 1rem;
+  font-weight: 700;
   color: #e2e8f0;
 }
 
@@ -388,39 +487,39 @@
 }
 
 .anomaly-list li {
-  padding: 10px 12px;
-  margin-bottom: 8px;
+  padding: 0.5rem;
+  margin-bottom: 0.35rem;
   background: rgba(251, 191, 36, 0.1);
   border-left: 3px solid #fbbf24;
-  border-radius: 6px;
-  font-size: 13px;
+  border-radius: 0.5rem;
+  font-size: 0.8rem;
   color: #fbbf24;
-  font-weight: 500;
+  font-weight: 600;
 }
 
 /* 권고사항 */
 .recommendation-box {
-  padding: 14px;
+  padding: 0.65rem;
   background: rgba(59, 130, 246, 0.1);
   border-left: 3px solid #3b82f6;
-  border-radius: 6px;
-  font-size: 13px;
-  line-height: 1.6;
+  border-radius: 0.5rem;
+  font-size: 0.9rem;
+  line-height: 1.4;
   color: #60a5fa;
-  font-weight: 400;
+  font-weight: 600;
 }
 
 /* 이상 감지 확인 버튼 */
 .acknowledge-btn {
-  margin-top: 12px;
+  margin-top: 0.5rem;
   width: 100%;
-  padding: 12px;
+  padding: 0.65rem;
   background: #3b82f6;
   color: white;
   border: none;
-  border-radius: 6px;
-  font-size: 14px;
-  font-weight: bold;
+  border-radius: 0.5rem;
+  font-size: 0.95rem;
+  font-weight: 700;
   cursor: pointer;
   transition: all 0.2s;
 }
