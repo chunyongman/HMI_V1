@@ -1,246 +1,213 @@
-# 🚢 ESS HMI 웹 시스템 (Unayzah Express - M Class)
+# HMI V1 - ESS Engine Room Ventilation System
 
-선박용 Engine Room Ventilation System (ESS) 제어를 위한 현대적인 웹 기반 HMI 시스템입니다.
+HMI (Human-Machine Interface) V1 시스템입니다.
 
-## ✨ 주요 기능
+## 📋 개요
 
-### 🎯 실시간 모니터링
-- **장비 상태**: 3개 SWP, 3개 FWP, 4개 E/R Fan 실시간 모니터링
-- **센서 데이터**: 온도(TX1-TX7), 압력(DPX1-DPX2), M/E 부하(PU1)
-- **VFD 데이터**: 주파수, 전력, 절감량 실시간 표시
-- **WebSocket 실시간 업데이트**: 1초 간격 자동 갱신
+이 시스템은 **3개 장비 분리 구조**를 위해 설계되었습니다:
 
-### 🎮 제어 기능
-- **펌프 제어**: START/STOP 원격 제어 (SWP1-3, FWP1-3)
-- **팬 제어**: FWD/BWD/STOP 제어 (E/R Fan1-4)
-- **ESS 모드**: 에너지 절감 모드 활성화/비활성화
-
-### 📊 데이터 분석
-- **트렌드 차트**: 실시간 온도/압력 그래프
-- **에너지 관리**: VFD 에너지 소비 및 절감량 모니터링
-- **알람 패널**: 알람 포인트 모니터링
-
-### 🧪 시뮬레이터 모드
-- **가상 PLC**: 실제 PLC 없이 시스템 테스트 가능
-- **실시간 데이터 생성**: 실제와 유사한 센서 데이터 시뮬레이션
-- **장비 제어 시뮬레이션**: HMI 명령에 반응하는 가상 장비
-
-## 🚀 빠른 시작
-
-### ⭐ 시뮬레이터 모드 (PLC 없이 테스트) - 권장
-
-**간편 실행:**
-```batch
-START_HMI.bat
-```
-
-자동으로 다음이 실행됩니다:
-- ✅ PLC 시뮬레이터 (192.168.0.130:502)
-- ✅ 백엔드 서버 (포트 8000)
-- ✅ 프론트엔드 (포트 5173)
-
-10초 후 브라우저가 자동으로 `http://localhost:5173` 접속
-
-### 종료 방법
-
-```batch
-STOP_HMI.bat
-```
-
-또는 각 창에서 `Ctrl+C` 눌러 종료
-
-### 실제 PLC 연결 모드
-
-1. PLC IP 주소는 이미 `192.168.0.130:502`로 설정되어 있습니다
-2. PLC 연결 후 동일하게 `START_HMI.bat` 실행
-
-## 📦 설치
-
-### 필수 요구사항
-- **Python**: 3.8 이상
-- **Node.js**: 16 이상
-- **관리자 권한**: 시뮬레이터 실행 시 필요 (포트 502 사용)
-
-### 백엔드 설정
-
-```bash
-cd backend
-python -m venv venv
-venv\Scripts\activate
-pip install -r requirements.txt
-```
-
-### 프론트엔드 설정
-
-```bash
-cd frontend
-npm install
-```
+1. **PLC Simulator** - 센서 데이터 생성 및 Edge AI 결과 저장
+2. **Edge Computer** - AI 계산 수행 (에너지 절감, 목표 주파수, VFD 진단)
+3. **HMI (이 프로그램)** - PLC로부터 데이터를 읽어와 시각화
 
 ## 🏗️ 시스템 아키텍처
 
 ```
-┌─────────────────┐
-│   프론트엔드     │  React + Vite
-│  (Port 5173)    │  WebSocket 클라이언트
-└────────┬────────┘
-         │ WebSocket + REST API
-┌────────▼────────┐
-│   백엔드 서버    │  FastAPI + uvicorn
-│  (Port 8000)    │  WebSocket 서버
-└────────┬────────┘
-         │ Modbus TCP
-┌────────▼────────┐
-│   PLC / 시뮬레이터│  Modbus TCP Server
-│   (Port 502)    │  Node ID: 3
-└─────────────────┘
+┌─────────────┐      Modbus TCP      ┌─────────────┐
+│   PLC       │◄─────────────────────┤ Edge AI     │
+│  Simulator  │  센서 읽기 / 결과 쓰기  │  Computer   │
+└─────────────┘                      └─────────────┘
+       ▲
+       │ Modbus TCP (센서 + Edge AI 결과 읽기)
+       │
+┌─────────────┐
+│   HMI V1    │
+│  (이 시스템)  │
+└─────────────┘
 ```
 
-## 📁 프로젝트 구조
+## ✨ 주요 변경 사항 (HMI_REAL → HMI_V1)
 
+### Backend 수정:
+1. **AI 계산 로직 제거**
+   - `calculate_energy_savings_from_edge()` → `read_edge_ai_results()`
+   - `calculate_ai_target_frequency()` → `read_edge_ai_target_frequencies()`
+
+2. **Edge AI 결과 읽기**
+   - PLC 레지스터 5000-5303에서 Edge AI 계산 결과 읽기
+   - 에너지 절감률, AI 목표 주파수, VFD 진단 점수
+
+3. **환경 변수 지원**
+   - `PLC_HOST`: PLC IP 주소 (기본값: localhost)
+   - `PLC_PORT`: PLC 포트 (기본값: 502)
+   - `PLC_SLAVE_ID`: PLC Slave ID (기본값: 3)
+
+### Frontend:
+- 변경 없음 (기존 HMI_REAL과 동일)
+
+## 📦 필수 요구사항
+
+### Backend
+- Python 3.8 이상
+- pip (Python 패키지 관리자)
+
+### Frontend
+- Node.js 16 이상
+- npm (Node 패키지 관리자)
+
+## 🚀 빠른 시작
+
+### 1. 전체 시스템 실행 (권장)
+
+```batch
+START_HMI_V1.bat
 ```
-ess-hmi-web/
-├── backend/                    # FastAPI 백엔드
-│   ├── main.py                # 메인 서버
-│   ├── modbus_client.py       # Modbus TCP 클라이언트
-│   ├── requirements.txt       # Python 의존성
-│   └── venv/                  # Python 가상환경
-│
-├── frontend/                   # React 프론트엔드
-│   ├── src/
-│   │   ├── App.jsx           # 메인 앱
-│   │   ├── components/       # React 컴포넌트
-│   │   │   ├── Dashboard.jsx
-│   │   │   ├── CoolingSystem.jsx
-│   │   │   ├── PumpControl.jsx
-│   │   │   ├── TrendChart.jsx
-│   │   │   └── ...
-│   │   └── assets/           # 이미지, 아이콘
-│   ├── package.json
-│   └── vite.config.js
-│
-├── simulator/                  # PLC 시뮬레이터
-│   └── plc_simulator.py       # 가상 PLC
-│
-├── start_with_simulator.bat   # 시뮬레이터 모드 시작
-├── start_simulator_only.bat   # 시뮬레이터만 시작
-├── start.bat                  # 실제 PLC 모드 시작
-├── 시뮬레이터_사용_가이드.md    # 시뮬레이터 가이드
-└── README.md                  # 이 파일
+
+이 스크립트는 자동으로:
+- Backend 가상환경 생성 및 의존성 설치
+- Frontend 의존성 설치
+- Backend 서버 시작 (port 8000)
+- Frontend 서버 시작 (port 5173)
+- 브라우저 자동 열기
+
+### 2. 개별 실행
+
+#### Backend 실행
+```batch
+cd backend
+python -m venv venv
+venv\Scripts\activate
+pip install -r requirements.txt
+python main.py
 ```
 
-## 🔧 개발
+#### Frontend 실행
+```batch
+cd frontend
+npm install
+npm run dev
+```
 
-### 백엔드 개발 서버
+## ⚙️ 설정
 
-```bash
+### PLC 연결 설정
+
+**방법 1: 환경 변수 (권장)**
+```batch
+set PLC_HOST=192.168.1.10
+set PLC_PORT=502
+set PLC_SLAVE_ID=3
+python main.py
+```
+
+**방법 2: Backend 코드 수정**
+`backend/main.py` Line 40:
+```python
+plc_client = PLCClient(host="192.168.1.10", port=502, slave_id=3)
+```
+
+### 시뮬레이션 모드
+
+PLC 없이 테스트하려면 `backend/main.py` Line 40:
+```python
+plc_client = PLCClient(use_simulation=True)
+```
+
+## 📡 Edge AI 레지스터 맵
+
+HMI는 다음 PLC 레지스터에서 Edge AI 결과를 읽어옵니다:
+
+| 레지스터 | 개수 | 설명 | 단위 |
+|---------|------|------|------|
+| 5000-5009 | 10 | AI 목표 주파수 | Hz × 10 |
+| 5100-5109 | 10 | 절감 전력 | kW × 10 |
+| 5200-5209 | 10 | VFD 진단 점수 | 0-100 |
+| 5300-5303 | 4 | 시스템 절감률 (Total, SWP, FWP, FAN) | % × 10 |
+
+## 🔗 통합 테스트
+
+### 3개 장비 연동 테스트
+
+1. **PLC Simulator 실행**
+   ```batch
+   cd C:\Users\my\Desktop\PLC_Simulator
+   START.bat
+   ```
+
+2. **Edge Computer 실행**
+   ```batch
+   cd C:\Users\my\Desktop\Edge_Computer_V1
+   START.bat
+   ```
+
+3. **HMI V1 실행**
+   ```batch
+   cd C:\Users\my\Desktop\HMI_V1
+   START_HMI_V1.bat
+   ```
+
+4. **브라우저 접속**
+   - http://localhost:5173
+
+### 확인 사항
+- ✅ PLC Simulator: 센서 데이터 정상 생성
+- ✅ Edge AI: PLC 연결 성공, AI 계산 수행
+- ✅ HMI: 대시보드에 실시간 데이터 표시
+- ✅ 에너지 절감 현황: Edge AI 계산 결과 표시
+- ✅ AI 목표 주파수: Edge AI 목표값 vs 실제값 비교
+
+## 🛠️ 개발
+
+### Backend 개발 서버
+```batch
 cd backend
 venv\Scripts\activate
 python main.py
 ```
 
-API 문서: `http://localhost:8000/docs`
-
-### 프론트엔드 개발 서버
-
-```bash
+### Frontend 개발 서버
+```batch
 cd frontend
 npm run dev
 ```
 
-개발 서버: `http://localhost:5173`
-
-### 시뮬레이터 단독 실행
-
-**관리자 권한으로:**
-
-```bash
-cd backend
-venv\Scripts\activate
-python ..\simulator\plc_simulator.py
+### Frontend 빌드
+```batch
+cd frontend
+npm run build
 ```
 
-## 📡 API 엔드포인트
+## 📂 프로젝트 구조
 
-### REST API
-- `GET /`: 서버 상태
-- `GET /api/status`: 시스템 상태
-- `GET /api/sensors`: 센서 데이터
-- `GET /api/pumps`: 모든 펌프 데이터
-- `GET /api/pump/{index}`: 특정 펌프 데이터
-- `POST /api/pump/command`: 펌프 제어 명령
-- `POST /api/setting`: 설정값 변경
+```
+HMI_V1/
+├── backend/                # Backend (Python FastAPI)
+│   ├── main.py            # 메인 서버
+│   ├── modbus_client.py   # PLC Modbus 클라이언트 (Edge AI 결과 읽기)
+│   ├── requirements.txt   # Python 의존성
+│   └── venv/              # Python 가상환경
+├── frontend/              # Frontend (React + Vite)
+│   ├── src/
+│   ├── package.json
+│   └── node_modules/
+├── START_HMI_V1.bat       # 전체 시스템 시작 스크립트
+├── STOP_HMI.bat           # 시스템 중지 스크립트
+└── README.md              # 이 파일
+```
 
-### WebSocket
-- `ws://localhost:8000/ws`: 실시간 데이터 스트림
+## 🔄 HMI_REAL과의 차이점
 
-## 🎨 화면 구성
+| 기능 | HMI_REAL | HMI_V1 |
+|------|----------|--------|
+| AI 계산 | Backend에서 수행 | Edge AI에서 수행 |
+| 데이터 소스 | PLC (센서) + 자체 계산 | PLC (센서 + Edge AI 결과) |
+| 배포 형태 | 단일 시스템 | 3개 시스템 분리 |
+| PLC 연결 | 하드코딩 | 환경 변수 지원 |
 
-1. **대시보드**: 시스템 전체 개요
-2. **냉각 시스템**: 실시간 다이어그램
-3. **펌프 제어**: 개별 펌프 제어 및 모니터링
-4. **트렌드 차트**: 시계열 데이터 분석
-5. **알람**: 알람 이력 및 현황
-6. **히스토리**: 과거 데이터 조회
-7. **설정**: 시스템 설정
+## 📝 라이선스
 
-## 🔐 보안
+Proprietary
 
-- **프로덕션 환경**: CORS 설정 변경 필요
-- **인증**: 필요 시 JWT 인증 추가 권장
-- **HTTPS**: 프로덕션에서는 HTTPS 사용 권장
+## 👥 지원
 
-## 🐛 문제 해결
-
-### 시뮬레이터 관련
-- **"관리자 권한 필요"**: 배치 파일을 관리자 권한으로 실행
-- **"포트 502 사용 불가"**: 다른 프로그램이 포트 사용 중
-- **데이터가 0으로 표시**: 시뮬레이터 실행 확인
-
-자세한 내용은 `시뮬레이터_사용_가이드.md` 참조
-
-### 백엔드 관련
-- **PLC 연결 실패**: IP 주소 및 포트 확인
-- **모듈 없음 오류**: `pip install -r requirements.txt` 실행
-
-### 프론트엔드 관련
-- **페이지 로딩 안됨**: `npm install` 실행 확인
-- **WebSocket 연결 실패**: 백엔드 서버 실행 확인
-
-## 📚 문서
-
-- [시뮬레이터 사용 가이드](시뮬레이터_사용_가이드.md)
-- [빠른 실행 가이드](빠른_실행_가이드.md)
-- [사용자 가이드](사용자_가이드.md)
-- [배포 가이드](HMI_배포_가이드.md)
-
-## 🛠️ 기술 스택
-
-### 백엔드
-- **FastAPI**: 고성능 Python 웹 프레임워크
-- **pymodbus**: Modbus TCP 통신
-- **uvicorn**: ASGI 서버
-- **WebSocket**: 실시간 양방향 통신
-
-### 프론트엔드
-- **React**: UI 라이브러리
-- **Vite**: 빌드 도구
-- **Recharts**: 차트 라이브러리
-- **CSS3**: 스타일링
-
-### 시뮬레이터
-- **pymodbus**: Modbus TCP 서버
-- **Python threading**: 멀티스레드 시뮬레이션
-
-## 📄 라이선스
-
-이 프로젝트는 내부 사용을 위한 것입니다.
-
-## 🤝 기여
-
-프로젝트 개선 제안이나 버그 리포트는 환영합니다.
-
----
-
-**🎉 ESS HMI 시스템으로 효율적인 냉각 시스템 관리를 경험하세요!**
-
+문의사항이 있으시면 시스템 관리자에게 연락하세요.

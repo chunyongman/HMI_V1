@@ -877,12 +877,14 @@ async def broadcast_realtime_data():
 
             # 에너지 절감률 데이터 수신 (PLC를 통해 EDGE AI에서 계산된 데이터)
             if equipment:
-                energy_savings_data.update(plc_client.calculate_energy_savings_from_edge(equipment))
+                edge_ai_data = plc_client.read_edge_ai_results()
+                if edge_ai_data:
+                    energy_savings_data.update(edge_ai_data)
 
             # AI 목표 주파수 제어 데이터 (EDGE AI에서 계산된 데이터)
             global ai_frequency_control
             if equipment:
-                ai_frequency_control = plc_client.calculate_ai_target_frequency(equipment)
+                ai_frequency_control = plc_client.read_edge_ai_target_frequencies(equipment)
 
             # 에너지 절감 상세 요약 데이터 (EDGE AI에서 계산된 데이터)
             global energy_savings_summary

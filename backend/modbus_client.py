@@ -7,7 +7,7 @@ import logging
 import random
 import time
 from typing import Optional, Dict, Any, List
-from pymodbus.client import ModbusTcpClient
+from pymodbus.client.sync import ModbusTcpClient
 from pymodbus.exceptions import ModbusException
 
 logging.basicConfig(level=logging.INFO)
@@ -17,10 +17,12 @@ logger = logging.getLogger(__name__)
 class PLCClient:
     """ESS PLC Modbus TCP 클라이언트"""
 
-    def __init__(self, host: str = "192.168.0.130", port: int = 502, slave_id: int = 3, use_simulation: bool = False):
-        self.host = host
-        self.port = port
-        self.slave_id = slave_id
+    def __init__(self, host: str = None, port: int = 502, slave_id: int = 3, use_simulation: bool = False):
+        # 환경 변수로 PLC IP 설정 가능
+        import os
+        self.host = host or os.getenv("PLC_HOST", "localhost")
+        self.port = int(os.getenv("PLC_PORT", port))
+        self.slave_id = int(os.getenv("PLC_SLAVE_ID", slave_id))
         self.client: Optional[ModbusTcpClient] = None
         self.connected = False
         self.use_simulation = use_simulation
@@ -723,87 +725,88 @@ class PLCClient:
             "run_hours": 0,
         }
 
-    def calculate_energy_savings_from_edge(self, equipment_list: List[Dict]) -> Dict[str, Any]:
+    def read_edge_ai_results(self) -> Dict[str, Any]:
         """
-        EDGE AI 시뮬레이션: 에너지 절감률 계산
-        실제 시스템에서는 EDGE Computer에서 이 계산을 수행하고,
-        PLC를 통해 HMI에 전달됩니다.
-
-        팬/펌프 법칙: P = k × N³ (전력은 회전수의 3제곱에 비례)
-
-        Args:
-            equipment_list: 장비 데이터 리스트 (get_all_equipment_data() 반환값)
+        Edge AI가 PLC에 쓴 계산 결과를 읽어옴
 
         Returns:
-            에너지 절감률 데이터 (total, swp, fwp, fan)
+            Edge AI 계산 결과 (에너지 절감, AI 목표 주파수, VFD 진단)
         """
-        # 장비별 정격 전력 (kW)
-        RATED_POWER = {
-            "SWP": 132.0,  # Sea Water Pump 정격 전력
-            "FWP": 75.0,   # Fresh Water Pump 정격 전력
-            "FAN": 54.3,   # E/R Fan 정격 전력
-        }
+        if self.use_simulation:
+            # 시뮬레이션 모드: 더미 데이터 반환
+            return self._simulate_edge_ai_results()
 
-        # 초기화
-        swp_power_60hz = 0.0
-        swp_power_vfd = 0.0
-        fwp_power_60hz = 0.0
-        fwp_power_vfd = 0.0
-        fan_power_60hz = 0.0
-        fan_power_vfd = 0.0
+        try:
+            # 5300-5303: 시스템 절감률 (% × 10)
+            system_savings_raw = self.read_holding_registers(5300, 4)
+            if not system_savings_raw:
+                logger.warning("Edge AI 시스템 절감률 읽기 실패")
+                return None
 
-        # 각 장비별 계산
-        for i, eq in enumerate(equipment_list):
-            frequency = eq.get("frequency", 0.0)
-
-            # 장비 유형 구분
-            if i < 3:  # SWP1, SWP2, SWP3
-                rated_power = RATED_POWER["SWP"]
-                # 60Hz 고정 운전 시 전력 (정격 전력)
-                power_at_60hz = rated_power
-                # 현재 주파수 운전 시 전력 (팬/펌프 법칙 적용)
-                power_at_current_freq = rated_power * ((frequency / 60) ** 3) if frequency > 0 else 0
-
-                swp_power_60hz += power_at_60hz
-                swp_power_vfd += power_at_current_freq
-
-            elif i < 6:  # FWP1, FWP2, FWP3
-                rated_power = RATED_POWER["FWP"]
-                power_at_60hz = rated_power
-                power_at_current_freq = rated_power * ((frequency / 60) ** 3) if frequency > 0 else 0
-
-                fwp_power_60hz += power_at_60hz
-                fwp_power_vfd += power_at_current_freq
-
-            else:  # FAN1, FAN2, FAN3, FAN4
-                rated_power = RATED_POWER["FAN"]
-                power_at_60hz = rated_power
-                power_at_current_freq = rated_power * ((frequency / 60) ** 3) if frequency > 0 else 0
-
-                fan_power_60hz += power_at_60hz
-                fan_power_vfd += power_at_current_freq
-
-        # 시스템별 절감량 및 절감률 계산
-        def calc_savings(power_60hz, power_vfd):
-            savings_kw = round(power_60hz - power_vfd, 1)
-            savings_rate = round((savings_kw / power_60hz * 100), 1) if power_60hz > 0 else 0.0
-            return {
-                "power_60hz": round(power_60hz, 1),
-                "power_vfd": round(power_vfd, 1),
-                "savings_kw": savings_kw,
-                "savings_rate": savings_rate
+            # 실시간 절감률 데이터
+            realtime = {
+                "total": {"savings_rate": system_savings_raw[0] / 10.0},
+                "swp": {"savings_rate": system_savings_raw[1] / 10.0},
+                "fwp": {"savings_rate": system_savings_raw[2] / 10.0},
+                "fan": {"savings_rate": system_savings_raw[3] / 10.0},
             }
 
-        swp_data = calc_savings(swp_power_60hz, swp_power_vfd)
-        fwp_data = calc_savings(fwp_power_60hz, fwp_power_vfd)
-        fan_data = calc_savings(fan_power_60hz, fan_power_vfd)
+            # 오늘/이번 달 누적 데이터는 기존 accumulator 사용
+            # 누적 절감률 업데이트 (캘린더 기준)
+            from datetime import datetime
+            now = datetime.now()
+            current_time = time.time()
+            time_delta = current_time - self.energy_accumulator["last_update"]
 
-        # 전체 절감량 계산
-        total_power_60hz = swp_power_60hz + fwp_power_60hz + fan_power_60hz
-        total_power_vfd = swp_power_vfd + fwp_power_vfd + fan_power_vfd
-        total_data = calc_savings(total_power_60hz, total_power_vfd)
+            # 자정이 지나면 오늘 누적 데이터 리셋
+            today_start = now.replace(hour=0, minute=0, second=0, microsecond=0)
+            if today_start > self.energy_accumulator["today_start"]:
+                self.energy_accumulator["today_start"] = today_start
+                self.energy_accumulator["today_total_kwh_saved"] = 0.0
+                self.energy_accumulator["today_samples"] = 0
+                logger.info("자정 경과: 오늘 누적 데이터 리셋")
 
-        # 누적 절감률 계산 (캘린더 기준)
+            # 월초가 지나면 이번 달 누적 데이터 리셋
+            month_start = now.replace(day=1, hour=0, minute=0, second=0, microsecond=0)
+            if month_start > self.energy_accumulator["month_start"]:
+                self.energy_accumulator["month_start"] = month_start
+                self.energy_accumulator["month_total_kwh_saved"] = 0.0
+                self.energy_accumulator["month_samples"] = 0
+                logger.info("월초 경과: 이번 달 누적 데이터 리셋")
+
+            # 실시간 절감률을 기반으로 절감 전력 추정 (간단 계산)
+            # 총 시스템 전력: SWP(132kW×3) + FWP(75kW×3) + FAN(54.3kW×4) = 838.2kW
+            total_system_power = (132.0 * 3) + (75.0 * 3) + (54.3 * 4)
+            savings_kw = total_system_power * (realtime["total"]["savings_rate"] / 100.0)
+
+            # 실시간 절감 전력(kW)을 시간당 절감량(kWh)으로 변환
+            if time_delta > 0:
+                kwh_saved_increment = savings_kw * (time_delta / 3600)
+                self.energy_accumulator["today_total_kwh_saved"] += kwh_saved_increment
+                self.energy_accumulator["month_total_kwh_saved"] += kwh_saved_increment
+                self.energy_accumulator["today_samples"] += 1
+                self.energy_accumulator["month_samples"] += 1
+                self.energy_accumulator["last_update"] = current_time
+
+            return {
+                "realtime": realtime,
+                "today": {
+                    "total_kwh_saved": round(self.energy_accumulator["today_total_kwh_saved"], 1),
+                    "avg_savings_rate": realtime["total"]["savings_rate"],
+                },
+                "month": {
+                    "total_kwh_saved": round(self.energy_accumulator["month_total_kwh_saved"], 1),
+                    "avg_savings_rate": realtime["total"]["savings_rate"],
+                }
+            }
+
+        except Exception as e:
+            logger.error(f"Edge AI 결과 읽기 오류: {e}")
+            return None
+
+    def _simulate_edge_ai_results(self) -> Dict[str, Any]:
+        """시뮬레이션 모드용 Edge AI 결과"""
+        # 누적 데이터 업데이트
         from datetime import datetime
         now = datetime.now()
         current_time = time.time()
@@ -815,7 +818,7 @@ class PLCClient:
             self.energy_accumulator["today_start"] = today_start
             self.energy_accumulator["today_total_kwh_saved"] = 0.0
             self.energy_accumulator["today_samples"] = 0
-            logger.info("📅 자정 경과: 오늘 누적 데이터 리셋")
+            logger.info("자정 경과: 오늘 누적 데이터 리셋")
 
         # 월초가 지나면 이번 달 누적 데이터 리셋
         month_start = now.replace(day=1, hour=0, minute=0, second=0, microsecond=0)
@@ -823,53 +826,109 @@ class PLCClient:
             self.energy_accumulator["month_start"] = month_start
             self.energy_accumulator["month_total_kwh_saved"] = 0.0
             self.energy_accumulator["month_samples"] = 0
-            logger.info("📅 월초 경과: 이번 달 누적 데이터 리셋")
+            logger.info("월초 경과: 이번 달 누적 데이터 리셋")
+
+        # 시뮬레이션 절감률 (약 51%)
+        total_system_power = (132.0 * 3) + (75.0 * 3) + (54.3 * 4)
+        savings_kw = total_system_power * 0.51
 
         # 실시간 절감 전력(kW)을 시간당 절감량(kWh)으로 변환
-        # time_delta(초) / 3600 = 시간, savings_kw * 시간 = kWh
         if time_delta > 0:
-            kwh_saved_increment = total_data["savings_kw"] * (time_delta / 3600)
+            kwh_saved_increment = savings_kw * (time_delta / 3600)
             self.energy_accumulator["today_total_kwh_saved"] += kwh_saved_increment
             self.energy_accumulator["month_total_kwh_saved"] += kwh_saved_increment
             self.energy_accumulator["today_samples"] += 1
             self.energy_accumulator["month_samples"] += 1
             self.energy_accumulator["last_update"] = current_time
 
-        # 누적 절감률 계산 (평균)
-        today_avg_rate = total_data["savings_rate"]  # 실시간 값으로 근사
-        month_avg_rate = total_data["savings_rate"]  # 실시간 값으로 근사
-
         return {
             "realtime": {
-                "total": total_data,
-                "swp": swp_data,
-                "fwp": fwp_data,
-                "fan": fan_data
+                "total": {
+                    "power_60hz": 837.2,
+                    "power_vfd": 410.2,
+                    "savings_kw": 427.0,
+                    "savings_rate": 51.0
+                },
+                "swp": {
+                    "power_60hz": 396.0,
+                    "power_vfd": 203.9,
+                    "savings_kw": 192.1,
+                    "savings_rate": 48.5
+                },
+                "fwp": {
+                    "power_60hz": 225.0,
+                    "power_vfd": 107.3,
+                    "savings_kw": 117.7,
+                    "savings_rate": 52.3
+                },
+                "fan": {
+                    "power_60hz": 217.2,
+                    "power_vfd": 101.8,
+                    "savings_kw": 115.4,
+                    "savings_rate": 53.1
+                },
             },
             "today": {
                 "total_kwh_saved": round(self.energy_accumulator["today_total_kwh_saved"], 1),
-                "avg_savings_rate": round(today_avg_rate, 1),
+                "avg_savings_rate": 51.0,
                 "start_time": self.energy_accumulator["today_start"].isoformat()
             },
             "month": {
                 "total_kwh_saved": round(self.energy_accumulator["month_total_kwh_saved"], 1),
-                "avg_savings_rate": round(month_avg_rate, 1),
-                "start_time": self.energy_accumulator["month_start"].isoformat()
+                "avg_savings_rate": 51.0,
             }
         }
 
-    def calculate_ai_target_frequency(self, equipment_list: List[Dict]) -> List[Dict]:
+    def read_edge_ai_target_frequencies(self, equipment_list: List[Dict]) -> List[Dict]:
         """
-        EDGE AI 시뮬레이션: AI 목표 주파수 계산
-        실제 시스템에서는 EDGE Computer에서 이 계산을 수행하고,
-        PLC를 통해 HMI에 전달됩니다.
+        Edge AI가 계산한 목표 주파수 읽기
 
         Args:
-            equipment_list: 펌프/팬 리스트
+            equipment_list: 장비 리스트 (이름 정보 필요)
 
         Returns:
-            AI 목표 주파수 데이터 리스트
+            AI 목표 주파수 데이터
         """
+        if self.use_simulation:
+            return self._simulate_ai_target_frequencies(equipment_list)
+
+        try:
+            # 5000-5009: AI 목표 주파수 (Hz × 10)
+            target_freqs_raw = self.read_holding_registers(5000, 10)
+            if not target_freqs_raw:
+                logger.warning("Edge AI 목표 주파수 읽기 실패")
+                return []
+
+            result = []
+            for i, eq in enumerate(equipment_list):
+                target_freq = target_freqs_raw[i] / 10.0
+                actual_freq = eq.get("frequency", 0.0)
+                deviation = actual_freq - target_freq
+
+                # 상태 판단
+                if abs(deviation) <= 0.3:
+                    status = "정상"
+                elif abs(deviation) < 1.0:
+                    status = "주의"
+                else:
+                    status = "경고"
+
+                result.append({
+                    "name": eq["name"],
+                    "target_frequency": round(target_freq, 1),
+                    "actual_frequency": round(actual_freq, 1),
+                    "deviation": round(deviation, 2),
+                    "status": status
+                })
+
+            return result
+
+        except Exception as e:
+            logger.error(f"Edge AI 목표 주파수 읽기 오류: {e}")
+            return []
+
+    def _simulate_ai_target_frequencies(self, equipment_list: List[Dict]) -> List[Dict]:
+        """시뮬레이션 모드용 AI 목표 주파수"""
         result = []
 
         # 그룹별 장비 정의
