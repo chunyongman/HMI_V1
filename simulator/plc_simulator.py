@@ -78,7 +78,7 @@ class ESSPLCSimulator:
             'TX3': 70.0,  # FW CLNG In Temp
             'TX4': 55.0,  # FW CLNG Out Temp
             'TX5': 50.0,  # ESS Batt Temp
-            'TX6': 40.0,  # E/R Inside Temp
+            'TX6': 35.0,  # E/R Inside Temp (40→35 낮춤: AI가 팬을 47Hz로 제어하도록)
             'TX7': 25.0   # E/R Outside Temp
         }
 
@@ -120,30 +120,30 @@ class ESSPLCSimulator:
 
         while self.running:
             try:
-                # 알람 시나리오: 60초마다 알람 조건 생성, 10초간 유지
-                self.alarm_scenario_counter += 1
-
-                if self.alarm_scenario_counter >= 60 and not self.alarm_active:
-                    # 알람 조건 시작
-                    self.alarm_active = True
-                    self.alarm_scenario_counter = 0
-                    print("=" * 70)
-                    print("[시뮬레이터] 🔔 알람 시나리오 시작 (15초간 유지)")
-                    print("  - 🔴 주기관 부하 과다 (PU1: 60% → 90%, CRITICAL)")
-                    print("  - 🔴 외부 공기 온도 상승 (TX7: 25°C → 42°C, CRITICAL)")
-                    print("  - ⚠️ E/R 내부 온도 상승 (TX6: 40°C → 52°C, WARNING)")
-                    print("  - ⚠️ SW 압력 저하 (DPX1: 3.5 → 1.3 kg/cm², WARNING)")
-                    print("=" * 70)
-
-                if self.alarm_active and self.alarm_scenario_counter >= 15:
-                    # 알람 조건 해제
-                    self.alarm_active = False
-                    self.alarm_scenario_counter = 0
-                    print("=" * 70)
-                    print("[시뮬레이터] ✅ 알람 시나리오 종료 (정상 복귀)")
-                    print("  알람은 165초 후 재발생")
-                    print("  (현재 알람은 확인 전까지 유지됨)")
-                    print("=" * 70)
+                # 알람 시나리오: 비활성화 (TX6 온도를 안정적으로 유지)
+                # self.alarm_scenario_counter += 1
+                #
+                # if self.alarm_scenario_counter >= 60 and not self.alarm_active:
+                #     # 알람 조건 시작
+                #     self.alarm_active = True
+                #     self.alarm_scenario_counter = 0
+                #     print("=" * 70)
+                #     print("[시뮬레이터] 🔔 알람 시나리오 시작 (15초간 유지)")
+                #     print("  - 🔴 주기관 부하 과다 (PU1: 60% → 90%, CRITICAL)")
+                #     print("  - 🔴 외부 공기 온도 상승 (TX7: 25°C → 42°C, CRITICAL)")
+                #     print("  - ⚠️ E/R 내부 온도 상승 (TX6: 40°C → 52°C, WARNING)")
+                #     print("  - ⚠️ SW 압력 저하 (DPX1: 3.5 → 1.3 kg/cm², WARNING)")
+                #     print("=" * 70)
+                #
+                # if self.alarm_active and self.alarm_scenario_counter >= 15:
+                #     # 알람 조건 해제
+                #     self.alarm_active = False
+                #     self.alarm_scenario_counter = 0
+                #     print("=" * 70)
+                #     print("[시뮬레이터] ✅ 알람 시나리오 종료 (정상 복귀)")
+                #     print("  알람은 165초 후 재발생")
+                #     print("  (현재 알람은 확인 전까지 유지됨)")
+                #     print("=" * 70)
 
                 # 온도 센서 (K400010~K400016)
                 tx1 = self.base_temps['TX1'] + random.uniform(-1.5, 1.5)

@@ -7,7 +7,10 @@ import logging
 import random
 import time
 from typing import Optional, Dict, Any, List
-from pymodbus.client.sync import ModbusTcpClient
+try:
+    from pymodbus.client import ModbusTcpClient  # pymodbus 3.x
+except ImportError:
+    from pymodbus.client.sync import ModbusTcpClient  # pymodbus 2.x fallback
 from pymodbus.exceptions import ModbusException
 
 logging.basicConfig(level=logging.INFO)
@@ -27,18 +30,8 @@ class PLCClient:
         self.connected = False
         self.use_simulation = use_simulation
 
-        # 에너지 절감률 누적 데이터 (캘린더 기준)
-        from datetime import datetime
-        now = datetime.now()
-        self.energy_accumulator = {
-            "today_start": now.replace(hour=0, minute=0, second=0, microsecond=0),
-            "month_start": now.replace(day=1, hour=0, minute=0, second=0, microsecond=0),
-            "today_total_kwh_saved": 0.0,
-            "month_total_kwh_saved": 0.0,
-            "today_samples": 0,
-            "month_samples": 0,
-            "last_update": time.time()
-        }
+        # HMI는 계산하지 않음 - Edge Computer가 모든 계산 수행
+        # energy_accumulator 제거됨 (이전에는 HMI에서 누적 계산했으나, 이제는 Edge Computer가 담당)
 
         # 시뮬레이션 모드용 상태 변수
         if use_simulation:
@@ -108,11 +101,19 @@ class PLCClient:
             return None
 
         try:
-            result = self.client.read_holding_registers(
-                address=address,
-                count=count,
-                slave=self.slave_id
-            )
+            # pymodbus 3.x는 unit, 2.x는 slave 파라미터 사용
+            try:
+                result = self.client.read_holding_registers(
+                    address=address,
+                    count=count,
+                    unit=self.slave_id  # pymodbus 3.x
+                )
+            except TypeError:
+                result = self.client.read_holding_registers(
+                    address=address,
+                    count=count,
+                    slave=self.slave_id  # pymodbus 2.x fallback
+                )
 
             if result.isError():
                 logger.error(f"레지스터 읽기 오류: {result}")
@@ -134,16 +135,25 @@ class PLCClient:
             return False
 
         try:
-            result = self.client.write_coil(
-                address=address,
-                value=value,
-                slave=self.slave_id
-            )
+            # pymodbus 3.x는 unit, 2.x는 slave 파라미터 사용
+            try:
+                result = self.client.write_coil(
+                    address=address,
+                    value=value,
+                    unit=self.slave_id  # pymodbus 3.x
+                )
+            except TypeError:
+                result = self.client.write_coil(
+                    address=address,
+                    value=value,
+                    slave=self.slave_id  # pymodbus 2.x fallback
+                )
 
             if result.isError():
                 logger.error(f"코일 쓰기 오류: {result}")
                 return False
 
+            logger.info(f"✅ 코일 쓰기 성공: 주소={address}, 값={value}")
             return True
 
         except Exception as e:
@@ -160,11 +170,19 @@ class PLCClient:
             return False
 
         try:
-            result = self.client.write_register(
-                address=address,
-                value=value,
-                slave=self.slave_id
-            )
+            # pymodbus 3.x는 unit, 2.x는 slave 파라미터 사용
+            try:
+                result = self.client.write_register(
+                    address=address,
+                    value=value,
+                    unit=self.slave_id  # pymodbus 3.x
+                )
+            except TypeError:
+                result = self.client.write_register(
+                    address=address,
+                    value=value,
+                    slave=self.slave_id  # pymodbus 2.x fallback
+                )
 
             if result.isError():
                 logger.error(f"레지스터 쓰기 오류: {result}")
@@ -728,9 +746,10 @@ class PLCClient:
     def read_edge_ai_results(self) -> Dict[str, Any]:
         """
         Edge AI가 PLC에 쓴 계산 결과를 읽어옴
+        (HMI는 계산하지 않고 Edge Computer가 PLC에 쓴 데이터만 읽음)
 
         Returns:
-            Edge AI 계산 결과 (에너지 절감, AI 목표 주파수, VFD 진단)
+            Edge AI 계산 결과 (에너지 절감률)
         """
         if self.use_simulation:
             # 시뮬레이션 모드: 더미 데이터 반환
@@ -743,59 +762,71 @@ class PLCClient:
                 logger.warning("Edge AI 시스템 절감률 읽기 실패")
                 return None
 
-            # 실시간 절감률 데이터
+            # 5500-5503: 60Hz 고정 전력 (kW × 10)
+            power_60hz_raw = self.read_holding_registers(5500, 4)
+            if not power_60hz_raw:
+                logger.warning("Edge AI 60Hz 전력 읽기 실패, 0으로 설정")
+                power_60hz_raw = [0, 0, 0, 0]
+
+            # 5510-5513: VFD 가변 전력 (kW × 10)
+            power_vfd_raw = self.read_holding_registers(5510, 4)
+            if not power_vfd_raw:
+                logger.warning("Edge AI VFD 전력 읽기 실패, 0으로 설정")
+                power_vfd_raw = [0, 0, 0, 0]
+
+            # 5520-5523: 절감 전력 (kW × 10)
+            savings_kw_raw = self.read_holding_registers(5520, 4)
+            if not savings_kw_raw:
+                logger.warning("Edge AI 절감 전력 읽기 실패, 0으로 설정")
+                savings_kw_raw = [0, 0, 0, 0]
+
+            # 실시간 절감률 데이터 (Edge AI가 계산해서 PLC에 쓴 값)
             realtime = {
-                "total": {"savings_rate": system_savings_raw[0] / 10.0},
-                "swp": {"savings_rate": system_savings_raw[1] / 10.0},
-                "fwp": {"savings_rate": system_savings_raw[2] / 10.0},
-                "fan": {"savings_rate": system_savings_raw[3] / 10.0},
+                "total": {
+                    "savings_rate": system_savings_raw[0] / 10.0,
+                    "power_60hz": power_60hz_raw[0] / 10.0,
+                    "power_vfd": power_vfd_raw[0] / 10.0,
+                    "savings_kw": savings_kw_raw[0] / 10.0,
+                },
+                "swp": {
+                    "savings_rate": system_savings_raw[1] / 10.0,
+                    "power_60hz": power_60hz_raw[1] / 10.0,
+                    "power_vfd": power_vfd_raw[1] / 10.0,
+                    "savings_kw": savings_kw_raw[1] / 10.0,
+                },
+                "fwp": {
+                    "savings_rate": system_savings_raw[2] / 10.0,
+                    "power_60hz": power_60hz_raw[2] / 10.0,
+                    "power_vfd": power_vfd_raw[2] / 10.0,
+                    "savings_kw": savings_kw_raw[2] / 10.0,
+                },
+                "fan": {
+                    "savings_rate": system_savings_raw[3] / 10.0,
+                    "power_60hz": power_60hz_raw[3] / 10.0,
+                    "power_vfd": power_vfd_raw[3] / 10.0,
+                    "savings_kw": savings_kw_raw[3] / 10.0,
+                },
             }
 
-            # 오늘/이번 달 누적 데이터는 기존 accumulator 사용
-            # 누적 절감률 업데이트 (캘린더 기준)
-            from datetime import datetime
-            now = datetime.now()
-            current_time = time.time()
-            time_delta = current_time - self.energy_accumulator["last_update"]
+            # 5400-5401: 누적 절감량 (kWh × 10) - 오늘/이번달
+            accumulated_kwh_raw = self.read_holding_registers(5400, 2)
+            today_kwh = 0.0
+            month_kwh = 0.0
 
-            # 자정이 지나면 오늘 누적 데이터 리셋
-            today_start = now.replace(hour=0, minute=0, second=0, microsecond=0)
-            if today_start > self.energy_accumulator["today_start"]:
-                self.energy_accumulator["today_start"] = today_start
-                self.energy_accumulator["today_total_kwh_saved"] = 0.0
-                self.energy_accumulator["today_samples"] = 0
-                logger.info("자정 경과: 오늘 누적 데이터 리셋")
-
-            # 월초가 지나면 이번 달 누적 데이터 리셋
-            month_start = now.replace(day=1, hour=0, minute=0, second=0, microsecond=0)
-            if month_start > self.energy_accumulator["month_start"]:
-                self.energy_accumulator["month_start"] = month_start
-                self.energy_accumulator["month_total_kwh_saved"] = 0.0
-                self.energy_accumulator["month_samples"] = 0
-                logger.info("월초 경과: 이번 달 누적 데이터 리셋")
-
-            # 실시간 절감률을 기반으로 절감 전력 추정 (간단 계산)
-            # 총 시스템 전력: SWP(132kW×3) + FWP(75kW×3) + FAN(54.3kW×4) = 838.2kW
-            total_system_power = (132.0 * 3) + (75.0 * 3) + (54.3 * 4)
-            savings_kw = total_system_power * (realtime["total"]["savings_rate"] / 100.0)
-
-            # 실시간 절감 전력(kW)을 시간당 절감량(kWh)으로 변환
-            if time_delta > 0:
-                kwh_saved_increment = savings_kw * (time_delta / 3600)
-                self.energy_accumulator["today_total_kwh_saved"] += kwh_saved_increment
-                self.energy_accumulator["month_total_kwh_saved"] += kwh_saved_increment
-                self.energy_accumulator["today_samples"] += 1
-                self.energy_accumulator["month_samples"] += 1
-                self.energy_accumulator["last_update"] = current_time
+            if accumulated_kwh_raw:
+                today_kwh = accumulated_kwh_raw[0] / 10.0
+                month_kwh = accumulated_kwh_raw[1] / 10.0
+            else:
+                logger.warning("Edge AI 누적 절감량 읽기 실패, 0으로 설정")
 
             return {
                 "realtime": realtime,
                 "today": {
-                    "total_kwh_saved": round(self.energy_accumulator["today_total_kwh_saved"], 1),
+                    "total_kwh_saved": today_kwh,
                     "avg_savings_rate": realtime["total"]["savings_rate"],
                 },
                 "month": {
-                    "total_kwh_saved": round(self.energy_accumulator["month_total_kwh_saved"], 1),
+                    "total_kwh_saved": month_kwh,
                     "avg_savings_rate": realtime["total"]["savings_rate"],
                 }
             }
@@ -805,42 +836,8 @@ class PLCClient:
             return None
 
     def _simulate_edge_ai_results(self) -> Dict[str, Any]:
-        """시뮬레이션 모드용 Edge AI 결과"""
-        # 누적 데이터 업데이트
-        from datetime import datetime
-        now = datetime.now()
-        current_time = time.time()
-        time_delta = current_time - self.energy_accumulator["last_update"]
-
-        # 자정이 지나면 오늘 누적 데이터 리셋
-        today_start = now.replace(hour=0, minute=0, second=0, microsecond=0)
-        if today_start > self.energy_accumulator["today_start"]:
-            self.energy_accumulator["today_start"] = today_start
-            self.energy_accumulator["today_total_kwh_saved"] = 0.0
-            self.energy_accumulator["today_samples"] = 0
-            logger.info("자정 경과: 오늘 누적 데이터 리셋")
-
-        # 월초가 지나면 이번 달 누적 데이터 리셋
-        month_start = now.replace(day=1, hour=0, minute=0, second=0, microsecond=0)
-        if month_start > self.energy_accumulator["month_start"]:
-            self.energy_accumulator["month_start"] = month_start
-            self.energy_accumulator["month_total_kwh_saved"] = 0.0
-            self.energy_accumulator["month_samples"] = 0
-            logger.info("월초 경과: 이번 달 누적 데이터 리셋")
-
-        # 시뮬레이션 절감률 (약 51%)
-        total_system_power = (132.0 * 3) + (75.0 * 3) + (54.3 * 4)
-        savings_kw = total_system_power * 0.51
-
-        # 실시간 절감 전력(kW)을 시간당 절감량(kWh)으로 변환
-        if time_delta > 0:
-            kwh_saved_increment = savings_kw * (time_delta / 3600)
-            self.energy_accumulator["today_total_kwh_saved"] += kwh_saved_increment
-            self.energy_accumulator["month_total_kwh_saved"] += kwh_saved_increment
-            self.energy_accumulator["today_samples"] += 1
-            self.energy_accumulator["month_samples"] += 1
-            self.energy_accumulator["last_update"] = current_time
-
+        """시뮬레이션 모드용 Edge AI 결과 (간단한 더미 데이터)"""
+        # HMI는 계산하지 않음 - Edge Computer에서 계산한 값을 시뮬레이션
         return {
             "realtime": {
                 "total": {
@@ -869,13 +866,14 @@ class PLCClient:
                 },
             },
             "today": {
-                "total_kwh_saved": round(self.energy_accumulator["today_total_kwh_saved"], 1),
+                "total_kwh_saved": 123.4,  # 시뮬레이션 더미값
                 "avg_savings_rate": 51.0,
-                "start_time": self.energy_accumulator["today_start"].isoformat()
+                "start_time": "2025-11-24T00:00:00"
             },
             "month": {
-                "total_kwh_saved": round(self.energy_accumulator["month_total_kwh_saved"], 1),
+                "total_kwh_saved": 3456.7,  # 시뮬레이션 더미값
                 "avg_savings_rate": 51.0,
+                "start_time": "2025-11-01T00:00:00"
             }
         }
 
@@ -1016,71 +1014,103 @@ class PLCClient:
 
         return result
 
-    def calculate_energy_savings_summary(self, equipment_list: List[Dict]) -> List[Dict]:
+    def read_equipment_savings_summary(self, equipment_list: List[Dict]) -> List[Dict]:
         """
-        EDGE AI 시뮬레이션: 각 장비별 에너지 절감 상세 데이터
-        실제 시스템에서는 EDGE Computer에서 이 계산을 수행하고,
-        PLC를 통해 HMI에 전달됩니다.
+        PLC에서 Edge AI가 쓴 장비별 에너지 절감 데이터 읽기
 
         Args:
-            equipment_list: 장비 데이터 리스트
+            equipment_list: 장비 데이터 리스트 (이름과 기본 정보용)
 
         Returns:
             각 장비별 에너지 절감 상세 데이터 리스트
         """
-        # 장비별 정격 전력 (kW)
+        if self.use_simulation:
+            # 시뮬레이션 모드: 더미 데이터 반환
+            return self._simulate_equipment_savings_summary(equipment_list)
+
+        try:
+            # PLC 레지스터에서 개별 장비 절감 전력 읽기 (5100-5109, kW × 10)
+            equipment_savings_raw = self.read_holding_registers(5100, 10)
+            if not equipment_savings_raw:
+                logger.warning("장비별 절감 데이터 읽기 실패")
+                return self._simulate_equipment_savings_summary(equipment_list)
+
+            # 장비별 정격 전력 (kW)
+            MOTOR_CAPACITY = {
+                "SWP": 132.0,
+                "FWP": 75.0,
+                "FAN": 54.3,
+            }
+
+            result = []
+            for i, eq in enumerate(equipment_list):
+                # 장비 타입에 따른 정격 전력
+                if i < 3:
+                    motor_capacity = MOTOR_CAPACITY["SWP"]
+                elif i < 6:
+                    motor_capacity = MOTOR_CAPACITY["FWP"]
+                else:
+                    motor_capacity = MOTOR_CAPACITY["FAN"]
+
+                # PLC에서 읽은 절감 전력 (kW)
+                saved_kw = equipment_savings_raw[i] / 10.0
+
+                # VFD 데이터에서 실제 정보 가져오기
+                actual_freq = eq.get("frequency", 0.0)
+                actual_power = motor_capacity * ((actual_freq / 60) ** 3) if actual_freq > 0 else 0.0
+                run_hours = eq.get("run_hours", 0)
+                saved_kwh = eq.get("saved_kwh", 0)
+                saved_ratio = eq.get("saved_ratio", 0)
+
+                result.append({
+                    "name": eq["name"],
+                    "motor_capacity": round(motor_capacity, 1),
+                    "actual_freq": round(actual_freq, 1),
+                    "actual_power": round(actual_power, 1),
+                    "kw_average": round(actual_power, 1),
+                    "saved_kwh": round(saved_kwh, 1),
+                    "saved_ratio": round(saved_ratio, 1),
+                    "run_hours_ess": run_hours
+                })
+
+            return result
+
+        except Exception as e:
+            logger.error(f"장비별 절감 데이터 읽기 오류: {e}")
+            return self._simulate_equipment_savings_summary(equipment_list)
+
+    def _simulate_equipment_savings_summary(self, equipment_list: List[Dict]) -> List[Dict]:
+        """시뮬레이션 모드용 장비별 절감 데이터"""
         MOTOR_CAPACITY = {
-            "SWP": 132.0,  # Sea Water Pump
-            "FWP": 75.0,   # Fresh Water Pump
-            "FAN": 54.3,   # E/R Fan
+            "SWP": 132.0,
+            "FWP": 75.0,
+            "FAN": 54.3,
         }
 
         result = []
-
         for i, eq in enumerate(equipment_list):
-            # 장비 이름 및 타입 결정
-            if i < 3:  # SWP1, SWP2, SWP3
+            if i < 3:
                 motor_capacity = MOTOR_CAPACITY["SWP"]
-            elif i < 6:  # FWP1, FWP2, FWP3
+            elif i < 6:
                 motor_capacity = MOTOR_CAPACITY["FWP"]
-            else:  # FAN1, FAN2, FAN3, FAN4
+            else:
                 motor_capacity = MOTOR_CAPACITY["FAN"]
 
-            # 현재 주파수 및 전력 계산
             actual_freq = eq.get("frequency", 0.0)
-
-            # 실제 전력 (팬/펌프 법칙: P = k × N³)
             actual_power = motor_capacity * ((actual_freq / 60) ** 3) if actual_freq > 0 else 0.0
-
-            # 60Hz 고정 운전 시 전력 (정격 전력)
             power_at_60hz = motor_capacity if (eq.get("running") or eq.get("running_fwd") or eq.get("running_bwd")) else 0.0
-
-            # 절감 전력
             saved_power = power_at_60hz - actual_power
-
-            # 절감률
             saved_ratio = (saved_power / power_at_60hz * 100) if power_at_60hz > 0 else 0.0
-
-            # ESS 모드 운전 시간 (ess_mode가 활성화된 시간)
-            ess_mode = eq.get("ess_mode", False)
-            run_hours = eq.get("run_hours", 0) if ess_mode else 0
-
-            # KW Average (실제 전력의 평균 - 여기서는 실시간 값 사용)
-            kw_average = actual_power
-
-            # 누적 절감 에너지 (kWh) = 절감 전력(kW) × 운전 시간(h)
-            # 간단한 시뮬레이션: 실시간 절감량을 기준으로 계산
-            saved_kwh = saved_power * (run_hours / 1000) if run_hours > 0 else 0.0
 
             result.append({
                 "name": eq["name"],
                 "motor_capacity": round(motor_capacity, 1),
                 "actual_freq": round(actual_freq, 1),
                 "actual_power": round(actual_power, 1),
-                "kw_average": round(kw_average, 1),
-                "saved_kwh": round(saved_kwh, 1),
+                "kw_average": round(actual_power, 1),
+                "saved_kwh": 0.0,  # 시뮬레이션에서는 0
                 "saved_ratio": round(saved_ratio, 1),
-                "run_hours_ess": run_hours
+                "run_hours_ess": 0
             })
 
         return result

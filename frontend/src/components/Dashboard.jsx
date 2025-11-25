@@ -337,8 +337,14 @@ function FanCard({ fan }) {
 
 // 에너지 절감률 카드 컴포넌트
 function EnergySavingsCard({ data }) {
-  const { realtime, today, month } = data
-  const { total, swp, fwp, fan } = realtime
+  // 안전한 데이터 추출 (undefined 체크)
+  const realtime = data?.realtime || {}
+  const today = data?.today || {}
+  const month = data?.month || {}
+  const total = realtime?.total || {}
+  const swp = realtime?.swp || {}
+  const fwp = realtime?.fwp || {}
+  const fan = realtime?.fan || {}
 
   return (
     <div className="energy-savings-card">
@@ -354,17 +360,17 @@ function EnergySavingsCard({ data }) {
             <div className="section-title">🔴 실시간 순간 절감률</div>
             <div className="energy-comparison">
               <span className="energy-label">60Hz 고정:</span>
-              <span className="energy-value">{total.power_60hz.toLocaleString()} kW</span>
+              <span className="energy-value">{(total.power_60hz || 0).toLocaleString()} kW</span>
             </div>
             <div className="energy-comparison">
               <span className="energy-label">VFD 가변:</span>
-              <span className="energy-value vfd-value">{total.power_vfd.toLocaleString()} kW</span>
+              <span className="energy-value vfd-value">{(total.power_vfd || 0).toLocaleString()} kW</span>
             </div>
             <div className="energy-savings-highlight">
               <span className="savings-label">절감 전력:</span>
               <span className="savings-value">
-                {total.savings_kw.toLocaleString()} kW
-                <span className="savings-rate"> ({total.savings_rate}% ↓)</span>
+                {(total.savings_kw || 0).toLocaleString()} kW
+                <span className="savings-rate"> ({total.savings_rate || 0}% ↓)</span>
               </span>
             </div>
           </div>
@@ -374,15 +380,15 @@ function EnergySavingsCard({ data }) {
             <div className="accumulated-item">
               <div className="section-title">📅 오늘 누적 (00:00부터)</div>
               <div className="accumulated-value">
-                <span className="kwh-value">{today.total_kwh_saved.toLocaleString()} kWh</span>
-                <span className="rate-badge">평균 {today.avg_savings_rate}% 절감</span>
+                <span className="kwh-value">{(today.total_kwh_saved || 0).toLocaleString()} kWh</span>
+                <span className="rate-badge">평균 {today.avg_savings_rate || 0}% 절감</span>
               </div>
             </div>
             <div className="accumulated-item">
               <div className="section-title">📊 이번 달 누적 (1일부터)</div>
               <div className="accumulated-value">
-                <span className="kwh-value">{month.total_kwh_saved.toLocaleString()} kWh</span>
-                <span className="rate-badge">평균 {month.avg_savings_rate}% 절감</span>
+                <span className="kwh-value">{(month.total_kwh_saved || 0).toLocaleString()} kWh</span>
+                <span className="rate-badge">평균 {month.avg_savings_rate || 0}% 절감</span>
               </div>
             </div>
           </div>
@@ -404,6 +410,9 @@ function EnergySavingsCard({ data }) {
 
 // 시스템별 절감률 행
 function SystemSavingsRow({ label, data, color }) {
+  const savings_kw = data?.savings_kw || 0
+  const savings_rate = data?.savings_rate || 0
+
   return (
     <div className="system-savings-row">
       <div className="system-label" style={{ borderLeft: `4px solid ${color}` }}>
@@ -411,19 +420,19 @@ function SystemSavingsRow({ label, data, color }) {
       </div>
       <div className="system-savings-data">
         <div className="system-power">
-          <span className="power-value">{data.savings_kw} kW</span>
+          <span className="power-value">{savings_kw} kW</span>
         </div>
         <div className="system-progress">
           <div className="progress-bar-container">
             <div
               className="progress-bar-fill"
               style={{
-                width: `${Math.min(data.savings_rate, 100)}%`,
+                width: `${Math.min(savings_rate, 100)}%`,
                 backgroundColor: color
               }}
             />
           </div>
-          <span className="progress-rate">{data.savings_rate}%</span>
+          <span className="progress-rate">{savings_rate}%</span>
         </div>
       </div>
     </div>

@@ -2,6 +2,14 @@
 ESS HMI 백엔드 메인 서버
 Engine Room Ventilation System
 FastAPI + WebSocket으로 실시간 데이터 제공
+
+시스템 아키텍처:
+- Edge_Computer_V1: 모든 AI 계산 수행 (목표 주파수, 에너지 절감, VFD 진단) → PLC에 쓰기
+- PLC: 중앙 데이터 허브 (센서, 장비 상태, Edge AI 계산 결과 저장)
+- HMI_V1 (본 서버):
+  * PLC에서 데이터만 읽기 (계산하지 않음)
+  * 제어 명령 전송 (On/Off, 설정값 조정)
+  * 웹 인터페이스로 데이터 표시
 """
 
 import asyncio
@@ -36,8 +44,8 @@ app.add_middleware(
 )
 
 # PLC 클라이언트 인스턴스
-# use_simulation=True로 설정하면 실제 PLC 없이 시뮬레이션 데이터 사용
-plc_client = PLCClient(host="192.168.0.130", port=502, slave_id=3, use_simulation=True)
+# use_simulation=False로 설정하여 실제 PLC Simulator 연결
+plc_client = PLCClient(host="localhost", port=502, slave_id=3, use_simulation=False)
 
 # 알람 관리자 인스턴스
 alarm_manager = AlarmManager(data_dir="data")
@@ -886,10 +894,10 @@ async def broadcast_realtime_data():
             if equipment:
                 ai_frequency_control = plc_client.read_edge_ai_target_frequencies(equipment)
 
-            # 에너지 절감 상세 요약 데이터 (EDGE AI에서 계산된 데이터)
+            # 에너지 절감 상세 요약 데이터 (EDGE AI가 PLC에 쓴 데이터 읽기)
             global energy_savings_summary
             if equipment:
-                energy_savings_summary = plc_client.calculate_energy_savings_summary(equipment)
+                energy_savings_summary = plc_client.read_equipment_savings_summary(equipment)
 
             # VFD 진단 데이터 읽기 (Edge AI 분석 결과)
             vfd_diagnostics = None
