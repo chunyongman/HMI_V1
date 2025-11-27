@@ -23,7 +23,7 @@ function Dashboard({ sensors = {}, pumps = [], fans = [] }) {
   useEffect(() => {
     const fetchEnergySavings = async () => {
       try {
-        const response = await fetch('http://localhost:8000/api/energy-savings')
+        const response = await fetch('http://localhost:8001/api/energy-savings')  // HMI Backend
         const result = await response.json()
         if (result.success) {
           setEnergySavings(result.data)
@@ -43,7 +43,7 @@ function Dashboard({ sensors = {}, pumps = [], fans = [] }) {
   useEffect(() => {
     const fetchAiFreqControl = async () => {
       try {
-        const response = await fetch('http://localhost:8000/api/ai-frequency-control')
+        const response = await fetch('http://localhost:8001/api/ai-frequency-control')  // HMI Backend
         const result = await response.json()
         if (result.success) {
           setAiFreqControl(result.data)
@@ -63,7 +63,7 @@ function Dashboard({ sensors = {}, pumps = [], fans = [] }) {
   useEffect(() => {
     const fetchEnergySavingsSummary = async () => {
       try {
-        const response = await fetch('http://localhost:8000/api/energy-savings-summary')
+        const response = await fetch('http://localhost:8001/api/energy-savings-summary')  // HMI Backend
         const result = await response.json()
         if (result.success) {
           setEnergySavingsSummary(result.data)

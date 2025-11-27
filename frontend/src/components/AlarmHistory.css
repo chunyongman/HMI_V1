@@ -1,0 +1,363 @@
+/* AlarmHistory.css - HMI V1 스타일 */
+
+.alarm-history {
+  background-color: #1e293b;
+  color: #e2e8f0;
+  border-radius: 8px;
+  padding: 20px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.alarm-history-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 12px;
+  border-bottom: 2px solid #3b82f6;
+}
+
+.alarm-history-header h2 {
+  margin: 0;
+  font-size: 24px;
+  color: #3b82f6;
+}
+
+/* 필터 섹션 */
+.alarm-filters {
+  display: flex;
+  gap: 12px;
+  padding: 12px;
+  background-color: #0f172a;
+  border-radius: 6px;
+  flex-wrap: wrap;
+  align-items: flex-end;
+}
+
+.filter-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.filter-group label {
+  font-size: 12px;
+  color: #94a3b8;
+  font-weight: 500;
+}
+
+.filter-group select {
+  background-color: #1e293b;
+  color: #e2e8f0;
+  border: 1px solid #475569;
+  border-radius: 4px;
+  padding: 8px 12px;
+  font-size: 14px;
+  cursor: pointer;
+  min-width: 120px;
+}
+
+.filter-group select:hover {
+  border-color: #3b82f6;
+}
+
+.filter-group select:focus {
+  outline: none;
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
+}
+
+/* 버튼 */
+.btn-refresh,
+.btn-download {
+  background: linear-gradient(135deg, #3b82f6 0%, #1e40af 100%);
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 10px 20px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s;
+  white-space: nowrap;
+}
+
+.btn-refresh:hover,
+.btn-download:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4);
+}
+
+.btn-refresh:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* 통계 카드 */
+.alarm-stats {
+  display: flex;
+  gap: 16px;
+  padding: 12px;
+  background-color: #0f172a;
+  border-radius: 6px;
+}
+
+.stat-card {
+  flex: 1;
+  background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+  border: 1px solid #334155;
+  border-radius: 8px;
+  padding: 16px;
+  text-align: center;
+  transition: all 0.3s;
+}
+
+.stat-card:hover {
+  border-color: #3b82f6;
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.2);
+}
+
+.stat-label {
+  font-size: 12px;
+  color: #94a3b8;
+  margin-bottom: 8px;
+  font-weight: 500;
+}
+
+.stat-value {
+  font-size: 32px;
+  font-weight: 700;
+  color: #3b82f6;
+}
+
+.stat-value.warning {
+  color: #f59e0b;
+}
+
+.stat-value.success {
+  color: #10b981;
+}
+
+/* 알람 목록 */
+.alarm-history-list {
+  flex: 1;
+  overflow-y: auto;
+  background-color: #0f172a;
+  border-radius: 6px;
+  padding: 12px;
+  min-height: 400px;
+}
+
+/* 메시지 */
+.loading-message,
+.error-message,
+.no-data-message {
+  padding: 40px;
+  text-align: center;
+  font-size: 16px;
+  color: #94a3b8;
+}
+
+.error-message {
+  color: #ef4444;
+}
+
+.error-hint {
+  margin-top: 12px;
+  font-size: 12px;
+  color: #94a3b8;
+}
+
+/* 알람 테이블 */
+.alarm-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+.alarm-table thead {
+  background: linear-gradient(135deg, #3b82f6 0%, #1e40af 100%);
+  color: white;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.alarm-table th {
+  padding: 12px 16px;
+  text-align: left;
+  font-weight: 600;
+  border-bottom: 2px solid #1e40af;
+}
+
+.alarm-table tbody tr {
+  background-color: #1e293b;
+  border-bottom: 1px solid #334155;
+  transition: all 0.2s;
+}
+
+.alarm-table tbody tr:hover {
+  background-color: #334155;
+}
+
+.alarm-table tbody tr.unacknowledged {
+  background-color: #4c1d1d;
+  border-left: 4px solid #ef4444;
+}
+
+.alarm-table tbody tr.unacknowledged:hover {
+  background-color: #5c2424;
+}
+
+.alarm-table td {
+  padding: 12px 16px;
+  color: #e2e8f0;
+}
+
+/* 배지 */
+.sensor-badge {
+  display: inline-block;
+  background-color: #3b82f6;
+  color: white;
+  padding: 4px 12px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.alarm-type-badge {
+  display: inline-block;
+  padding: 4px 12px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.alarm-type-badge.high {
+  background-color: #dc2626;
+  color: white;
+}
+
+.alarm-type-badge.low {
+  background-color: #f59e0b;
+  color: white;
+}
+
+.status-badge {
+  display: inline-block;
+  padding: 4px 12px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.status-badge.pending {
+  background-color: #ef4444;
+  color: white;
+}
+
+.status-badge.ack {
+  background-color: #10b981;
+  color: white;
+}
+
+/* 센서별 통계 */
+.sensor-stats {
+  background-color: #0f172a;
+  border-radius: 6px;
+  padding: 16px;
+}
+
+.sensor-stats h3 {
+  margin: 0 0 12px 0;
+  font-size: 18px;
+  color: #3b82f6;
+}
+
+.sensor-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 12px;
+}
+
+.sensor-stat-item {
+  background-color: #1e293b;
+  border: 1px solid #334155;
+  border-radius: 6px;
+  padding: 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: all 0.3s;
+}
+
+.sensor-stat-item:hover {
+  border-color: #3b82f6;
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.2);
+}
+
+.sensor-name {
+  font-size: 14px;
+  font-weight: 600;
+  color: #e2e8f0;
+}
+
+.sensor-count {
+  font-size: 18px;
+  font-weight: 700;
+  color: #3b82f6;
+}
+
+/* 스크롤바 */
+.alarm-history-list::-webkit-scrollbar {
+  width: 8px;
+}
+
+.alarm-history-list::-webkit-scrollbar-track {
+  background-color: #0f172a;
+  border-radius: 4px;
+}
+
+.alarm-history-list::-webkit-scrollbar-thumb {
+  background-color: #475569;
+  border-radius: 4px;
+}
+
+.alarm-history-list::-webkit-scrollbar-thumb:hover {
+  background-color: #3b82f6;
+}
+
+/* 반응형 */
+@media (max-width: 768px) {
+  .alarm-filters {
+    flex-direction: column;
+  }
+
+  .filter-group {
+    width: 100%;
+  }
+
+  .filter-group select {
+    width: 100%;
+  }
+
+  .alarm-stats {
+    flex-direction: column;
+  }
+
+  .alarm-table {
+    font-size: 12px;
+  }
+
+  .alarm-table th,
+  .alarm-table td {
+    padding: 8px 12px;
+  }
+
+  .sensor-stats-grid {
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  }
+}

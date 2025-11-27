@@ -1,574 +1,355 @@
-/* VFD 예방진단 스타일 - 다크 테마 */
+/* VFD 예방진단 - Dashboard V2.0 스타일 */
 
-.vfd-diagnostics {
-  padding: 1rem 1.5rem;
-  background: #1e293b;
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
+.vfd-diagnostics-container {
+  padding: 20px;
+  background-color: #1e293b;
+  color: #e2e8f0;
+  min-height: 100vh;
 }
 
-.vfd-diagnostics.loading,
-.vfd-diagnostics.error {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 18px;
-  color: #94a3b8;
-}
-
-.vfd-diagnostics.error {
-  color: #f44336;
-}
-
-/* 헤더 */
 .diagnostics-header {
   display: flex;
   justify-content: space-between;
-  align-items: flex-start;
-  margin-bottom: 0.75rem;
-  padding: 0.75rem 1rem;
-  background: #2d3b4e;
-  border-radius: 0.75rem;
-  border: 1px solid #3d4d63;
-  flex-shrink: 0;
-}
-
-.header-title h2 {
-  margin: 0 0 4px 0;
-  color: #e2e8f0;
-  font-size: 1.25rem;
-}
-
-.header-info {
-  display: flex;
-  gap: 1rem;
-  font-size: 0.875rem;
-  color: #94a3b8;
-}
-
-/* 상태 범례 */
-.status-legend {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-  padding: 0.75rem;
-  background: #1e293b;
-  border-radius: 0.5rem;
-  border: 1px solid #3d4d63;
-}
-
-.legend-title {
-  font-size: 0.875rem;
-  font-weight: bold;
-  color: #cbd5e1;
-  margin-bottom: 0.25rem;
-}
-
-.legend-items {
-  display: flex;
-  gap: 12px;
-  flex-wrap: wrap;
-}
-
-.legend-item {
-  display: flex;
   align-items: center;
-  gap: 6px;
+  margin-bottom: 30px;
+  padding-bottom: 15px;
+  border-bottom: 2px solid #334155;
+}
+
+.diagnostics-header h2 {
+  margin: 0;
+  font-size: 28px;
+  color: #f1f5f9;
+}
+
+.update-time {
   font-size: 14px;
   color: #94a3b8;
-  white-space: nowrap;
 }
 
-.legend-dot {
-  width: 12px;
-  height: 12px;
-  border-radius: 50%;
-  display: inline-block;
+/* VFD 건강도 카드 */
+.vfd-status-cards {
+  margin-bottom: 40px;
 }
 
-/* 가이드 패널 */
-.guide-panel {
-  background: #1e3a5f;
-  border-left: 4px solid #3b82f6;
-  border-radius: 0.5rem;
-  padding: 0.75rem;
-  margin-bottom: 0.75rem;
-  flex-shrink: 0;
+.vfd-status-cards h3 {
+  font-size: 20px;
+  margin-bottom: 20px;
+  color: #f1f5f9;
 }
 
-.guide-panel h4 {
-  margin: 0 0 0.5rem 0;
-  color: #60a5fa;
-  font-size: 1rem;
-}
-
-.guide-items {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 0.5rem;
-}
-
-.guide-item {
-  font-size: 0.9rem;
-  color: #cbd5e1;
-  line-height: 1.4;
-}
-
-.guide-item strong {
-  color: #60a5fa;
-  font-weight: 600;
-}
-
-/* 본문 */
-.diagnostics-content {
-  position: relative;
-  flex: 1;
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-}
-
-/* 5x2 그리드 레이아웃 */
-.vfd-grid-5col {
+.vfd-grid {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
-  grid-template-rows: repeat(2, 1fr);
-  gap: 0.75rem;
-  flex: 1;
-  overflow: hidden;
+  gap: 15px;
+  margin-bottom: 30px;
 }
 
-/* VFD 카드 */
 .vfd-card {
-  background: #2d3b4e;
-  border-radius: 12px;
-  padding: 16px;
-  cursor: pointer;
-  transition: all 0.3s;
-  border: 1px solid #3d4d63;
+  background: #0f172a;
+  border-radius: 8px;
+  padding: 20px;
+  text-align: center;
+  transition: transform 0.2s, box-shadow 0.2s;
+  border-left: 4px solid #10b981;
 }
 
 .vfd-card:hover {
-  transform: translateY(-2px);
-  border-color: #4d5d73;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+  transform: translateY(-4px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
 }
 
-.vfd-card.selected {
-  border: 2px solid #3b82f6;
-  background: #2d4363;
-  box-shadow: 0 0 20px rgba(59, 130, 246, 0.4), 0 4px 12px rgba(0,0,0,0.3);
-  transform: translateY(-2px);
-}
-
-.vfd-card-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 14px;
-}
-
-.vfd-card-header h4 {
-  margin: 0;
-  font-size: 18px;
+.vfd-card h4 {
+  margin: 0 0 15px 0;
+  font-size: 16px;
   color: #e2e8f0;
-  font-weight: 600;
 }
 
-.vfd-status-badge {
-  padding: 6px 14px;
-  border-radius: 12px;
-  font-size: 13px;
+.health-score {
+  font-size: 48px;
   font-weight: bold;
-  color: white;
+  margin: 10px 0;
 }
 
-.vfd-card-body {
+.health-label {
+  font-size: 12px;
+  color: #94a3b8;
+  margin-bottom: 10px;
+}
+
+.status-badge {
+  font-size: 14px;
+  font-weight: 600;
+  padding: 4px 12px;
+  border-radius: 4px;
+  display: inline-block;
+}
+
+/* 이상 징후 경고 */
+.anomaly-warnings {
+  margin-bottom: 40px;
+}
+
+.anomaly-warnings h3 {
+  font-size: 20px;
+  margin-bottom: 20px;
+  color: #f1f5f9;
+}
+
+.warning-list {
   display: flex;
   flex-direction: column;
   gap: 10px;
-  margin-bottom: 12px;
 }
 
-.vfd-metric {
-  display: flex;
-  justify-content: space-between;
-  font-size: 16px;
+.warning-item {
+  padding: 15px;
+  border-radius: 6px;
+  border-left: 4px solid;
 }
 
-.vfd-metric .label {
-  color: #94a3b8;
-  font-size: 15px;
-}
-
-.vfd-metric .value {
-  font-weight: 600;
+.warning-item.warning {
+  background: rgba(158, 158, 158, 0.1);
+  border-left-color: #9e9e9e;
   color: #e2e8f0;
-  font-size: 16px;
 }
 
-.vfd-metric .value.predicted {
+.warning-item.error {
+  background: rgba(255, 152, 0, 0.1);
+  border-left-color: #ff9800;
+  color: #ffc107;
+}
+
+.warning-item.critical {
+  background: rgba(244, 67, 54, 0.1);
+  border-left-color: #f44336;
+  color: #f44336;
+}
+
+.success-message {
+  padding: 15px;
+  background: rgba(16, 185, 129, 0.1);
+  border-left: 4px solid #10b981;
+  border-radius: 6px;
+  color: #10b981;
+}
+
+.info-message {
+  padding: 15px;
+  background: rgba(59, 130, 246, 0.1);
+  border-left: 4px solid #3b82f6;
+  border-radius: 6px;
   color: #60a5fa;
 }
 
-.vfd-card-footer {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-  padding-top: 10px;
-  border-top: 1px solid #3d4d63;
-  font-size: 12px;
-  min-height: 85px; /* 이상 감지 영역 포함 최소 높이 확보 */
-}
-
-.footer-row {
-  display: flex;
-  justify-content: space-between;
-  color: #94a3b8;
-}
-
-.footer-row.warning {
-  color: #fbbf24;
-  font-weight: bold;
-  justify-content: center;
-  padding: 8px;
-  background: rgba(251, 191, 36, 0.1);
+.error-message {
+  padding: 15px;
+  background: rgba(244, 67, 54, 0.1);
+  border-left: 4px solid #f44336;
   border-radius: 6px;
-  border: 1px solid rgba(251, 191, 36, 0.3);
-  flex-direction: column;
-  gap: 6px;
+  color: #f44336;
 }
 
-/* 이상 패턴 미리보기 */
-.anomaly-preview {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 4px;
-  justify-content: center;
-  margin-top: 4px;
+/* 예측 유지보수 테이블 */
+.maintenance-section {
+  margin-bottom: 40px;
 }
 
-.anomaly-tag {
-  display: inline-block;
-  padding: 2px 8px;
-  background: #ff9800;
-  color: white;
-  border-radius: 10px;
-  font-size: 10px;
-  font-weight: 600;
-  text-transform: capitalize;
-  white-space: nowrap;
+.maintenance-section h3 {
+  font-size: 20px;
+  margin-bottom: 20px;
+  color: #f1f5f9;
 }
 
-.anomaly-more {
-  display: inline-block;
-  padding: 2px 8px;
-  background: #ff5722;
-  color: white;
-  border-radius: 10px;
-  font-size: 10px;
-  font-weight: 600;
+.maintenance-table {
+  overflow-x: auto;
 }
 
-/* 컴팩트 카드 스타일 */
-.vfd-compact-card {
+.maintenance-table table {
+  width: 100%;
+  border-collapse: collapse;
   background: #0f172a;
-  border-radius: 0.75rem;
-  padding: 1.25rem;
-  border: 2px solid #334155;
-  border-top: 4px solid #334155;
-  cursor: pointer;
-  transition: all 0.2s;
+  border-radius: 8px;
+  overflow: hidden;
 }
 
-.vfd-compact-card:hover {
-  transform: translateY(-2px);
-  border-color: #3b82f6;
-  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.2);
-}
-
-.vfd-compact-card.has-anomaly {
-  border-color: #fbbf24;
-  box-shadow: 0 0 12px rgba(251, 191, 36, 0.2);
-}
-
-.vfd-compact-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 0.75rem;
-  padding-bottom: 0.5rem;
+.maintenance-table th,
+.maintenance-table td {
+  padding: 12px 15px;
+  text-align: left;
   border-bottom: 1px solid #334155;
 }
 
-.vfd-compact-header h4 {
-  font-size: 1.25rem;
-  font-weight: 700;
+.maintenance-table th {
+  background: #1e293b;
   color: #f1f5f9;
-  margin: 0;
-}
-
-.vfd-compact-status {
-  padding: 0.35rem 0.85rem;
-  border-radius: 1rem;
-  font-size: 0.875rem;
   font-weight: 600;
-  color: white;
 }
 
-.vfd-compact-body {
+.maintenance-table tr:last-child td {
+  border-bottom: none;
+}
+
+.maintenance-table tr:hover {
+  background: #1e293b;
+}
+
+/* 상세 진단 정보 */
+.detailed-diagnostics {
+  margin-bottom: 40px;
+}
+
+.detailed-diagnostics h3 {
+  font-size: 20px;
+  margin-bottom: 20px;
+  color: #f1f5f9;
+}
+
+.vfd-selector {
   display: flex;
-  flex-direction: column;
-  gap: 0.85rem;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 30px;
+  padding: 20px;
+  background: #0f172a;
+  border-radius: 8px;
 }
 
-.vfd-compact-row {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  font-size: 0.875rem;
-}
-
-.vfd-compact-row .label {
+.vfd-select-btn {
+  padding: 12px 24px;
+  background: #1e293b;
+  border: none;
+  border-radius: 6px;
   color: #94a3b8;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-size: 14px;
   font-weight: 600;
   text-transform: uppercase;
-  font-size: 0.95rem;
+  letter-spacing: 0.5px;
 }
 
-.vfd-compact-row .value {
-  color: #60a5fa;
-  font-weight: 700;
-  font-size: 1.25rem;
-}
-
-.vfd-compact-warning {
-  margin-top: 0.75rem;
-  padding: 0.65rem;
-  background: rgba(251, 191, 36, 0.1);
-  border-radius: 0.5rem;
-  text-align: center;
-  font-size: 0.875rem;
-  font-weight: 600;
-  color: #fbbf24;
-}
-
-/* 모달 오버레이 */
-.vfd-modal-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(0, 0, 0, 0.7);
-  z-index: 1000;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  backdrop-filter: blur(4px);
-}
-
-/* 상세 패널 - 모달로 변경 */
-.vfd-detail-panel {
-  width: 85%;
-  max-width: 850px;
-  height: 85vh;
-  background: #1e293b;
-  box-shadow: 0 8px 32px rgba(0,0,0,0.5);
-  z-index: 1001;
-  overflow: hidden;
-  border-radius: 1rem;
-  border: 2px solid #3b82f6;
-  display: flex;
-  flex-direction: column;
-}
-
-.detail-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0.75rem 1rem;
-  border-bottom: 1px solid #3d4d63;
-  background: #2d3b4e;
-  flex-shrink: 0;
-}
-
-.detail-header h3 {
-  margin: 0;
-  font-size: 1.1rem;
-  color: #e2e8f0;
-  font-weight: 700;
-}
-
-.close-btn {
-  background: none;
-  border: none;
-  font-size: 24px;
-  cursor: pointer;
-  color: #94a3b8;
-  padding: 0;
-  width: 32px;
-  height: 32px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: color 0.2s;
-}
-
-.close-btn:hover {
+.vfd-select-btn:hover {
+  background: #334155;
   color: #e2e8f0;
 }
 
-.detail-body {
-  padding: 0.75rem;
-  background: #1e293b;
-  flex: 1;
-  overflow-y: auto;
-  display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
+.vfd-select-btn.active {
+  background: #3b82f6;
+  color: white;
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+}
+
+/* VFD 상세 정보 */
+.vfd-details {
+  background: #0f172a;
+  border-radius: 8px;
+  padding: 30px;
 }
 
 .detail-section {
+  margin-bottom: 30px;
+}
+
+.detail-section:last-child {
   margin-bottom: 0;
-  flex-shrink: 0;
 }
 
 .detail-section h4 {
-  margin: 0 0 0.5rem 0;
-  font-size: 0.95rem;
-  color: #cbd5e1;
-  border-left: 3px solid #3b82f6;
-  padding-left: 0.5rem;
-  font-weight: 700;
+  font-size: 18px;
+  margin-bottom: 20px;
+  color: #f1f5f9;
+  padding-bottom: 10px;
+  border-bottom: 2px solid #334155;
 }
 
-.detail-grid {
+.metrics-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 0.5rem;
+  gap: 20px;
 }
 
-.detail-item {
-  display: flex;
-  flex-direction: column;
-  gap: 0.15rem;
-  padding: 0.5rem;
-  background: #2d3b4e;
-  border-radius: 0.5rem;
-  border: 1px solid #3d4d63;
+.metric-item {
+  background: #1e293b;
+  padding: 15px;
+  border-radius: 6px;
+  border-left: 3px solid #3b82f6;
 }
 
-.detail-item .label {
-  font-size: 0.9rem;
+.metric-label {
+  font-size: 12px;
   color: #94a3b8;
+  margin-bottom: 8px;
   text-transform: uppercase;
   letter-spacing: 0.5px;
-  font-weight: 600;
 }
 
-.detail-item .value {
-  font-size: 1rem;
-  font-weight: 700;
+.metric-value {
+  font-size: 24px;
+  font-weight: 600;
   color: #e2e8f0;
 }
 
-.detail-item .value.predicted {
-  color: #60a5fa;
-}
-
 /* 이상 패턴 */
-.anomaly-list {
-  list-style: none;
-  padding: 0;
-  margin: 0;
+.anomaly-patterns {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 
-.anomaly-list li {
-  padding: 0.5rem;
-  margin-bottom: 0.35rem;
-  background: rgba(251, 191, 36, 0.1);
-  border-left: 3px solid #fbbf24;
-  border-radius: 0.5rem;
-  font-size: 0.8rem;
-  color: #fbbf24;
-  font-weight: 600;
+.anomaly-pattern-item {
+  padding: 12px;
+  background: rgba(244, 67, 54, 0.1);
+  border-left: 3px solid #f44336;
+  border-radius: 4px;
+  color: #f44336;
+  font-size: 14px;
 }
 
 /* 권고사항 */
 .recommendation-box {
-  padding: 0.65rem;
+  padding: 20px;
   background: rgba(59, 130, 246, 0.1);
-  border-left: 3px solid #3b82f6;
-  border-radius: 0.5rem;
-  font-size: 0.9rem;
-  line-height: 1.4;
+  border-left: 4px solid #3b82f6;
+  border-radius: 6px;
   color: #60a5fa;
-  font-weight: 600;
-}
-
-/* 이상 감지 확인 버튼 */
-.acknowledge-btn {
-  margin-top: 0.5rem;
-  width: 100%;
-  padding: 0.65rem;
-  background: #3b82f6;
-  color: white;
-  border: none;
-  border-radius: 0.5rem;
-  font-size: 0.95rem;
-  font-weight: 700;
-  cursor: pointer;
-  transition: all 0.2s;
-}
-
-.acknowledge-btn:hover {
-  background: #2563eb;
-  transform: translateY(-1px);
-  box-shadow: 0 4px 8px rgba(59, 130, 246, 0.3);
-}
-
-.acknowledge-btn:active {
-  transform: translateY(0);
+  font-size: 16px;
+  line-height: 1.6;
 }
 
 /* 반응형 */
-@media (max-width: 1200px) {
-  .vfd-detail-panel {
-    width: 400px;
+@media (max-width: 1400px) {
+  .vfd-grid {
+    grid-template-columns: repeat(4, 1fr);
   }
 
-  .legend-items {
-    flex-direction: column;
-    gap: 6px;
+  .metrics-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 1200px) {
+  .vfd-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .metrics-grid {
+    grid-template-columns: repeat(2, 1fr);
   }
 }
 
 @media (max-width: 768px) {
+  .vfd-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .metrics-grid {
+    grid-template-columns: 1fr;
+  }
+
   .diagnostics-header {
     flex-direction: column;
-    gap: 16px;
-  }
-
-  .status-legend {
-    width: 100%;
-  }
-
-  .guide-items {
-    grid-template-columns: 1fr;
-  }
-
-  .vfd-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .vfd-detail-panel {
-    width: 100%;
-  }
-
-  .detail-grid {
-    grid-template-columns: 1fr;
+    align-items: flex-start;
+    gap: 10px;
   }
 }

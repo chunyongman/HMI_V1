@@ -6,6 +6,7 @@ import FanDiagram from './components/FanDiagram'
 import PumpControl from './components/PumpControl'
 import TrendChart from './components/TrendChart'
 import AlarmPanel from './components/AlarmPanel'
+// import AlarmHistory from './components/AlarmHistory'  // History.jsx에 통합됨
 import Settings from './components/Settings'
 import AdvancedControl from './components/AdvancedControl'
 import History from './components/History'
@@ -251,7 +252,7 @@ function App() {
 
   const connectWebSocket = () => {
     const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:'
-    const wsUrl = `${protocol}//${window.location.hostname}:8000/ws`
+    const wsUrl = `${protocol}//${window.location.hostname}:8001/ws`  // HMI Backend 포트 8001
 
     console.log('WebSocket 연결 시도:', wsUrl)
     const websocket = new WebSocket(wsUrl)
@@ -295,7 +296,7 @@ function App() {
     try {
       console.log(`🔧 장비 명령 전송 시도: equipment=${equipmentName}, command=${command}`)
 
-      const response = await fetch('http://localhost:8000/api/equipment/command', {
+      const response = await fetch('http://localhost:8001/api/equipment/command', {  // HMI Backend
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

@@ -104,14 +104,6 @@ vfd_anomaly_state = {
     "ER_FAN_4": None,
 }
 
-# VFD 이상 징후 확인/해제 상태 추적 (HMI 자체 관리)
-# 상태: None(정상/표시안함), "active"(이상감지-확인버튼), "acknowledged"(확인됨-해제버튼)
-vfd_ack_status: Dict[str, Dict] = {}
-
-# VFD 해제(cleared)된 ID 추적 - 해제된 VFD는 다시 목록에 나타나지 않음
-# 정상 상태로 돌아오면 (severity <= 20 and status_grade == 'normal') 이 세트에서 제거됨
-vfd_cleared_ids: set = set()
-
 # VFD 이상 신호 주기 발생을 위한 변수
 vfd_anomaly_timer = {
     "last_anomaly_time": None,
@@ -257,69 +249,57 @@ async def get_vfd_diagnostics():
     """VFD 예방진단 데이터 조회 (Edge AI 분석 결과)"""
     logger.info("🔍 get_vfd_diagnostics() 함수 호출됨!!!")
 
-    # Windows 절대 경로 명확히 지정
-    shared_file = Path(r"C:\shared\vfd_diagnostics.json")
+    shared_file = Path("C:/shared/vfd_diagnostics.json")
 
     # 1. 먼저 공유 파일이 있으면 읽기 (Edge AI 데이터 우선)
     try:
-        logger.info(f"🔍 공유 파일 경로: {shared_file}, 존재여부: {shared_file.exists()}")
         if shared_file.exists():
             logger.info(f"✅ 공유 파일 발견: {shared_file}")
             with open(shared_file, 'r', encoding='utf-8') as f:
                 data = json.load(f)
 
-            # VFD별로 이상 징후 상태 및 확인/해제 상태 적용
-            for vfd_id, vfd_data in data.get('vfd_diagnostics', {}).items():
-                # severity_score > 20 이면 이상 징후로 간주 (caution 이상)
-                severity = vfd_data.get('severity_score', 0)
-                status_grade = vfd_data.get('status_grade', 'normal')
+            # 테스트 VFD 이상 징후 데이터 오버라이드
+            test_anomaly_file = Path("C:/shared/test_vfd_anomalies.json")
+            if test_anomaly_file.exists():
+                try:
+                    with open(test_anomaly_file, 'r', encoding='utf-8') as f:
+                        test_data = json.load(f)
 
-                # 이상 징후 여부 확인 (정상이 아닌 경우)
-                has_anomaly = status_grade != 'normal' or severity > 20
+                    active_test_anomalies = test_data.get("active_anomalies", {})
+                    logger.info(f"🧪 테스트 VFD 이상 {len(active_test_anomalies)}개 발견")
 
-                # 정상 상태로 돌아오면 cleared 목록에서 제거 (다음에 이상 발생 시 다시 표시되도록)
-                if not has_anomaly and vfd_id in vfd_cleared_ids:
-                    vfd_cleared_ids.discard(vfd_id)
-                    logger.info(f"✅ VFD {vfd_id}: 정상 상태 복귀, cleared 목록에서 제거")
+                    # 테스트 이상 데이터를 실제 VFD 진단 데이터에 오버라이드
+                    for vfd_id, test_anomaly in active_test_anomalies.items():
+                        if vfd_id in data.get('vfd_diagnostics', {}):
+                            data['vfd_diagnostics'][vfd_id]['severity_score'] = test_anomaly['severity_score']
+                            data['vfd_diagnostics'][vfd_id]['status_grade'] = 'warning'
+                            data['vfd_diagnostics'][vfd_id]['recommendation'] = test_anomaly['message']
 
-                # 해제(cleared) 여부를 플래그로 설정 (건강도 카드에는 표시, 이상징후 목록에서만 제외)
-                is_cleared_vfd = vfd_id in vfd_cleared_ids
+                            # 이상 징후 관리 필드 추가 (확인/해제 기능을 위해)
+                            data['vfd_diagnostics'][vfd_id]['is_acknowledged'] = False
+                            data['vfd_diagnostics'][vfd_id]['acknowledged_at'] = None
+                            data['vfd_diagnostics'][vfd_id]['is_cleared'] = False
+                            data['vfd_diagnostics'][vfd_id]['cleared_at'] = None
 
-                # HMI 자체 관리 상태 확인
-                ack_info = vfd_ack_status.get(vfd_id, {})
-                ack_state = ack_info.get('status')  # None, "active", "acknowledged"
+                            logger.info(f"🧪 {vfd_id} severity={test_anomaly['severity_score']} 오버라이드")
+                except Exception as e:
+                    logger.warning(f"테스트 데이터 읽기 실패: {e}")
 
-                if has_anomaly:
-                    # 이상 징후가 있는 경우
-                    if is_cleared_vfd:
-                        # 해제된 VFD - 이상징후 목록에서는 숨기지만 건강도 카드에는 표시
-                        vfd_data['is_acknowledged'] = True
-                        vfd_data['acknowledged_at'] = None
-                        vfd_data['is_cleared'] = True  # 이상징후 목록에서 제외용 플래그
-                        vfd_data['cleared_at'] = None
-                    elif ack_state == "acknowledged":
-                        # 확인됨 상태 (해제 버튼 표시)
-                        vfd_data['is_acknowledged'] = True
-                        vfd_data['acknowledged_at'] = ack_info.get('acknowledged_at')
-                        vfd_data['is_cleared'] = False
-                        vfd_data['cleared_at'] = None
-                    else:
-                        # 새로 감지된 이상 (확인 버튼 표시)
-                        # 아직 vfd_ack_status에 없으면 active 상태로 등록
-                        if vfd_id not in vfd_ack_status:
-                            vfd_ack_status[vfd_id] = {"status": "active", "acknowledged_at": None}
-                        vfd_data['is_acknowledged'] = False
-                        vfd_data['acknowledged_at'] = None
-                        vfd_data['is_cleared'] = False
-                        vfd_data['cleared_at'] = None
-                else:
-                    # 정상인 경우 - 상태 관리에서 제거
-                    if vfd_id in vfd_ack_status:
-                        del vfd_ack_status[vfd_id]
-                    vfd_data['is_acknowledged'] = False
-                    vfd_data['acknowledged_at'] = None
-                    vfd_data['is_cleared'] = False  # 정상 상태는 cleared 아님
-                    vfd_data['cleared_at'] = None
+            # Acknowledgment 상태 업데이트
+            ack_file = Path("C:/shared/vfd_acknowledgments.json")
+            if ack_file.exists():
+                try:
+                    with open(ack_file, 'r', encoding='utf-8') as f:
+                        ack_data = json.load(f)
+
+                    for vfd_id, ack_info in ack_data.items():
+                        if vfd_id in data.get('vfd_diagnostics', {}):
+                            if ack_info.get('action') == 'acknowledge':
+                                data['vfd_diagnostics'][vfd_id]['is_acknowledged'] = True
+                                data['vfd_diagnostics'][vfd_id]['acknowledged_at'] = ack_info['timestamp']
+                                logger.debug(f"✅ {vfd_id} acknowledged 상태 반영")
+                except Exception as e:
+                    logger.warning(f"Acknowledgment 데이터 읽기 실패: {e}")
 
             logger.info(f"✅ 공유 파일 읽기 성공! VFD 개수: {len(data.get('vfd_diagnostics', {}))}")
             return {
@@ -332,47 +312,43 @@ async def get_vfd_diagnostics():
     except Exception as e:
         logger.error(f"❌ VFD 진단 데이터 읽기 실패: {e}, fallback으로 전환")
 
-    # 2. 공유 파일이 없으면 간단한 fallback 데이터 생성 (일관된 점수)
-    logger.info("📌 공유 파일 없음 - 간단한 fallback 데이터 생성")
+    # 2. 공유 파일이 없으면 PLC 시뮬레이션 데이터로 VFD 진단 생성 (HMI 자체 생성)
+    logger.debug("공유 파일 없음 - PLC 데이터로 VFD 진단 생성")
 
     # PLC 클라이언트에서 장비 데이터 가져오기
     equipment_data = plc_client.get_all_equipment_data()
 
-    # 랜덤 VFD 이상 신호 생성 비활성화 (테스트 생성기 사용)
-    target_vfd_for_anomaly = None
+    # 2분마다 랜덤 VFD에 이상 신호 발생
+    from datetime import timedelta
+    current_time = datetime.now()
 
-    # # 2분마다 랜덤 VFD에 이상 신호 발생
-    # from datetime import timedelta
-    # current_time = datetime.now()
-    #
-    # if vfd_anomaly_timer["last_anomaly_time"] is None:
-    #     # 첫 실행 시 타이머 시작
-    #     vfd_anomaly_timer["last_anomaly_time"] = current_time
-    #     logger.info("🕐 VFD 이상 신호 타이머 시작")
-    #
-    # # 마지막 이상 발생으로부터 2분이 지났는지 확인
-    # time_elapsed = (current_time - vfd_anomaly_timer["last_anomaly_time"]).total_seconds()
-    # should_generate_anomaly = time_elapsed >= vfd_anomaly_timer["interval_seconds"]
-    #
-    # # 2분마다 랜덤 VFD 선택하여 이상 신호 발생
-    # target_vfd_for_anomaly = None
-    # if should_generate_anomaly:
-    #     # 모든 VFD ID 리스트
-    #     all_vfd_ids = list(vfd_anomaly_state.keys())
-    #     # 이미 이상 상태가 없는 VFD만 선택 (중복 방지)
-    #     available_vfds = [vfd_id for vfd_id in all_vfd_ids if vfd_anomaly_state[vfd_id] is None]
-    #
-    #     if available_vfds:
-    #         target_vfd_for_anomaly = random.choice(available_vfds)
-    #         logger.info(f"⏰ 2분 경과 - 새 이상 신호 발생 대상: {target_vfd_for_anomaly}")
-    #         vfd_anomaly_timer["last_anomaly_time"] = current_time
-    #     else:
-    #         logger.info("⏰ 2분 경과 - 모든 VFD에 이미 이상 상태 존재, 대기 중")
+    if vfd_anomaly_timer["last_anomaly_time"] is None:
+        # 첫 실행 시 타이머 시작
+        vfd_anomaly_timer["last_anomaly_time"] = current_time
+        logger.info("🕐 VFD 이상 신호 타이머 시작")
+
+    # 마지막 이상 발생으로부터 2분이 지났는지 확인
+    time_elapsed = (current_time - vfd_anomaly_timer["last_anomaly_time"]).total_seconds()
+    should_generate_anomaly = time_elapsed >= vfd_anomaly_timer["interval_seconds"]
+
+    # 2분마다 랜덤 VFD 선택하여 이상 신호 발생
+    target_vfd_for_anomaly = None
+    if should_generate_anomaly:
+        # 모든 VFD ID 리스트
+        all_vfd_ids = list(vfd_anomaly_state.keys())
+        # 이미 이상 상태가 없는 VFD만 선택 (중복 방지)
+        available_vfds = [vfd_id for vfd_id in all_vfd_ids if vfd_anomaly_state[vfd_id] is None]
+
+        if available_vfds:
+            target_vfd_for_anomaly = random.choice(available_vfds)
+            logger.info(f"⏰ 2분 경과 - 새 이상 신호 발생 대상: {target_vfd_for_anomaly}")
+            vfd_anomaly_timer["last_anomaly_time"] = current_time
+        else:
+            logger.info("⏰ 2분 경과 - 모든 VFD에 이미 이상 상태 존재, 대기 중")
 
     vfd_diagnostics = {}
 
-    # Edge Computer Dashboard와 동일한 점수 계산 (일관성 유지)
-    for i, eq in enumerate(equipment_data):
+    for eq in equipment_data:
         # 장비 이름 (name 필드)
         eq_name = eq.get("name", "")
 
@@ -396,33 +372,101 @@ async def get_vfd_diagnostics():
         is_running = eq.get("running", False) or eq.get("running_fwd", False) or eq.get("running_bwd", False)
         run_hours = eq.get("run_hours", 0)
 
-        # Edge Computer Dashboard와 동일한 일관된 점수 계산
-        base_score = 85
-        score_variation = (i * 7) % 30
-        health_score = base_score - score_variation
-        severity_score = 100 - health_score
-
-        # 온도 시뮬레이션 (일관된 값)
-        temp = 65.0 + (i * 3) % 15
+        # 온도 시뮬레이션 (주파수와 운전 상태 기반)
+        if is_running and freq > 0:
+            # 운전 중: 주파수에 비례한 온도 (45Hz일 때 약 65-75도)
+            base_temp = 55 + (freq / 60.0) * 20
+            temp = base_temp + random.uniform(-2, 2)  # 약간의 변동
+        else:
+            # 정지 중: 낮은 온도
+            temp = 35 + random.uniform(-3, 3)
 
         # 전류 시뮬레이션 (주파수에 비례)
         current = (freq / 60.0) * 150 if is_running else 0.0
 
-        # 상태 등급 결정 (Edge Computer와 동일)
-        if health_score >= 80:
-            status_grade = "normal"
-            anomaly_patterns = []
-            maintenance_priority = 0
-        elif health_score >= 60:
-            status_grade = "caution"
-            anomaly_patterns = ["MOTOR_TEMP_HIGH"]
-            maintenance_priority = 3
-        else:
-            status_grade = "warning"
-            anomaly_patterns = ["VIBRATION_HIGH"]
-            maintenance_priority = 5
+        # 모든 가능한 이상 패턴 정의
+        all_anomaly_patterns = {
+            "critical": [
+                "MOTOR_OVERTEMP",
+                "DC_BUS_OVERVOLTAGE",
+                "OVERCURRENT_TRIP",
+                "BEARING_FAILURE",
+                "IGBT_FAULT"
+            ],
+            "warning": [
+                "MOTOR_TEMP_HIGH",
+                "HEATSINK_OVERTEMP",
+                "COOLING_FAN_DEGRADATION",
+                "VOLTAGE_FLUCTUATION",
+                "CURRENT_IMBALANCE",
+                "VFD_WARNING"
+            ],
+            "caution": [
+                "TEMP_RISING_TREND",
+                "VIBRATION_INCREASED",
+                "EFFICIENCY_DEGRADATION",
+                "NOISE_LEVEL_HIGH"
+            ]
+        }
 
-        anomaly_score = severity_score
+        # 기존에 확인되지 않은 이상 상태가 있으면 그것을 계속 유지
+        if vfd_anomaly_state[vfd_id] is not None:
+            # 저장된 이상 상태 사용 - 확인될 때까지 계속 유지
+            persisted_state = vfd_anomaly_state[vfd_id]
+            status_grade = persisted_state["status_grade"]
+            severity_score = persisted_state["severity_score"]
+            maintenance_priority = persisted_state["maintenance_priority"]
+            anomaly_score = persisted_state["anomaly_score"]
+            anomaly_patterns = persisted_state["anomaly_patterns"]
+            temp = persisted_state["temp"]
+            logger.info(f"🔒 VFD {vfd_id}: 지속 중인 이상 상태 유지 - {status_grade}, 패턴: {anomaly_patterns}")
+        elif vfd_id == target_vfd_for_anomaly:
+            # 2분마다 선택된 VFD에 랜덤 이상 신호 발생
+            # 랜덤하게 주의/경고/위험 중 하나 선택
+            anomaly_type = random.choice(["caution", "warning", "critical"])
+
+            if anomaly_type == "critical":
+                status_grade = "critical"
+                severity_score = random.randint(80, 95)
+                maintenance_priority = 5
+                anomaly_score = random.randint(75, 90)
+                anomaly_patterns = [random.choice(all_anomaly_patterns["critical"])]
+                temp = random.uniform(75, 85)
+                logger.info(f"🔴 VFD {vfd_id}: 위험 신호 발생 - {anomaly_patterns}")
+            elif anomaly_type == "warning":
+                status_grade = "warning"
+                severity_score = random.randint(60, 75)
+                maintenance_priority = 3
+                anomaly_score = random.randint(55, 70)
+                anomaly_patterns = [random.choice(all_anomaly_patterns["warning"])]
+                temp = random.uniform(68, 75)
+                logger.info(f"🟠 VFD {vfd_id}: 경고 신호 발생 - {anomaly_patterns}")
+            else:  # caution
+                status_grade = "caution"
+                severity_score = random.randint(30, 45)
+                maintenance_priority = 1
+                anomaly_score = random.randint(25, 40)
+                anomaly_patterns = [random.choice(all_anomaly_patterns["caution"])]
+                temp = random.uniform(60, 68)
+                logger.info(f"🟡 VFD {vfd_id}: 주의 신호 발생 - {anomaly_patterns}")
+
+            # 이상 상태 저장 (확인될 때까지 유지)
+            vfd_anomaly_state[vfd_id] = {
+                "status_grade": status_grade,
+                "severity_score": severity_score,
+                "maintenance_priority": maintenance_priority,
+                "anomaly_score": anomaly_score,
+                "anomaly_patterns": anomaly_patterns,
+                "temp": temp
+            }
+        else:
+            # 정상 상태
+            status_grade = "normal"
+            severity_score = 0
+            maintenance_priority = 0
+            anomaly_score = 0
+            anomaly_patterns = []
+            # 온도는 기존 로직 유지 (정상 범위)
 
         # 온도 추세 (간단 계산)
         temp_rise_rate = 0.05 if is_running else -0.02
@@ -639,22 +683,38 @@ async def acknowledge_alarm(ack: AlarmAck):
 
 @app.post("/api/vfd/acknowledge/{vfd_id}")
 async def acknowledge_vfd_anomaly(vfd_id: str):
-    """VFD 이상 감지 확인 처리 - 확인 버튼 클릭 시"""
+    """VFD 이상 감지 확인 처리"""
     try:
-        # HMI 자체 상태 관리에 acknowledged 상태 저장
-        vfd_ack_status[vfd_id] = {
-            "status": "acknowledged",
-            "acknowledged_at": datetime.now().isoformat(),
+        # 공유 파일에 acknowledge 명령 저장
+        ack_file = Path("C:/shared/vfd_acknowledgments.json")
+        ack_file.parent.mkdir(parents=True, exist_ok=True)
+
+        # 기존 acknowledge 데이터 로드
+        ack_data = {}
+        if ack_file.exists():
+            try:
+                with open(ack_file, 'r', encoding='utf-8') as f:
+                    ack_data = json.load(f)
+            except:
+                pass
+
+        # acknowledge 명령 추가
+        ack_data[vfd_id] = {
+            "action": "acknowledge",
+            "timestamp": datetime.now().isoformat(),
             "user": "Operator"
         }
 
-        logger.info(f"✅ VFD {vfd_id}: 확인 완료 (acknowledged)")
+        # 파일에 저장
+        with open(ack_file, 'w', encoding='utf-8') as f:
+            json.dump(ack_data, f, ensure_ascii=False, indent=2)
+
+        logger.info(f"✅ VFD {vfd_id}: 확인 명령 저장됨")
 
         return {
             "success": True,
             "message": f"VFD {vfd_id} anomaly acknowledged",
             "vfd_id": vfd_id,
-            "status": "acknowledged",
             "timestamp": datetime.now().isoformat()
         }
 
@@ -665,23 +725,52 @@ async def acknowledge_vfd_anomaly(vfd_id: str):
 
 @app.post("/api/vfd/clear/{vfd_id}")
 async def clear_vfd_anomaly(vfd_id: str):
-    """VFD 이상 징후 해제 처리 - 해제 버튼 클릭 시 (목록에서 제거)"""
+    """VFD 이상 징후 해제 처리"""
     try:
-        # HMI 자체 상태에서 해당 VFD 제거
-        if vfd_id in vfd_ack_status:
-            del vfd_ack_status[vfd_id]
+        # 1. acknowledgment 파일에서 해당 VFD 제거
+        ack_file = Path("C:/shared/vfd_acknowledgments.json")
+        if ack_file.exists():
+            try:
+                with open(ack_file, 'r', encoding='utf-8') as f:
+                    ack_data = json.load(f)
 
-        # cleared 목록에 추가하여 다시 목록에 나타나지 않도록 함
-        # (VFD가 정상 상태로 돌아올 때까지 유지)
-        vfd_cleared_ids.add(vfd_id)
+                # 해당 VFD ID 제거
+                if vfd_id in ack_data:
+                    del ack_data[vfd_id]
 
-        logger.info(f"✅ VFD {vfd_id}: 해제 완료 (cleared), vfd_cleared_ids에 추가됨")
+                    with open(ack_file, 'w', encoding='utf-8') as f:
+                        json.dump(ack_data, f, ensure_ascii=False, indent=2)
+
+                    logger.info(f"✅ VFD {vfd_id}: acknowledgment 파일에서 제거됨")
+            except Exception as e:
+                logger.warning(f"Acknowledgment 파일 처리 실패: {e}")
+
+        # 2. 테스트 이상 징후 파일에서 해당 VFD 제거
+        test_anomaly_file = Path("C:/shared/test_vfd_anomalies.json")
+        if test_anomaly_file.exists():
+            try:
+                with open(test_anomaly_file, 'r', encoding='utf-8') as f:
+                    test_data = json.load(f)
+
+                # active_anomalies에서 해당 VFD ID 제거
+                active_anomalies = test_data.get("active_anomalies", {})
+                if vfd_id in active_anomalies:
+                    del active_anomalies[vfd_id]
+                    test_data["active_anomalies"] = active_anomalies
+                    test_data["count"] = len(active_anomalies)
+                    test_data["timestamp"] = datetime.now().isoformat()
+
+                    with open(test_anomaly_file, 'w', encoding='utf-8') as f:
+                        json.dump(test_data, f, ensure_ascii=False, indent=2)
+
+                    logger.info(f"✅ VFD {vfd_id}: 테스트 이상 징후 파일에서 제거됨")
+            except Exception as e:
+                logger.warning(f"테스트 이상 징후 파일 처리 실패: {e}")
 
         return {
             "success": True,
             "message": f"VFD {vfd_id} anomaly cleared",
             "vfd_id": vfd_id,
-            "status": "cleared",
             "timestamp": datetime.now().isoformat()
         }
 

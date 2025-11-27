@@ -46,7 +46,7 @@ function AlarmPanel({ alarms: alarmsProp, alarmSummary, alarmSoundMuted, onToggl
       pendingAckRef.current.add(alarmId)
 
       // 백엔드에 확인 요청
-      const response = await fetch('http://localhost:8000/api/alarms/acknowledge', {
+      const response = await fetch('http://localhost:8001/api/alarms/acknowledge', {  // HMI Backend
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

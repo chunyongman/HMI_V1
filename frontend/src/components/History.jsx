@@ -22,7 +22,8 @@ function History() {
   const fetchAlarmHistory = async () => {
     setLoading(true)
     try {
-      const response = await fetch('http://localhost:8000/api/alarms/history?limit=100')
+      // Edge Computer의 CSV 로그 파일에서 알람 히스토리 조회
+      const response = await fetch('http://localhost:8000/api/alarms/history?limit=100')  // Edge Computer API
       const result = await response.json()
       if (result.success) {
         setAlarmHistory(result.data)
@@ -37,7 +38,7 @@ function History() {
   const fetchEventHistory = async () => {
     setLoading(true)
     try {
-      const response = await fetch('http://localhost:8000/api/events?limit=100')
+      const response = await fetch('http://localhost:8001/api/events?limit=100')  // HMI Backend
       const result = await response.json()
       if (result.success) {
         setEventHistory(result.data)
