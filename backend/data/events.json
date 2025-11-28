@@ -1,38 +1,6 @@
 {
   "events": [
     {
-      "id": "EVT202511230941230006",
-      "time": "2025-11-23T09:41:23.725891",
-      "type": "control",
-      "user": "System",
-      "message": "FAN2 운전 정지 (Stopped) - 0.11h, 6.08kWh",
-      "details": null
-    },
-    {
-      "id": "EVT202511230941230005",
-      "time": "2025-11-23T09:41:23.710979",
-      "type": "control",
-      "user": "System",
-      "message": "FAN1 운전 정지 (Stopped) - 0.11h, 6.08kWh",
-      "details": null
-    },
-    {
-      "id": "EVT202511230941230004",
-      "time": "2025-11-23T09:41:23.696028",
-      "type": "control",
-      "user": "System",
-      "message": "FWP2 운전 정지 (Stopped) - 0.11h, 8.40kWh",
-      "details": null
-    },
-    {
-      "id": "EVT202511230941230003",
-      "time": "2025-11-23T09:41:23.682209",
-      "type": "control",
-      "user": "System",
-      "message": "FWP1 운전 정지 (Stopped) - 0.11h, 8.40kWh",
-      "details": null
-    },
-    {
       "id": "EVT202511230941230002",
       "time": "2025-11-23T09:41:23.667256",
       "type": "control",
@@ -7995,6 +7963,38 @@
     {
       "id": "EVT202511271220280003",
       "time": "2025-11-27T12:20:28.801771",
+      "type": "control",
+      "user": "System",
+      "message": "FAN4 운전 시작 (Started)",
+      "details": null
+    },
+    {
+      "id": "EVT202511281252340001",
+      "time": "2025-11-28T12:52:34.597392",
+      "type": "control",
+      "user": "Operator",
+      "message": "FAN3 START_FWD command executed",
+      "details": null
+    },
+    {
+      "id": "EVT202511281252340002",
+      "time": "2025-11-28T12:52:34.851133",
+      "type": "control",
+      "user": "System",
+      "message": "FAN3 운전 시작 (Started)",
+      "details": null
+    },
+    {
+      "id": "EVT202511281252370003",
+      "time": "2025-11-28T12:52:37.635240",
+      "type": "control",
+      "user": "Operator",
+      "message": "FAN4 START_FWD command executed",
+      "details": null
+    },
+    {
+      "id": "EVT202511281252380004",
+      "time": "2025-11-28T12:52:38.934206",
       "type": "control",
       "user": "System",
       "message": "FAN4 운전 시작 (Started)",

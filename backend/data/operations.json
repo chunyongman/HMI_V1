@@ -375,6 +375,22 @@
       "start_count": 1,
       "energy_kwh": 1.8536030055833332,
       "saved_kwh": 0.5560809016749999
+    },
+    "FAN3_2025-11-28": {
+      "equipment_name": "FAN3",
+      "date": "2025-11-28",
+      "runtime_hours": 0,
+      "start_count": 1,
+      "energy_kwh": 0,
+      "saved_kwh": 0
+    },
+    "FAN4_2025-11-28": {
+      "equipment_name": "FAN4",
+      "date": "2025-11-28",
+      "runtime_hours": 0,
+      "start_count": 1,
+      "energy_kwh": 0,
+      "saved_kwh": 0
     }
   }
 }

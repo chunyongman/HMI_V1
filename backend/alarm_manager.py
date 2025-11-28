@@ -143,10 +143,10 @@ class AlarmManager:
         # 온도 체크 (센서 키는 TX1~TX7 형식)
         temp_sensors = {
             "T1": sensors.get("TX1"),  # CSW PP Disc Temp
-            "T2": sensors.get("TX2"),  # CSW PP Suc Temp
-            "T3": sensors.get("TX3"),  # FW CLNG In Temp
-            "T4": sensors.get("TX4"),  # FW CLNG Out Temp
-            "T5": sensors.get("TX5"),  # ESS Batt Temp
+            "T2": sensors.get("TX2"),  # No.1 CLR SW Out Temp
+            "T3": sensors.get("TX3"),  # No.2 CLR SW Out Temp
+            "T4": sensors.get("TX4"),  # CLR FW In Temp
+            "T5": sensors.get("TX5"),  # CLR FW Out Temp
             "T6": sensors.get("TX6"),  # E/R Inside Temp
             "T7": sensors.get("TX7"),  # E/R Outside Temp
         }

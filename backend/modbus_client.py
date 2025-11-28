@@ -213,10 +213,10 @@ class PLCClient:
 
         return {
             "TX1": round(sensor_regs[0] / 10.0, 1),   # CSW PP Disc Temp
-            "TX2": round(sensor_regs[1] / 10.0, 1),   # CSW PP Suc Temp
-            "TX3": round(sensor_regs[2] / 10.0, 1),   # FW CLNG In Temp
-            "TX4": round(sensor_regs[3] / 10.0, 1),   # FW CLNG Out Temp
-            "TX5": round(sensor_regs[4] / 10.0, 1),   # ESS Batt Temp
+            "TX2": round(sensor_regs[1] / 10.0, 1),   # No.1 CLR SW Out Temp
+            "TX3": round(sensor_regs[2] / 10.0, 1),   # No.2 CLR SW Out Temp
+            "TX4": round(sensor_regs[3] / 10.0, 1),   # CLR FW In Temp
+            "TX5": round(sensor_regs[4] / 10.0, 1),   # CLR FW Out Temp
             "TX6": round(sensor_regs[5] / 10.0, 1),   # E/R Inside Temp
             "TX7": round(sensor_regs[6] / 10.0, 1),   # E/R Outside Temp
             "DPX1": round(sensor_regs[7] / 4608.0, 2), # CSW PP Disc Press (kg/cm²)
