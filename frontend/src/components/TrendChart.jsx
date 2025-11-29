@@ -34,6 +34,23 @@ function TrendChart({ sensors = {}, pumps = [] }) {
 
   return (
     <div className="trend-chart">
+      {/* 센서 데이터 현황 */}
+      <section className="sensor-data-section">
+        <h2>🌡️ 센서 데이터</h2>
+        <div className="sensor-grid">
+          <SensorCard label="CSW 펌프 토출 온도 (TX1)" value={sensors.TX1} unit="°C" icon="🌡️" />
+          <SensorCard label="FW Cooler 1 SW Out (TX2)" value={sensors.TX2} unit="°C" icon="🌡️" />
+          <SensorCard label="FW Cooler 2 SW Out (TX3)" value={sensors.TX3} unit="°C" icon="🌡️" />
+          <SensorCard label="FW Cooler FW In (TX4)" value={sensors.TX4} unit="°C" icon="🌡️" />
+          <SensorCard label="FW Cooler FW Out (TX5)" value={sensors.TX5} unit="°C" icon="🌡️" />
+          <SensorCard label="CSW 펌프 토출 압력 (DPX1)" value={sensors.DPX1} unit="kg/cm²" icon="💨" />
+        </div>
+        <div className="sensor-grid" style={{ marginTop: '1rem' }}>
+          <SensorCard label="E/R Inside Temp (TX6)" value={sensors.TX6} unit="°C" icon="🌡️" />
+          <SensorCard label="E/R Outside Temp (TX7)" value={sensors.TX7} unit="°C" icon="🌡️" />
+        </div>
+      </section>
+
       <div className="chart-header">
         <h2>📈 실시간 트렌드</h2>
         <p>최근 {maxPoints}개 데이터 포인트</p>
@@ -181,6 +198,20 @@ function ChartPanel({ title, data, dataKey, unit, color }) {
       <div className="chart-footer">
         <span>최소: {min.toFixed(2)}</span>
         <span>최대: {max.toFixed(2)}</span>
+      </div>
+    </div>
+  )
+}
+
+function SensorCard({ label, value, unit, icon }) {
+  return (
+    <div className="sensor-card">
+      <div className="sensor-icon">{icon}</div>
+      <div className="sensor-info">
+        <div className="sensor-label">{label}</div>
+        <div className="sensor-value">
+          {value !== undefined ? value.toFixed(1) : '--'} {unit}
+        </div>
       </div>
     </div>
   )

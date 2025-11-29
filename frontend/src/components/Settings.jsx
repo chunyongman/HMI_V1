@@ -10,14 +10,14 @@ function Settings() {
     swp_hi_temp: 38,
     swp_temp_limit: 40,
     swp_prs: 3.5,
-    
+
     fwp_1p_op_temp: 45,
     fwp_1p_lo_temp: 40,
     fwp_1p_hi_temp: 50,
     fwp_2p_op_temp: 45,
     fwp_2p_lo_temp: 40,
     fwp_2p_hi_temp: 50,
-    
+
     // VFD 설정
     swp_adj_cycle: 60,
     swp_adj_hz: 5,
@@ -47,6 +47,18 @@ function Settings() {
     fwp_speed_limit: 300,
     meg_load_lmt1: 30,
     meg_load_lmt2: 20,
+
+    // 알람 임계값 설정
+    alarm_tx1: 30.0,      // 냉각수 토출 온도
+    alarm_tx2: 50.0,      // NO.1 쿨러 출구 온도
+    alarm_tx3: 50.0,      // NO.2 쿨러 출구 온도
+    alarm_tx4: 50.0,      // 청수 입구 온도
+    alarm_tx5: 40.0,      // 청수 출구 온도
+    alarm_tx6: 50.0,      // E/R 내부 온도
+    alarm_tx7: 40.0,      // E/R 외부 온도
+    alarm_px1_low: 1.2,   // 냉각수 압력 저하
+    alarm_px1_high: 4.0,  // 냉각수 압력 과다
+    alarm_pu1: 85.0,      // M/E 부하 과다
   })
 
   const [saved, setSaved] = useState(false)
@@ -80,11 +92,11 @@ function Settings() {
         >
           🌡️ 온도 설정
         </button>
-        <button 
+        <button
           className={activeTab === 'vfd' ? 'active' : ''}
           onClick={() => setActiveTab('vfd')}
         >
-          ⚡ VFD 설정
+          ⚡ 주파수 설정
         </button>
         <button 
           className={activeTab === 'operation' ? 'active' : ''}
@@ -98,11 +110,17 @@ function Settings() {
         >
           🚢 출항 모드
         </button>
-        <button 
+        <button
           className={activeTab === 'system' ? 'active' : ''}
           onClick={() => setActiveTab('system')}
         >
           💻 시스템
+        </button>
+        <button
+          className={activeTab === 'alarm' ? 'active' : ''}
+          onClick={() => setActiveTab('alarm')}
+        >
+          🔔 알람 설정
         </button>
       </div>
 
@@ -122,6 +140,9 @@ function Settings() {
         )}
         {activeTab === 'system' && (
           <SystemSettings />
+        )}
+        {activeTab === 'alarm' && (
+          <AlarmSettings settings={settings} onChange={handleChange} />
         )}
       </div>
 
@@ -232,7 +253,7 @@ function TempSettings({ settings, onChange }) {
 function VfdSettings({ settings, onChange }) {
   return (
     <div className="settings-section">
-      <h3>🌊 해수 펌프 VFD 설정</h3>
+      <h3>🌊 해수 펌프 주파수 설정</h3>
       <div className="settings-grid">
         <SettingItem 
           label="조정 주기" 
@@ -268,7 +289,7 @@ function VfdSettings({ settings, onChange }) {
         />
       </div>
 
-      <h3>💧 청수 펌프 VFD 설정</h3>
+      <h3>💧 청수 펌프 주파수 설정</h3>
       <div className="settings-grid">
         <SettingItem
           label="조정 주기"
@@ -304,7 +325,7 @@ function VfdSettings({ settings, onChange }) {
         />
       </div>
 
-      <h3>🌀 E/R Fan VFD 설정</h3>
+      <h3>🌀 E/R Fan 주파수 설정</h3>
       <div className="settings-grid">
         <SettingItem
           label="조정 주기"
@@ -492,7 +513,7 @@ function SystemSettings() {
   return (
     <div className="settings-section">
       <h3>💻 시스템 설정</h3>
-      
+
       <div className="system-info">
         <div className="info-card">
           <h4>🔌 PLC 연결 정보</h4>
@@ -541,6 +562,41 @@ function SystemSettings() {
             <span>30일</span>
           </div>
         </div>
+      </div>
+    </div>
+  )
+}
+
+// 알람 설정 탭
+function AlarmSettings({ settings, onChange }) {
+  return (
+    <div className="settings-section alarm-settings">
+      <div className="alarm-grid-container">
+        <div className="alarm-column">
+          <h4>🌡️ 온도 센서 (TX1~TX4)</h4>
+          <SettingItem label="TX1 냉각수 토출" value={settings.alarm_tx1} unit="°C" onChange={(v) => onChange('alarm_tx1', v)} min={0} max={100} step={0.5} />
+          <SettingItem label="TX2 NO.1 쿨러 출구" value={settings.alarm_tx2} unit="°C" onChange={(v) => onChange('alarm_tx2', v)} min={0} max={100} step={0.5} />
+          <SettingItem label="TX3 NO.2 쿨러 출구" value={settings.alarm_tx3} unit="°C" onChange={(v) => onChange('alarm_tx3', v)} min={0} max={100} step={0.5} />
+          <SettingItem label="TX4 청수 입구" value={settings.alarm_tx4} unit="°C" onChange={(v) => onChange('alarm_tx4', v)} min={0} max={100} step={0.5} />
+        </div>
+
+        <div className="alarm-column">
+          <h4>🌡️ 온도 센서 (TX5~TX7)</h4>
+          <SettingItem label="TX5 청수 출구" value={settings.alarm_tx5} unit="°C" onChange={(v) => onChange('alarm_tx5', v)} min={0} max={100} step={0.5} />
+          <SettingItem label="TX6 E/R 내부" value={settings.alarm_tx6} unit="°C" onChange={(v) => onChange('alarm_tx6', v)} min={0} max={100} step={0.5} />
+          <SettingItem label="TX7 E/R 외부" value={settings.alarm_tx7} unit="°C" onChange={(v) => onChange('alarm_tx7', v)} min={0} max={100} step={0.5} />
+        </div>
+
+        <div className="alarm-column">
+          <h4>📊 압력 / ⚡ 부하</h4>
+          <SettingItem label="PX1 압력 하한" value={settings.alarm_px1_low} unit="bar" onChange={(v) => onChange('alarm_px1_low', v)} min={0} max={5} step={0.1} />
+          <SettingItem label="PX1 압력 상한" value={settings.alarm_px1_high} unit="bar" onChange={(v) => onChange('alarm_px1_high', v)} min={0} max={10} step={0.1} />
+          <SettingItem label="PU1 M/E 부하" value={settings.alarm_pu1} unit="%" onChange={(v) => onChange('alarm_pu1', v)} min={0} max={100} step={1} />
+        </div>
+      </div>
+
+      <div className="alarm-info-compact">
+        <span>ℹ️ 온도/압력상한/부하: 초과 시 알람 | 압력하한: 미만 시 알람</span>
       </div>
     </div>
   )

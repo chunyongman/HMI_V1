@@ -119,8 +119,8 @@ class AlarmManager:
             "T7_HIGH": {"level": AlarmLevel.CRITICAL, "threshold": 40, "message": "기관실 외부 온도 상승 (Outside Air Temp High)"},
 
             # 압력 알람 (bar, Pa)
-            "PX1_LOW": {"level": AlarmLevel.WARNING, "threshold": 1.5, "message": "냉각수 압력 저하 (CSW Pressure Low)"},
-            "PX1_HIGH": {"level": AlarmLevel.CRITICAL, "threshold": 3.0, "message": "냉각수 압력 과다 (CSW Pressure High)"},
+            "PX1_LOW": {"level": AlarmLevel.WARNING, "threshold": 1.2, "message": "냉각수 압력 저하 (CSW Pressure Low)"},
+            "PX1_HIGH": {"level": AlarmLevel.CRITICAL, "threshold": 4.0, "message": "냉각수 압력 과다 (CSW Pressure High)"},
             "PX2_HIGH": {"level": AlarmLevel.WARNING, "threshold": 150, "message": "기관실 차압 이상 (E/R Diff Press High)"},
 
             # 부하 알람 (%)

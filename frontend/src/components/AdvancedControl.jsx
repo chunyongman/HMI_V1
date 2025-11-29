@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react'
+import PumpControl from './PumpControl'
 import './AdvancedControl.css'
 
-function AdvancedControl({ equipment = [], pumps = [], fans = [], onCommand }) {
-  const [activeTab, setActiveTab] = useState('automan')
+function AdvancedControl({ equipment = [], pumps = [], fans = [], onCommand, onPumpCommand }) {
+  const [activeTab, setActiveTab] = useState('control')
 
   // equipment가 있으면 사용, 없으면 pumps 사용 (하위 호환성)
   const allEquipment = equipment.length > 0 ? equipment : pumps
@@ -10,17 +11,23 @@ function AdvancedControl({ equipment = [], pumps = [], fans = [], onCommand }) {
   return (
     <div className="advanced-control">
       <div className="control-header">
-        <h2>🎛️ 고급 제어</h2>
-        <p>자동/수동 전환, PID 제어, VFD 상세 정보</p>
+        <h2>🎛️ 운전 제어</h2>
+        <p>ON/OFF 제어, 운전 모드 전환, PID 제어, VFD 상세 정보</p>
       </div>
 
       {/* 탭 메뉴 */}
       <div className="control-tabs">
         <button
+          className={activeTab === 'control' ? 'active' : ''}
+          onClick={() => setActiveTab('control')}
+        >
+          ▶️ ON/OFF 제어
+        </button>
+        <button
           className={activeTab === 'automan' ? 'active' : ''}
           onClick={() => setActiveTab('automan')}
         >
-          🔄 자동/수동
+          🔄 운전 모드
         </button>
         <button
           className={activeTab === 'pid' ? 'active' : ''}
@@ -38,6 +45,14 @@ function AdvancedControl({ equipment = [], pumps = [], fans = [], onCommand }) {
 
       {/* 탭 내용 */}
       <div className="control-content">
+        {activeTab === 'control' && (
+          <PumpControl
+            pumps={pumps}
+            fans={fans}
+            onCommand={onCommand}
+            onPumpCommand={onPumpCommand}
+          />
+        )}
         {activeTab === 'automan' && (
           <AutoManControl
             equipment={allEquipment}

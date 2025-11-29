@@ -3,7 +3,7 @@ import Dashboard from './components/Dashboard'
 import CoolingDiagramImage from './components/CoolingDiagramImage'
 import DynamicSVGDiagram from './components/DynamicSVGDiagram'
 import FanDiagram from './components/FanDiagram'
-import PumpControl from './components/PumpControl'
+// import PumpControl from './components/PumpControl'  // AdvancedControl에 통합됨
 import TrendChart from './components/TrendChart'
 import AlarmPanel from './components/AlarmPanel'
 // import AlarmHistory from './components/AlarmHistory'  // History.jsx에 통합됨
@@ -11,6 +11,8 @@ import Settings from './components/Settings'
 import AdvancedControl from './components/AdvancedControl'
 import History from './components/History'
 import VFDDiagnostics from './components/VFDDiagnostics'
+import SystemOverview from './components/SystemOverview'
+import Home from './components/Home'
 import './App.css'
 
 function App() {
@@ -21,9 +23,10 @@ function App() {
   const [equipment, setEquipment] = useState([])
   const [alarms, setAlarms] = useState([])
   const [alarmSummary, setAlarmSummary] = useState({})
-  const [connected, setConnected] = useState(false)
+  const [wsConnected, setWsConnected] = useState(false)  // WebSocket 연결 상태
+  const [plcConnected, setPlcConnected] = useState(false)  // PLC 연결 상태
   const [ws, setWs] = useState(null)
-  const [activeTab, setActiveTab] = useState('dashboard')
+  const [activeTab, setActiveTab] = useState('home')
 
   // 경고음 관련 상태
   const [audioContext, setAudioContext] = useState(null)
@@ -259,7 +262,7 @@ function App() {
 
     websocket.onopen = () => {
       console.log('✅ WebSocket 연결 성공')
-      setConnected(true)
+      setWsConnected(true)
     }
 
     websocket.onmessage = (event) => {
@@ -272,6 +275,7 @@ function App() {
           setFans(data.equipment?.slice(6, 10) || [])
           setAlarms(data.alarms || [])
           setAlarmSummary(data.alarm_summary || {})
+          setPlcConnected(data.plc_connected || false)  // PLC 연결 상태 업데이트
         }
       } catch (error) {
         console.error('WebSocket 메시지 파싱 오류:', error)
@@ -280,12 +284,14 @@ function App() {
 
     websocket.onerror = (error) => {
       console.error('❌ WebSocket 오류:', error)
-      setConnected(false)
+      setWsConnected(false)
+      setPlcConnected(false)
     }
 
     websocket.onclose = () => {
       console.log('WebSocket 연결 종료, 5초 후 재연결...')
-      setConnected(false)
+      setWsConnected(false)
+      setPlcConnected(false)
       setTimeout(connectWebSocket, 5000)
     }
 
@@ -349,56 +355,68 @@ function App() {
       <header className="app-header">
         <h1>🚢 ESS HMI - Energy Saving System</h1>
         <div className="status-indicator">
-          <span className={`status-dot ${connected ? 'connected' : 'disconnected'}`}></span>
-          <span>{connected ? 'PLC 연결됨' : 'PLC 연결 안됨'}</span>
+          <span className={`status-dot ${plcConnected ? 'connected' : 'disconnected'}`}></span>
+          <span>{plcConnected ? 'PLC 연결됨' : 'PLC 연결 안됨'}</span>
         </div>
       </header>
 
       {/* 탭 네비게이션 */}
       <nav className="tab-nav">
-        <button 
+        <button
+          className={activeTab === 'home' ? 'active' : ''}
+          onClick={() => setActiveTab('home')}
+        >
+          🏠 홈
+        </button>
+        <button
+          className={activeTab === 'system_overview' ? 'active' : ''}
+          onClick={() => setActiveTab('system_overview')}
+        >
+          📊 시스템 개요
+        </button>
+        <button
           className={activeTab === 'dashboard' ? 'active' : ''}
           onClick={() => setActiveTab('dashboard')}
         >
-          📊 대시보드
+          💡 에너지 절감 현황
         </button>
-              <button
-                className={activeTab === 'diagram' ? 'active' : ''}
-                onClick={() => setActiveTab('diagram')}
-              >
-                🔧 배관 계통도
-              </button>
+        <button
+          className={activeTab === 'diagram' ? 'active' : ''}
+          onClick={() => setActiveTab('diagram')}
+        >
+          🔧 냉각수 계통도
+        </button>
         <button
           className={activeTab === 'fan_diagram' ? 'active' : ''}
           onClick={() => setActiveTab('fan_diagram')}
         >
-          🌀 E/R 환기
-        </button>
-        <button
-          className={activeTab === 'control' ? 'active' : ''}
-          onClick={() => setActiveTab('control')}
-        >
-          ⚙️ 운전 제어
+          🌀 E/R 환기 계통도
         </button>
         <button
           className={activeTab === 'advanced' ? 'active' : ''}
           onClick={() => setActiveTab('advanced')}
         >
-          🎛️ 고급 제어
+          🎛️ 운전 제어
         </button>
-        <button 
-          className={activeTab === 'settings' ? 'active' : ''}
-          onClick={() => setActiveTab('settings')}
+        <button
+          className={activeTab === 'vfd_diagnostics' ? 'active' : ''}
+          onClick={() => setActiveTab('vfd_diagnostics')}
         >
-          ⚙️ 설정
+          🔍 VFD 진단
         </button>
-        <button 
+        <button
           className={activeTab === 'trend' ? 'active' : ''}
           onClick={() => setActiveTab('trend')}
         >
-          📈 트렌드
+          📈 센서 트렌드
         </button>
-        <button 
+        <button
+          className={activeTab === 'settings' ? 'active' : ''}
+          onClick={() => setActiveTab('settings')}
+        >
+          ⚙️ 파라미터 설정
+        </button>
+        <button
           className={activeTab === 'history' ? 'active' : ''}
           onClick={() => setActiveTab('history')}
         >
@@ -410,16 +428,13 @@ function App() {
         >
           🔔 알람
         </button>
-        <button
-          className={activeTab === 'vfd_diagnostics' ? 'active' : ''}
-          onClick={() => setActiveTab('vfd_diagnostics')}
-        >
-          🔍 VFD 진단
-        </button>
       </nav>
 
       {/* 메인 컨텐츠 */}
       <main className="app-content">
+        {activeTab === 'home' && (
+          <Home />
+        )}
         {activeTab === 'dashboard' && (
           <Dashboard sensors={sensors} equipment={equipment} pumps={pumps} fans={fans} />
         )}
@@ -441,20 +456,13 @@ function App() {
             onCommand={sendEquipmentCommand}
           />
         )}
-        {activeTab === 'control' && (
-          <PumpControl
-            pumps={pumps}
-            fans={fans}
-            onCommand={sendEquipmentCommand}
-            onPumpCommand={sendPumpCommand}
-          />
-        )}
         {activeTab === 'advanced' && (
           <AdvancedControl
             equipment={equipment}
             pumps={pumps}
             fans={fans}
             onCommand={sendEquipmentCommand}
+            onPumpCommand={sendPumpCommand}
           />
         )}
         {activeTab === 'settings' && (
@@ -476,6 +484,9 @@ function App() {
         )}
         {activeTab === 'vfd_diagnostics' && (
           <VFDDiagnostics />
+        )}
+        {activeTab === 'system_overview' && (
+          <SystemOverview sensors={sensors} pumps={pumps} fans={fans} />
         )}
       </main>
 

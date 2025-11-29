@@ -1,3 +1,20 @@
 {
-  "records": {}
+  "records": {
+    "FAN3_2025-11-29": {
+      "equipment_name": "FAN3",
+      "date": "2025-11-29",
+      "runtime_hours": 0.1964916416666667,
+      "start_count": 6,
+      "energy_kwh": 10.6694961425,
+      "saved_kwh": 3.2008488427499997
+    },
+    "FAN4_2025-11-29": {
+      "equipment_name": "FAN4",
+      "date": "2025-11-29",
+      "runtime_hours": 0.14093703722222223,
+      "start_count": 6,
+      "energy_kwh": 7.652881121166667,
+      "saved_kwh": 2.29586433635
+    }
+  }
 }

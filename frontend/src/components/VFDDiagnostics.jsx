@@ -18,9 +18,12 @@ const VFDDiagnostics = () => {
       const response = await fetch('http://localhost:8001/api/vfd/diagnostics');
       const result = await response.json();
 
-      if (result.success && result.data.vfd_diagnostics) {
+      if (result.success && result.data && result.data.vfd_diagnostics) {
         setDiagnosticsData(result.data);
         setError(null);
+      } else if (result.error === 'PLC 연결 안됨') {
+        setDiagnosticsData(null);
+        setError('PLC 연결 안됨 - VFD 진단 데이터를 표시할 수 없습니다.');
       } else {
         setError('VFD 진단 데이터를 사용할 수 없습니다.');
       }

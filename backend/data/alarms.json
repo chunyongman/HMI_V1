@@ -1143,6 +1143,28 @@
       "ack_user": "Operator",
       "tag": "PX2_HIGH",
       "value": 159.0
+    },
+    {
+      "id": "ALM202511291045180001",
+      "level": "warning",
+      "message": "냉각수 토출 온도 저하 (CSW PP Disc Temp Low): 0.0°C",
+      "time": "2025-11-29T10:45:18.234335",
+      "acknowledged": true,
+      "ack_time": "2025-11-29T13:59:28.158490",
+      "ack_user": "Operator",
+      "tag": "T1_LOW",
+      "value": 0.0
+    },
+    {
+      "id": "ALM202511291045180002",
+      "level": "warning",
+      "message": "냉각수 압력 저하 (CSW Pressure Low): 0.00 bar",
+      "time": "2025-11-29T10:45:18.234335",
+      "acknowledged": true,
+      "ack_time": "2025-11-29T13:59:27.150702",
+      "ack_user": "Operator",
+      "tag": "PX1_LOW",
+      "value": 0.0
     }
   ]
 }

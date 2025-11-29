@@ -16,8 +16,9 @@ import asyncio
 import json
 import logging
 import random
+import httpx
 from datetime import datetime
-from typing import Dict, Any, List
+from typing import Dict, Any, List, Optional
 from pathlib import Path
 from contextlib import asynccontextmanager
 from fastapi import FastAPI, WebSocket, WebSocketDisconnect, HTTPException
@@ -27,6 +28,10 @@ from fastapi.responses import FileResponse
 from pydantic import BaseModel
 from modbus_client import PLCClient
 from alarm_manager import AlarmManager, AlarmLevel, EventType
+
+# Edge Computer API 설정
+EDGE_COMPUTER_API_URL = "http://localhost:8000"
+EDGE_API_TIMEOUT = 5.0  # 초
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -70,8 +75,43 @@ app.add_middleware(
 # use_simulation=False로 설정하여 실제 PLC Simulator 연결
 plc_client = PLCClient(host="localhost", port=502, slave_id=3, use_simulation=False)
 
-# 알람 관리자 인스턴스
+# 알람 관리자 인스턴스 (로컬 백업용 - Edge Computer가 마스터)
 alarm_manager = AlarmManager(data_dir="data")
+
+# Edge Computer API 연결 상태
+edge_api_connected = False
+
+
+async def call_edge_api(method: str, endpoint: str, data: dict = None) -> Optional[dict]:
+    """Edge Computer API 호출 헬퍼"""
+    global edge_api_connected
+    url = f"{EDGE_COMPUTER_API_URL}{endpoint}"
+
+    try:
+        async with httpx.AsyncClient(timeout=EDGE_API_TIMEOUT) as client:
+            if method.upper() == "GET":
+                response = await client.get(url, params=data)
+            elif method.upper() == "POST":
+                response = await client.post(url, json=data)
+            else:
+                return None
+
+            if response.status_code == 200:
+                edge_api_connected = True
+                return response.json()
+            else:
+                logger.warning(f"Edge API 응답 오류: {response.status_code}")
+                return None
+    except httpx.ConnectError:
+        if edge_api_connected:
+            logger.warning("Edge Computer API 연결 끊김 - 로컬 데이터 사용")
+        edge_api_connected = False
+        return None
+    except Exception as e:
+        logger.error(f"Edge API 호출 실패: {e}")
+        edge_api_connected = False
+        return None
+
 
 # WebSocket 연결 관리
 active_connections: List[WebSocket] = []
@@ -256,6 +296,16 @@ async def get_fans():
 async def get_vfd_diagnostics():
     """VFD 예방진단 데이터 조회 (Edge AI 분석 결과)"""
     logger.info("🔍 get_vfd_diagnostics() 함수 호출됨!!!")
+
+    # PLC 연결 확인 - 연결되지 않으면 데이터 없음 반환
+    if not plc_client.connected:
+        logger.warning("⚠️ PLC 연결 안됨 - VFD 진단 데이터 없음")
+        return {
+            "success": False,
+            "error": "PLC 연결 안됨",
+            "data": None,
+            "timestamp": datetime.now().isoformat()
+        }
 
     # Windows 절대 경로 명확히 지정
     shared_file = Path(r"C:\shared\vfd_diagnostics.json")
@@ -593,6 +643,15 @@ async def update_setting(setting: SettingUpdate):
 @app.get("/api/alarms/active")
 async def get_active_alarms():
     """활성 알람 목록 조회"""
+    # PLC 연결 확인 - 연결되지 않으면 빈 목록 반환
+    if not plc_client.connected:
+        return {
+            "success": False,
+            "error": "PLC 연결 안됨",
+            "data": [],
+            "summary": {"critical": 0, "warning": 0, "info": 0, "total": 0},
+            "timestamp": datetime.now().isoformat()
+        }
     alarms = alarm_manager.get_active_alarms()
     summary = alarm_manager.get_alarm_summary()
     return {
@@ -605,34 +664,58 @@ async def get_active_alarms():
 
 @app.get("/api/alarms/history")
 async def get_alarm_history(limit: int = 100, level: str = None):
-    """알람 이력 조회"""
+    """알람 이력 조회 - Edge Computer에서 가져오기 (실패 시 로컬)"""
+    # Edge Computer API 먼저 시도
+    params = {"limit": limit}
+    if level:
+        params["level"] = level
+
+    edge_result = await call_edge_api("GET", "/api/alarms/history", params)
+    if edge_result and edge_result.get("success"):
+        return edge_result
+
+    # Edge 연결 실패 시 로컬 데이터 사용
     alarms = alarm_manager.get_alarm_history(limit=limit, level=level)
     return {
         "success": True,
         "data": alarms,
         "count": len(alarms),
+        "source": "local",  # 로컬 데이터임을 표시
         "timestamp": datetime.now().isoformat()
     }
 
 
 @app.post("/api/alarms/acknowledge")
 async def acknowledge_alarm(ack: AlarmAck):
-    """알람 확인"""
+    """알람 확인 - Edge Computer에도 전송"""
+    # Edge Computer API에 먼저 전송
+    edge_result = await call_edge_api("POST", "/api/alarms/acknowledge", {
+        "alarm_id": ack.alarm_id,
+        "user": ack.user
+    })
+
+    # 로컬에도 처리 (백업)
     success = alarm_manager.acknowledge_alarm(ack.alarm_id, ack.user)
 
-    if not success:
-        raise HTTPException(status_code=404, detail="Alarm not found")
-
-    # 알람 확인 이벤트 로그
+    # 알람 확인 이벤트 로그 (로컬)
     alarm_manager.add_event(
         EventType.ALARM,
         ack.user,
         f"Alarm {ack.alarm_id} acknowledged"
     )
 
+    # Edge에 이벤트 전송
+    await call_edge_api("POST", "/api/events", {
+        "event_type": "alarm",
+        "source": "HMI",
+        "description": f"알람 확인: {ack.alarm_id}",
+        "details": {"alarm_id": ack.alarm_id, "user": ack.user}
+    })
+
     return {
         "success": True,
         "message": f"Alarm {ack.alarm_id} acknowledged",
+        "edge_synced": edge_result is not None,
         "timestamp": datetime.now().isoformat()
     }
 
@@ -692,12 +775,23 @@ async def clear_vfd_anomaly(vfd_id: str):
 
 @app.get("/api/events")
 async def get_event_history(limit: int = 100, event_type: str = None):
-    """이벤트 로그 조회"""
+    """이벤트 로그 조회 - Edge Computer에서 가져오기 (실패 시 로컬)"""
+    # Edge Computer API 먼저 시도
+    params = {"limit": limit}
+    if event_type:
+        params["event_type"] = event_type
+
+    edge_result = await call_edge_api("GET", "/api/events", params)
+    if edge_result and edge_result.get("success"):
+        return edge_result
+
+    # Edge 연결 실패 시 로컬 데이터 사용
     events = alarm_manager.get_event_history(limit=limit, event_type=event_type)
     return {
         "success": True,
         "data": events,
         "count": len(events),
+        "source": "local",
         "timestamp": datetime.now().isoformat()
     }
 
@@ -736,12 +830,25 @@ async def get_energy_savings_summary():
 
 @app.get("/api/operations")
 async def get_operation_records(start_date: str = None, end_date: str = None):
-    """운전 이력 조회"""
+    """운전 이력 조회 - Edge Computer에서 가져오기 (실패 시 로컬)"""
+    # Edge Computer API 먼저 시도
+    params = {}
+    if start_date:
+        params["start_date"] = start_date
+    if end_date:
+        params["end_date"] = end_date
+
+    edge_result = await call_edge_api("GET", "/api/operations", params)
+    if edge_result and edge_result.get("success"):
+        return edge_result
+
+    # Edge 연결 실패 시 로컬 데이터 사용
     records = alarm_manager.get_operation_records(start_date=start_date, end_date=end_date)
     return {
         "success": True,
         "data": records,
         "count": len(records),
+        "source": "local",
         "timestamp": datetime.now().isoformat()
     }
 
@@ -818,9 +925,18 @@ async def broadcast_realtime_data():
                 equipment_alarms = alarm_manager.check_equipment_alarms(equipment)
                 new_alarms.extend(equipment_alarms)
 
-            # 새 알람 로깅 (active_alarms에는 이미 추가됨)
+            # 새 알람 로깅 및 Edge Computer에 저장
             for alarm in new_alarms:
                 logger.warning(f"🔔 새 알람 발생: {alarm.message}")
+                # Edge Computer에 알람 저장 (비동기, 실패해도 계속 진행)
+                asyncio.create_task(call_edge_api("POST", "/api/alarms", {
+                    "alarm_id": alarm.id,
+                    "equipment_id": alarm.tag or "SYSTEM",
+                    "alarm_type": alarm.tag or "SYSTEM",
+                    "severity": alarm.level.value if hasattr(alarm.level, 'value') else str(alarm.level),
+                    "message": alarm.message,
+                    "occurred_at": alarm.time
+                }))
 
             # 알람 요약 정보
             alarm_summary = alarm_manager.get_alarm_summary()
@@ -847,12 +963,20 @@ async def broadcast_realtime_data():
                         equipment_status_tracker[eq_name]["status"] = "running"
                         equipment_status_tracker[eq_name]["start_time"] = current_time
 
-                        # 시작 이벤트 로그
+                        # 시작 이벤트 로그 (로컬)
                         alarm_manager.add_event(
                             EventType.CONTROL,
                             "System",
                             f"{eq_name} 운전 시작 (Started)"
                         )
+
+                        # Edge Computer에 이벤트 전송
+                        asyncio.create_task(call_edge_api("POST", "/api/events", {
+                            "event_type": "control",
+                            "source": "HMI",
+                            "description": f"{eq_name} 운전 시작 (Started)",
+                            "details": {"equipment": eq_name, "action": "start"}
+                        }))
 
                         # 시작 횟수 기록
                         alarm_manager.update_operation_record(
@@ -891,12 +1015,26 @@ async def broadcast_realtime_data():
                             vfd_mode = eq.get("vfd_mode", False)
                             saved_kwh = energy_kwh * 0.3 if vfd_mode else 0
 
-                            # 정지 이벤트 로그
+                            # 정지 이벤트 로그 (로컬)
                             alarm_manager.add_event(
                                 EventType.CONTROL,
                                 "System",
                                 f"{eq_name} 운전 정지 (Stopped) - {runtime_hours:.2f}h, {energy_kwh:.2f}kWh"
                             )
+
+                            # Edge Computer에 이벤트 전송
+                            asyncio.create_task(call_edge_api("POST", "/api/events", {
+                                "event_type": "control",
+                                "source": "HMI",
+                                "description": f"{eq_name} 운전 정지 (Stopped) - {runtime_hours:.2f}h, {energy_kwh:.2f}kWh",
+                                "details": {
+                                    "equipment": eq_name,
+                                    "action": "stop",
+                                    "runtime_hours": round(runtime_hours, 2),
+                                    "energy_kwh": round(energy_kwh, 2),
+                                    "saved_kwh": round(saved_kwh, 2)
+                                }
+                            }))
 
                             # 운전 이력 업데이트
                             alarm_manager.update_operation_record(
@@ -940,14 +1078,22 @@ async def broadcast_realtime_data():
                 # 하위 호환성을 위해 pumps도 함께 전송
                 pumps = equipment[:6] if equipment else []
 
+                # PLC 연결 상태에 따라 알람 데이터 결정
+                if plc_client.connected:
+                    active_alarms = alarm_manager.get_active_alarms()
+                else:
+                    active_alarms = []
+                    alarm_summary = {"critical": 0, "warning": 0, "info": 0, "total": 0}
+
                 message = {
                     "type": "realtime_update",
                     "sensors": sensors,
                     "equipment": equipment,
                     "pumps": pumps,  # 하위 호환용
-                    "vfd_diagnostics": vfd_diagnostics,  # VFD 예방진단 (NEW)
-                    "alarms": alarm_manager.get_active_alarms(),  # 활성 알람 목록
+                    "vfd_diagnostics": vfd_diagnostics if plc_client.connected else None,  # VFD 예방진단
+                    "alarms": active_alarms,  # 활성 알람 목록
                     "alarm_summary": alarm_summary,  # 알람 요약
+                    "plc_connected": plc_client.connected,  # PLC 연결 상태
                     "timestamp": datetime.now().isoformat()
                 }
 
