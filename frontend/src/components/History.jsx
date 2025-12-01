@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useMemo } from 'react'
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, LineChart, Line } from 'recharts'
 import './History.css'
 
 function History() {
@@ -22,8 +23,8 @@ function History() {
   const fetchAlarmHistory = async () => {
     setLoading(true)
     try {
-      // Edge Computer의 CSV 로그 파일에서 알람 히스토리 조회
-      const response = await fetch('http://localhost:8000/api/alarms/history?limit=100')  // Edge Computer API
+      // HMI Backend를 통해 조회 (Edge 실패 시 로컬 백업 사용)
+      const response = await fetch('http://localhost:8001/api/alarms/history?limit=100')
       const result = await response.json()
       if (result.success) {
         setAlarmHistory(result.data)
@@ -53,7 +54,8 @@ function History() {
   const fetchOperationHistory = async () => {
     setLoading(true)
     try {
-      const response = await fetch('http://localhost:8000/api/operations')
+      // HMI Backend를 통해 조회 (Edge 실패 시 로컬 백업 사용)
+      const response = await fetch('http://localhost:8001/api/operations')
       const result = await response.json()
       if (result.success) {
         setOperationHistory(result.data)
@@ -141,23 +143,49 @@ function History() {
 function AlarmHistory({ data, onExport }) {
   const [filter, setFilter] = useState('all')
   const [searchTerm, setSearchTerm] = useState('')
-
-  const filtered = data.filter(alarm => {
-    if (filter !== 'all' && alarm.level !== filter) return false
-    if (searchTerm && !alarm.message.toLowerCase().includes(searchTerm.toLowerCase())) return false
-    return true
+  const [startDate, setStartDate] = useState(() => {
+    const date = new Date()
+    date.setDate(date.getDate() - 30)
+    return date.toISOString().slice(0, 10)
   })
+  const [endDate, setEndDate] = useState(() => new Date().toISOString().slice(0, 10))
+
+  const filtered = useMemo(() => {
+    return data.filter(alarm => {
+      // 날짜 필터
+      const alarmDate = alarm.time?.slice(0, 10)
+      if (alarmDate && (alarmDate < startDate || alarmDate > endDate)) return false
+      // 등급 필터
+      if (filter !== 'all' && alarm.level !== filter) return false
+      // 검색어 필터
+      if (searchTerm && !alarm.message.toLowerCase().includes(searchTerm.toLowerCase())) return false
+      return true
+    })
+  }, [data, startDate, endDate, filter, searchTerm])
 
   return (
     <div className="alarm-history">
       <div className="history-controls">
+        <div className="date-range">
+          <label>조회 기간:</label>
+          <input
+            type="date"
+            value={startDate}
+            onChange={(e) => setStartDate(e.target.value)}
+          />
+          <span>~</span>
+          <input
+            type="date"
+            value={endDate}
+            onChange={(e) => setEndDate(e.target.value)}
+          />
+        </div>
         <div className="filter-group">
-          <label>필터:</label>
+          <label>등급:</label>
           <select value={filter} onChange={(e) => setFilter(e.target.value)}>
             <option value="all">전체</option>
             <option value="critical">위험</option>
             <option value="warning">경고</option>
-            <option value="info">정보</option>
           </select>
         </div>
         <div className="search-group">
@@ -191,7 +219,6 @@ function AlarmHistory({ data, onExport }) {
                   <span className={`level-badge ${alarm.level}`}>
                     {alarm.level === 'critical' && '🔴 위험'}
                     {alarm.level === 'warning' && '🟡 경고'}
-                    {alarm.level === 'info' && '🟢 정보'}
                   </span>
                 </td>
                 <td>{alarm.message}</td>
@@ -209,18 +236,18 @@ function AlarmHistory({ data, onExport }) {
       <div className="history-summary">
         <div className="summary-item">
           <span className="summary-label">총 알람:</span>
-          <span className="summary-value">{data.length}건</span>
+          <span className="summary-value">{filtered.length}건</span>
         </div>
         <div className="summary-item">
           <span className="summary-label">위험:</span>
           <span className="summary-value critical">
-            {data.filter(a => a.level === 'critical').length}건
+            {filtered.filter(a => a.level === 'critical').length}건
           </span>
         </div>
         <div className="summary-item">
           <span className="summary-label">경고:</span>
           <span className="summary-value warning">
-            {data.filter(a => a.level === 'warning').length}건
+            {filtered.filter(a => a.level === 'warning').length}건
           </span>
         </div>
       </div>
@@ -231,11 +258,23 @@ function AlarmHistory({ data, onExport }) {
 // 이벤트 로그
 function EventHistory({ data, onExport }) {
   const [filter, setFilter] = useState('all')
-
-  const filtered = data.filter(event => {
-    if (filter !== 'all' && event.type !== filter) return false
-    return true
+  const [startDate, setStartDate] = useState(() => {
+    const date = new Date()
+    date.setDate(date.getDate() - 30)
+    return date.toISOString().slice(0, 10)
   })
+  const [endDate, setEndDate] = useState(() => new Date().toISOString().slice(0, 10))
+
+  const filtered = useMemo(() => {
+    return data.filter(event => {
+      // 날짜 필터
+      const eventDate = event.time?.slice(0, 10)
+      if (eventDate && (eventDate < startDate || eventDate > endDate)) return false
+      // 유형 필터
+      if (filter !== 'all' && event.type !== filter) return false
+      return true
+    })
+  }, [data, startDate, endDate, filter])
 
   const getTypeIcon = (type) => {
     switch(type) {
@@ -250,8 +289,22 @@ function EventHistory({ data, onExport }) {
   return (
     <div className="event-history">
       <div className="history-controls">
+        <div className="date-range">
+          <label>조회 기간:</label>
+          <input
+            type="date"
+            value={startDate}
+            onChange={(e) => setStartDate(e.target.value)}
+          />
+          <span>~</span>
+          <input
+            type="date"
+            value={endDate}
+            onChange={(e) => setEndDate(e.target.value)}
+          />
+        </div>
         <div className="filter-group">
-          <label>이벤트 유형:</label>
+          <label>유형:</label>
           <select value={filter} onChange={(e) => setFilter(e.target.value)}>
             <option value="all">전체</option>
             <option value="control">제어</option>
@@ -266,7 +319,7 @@ function EventHistory({ data, onExport }) {
       </div>
 
       <div className="event-list">
-        {filtered.map(event => (
+        {filtered.length > 0 ? filtered.map(event => (
           <div key={event.id} className="event-item">
             <div className="event-icon">{getTypeIcon(event.type)}</div>
             <div className="event-content">
@@ -277,7 +330,9 @@ function EventHistory({ data, onExport }) {
               <div className="event-message">{event.message}</div>
             </div>
           </div>
-        ))}
+        )) : (
+          <div className="no-data-message">해당 기간의 이벤트가 없습니다.</div>
+        )}
       </div>
     </div>
   )
@@ -285,22 +340,158 @@ function EventHistory({ data, onExport }) {
 
 // 운전 이력
 function OperationHistory({ data, onExport }) {
+  // 날짜 필터 상태
+  const [startDate, setStartDate] = useState(() => {
+    const date = new Date()
+    date.setDate(date.getDate() - 30) // 기본 30일 전부터
+    return date.toISOString().slice(0, 10)
+  })
+  const [endDate, setEndDate] = useState(() => new Date().toISOString().slice(0, 10))
+
+  // 날짜 필터링된 데이터
+  const filteredData = useMemo(() => {
+    if (!data || data.length === 0) return []
+    return data.filter(row => {
+      const rowDate = row.date
+      return rowDate >= startDate && rowDate <= endDate
+    })
+  }, [data, startDate, endDate])
+
+  // 일별 데이터 집계 (필터링된 데이터 사용)
+  const dailyChartData = useMemo(() => {
+    if (!filteredData || filteredData.length === 0) return []
+
+    // 날짜별로 그룹화
+    const grouped = filteredData.reduce((acc, row) => {
+      const date = row.date
+      if (!acc[date]) {
+        acc[date] = {
+          date: date,
+          energy_kwh: 0,
+          saved_kwh: 0,
+          runtime_hours: 0
+        }
+      }
+      acc[date].energy_kwh += row.energy_kwh || 0
+      acc[date].saved_kwh += row.saved_kwh || 0
+      acc[date].runtime_hours += row.runtime_hours || 0
+      return acc
+    }, {})
+
+    // 배열로 변환하고 날짜순 정렬
+    return Object.values(grouped)
+      .sort((a, b) => new Date(a.date) - new Date(b.date))
+      .map(item => ({
+        ...item,
+        date: item.date.slice(5), // MM-DD 형식으로 표시
+        savings_rate: item.energy_kwh > 0
+          ? ((item.saved_kwh / (item.energy_kwh + item.saved_kwh)) * 100).toFixed(1)
+          : 0
+      }))
+  }, [filteredData])
+
+  // 장비별 데이터 집계 (필터링된 데이터 사용)
+  const equipmentChartData = useMemo(() => {
+    if (!filteredData || filteredData.length === 0) return []
+
+    const grouped = filteredData.reduce((acc, row) => {
+      const name = row.equipment_name
+      if (!acc[name]) {
+        acc[name] = {
+          name: name,
+          energy_kwh: 0,
+          saved_kwh: 0
+        }
+      }
+      acc[name].energy_kwh += row.energy_kwh || 0
+      acc[name].saved_kwh += row.saved_kwh || 0
+      return acc
+    }, {})
+
+    return Object.values(grouped).sort((a, b) => a.name.localeCompare(b.name))
+  }, [filteredData])
+
+  // 합계 계산 (필터링된 데이터 사용)
+  const totalEnergy = filteredData?.reduce((sum, r) => sum + (r.energy_kwh || 0), 0) || 0
+  const totalSaved = filteredData?.reduce((sum, r) => sum + (r.saved_kwh || 0), 0) || 0
+  const totalRuntime = filteredData?.reduce((sum, r) => sum + (r.runtime_hours || 0), 0) || 0
+  const avgSavingsRate = totalEnergy > 0 ? ((totalSaved / (totalEnergy + totalSaved)) * 100).toFixed(1) : 0
+
   return (
     <div className="operation-history">
       <div className="history-controls">
         <div className="date-range">
           <label>조회 기간:</label>
-          <input type="date" defaultValue={new Date().toISOString().slice(0, 10)} />
+          <input
+            type="date"
+            value={startDate}
+            onChange={(e) => setStartDate(e.target.value)}
+          />
           <span>~</span>
-          <input type="date" defaultValue={new Date().toISOString().slice(0, 10)} />
+          <input
+            type="date"
+            value={endDate}
+            onChange={(e) => setEndDate(e.target.value)}
+          />
         </div>
-        <button className="btn-search">🔍 조회</button>
-        <button className="btn-export" onClick={() => onExport(data, 'operation_history')}>
-          📥 리포트 생성
+        <button className="btn-export" onClick={() => onExport(filteredData, 'operation_history')}>
+          📥 CSV 내보내기
         </button>
       </div>
 
-      <div className="operation-table">
+      {/* 차트 섹션 - 고정 영역 */}
+      <div className="operation-charts">
+        <div className="chart-section">
+          <h4>📊 일별 절감 전력 추이</h4>
+          {dailyChartData.length > 0 ? (
+            <ResponsiveContainer width="100%" height={250}>
+              <BarChart data={dailyChartData} margin={{ top: 20, right: 30, left: 20, bottom: 5 }}>
+                <CartesianGrid strokeDasharray="3 3" stroke="#444" />
+                <XAxis dataKey="date" stroke="#aaa" />
+                <YAxis stroke="#aaa" />
+                <Tooltip
+                  contentStyle={{ backgroundColor: '#1a1a2e', border: '1px solid #444' }}
+                  labelStyle={{ color: '#fff' }}
+                />
+                <Legend />
+                <Bar dataKey="energy_kwh" name="소비 전력 (kWh)" fill="#ff6b6b" />
+                <Bar dataKey="saved_kwh" name="절감 전력 (kWh)" fill="#4ecdc4" />
+              </BarChart>
+            </ResponsiveContainer>
+          ) : (
+            <div className="chart-placeholder">
+              <p>차트는 실제 데이터가 누적되면 표시됩니다</p>
+            </div>
+          )}
+        </div>
+
+        <div className="chart-section">
+          <h4>📈 장비별 에너지 현황</h4>
+          {equipmentChartData.length > 0 ? (
+            <ResponsiveContainer width="100%" height={Math.max(250, equipmentChartData.length * 35)}>
+              <BarChart data={equipmentChartData} layout="vertical" margin={{ top: 20, right: 30, left: 60, bottom: 5 }}>
+                <CartesianGrid strokeDasharray="3 3" stroke="#444" />
+                <XAxis type="number" stroke="#aaa" />
+                <YAxis dataKey="name" type="category" stroke="#aaa" />
+                <Tooltip
+                  contentStyle={{ backgroundColor: '#1a1a2e', border: '1px solid #444' }}
+                  labelStyle={{ color: '#fff' }}
+                />
+                <Legend />
+                <Bar dataKey="energy_kwh" name="소비 전력 (kWh)" fill="#ff6b6b" />
+                <Bar dataKey="saved_kwh" name="절감 전력 (kWh)" fill="#4ecdc4" />
+              </BarChart>
+            </ResponsiveContainer>
+          ) : (
+            <div className="chart-placeholder">
+              <p>장비별 데이터가 없습니다</p>
+            </div>
+          )}
+        </div>
+      </div>
+
+      {/* 테이블 섹션 - 스크롤 영역 */}
+      <div className="operation-table-scroll">
         <table>
           <thead>
             <tr>
@@ -313,8 +504,8 @@ function OperationHistory({ data, onExport }) {
             </tr>
           </thead>
           <tbody>
-            {data && data.length > 0 ? (
-              data.map((row, idx) => (
+            {filteredData && filteredData.length > 0 ? (
+              filteredData.map((row, idx) => (
                 <tr key={idx}>
                   <td><strong>{row.equipment_name}</strong></td>
                   <td>{row.date}</td>
@@ -329,33 +520,23 @@ function OperationHistory({ data, onExport }) {
             ) : (
               <tr>
                 <td colSpan="6" style={{textAlign: 'center', padding: '20px'}}>
-                  운전 이력 데이터가 없습니다.
+                  해당 기간의 운전 이력이 없습니다.
                 </td>
               </tr>
             )}
           </tbody>
-          {data && data.length > 0 && (
+          {filteredData && filteredData.length > 0 && (
             <tfoot>
               <tr className="total-row">
                 <td colSpan="2"><strong>합계</strong></td>
-                <td><strong>{data.reduce((sum, r) => sum + (r.runtime_hours || 0), 0).toFixed(1)} h</strong></td>
-                <td><strong>{data.reduce((sum, r) => sum + (r.energy_kwh || 0), 0).toFixed(1)} kWh</strong></td>
-                <td className="highlight"><strong>{data.reduce((sum, r) => sum + (r.saved_kwh || 0), 0).toFixed(1)} kWh</strong></td>
-                <td className="highlight"><strong>
-                  {(data.reduce((sum, r) => sum + (r.saved_kwh || 0), 0) /
-                    data.reduce((sum, r) => sum + (r.energy_kwh || 0), 0) * 100).toFixed(1)}%
-                </strong></td>
+                <td><strong>{totalRuntime.toFixed(1)} h</strong></td>
+                <td><strong>{totalEnergy.toFixed(1)} kWh</strong></td>
+                <td className="highlight"><strong>{totalSaved.toFixed(1)} kWh</strong></td>
+                <td className="highlight"><strong>{avgSavingsRate}%</strong></td>
               </tr>
             </tfoot>
           )}
         </table>
-      </div>
-
-      <div className="operation-chart">
-        <h4>📊 일별 절감 전력 추이</h4>
-        <div className="chart-placeholder">
-          <p>차트는 실제 데이터가 누적되면 표시됩니다</p>
-        </div>
       </div>
     </div>
   )

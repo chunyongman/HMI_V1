@@ -141,6 +141,64 @@
   font-weight: 700;
   color: #f1f5f9;
   flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* 임펠러 아이콘 (펌프용) */
+.impeller-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.impeller-icon.running {
+  color: #f97316;
+  animation: spin 1s linear infinite;
+}
+
+.impeller-icon.stopped {
+  color: #64748b;
+}
+
+/* 팬 아이콘 */
+.fan-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.fan-icon.running-fwd {
+  color: #3b82f6;
+  animation: spin 0.6s linear infinite;
+}
+
+.fan-icon.running-bwd {
+  color: #8b5cf6;
+  animation: spin-reverse 0.6s linear infinite;
+}
+
+.fan-icon.stopped {
+  color: #64748b;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes spin-reverse {
+  0% {
+    transform: rotate(360deg);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
 }
 
 .compact-mode {

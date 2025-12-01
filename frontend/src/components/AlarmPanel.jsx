@@ -83,7 +83,6 @@ function AlarmPanel({ alarms: alarmsProp, alarmSummary, alarmSoundMuted, onToggl
           <div className="alarm-summary">
             <span className="summary-item critical">위험: {alarmSummary?.critical || 0}</span>
             <span className="summary-item warning">경고: {alarmSummary?.warning || 0}</span>
-            <span className="summary-item info">정보: {alarmSummary?.info || 0}</span>
           </div>
           {hasActiveAlarms && onToggleMute && (
             <button

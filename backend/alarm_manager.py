@@ -537,7 +537,6 @@ class AlarmManager:
             "total": len(active),
             "critical": len([a for a in active if a.level == AlarmLevel.CRITICAL]),
             "warning": len([a for a in active if a.level == AlarmLevel.WARNING]),
-            "info": len([a for a in active if a.level == AlarmLevel.INFO]),
             "unacknowledged": len([a for a in active if not a.acknowledged])
         }
 

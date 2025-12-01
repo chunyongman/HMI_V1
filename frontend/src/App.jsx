@@ -372,7 +372,7 @@ function App() {
           className={activeTab === 'system_overview' ? 'active' : ''}
           onClick={() => setActiveTab('system_overview')}
         >
-          📊 시스템 개요
+          📊 운전 현황
         </button>
         <button
           className={activeTab === 'dashboard' ? 'active' : ''}

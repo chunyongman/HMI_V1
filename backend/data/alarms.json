@@ -1165,6 +1165,50 @@
       "ack_user": "Operator",
       "tag": "PX1_LOW",
       "value": 0.0
+    },
+    {
+      "id": "ALM202512010937190001",
+      "level": "critical",
+      "message": "청수 쿨러 출구 온도 상승 (FW Cooler FW Out High): 41.6°C",
+      "time": "2025-12-01T09:37:19.049935",
+      "acknowledged": true,
+      "ack_time": "2025-12-01T09:40:01.706715",
+      "ack_user": "Operator",
+      "tag": "T5_HIGH",
+      "value": 41.6
+    },
+    {
+      "id": "ALM202512010937190002",
+      "level": "warning",
+      "message": "냉각수 압력 저하 (CSW Pressure Low): 1.05 bar",
+      "time": "2025-12-01T09:37:19.049935",
+      "acknowledged": true,
+      "ack_time": "2025-12-01T09:40:03.950226",
+      "ack_user": "Operator",
+      "tag": "PX1_LOW",
+      "value": 1.05
+    },
+    {
+      "id": "ALM202512010938370003",
+      "level": "critical",
+      "message": "주기관 부하 과다 (M/E Load High): 89.3%",
+      "time": "2025-12-01T09:38:37.278492",
+      "acknowledged": true,
+      "ack_time": "2025-12-01T09:40:06.066410",
+      "ack_user": "Operator",
+      "tag": "PU1_HIGH",
+      "value": 89.3
+    },
+    {
+      "id": "ALM202512010940060004",
+      "level": "critical",
+      "message": "냉각수 압력 과다 (CSW Pressure High): 4.19 bar",
+      "time": "2025-12-01T09:40:06.544023",
+      "acknowledged": true,
+      "ack_time": "2025-12-01T09:40:32.891955",
+      "ack_user": "Operator",
+      "tag": "PX1_HIGH",
+      "value": 4.19
     }
   ]
 }

@@ -104,7 +104,18 @@ function CompactPumpCard({ pump }) {
   return (
     <div className={`compact-card ${isRunning ? 'running' : 'stopped'}`}>
       <div className="compact-header">
-        <span className="compact-name">{pump.name}</span>
+        <span className="compact-name">
+          {pump.name}
+          <span className={`impeller-icon ${isRunning ? 'running' : 'stopped'}`}>
+            <svg viewBox="0 0 24 24" width="40" height="40">
+              <circle cx="12" cy="12" r="3" fill="currentColor"/>
+              <path d="M12 2 C14 6 16 8 12 12 C8 8 10 6 12 2" fill="currentColor"/>
+              <path d="M22 12 C18 14 16 16 12 12 C16 8 18 10 22 12" fill="currentColor"/>
+              <path d="M12 22 C10 18 8 16 12 12 C16 16 14 18 12 22" fill="currentColor"/>
+              <path d="M2 12 C6 10 8 8 12 12 C8 16 6 14 2 12" fill="currentColor"/>
+            </svg>
+          </span>
+        </span>
         <span className={`compact-mode ${operationMode.class}`}>{operationMode.text}</span>
         <span className={`compact-status ${isRunning ? 'on' : 'off'}`}>
           {isRunning ? '●' : '○'}
@@ -148,10 +159,21 @@ function CompactFanCard({ fan }) {
   return (
     <div className={`compact-card ${isRunning ? 'running' : 'stopped'}`}>
       <div className="compact-header">
-        <span className="compact-name">{fan.name}</span>
+        <span className="compact-name">
+          {fan.name}
+          <span className={`fan-icon ${fan.running_fwd ? 'running-fwd' : fan.running_bwd ? 'running-bwd' : 'stopped'}`}>
+            <svg viewBox="0 0 24 24" width="40" height="40">
+              <circle cx="12" cy="12" r="2.5" fill="currentColor"/>
+              <path d="M12 3 C12 3 15 7 15 9 C15 11 13 12 12 12 C11 12 9 11 9 9 C9 7 12 3 12 3" fill="currentColor"/>
+              <path d="M21 12 C21 12 17 15 15 15 C13 15 12 13 12 12 C12 11 13 9 15 9 C17 9 21 12 21 12" fill="currentColor"/>
+              <path d="M12 21 C12 21 9 17 9 15 C9 13 11 12 12 12 C13 12 15 13 15 15 C15 17 12 21 12 21" fill="currentColor"/>
+              <path d="M3 12 C3 12 7 9 9 9 C11 9 12 11 12 12 C12 13 11 15 9 15 C7 15 3 12 3 12" fill="currentColor"/>
+            </svg>
+          </span>
+        </span>
         <span className={`compact-mode ${operationMode.class}`}>{operationMode.text}</span>
         <span className={`compact-status ${isRunning ? 'on' : 'off'}`}>
-          {fan.running_fwd ? '▶' : fan.running_bwd ? '◀' : '○'}
+          {isRunning ? '●' : '○'}
         </span>
       </div>
       <div className="compact-body">

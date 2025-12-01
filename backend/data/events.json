@@ -1,1870 +1,6 @@
 {
   "events": [
     {
-      "id": "EVT202511261246030585",
-      "time": "2025-11-26T12:46:03.779435",
-      "type": "control",
-      "user": "System",
-      "message": "FAN1 운전 시작 (Started)",
-      "details": null
-    },
-    {
-      "id": "EVT202511261246020584",
-      "time": "2025-11-26T12:46:02.742161",
-      "type": "control",
-      "user": "System",
-      "message": "FAN4 운전 정지 (Stopped) - 0.00h, 0.02kWh",
-      "details": null
-    },
-    {
-      "id": "EVT202511261246010583",
-      "time": "2025-11-26T12:46:01.686045",
-      "type": "control",
-      "user": "System",
-      "message": "FAN4 운전 시작 (Started)",
-      "details": null
-    },
-    {
-      "id": "EVT202511261246000582",
-      "time": "2025-11-26T12:46:00.626224",
-      "type": "control",
-      "user": "System",
-      "message": "FAN3 운전 정지 (Stopped) - 0.00h, 0.02kWh",
-      "details": null
-    },
-    {
-      "id": "EVT202511261245590581",
-      "time": "2025-11-26T12:45:59.575221",
-      "type": "control",
-      "user": "System",
-      "message": "FAN3 운전 시작 (Started)",
-      "details": null
-    },
-    {
-      "id": "EVT202511261245580580",
-      "time": "2025-11-26T12:45:58.524803",
-      "type": "control",
-      "user": "System",
-      "message": "FAN2 운전 정지 (Stopped) - 0.00h, 0.02kWh",
-      "details": null
-    },
-    {
-      "id": "EVT202511261245570579",
-      "time": "2025-11-26T12:45:57.478630",
-      "type": "control",
-      "user": "System",
-      "message": "FAN2 운전 시작 (Started)",
-      "details": null
-    },
-    {
-      "id": "EVT202511261245560578",
-      "time": "2025-11-26T12:45:56.430921",
-      "type": "control",
-      "user": "System",
-      "message": "FAN1 운전 정지 (Stopped) - 0.00h, 0.02kWh",
-      "details": null
-    },
-    {
-      "id": "EVT202511261245550577",
-      "time": "2025-11-26T12:45:55.383759",
-      "type": "control",
-      "user": "System",
-      "message": "FAN1 운전 시작 (Started)",
-      "details": null
-    },
-    {
-      "id": "EVT202511261245530576",
-      "time": "2025-11-26T12:45:53.301572",
-      "type": "control",
-      "user": "System",
-      "message": "FAN3 운전 정지 (Stopped) - 0.00h, 0.02kWh",
-      "details": null
-    },
-    {
-      "id": "EVT202511261245520575",
-      "time": "2025-11-26T12:45:52.236102",
-      "type": "control",
-      "user": "System",
-      "message": "FAN3 운전 시작 (Started)",
-      "details": null
-    },
-    {
-      "id": "EVT202511261245510574",
-      "time": "2025-11-26T12:45:51.169600",
-      "type": "control",
-      "user": "System",
-      "message": "FAN2 운전 정지 (Stopped) - 0.00h, 0.02kWh",
-      "details": null
-    },
-    {
-      "id": "EVT202511261245500573",
-      "time": "2025-11-26T12:45:50.116146",
-      "type": "control",
-      "user": "System",
-      "message": "FAN2 운전 시작 (Started)",
-      "details": null
-    },
-    {
-      "id": "EVT202511261245490572",
-      "time": "2025-11-26T12:45:49.072907",
-      "type": "control",
-      "user": "System",
-      "message": "FAN1 운전 정지 (Stopped) - 0.00h, 0.02kWh",
-      "details": null
-    },
-    {
-      "id": "EVT202511261245480571",
-      "time": "2025-11-26T12:45:48.034176",
-      "type": "control",
-      "user": "System",
-      "message": "FAN1 운전 시작 (Started)",
-      "details": null
-    },
-    {
-      "id": "EVT202511261245460570",
-      "time": "2025-11-26T12:45:46.984903",
-      "type": "control",
-      "user": "System",
-      "message": "FAN4 운전 정지 (Stopped) - 0.00h, 0.02kWh",
-      "details": null
-    },
-    {
-      "id": "EVT202511261245450569",
-      "time": "2025-11-26T12:45:45.943916",
-      "type": "control",
-      "user": "System",
-      "message": "FAN4 운전 시작 (Started)",
-      "details": null
-    },
-    {
-      "id": "EVT202511261245440568",
-      "time": "2025-11-26T12:45:44.900911",
-      "type": "control",
-      "user": "System",
-      "message": "FAN3 운전 정지 (Stopped) - 0.00h, 0.02kWh",
-      "details": null
-    },
-    {
-      "id": "EVT202511261245430567",
-      "time": "2025-11-26T12:45:43.856172",
-      "type": "control",
-      "user": "System",
-      "message": "FAN3 운전 시작 (Started)",
-      "details": null
-    },
-    {
-      "id": "EVT202511261245420566",
-      "time": "2025-11-26T12:45:42.824897",
-      "type": "control",
-      "user": "System",
-      "message": "FAN2 운전 정지 (Stopped) - 0.00h, 0.02kWh",
-      "details": null
-    },
-    {
-      "id": "EVT202511261245410565",
-      "time": "2025-11-26T12:45:41.781840",
-      "type": "control",
-      "user": "System",
-      "message": "FAN2 운전 시작 (Started)",
-      "details": null
-    },
-    {
-      "id": "EVT202511261245400564",
-      "time": "2025-11-26T12:45:40.734989",
-      "type": "control",
-      "user": "System",
-      "message": "FAN1 운전 정지 (Stopped) - 0.00h, 0.02kWh",
-      "details": null
-    },
-    {
-      "id": "EVT202511261245390563",
-      "time": "2025-11-26T12:45:39.703551",
-      "type": "control",
-      "user": "System",
-      "message": "FAN1 운전 시작 (Started)",
-      "details": null
-    },
-    {
-      "id": "EVT202511261245380562",
-      "time": "2025-11-26T12:45:38.655819",
-      "type": "control",
-      "user": "System",
-      "message": "FAN4 운전 정지 (Stopped) - 0.00h, 0.02kWh",
-      "details": null
-    },
-    {
-      "id": "EVT202511261245370561",
-      "time": "2025-11-26T12:45:37.618216",
-      "type": "control",
-      "user": "System",
-      "message": "FAN4 운전 시작 (Started)",
-      "details": null
-    },
-    {
-      "id": "EVT202511261245360560",
-      "time": "2025-11-26T12:45:36.583583",
-      "type": "control",
-      "user": "System",
-      "message": "FAN3 운전 정지 (Stopped) - 0.00h, 0.02kWh",
-      "details": null
-    },
-    {
-      "id": "EVT202511261245350559",
-      "time": "2025-11-26T12:45:35.540106",
-      "type": "control",
-      "user": "System",
-      "message": "FAN3 운전 시작 (Started)",
-      "details": null
-    },
-    {
-      "id": "EVT202511261245340558",
-      "time": "2025-11-26T12:45:34.499713",
-      "type": "control",
-      "user": "System",
-      "message": "FAN2 운전 정지 (Stopped) - 0.00h, 0.02kWh",
-      "details": null
-    },
-    {
-      "id": "EVT202511261245330557",
-      "time": "2025-11-26T12:45:33.465504",
-      "type": "control",
-      "user": "System",
-      "message": "FAN2 운전 시작 (Started)",
-      "details": null
-    },
-    {
-      "id": "EVT202511261245320556",
-      "time": "2025-11-26T12:45:32.430985",
-      "type": "control",
-      "user": "System",
-      "message": "FAN1 운전 정지 (Stopped) - 0.00h, 0.02kWh",
-      "details": null
-    },
-    {
-      "id": "EVT202511261245310555",
-      "time": "2025-11-26T12:45:31.382582",
-      "type": "control",
-      "user": "System",
-      "message": "FAN1 운전 시작 (Started)",
-      "details": null
-    },
-    {
-      "id": "EVT202511261245290554",
-      "time": "2025-11-26T12:45:29.328256",
-      "type": "control",
-      "user": "System",
-      "message": "FAN3 운전 정지 (Stopped) - 0.00h, 0.02kWh",
-      "details": null
-    },
-    {
-      "id": "EVT202511261245280553",
-      "time": "2025-11-26T12:45:28.276564",
-      "type": "control",
-      "user": "System",
-      "message": "FAN3 운전 시작 (Started)",
-      "details": null
-    },
-    {
-      "id": "EVT202511261245270552",
-      "time": "2025-11-26T12:45:27.225552",
-      "type": "control",
-      "user": "System",
-      "message": "FAN2 운전 정지 (Stopped) - 0.00h, 0.02kWh",
-      "details": null
-    },
-    {
-      "id": "EVT202511261245260551",
-      "time": "2025-11-26T12:45:26.173490",
-      "type": "control",
-      "user": "System",
-      "message": "FAN2 운전 시작 (Started)",
-      "details": null
-    },
-    {
-      "id": "EVT202511261245250550",
-      "time": "2025-11-26T12:45:25.135574",
-      "type": "control",
-      "user": "System",
-      "message": "FAN1 운전 정지 (Stopped) - 0.00h, 0.02kWh",
-      "details": null
-    },
-    {
-      "id": "EVT202511261245240549",
-      "time": "2025-11-26T12:45:24.098217",
-      "type": "control",
-      "user": "System",
-      "message": "FAN1 운전 시작 (Started)",
-      "details": null
-    },
-    {
-      "id": "EVT202511261245230548",
-      "time": "2025-11-26T12:45:23.053949",
-      "type": "control",
-      "user": "System",
-      "message": "FAN4 운전 정지 (Stopped) - 0.00h, 0.02kWh",
-      "details": null
-    },
-    {
-      "id": "EVT202511261245220547",
-      "time": "2025-11-26T12:45:22.016685",
-      "type": "control",
-      "user": "System",
-      "message": "FAN4 운전 시작 (Started)",
-      "details": null
-    },
-    {
-      "id": "EVT202511261245200546",
-      "time": "2025-11-26T12:45:20.969592",
-      "type": "control",
-      "user": "System",
-      "message": "FAN3 운전 정지 (Stopped) - 0.00h, 0.02kWh",
-      "details": null
-    },
-    {
-      "id": "EVT202511261245190545",
-      "time": "2025-11-26T12:45:19.933195",
-      "type": "control",
-      "user": "System",
-      "message": "FAN3 운전 시작 (Started)",
-      "details": null
-    },
-    {
-      "id": "EVT202511261245180544",
-      "time": "2025-11-26T12:45:18.895592",
-      "type": "control",
-      "user": "System",
-      "message": "FAN2 운전 정지 (Stopped) - 0.00h, 0.02kWh",
-      "details": null
-    },
-    {
-      "id": "EVT202511261245170543",
-      "time": "2025-11-26T12:45:17.847567",
-      "type": "control",
-      "user": "System",
-      "message": "FAN2 운전 시작 (Started)",
-      "details": null
-    },
-    {
-      "id": "EVT202511261245160542",
-      "time": "2025-11-26T12:45:16.810786",
-      "type": "control",
-      "user": "System",
-      "message": "FAN1 운전 정지 (Stopped) - 0.00h, 0.02kWh",
-      "details": null
-    },
-    {
-      "id": "EVT202511261245150541",
-      "time": "2025-11-26T12:45:15.782102",
-      "type": "control",
-      "user": "System",
-      "message": "FAN1 운전 시작 (Started)",
-      "details": null
-    },
-    {
-      "id": "EVT202511261245140540",
-      "time": "2025-11-26T12:45:14.745010",
-      "type": "control",
-      "user": "System",
-      "message": "FAN4 운전 정지 (Stopped) - 0.00h, 0.02kWh",
-      "details": null
-    },
-    {
-      "id": "EVT202511261245130539",
-      "time": "2025-11-26T12:45:13.694809",
-      "type": "control",
-      "user": "System",
-      "message": "FAN4 운전 시작 (Started)",
-      "details": null
-    },
-    {
-      "id": "EVT202511261245120538",
-      "time": "2025-11-26T12:45:12.650898",
-      "type": "control",
-      "user": "System",
-      "message": "FAN3 운전 정지 (Stopped) - 0.00h, 0.02kWh",
-      "details": null
-    },
-    {
-      "id": "EVT202511261245110537",
-      "time": "2025-11-26T12:45:11.593217",
-      "type": "control",
-      "user": "System",
-      "message": "FAN3 운전 시작 (Started)",
-      "details": null
-    },
-    {
-      "id": "EVT202511261245100536",
-      "time": "2025-11-26T12:45:10.539074",
-      "type": "control",
-      "user": "System",
-      "message": "FAN2 운전 정지 (Stopped) - 0.00h, 0.02kWh",
-      "details": null
-    },
-    {
-      "id": "EVT202511261245090535",
-      "time": "2025-11-26T12:45:09.508894",
-      "type": "control",
-      "user": "System",
-      "message": "FAN2 운전 시작 (Started)",
-      "details": null
-    },
-    {
-      "id": "EVT202511261245080534",
-      "time": "2025-11-26T12:45:08.456811",
-      "type": "control",
-      "user": "System",
-      "message": "FAN1 운전 정지 (Stopped) - 0.00h, 0.02kWh",
-      "details": null
-    },
-    {
-      "id": "EVT202511261245070533",
-      "time": "2025-11-26T12:45:07.413407",
-      "type": "control",
-      "user": "System",
-      "message": "FAN4 운전 정지 (Stopped) - 0.00h, 0.02kWh",
-      "details": null
-    },
-    {
-      "id": "EVT202511261245070532",
-      "time": "2025-11-26T12:45:07.388971",
-      "type": "control",
-      "user": "System",
-      "message": "FAN1 운전 시작 (Started)",
-      "details": null
-    },
-    {
-      "id": "EVT202511261245060531",
-      "time": "2025-11-26T12:45:06.337159",
-      "type": "control",
-      "user": "System",
-      "message": "FAN4 운전 시작 (Started)",
-      "details": null
-    },
-    {
-      "id": "EVT202511261245050530",
-      "time": "2025-11-26T12:45:05.285536",
-      "type": "control",
-      "user": "System",
-      "message": "FAN3 운전 정지 (Stopped) - 0.00h, 0.02kWh",
-      "details": null
-    },
-    {
-      "id": "EVT202511261245040529",
-      "time": "2025-11-26T12:45:04.251083",
-      "type": "control",
-      "user": "System",
-      "message": "FAN3 운전 시작 (Started)",
-      "details": null
-    },
-    {
-      "id": "EVT202511261245030528",
-      "time": "2025-11-26T12:45:03.214668",
-      "type": "control",
-      "user": "System",
-      "message": "FAN2 운전 정지 (Stopped) - 0.00h, 0.02kWh",
-      "details": null
-    },
-    {
-      "id": "EVT202511261245020527",
-      "time": "2025-11-26T12:45:02.165115",
-      "type": "control",
-      "user": "System",
-      "message": "FAN2 운전 시작 (Started)",
-      "details": null
-    },
-    {
-      "id": "EVT202511261245010526",
-      "time": "2025-11-26T12:45:01.124133",
-      "type": "control",
-      "user": "System",
-      "message": "FAN1 운전 정지 (Stopped) - 0.00h, 0.02kWh",
-      "details": null
-    },
-    {
-      "id": "EVT202511261245000525",
-      "time": "2025-11-26T12:45:00.079241",
-      "type": "control",
-      "user": "System",
-      "message": "FAN1 운전 시작 (Started)",
-      "details": null
-    },
-    {
-      "id": "EVT202511261244590524",
-      "time": "2025-11-26T12:44:59.029990",
-      "type": "control",
-      "user": "System",
-      "message": "FAN4 운전 정지 (Stopped) - 0.00h, 0.02kWh",
-      "details": null
-    },
-    {
-      "id": "EVT202511261244570523",
-      "time": "2025-11-26T12:44:57.999719",
-      "type": "control",
-      "user": "System",
-      "message": "FAN4 운전 시작 (Started)",
-      "details": null
-    },
-    {
-      "id": "EVT202511261244560522",
-      "time": "2025-11-26T12:44:56.960800",
-      "type": "control",
-      "user": "System",
-      "message": "FAN3 운전 정지 (Stopped) - 0.00h, 0.02kWh",
-      "details": null
-    },
-    {
-      "id": "EVT202511261244550521",
-      "time": "2025-11-26T12:44:55.909467",
-      "type": "control",
-      "user": "System",
-      "message": "FAN3 운전 시작 (Started)",
-      "details": null
-    },
-    {
-      "id": "EVT202511261244540520",
-      "time": "2025-11-26T12:44:54.872865",
-      "type": "control",
-      "user": "System",
-      "message": "FAN2 운전 정지 (Stopped) - 0.00h, 0.02kWh",
-      "details": null
-    },
-    {
-      "id": "EVT202511261244530519",
-      "time": "2025-11-26T12:44:53.829258",
-      "type": "control",
-      "user": "System",
-      "message": "FAN2 운전 시작 (Started)",
-      "details": null
-    },
-    {
-      "id": "EVT202511261244520518",
-      "time": "2025-11-26T12:44:52.789646",
-      "type": "control",
-      "user": "System",
-      "message": "FAN1 운전 정지 (Stopped) - 0.00h, 0.02kWh",
-      "details": null
-    },
-    {
-      "id": "EVT202511261244510517",
-      "time": "2025-11-26T12:44:51.762027",
-      "type": "control",
-      "user": "System",
-      "message": "FAN1 운전 시작 (Started)",
-      "details": null
-    },
-    {
-      "id": "EVT202511261244500516",
-      "time": "2025-11-26T12:44:50.720637",
-      "type": "control",
-      "user": "System",
-      "message": "FAN4 운전 정지 (Stopped) - 0.00h, 0.02kWh",
-      "details": null
-    },
-    {
-      "id": "EVT202511261244490515",
-      "time": "2025-11-26T12:44:49.670300",
-      "type": "control",
-      "user": "System",
-      "message": "FAN4 운전 시작 (Started)",
-      "details": null
-    },
-    {
-      "id": "EVT202511261244480514",
-      "time": "2025-11-26T12:44:48.618474",
-      "type": "control",
-      "user": "System",
-      "message": "FAN3 운전 정지 (Stopped) - 0.00h, 0.02kWh",
-      "details": null
-    },
-    {
-      "id": "EVT202511261244470513",
-      "time": "2025-11-26T12:44:47.570633",
-      "type": "control",
-      "user": "System",
-      "message": "FAN3 운전 시작 (Started)",
-      "details": null
-    },
-    {
-      "id": "EVT202511261244460512",
-      "time": "2025-11-26T12:44:46.532952",
-      "type": "control",
-      "user": "System",
-      "message": "FAN2 운전 정지 (Stopped) - 0.00h, 0.02kWh",
-      "details": null
-    },
-    {
-      "id": "EVT202511261244450511",
-      "time": "2025-11-26T12:44:45.496728",
-      "type": "control",
-      "user": "System",
-      "message": "FAN2 운전 시작 (Started)",
-      "details": null
-    },
-    {
-      "id": "EVT202511261244440510",
-      "time": "2025-11-26T12:44:44.448604",
-      "type": "control",
-      "user": "System",
-      "message": "FAN1 운전 정지 (Stopped) - 0.00h, 0.02kWh",
-      "details": null
-    },
-    {
-      "id": "EVT202511261244430509",
-      "time": "2025-11-26T12:44:43.392111",
-      "type": "control",
-      "user": "System",
-      "message": "FAN1 운전 시작 (Started)",
-      "details": null
-    },
-    {
-      "id": "EVT202511261244410508",
-      "time": "2025-11-26T12:44:41.308173",
-      "type": "control",
-      "user": "System",
-      "message": "FAN3 운전 정지 (Stopped) - 0.00h, 0.02kWh",
-      "details": null
-    },
-    {
-      "id": "EVT202511261244400507",
-      "time": "2025-11-26T12:44:40.251230",
-      "type": "control",
-      "user": "System",
-      "message": "FAN3 운전 시작 (Started)",
-      "details": null
-    },
-    {
-      "id": "EVT202511261244390506",
-      "time": "2025-11-26T12:44:39.209856",
-      "type": "control",
-      "user": "System",
-      "message": "FAN2 운전 정지 (Stopped) - 0.00h, 0.02kWh",
-      "details": null
-    },
-    {
-      "id": "EVT202511261244380505",
-      "time": "2025-11-26T12:44:38.173846",
-      "type": "control",
-      "user": "System",
-      "message": "FAN2 운전 시작 (Started)",
-      "details": null
-    },
-    {
-      "id": "EVT202511261244370504",
-      "time": "2025-11-26T12:44:37.141061",
-      "type": "control",
-      "user": "System",
-      "message": "FAN1 운전 정지 (Stopped) - 0.00h, 0.02kWh",
-      "details": null
-    },
-    {
-      "id": "EVT202511261244360503",
-      "time": "2025-11-26T12:44:36.106529",
-      "type": "control",
-      "user": "System",
-      "message": "FAN1 운전 시작 (Started)",
-      "details": null
-    },
-    {
-      "id": "EVT202511261244350502",
-      "time": "2025-11-26T12:44:35.055193",
-      "type": "control",
-      "user": "System",
-      "message": "FAN4 운전 정지 (Stopped) - 0.00h, 0.02kWh",
-      "details": null
-    },
-    {
-      "id": "EVT202511261244340501",
-      "time": "2025-11-26T12:44:34.020420",
-      "type": "control",
-      "user": "System",
-      "message": "FAN4 운전 시작 (Started)",
-      "details": null
-    },
-    {
-      "id": "EVT202511261244320500",
-      "time": "2025-11-26T12:44:32.984347",
-      "type": "control",
-      "user": "System",
-      "message": "FAN3 운전 정지 (Stopped) - 0.00h, 0.02kWh",
-      "details": null
-    },
-    {
-      "id": "EVT202511261244310499",
-      "time": "2025-11-26T12:44:31.944677",
-      "type": "control",
-      "user": "System",
-      "message": "FAN3 운전 시작 (Started)",
-      "details": null
-    },
-    {
-      "id": "EVT202511261244300498",
-      "time": "2025-11-26T12:44:30.917221",
-      "type": "control",
-      "user": "System",
-      "message": "FAN2 운전 정지 (Stopped) - 0.00h, 0.02kWh",
-      "details": null
-    },
-    {
-      "id": "EVT202511261244290497",
-      "time": "2025-11-26T12:44:29.865956",
-      "type": "control",
-      "user": "System",
-      "message": "FAN2 운전 시작 (Started)",
-      "details": null
-    },
-    {
-      "id": "EVT202511261244280496",
-      "time": "2025-11-26T12:44:28.819696",
-      "type": "control",
-      "user": "System",
-      "message": "FAN1 운전 정지 (Stopped) - 0.00h, 0.02kWh",
-      "details": null
-    },
-    {
-      "id": "EVT202511261244270495",
-      "time": "2025-11-26T12:44:27.781774",
-      "type": "control",
-      "user": "System",
-      "message": "FAN1 운전 시작 (Started)",
-      "details": null
-    },
-    {
-      "id": "EVT202511261244260494",
-      "time": "2025-11-26T12:44:26.746539",
-      "type": "control",
-      "user": "System",
-      "message": "FAN4 운전 정지 (Stopped) - 0.00h, 0.02kWh",
-      "details": null
-    },
-    {
-      "id": "EVT202511261244250493",
-      "time": "2025-11-26T12:44:25.696226",
-      "type": "control",
-      "user": "System",
-      "message": "FAN4 운전 시작 (Started)",
-      "details": null
-    },
-    {
-      "id": "EVT202511261244240492",
-      "time": "2025-11-26T12:44:24.647972",
-      "type": "control",
-      "user": "System",
-      "message": "FAN3 운전 정지 (Stopped) - 0.00h, 0.02kWh",
-      "details": null
-    },
-    {
-      "id": "EVT202511261244230491",
-      "time": "2025-11-26T12:44:23.611050",
-      "type": "control",
-      "user": "System",
-      "message": "FAN3 운전 시작 (Started)",
-      "details": null
-    },
-    {
-      "id": "EVT202511261244220490",
-      "time": "2025-11-26T12:44:22.575635",
-      "type": "control",
-      "user": "System",
-      "message": "FAN2 운전 정지 (Stopped) - 0.00h, 0.02kWh",
-      "details": null
-    },
-    {
-      "id": "EVT202511261244210489",
-      "time": "2025-11-26T12:44:21.532768",
-      "type": "control",
-      "user": "System",
-      "message": "FAN2 운전 시작 (Started)",
-      "details": null
-    },
-    {
-      "id": "EVT202511261244200488",
-      "time": "2025-11-26T12:44:20.480248",
-      "type": "control",
-      "user": "System",
-      "message": "FAN1 운전 정지 (Stopped) - 0.00h, 0.02kWh",
-      "details": null
-    },
-    {
-      "id": "EVT202511261244190487",
-      "time": "2025-11-26T12:44:19.438607",
-      "type": "control",
-      "user": "System",
-      "message": "FAN1 운전 시작 (Started)",
-      "details": null
-    },
-    {
-      "id": "EVT202511261244180486",
-      "time": "2025-11-26T12:44:18.397113",
-      "type": "control",
-      "user": "System",
-      "message": "FAN4 운전 정지 (Stopped) - 0.00h, 0.02kWh",
-      "details": null
-    },
-    {
-      "id": "EVT202511261244170485",
-      "time": "2025-11-26T12:44:17.349865",
-      "type": "control",
-      "user": "System",
-      "message": "FAN4 운전 시작 (Started)",
-      "details": null
-    },
-    {
-      "id": "EVT202511261244170484",
-      "time": "2025-11-26T12:44:17.329382",
-      "type": "control",
-      "user": "System",
-      "message": "FAN3 운전 정지 (Stopped) - 0.00h, 0.02kWh",
-      "details": null
-    },
-    {
-      "id": "EVT202511261244160483",
-      "time": "2025-11-26T12:44:16.284343",
-      "type": "control",
-      "user": "System",
-      "message": "FAN3 운전 시작 (Started)",
-      "details": null
-    },
-    {
-      "id": "EVT202511261244150482",
-      "time": "2025-11-26T12:44:15.249791",
-      "type": "control",
-      "user": "System",
-      "message": "FAN2 운전 정지 (Stopped) - 0.00h, 0.02kWh",
-      "details": null
-    },
-    {
-      "id": "EVT202511261244140481",
-      "time": "2025-11-26T12:44:14.197789",
-      "type": "control",
-      "user": "System",
-      "message": "FAN2 운전 시작 (Started)",
-      "details": null
-    },
-    {
-      "id": "EVT202511261244130480",
-      "time": "2025-11-26T12:44:13.128844",
-      "type": "control",
-      "user": "System",
-      "message": "FAN1 운전 정지 (Stopped) - 0.00h, 0.02kWh",
-      "details": null
-    },
-    {
-      "id": "EVT202511261244120479",
-      "time": "2025-11-26T12:44:12.097326",
-      "type": "control",
-      "user": "System",
-      "message": "FAN1 운전 시작 (Started)",
-      "details": null
-    },
-    {
-      "id": "EVT202511261244110478",
-      "time": "2025-11-26T12:44:11.055166",
-      "type": "control",
-      "user": "System",
-      "message": "FAN4 운전 정지 (Stopped) - 0.00h, 0.02kWh",
-      "details": null
-    },
-    {
-      "id": "EVT202511261244100477",
-      "time": "2025-11-26T12:44:10.013512",
-      "type": "control",
-      "user": "System",
-      "message": "FAN4 운전 시작 (Started)",
-      "details": null
-    },
-    {
-      "id": "EVT202511261244080476",
-      "time": "2025-11-26T12:44:08.978635",
-      "type": "control",
-      "user": "System",
-      "message": "FAN3 운전 정지 (Stopped) - 0.00h, 0.02kWh",
-      "details": null
-    },
-    {
-      "id": "EVT202511261244070475",
-      "time": "2025-11-26T12:44:07.942784",
-      "type": "control",
-      "user": "System",
-      "message": "FAN3 운전 시작 (Started)",
-      "details": null
-    },
-    {
-      "id": "EVT202511261244060474",
-      "time": "2025-11-26T12:44:06.893384",
-      "type": "control",
-      "user": "System",
-      "message": "FAN2 운전 정지 (Stopped) - 0.00h, 0.02kWh",
-      "details": null
-    },
-    {
-      "id": "EVT202511261244050473",
-      "time": "2025-11-26T12:44:05.842659",
-      "type": "control",
-      "user": "System",
-      "message": "FAN2 운전 시작 (Started)",
-      "details": null
-    },
-    {
-      "id": "EVT202511261244040472",
-      "time": "2025-11-26T12:44:04.806735",
-      "type": "control",
-      "user": "System",
-      "message": "FAN1 운전 정지 (Stopped) - 0.00h, 0.02kWh",
-      "details": null
-    },
-    {
-      "id": "EVT202511261244030471",
-      "time": "2025-11-26T12:44:03.756166",
-      "type": "control",
-      "user": "System",
-      "message": "FAN1 운전 시작 (Started)",
-      "details": null
-    },
-    {
-      "id": "EVT202511261244020470",
-      "time": "2025-11-26T12:44:02.699198",
-      "type": "control",
-      "user": "System",
-      "message": "FAN4 운전 정지 (Stopped) - 0.00h, 0.02kWh",
-      "details": null
-    },
-    {
-      "id": "EVT202511261244010469",
-      "time": "2025-11-26T12:44:01.649910",
-      "type": "control",
-      "user": "System",
-      "message": "FAN4 운전 시작 (Started)",
-      "details": null
-    },
-    {
-      "id": "EVT202511261244000468",
-      "time": "2025-11-26T12:44:00.603065",
-      "type": "control",
-      "user": "System",
-      "message": "FAN3 운전 정지 (Stopped) - 0.00h, 0.02kWh",
-      "details": null
-    },
-    {
-      "id": "EVT202511261243590467",
-      "time": "2025-11-26T12:43:59.552020",
-      "type": "control",
-      "user": "System",
-      "message": "FAN3 운전 시작 (Started)",
-      "details": null
-    },
-    {
-      "id": "EVT202511261243580466",
-      "time": "2025-11-26T12:43:58.518045",
-      "type": "control",
-      "user": "System",
-      "message": "FAN2 운전 정지 (Stopped) - 0.00h, 0.02kWh",
-      "details": null
-    },
-    {
-      "id": "EVT202511261243570465",
-      "time": "2025-11-26T12:43:57.467343",
-      "type": "control",
-      "user": "System",
-      "message": "FAN2 운전 시작 (Started)",
-      "details": null
-    },
-    {
-      "id": "EVT202511261243560464",
-      "time": "2025-11-26T12:43:56.415215",
-      "type": "control",
-      "user": "System",
-      "message": "FAN1 운전 정지 (Stopped) - 0.00h, 0.02kWh",
-      "details": null
-    },
-    {
-      "id": "EVT202511261243550463",
-      "time": "2025-11-26T12:43:55.371178",
-      "type": "control",
-      "user": "System",
-      "message": "FAN1 운전 시작 (Started)",
-      "details": null
-    },
-    {
-      "id": "EVT202511261243530462",
-      "time": "2025-11-26T12:43:53.295863",
-      "type": "control",
-      "user": "System",
-      "message": "FAN3 운전 정지 (Stopped) - 0.00h, 0.02kWh",
-      "details": null
-    },
-    {
-      "id": "EVT202511261243520461",
-      "time": "2025-11-26T12:43:52.241327",
-      "type": "control",
-      "user": "System",
-      "message": "FAN3 운전 시작 (Started)",
-      "details": null
-    },
-    {
-      "id": "EVT202511261243510460",
-      "time": "2025-11-26T12:43:51.193887",
-      "type": "control",
-      "user": "System",
-      "message": "FAN2 운전 정지 (Stopped) - 0.00h, 0.02kWh",
-      "details": null
-    },
-    {
-      "id": "EVT202511261243500459",
-      "time": "2025-11-26T12:43:50.153653",
-      "type": "control",
-      "user": "System",
-      "message": "FAN2 운전 시작 (Started)",
-      "details": null
-    },
-    {
-      "id": "EVT202511261243490458",
-      "time": "2025-11-26T12:43:49.106668",
-      "type": "control",
-      "user": "System",
-      "message": "FAN1 운전 정지 (Stopped) - 0.00h, 0.02kWh",
-      "details": null
-    },
-    {
-      "id": "EVT202511261243480457",
-      "time": "2025-11-26T12:43:48.058180",
-      "type": "control",
-      "user": "System",
-      "message": "FAN1 운전 시작 (Started)",
-      "details": null
-    },
-    {
-      "id": "EVT202511261243470456",
-      "time": "2025-11-26T12:43:47.022734",
-      "type": "control",
-      "user": "System",
-      "message": "FAN4 운전 정지 (Stopped) - 0.00h, 0.02kWh",
-      "details": null
-    },
-    {
-      "id": "EVT202511261243450455",
-      "time": "2025-11-26T12:43:45.988413",
-      "type": "control",
-      "user": "System",
-      "message": "FAN4 운전 시작 (Started)",
-      "details": null
-    },
-    {
-      "id": "EVT202511261243440454",
-      "time": "2025-11-26T12:43:44.945416",
-      "type": "control",
-      "user": "System",
-      "message": "FAN3 운전 정지 (Stopped) - 0.00h, 0.02kWh",
-      "details": null
-    },
-    {
-      "id": "EVT202511261243430453",
-      "time": "2025-11-26T12:43:43.903911",
-      "type": "control",
-      "user": "System",
-      "message": "FAN3 운전 시작 (Started)",
-      "details": null
-    },
-    {
-      "id": "EVT202511261243420452",
-      "time": "2025-11-26T12:43:42.868125",
-      "type": "control",
-      "user": "System",
-      "message": "FAN2 운전 정지 (Stopped) - 0.00h, 0.02kWh",
-      "details": null
-    },
-    {
-      "id": "EVT202511261243410451",
-      "time": "2025-11-26T12:43:41.818527",
-      "type": "control",
-      "user": "System",
-      "message": "FAN2 운전 시작 (Started)",
-      "details": null
-    },
-    {
-      "id": "EVT202511261243400450",
-      "time": "2025-11-26T12:43:40.767226",
-      "type": "control",
-      "user": "System",
-      "message": "FAN1 운전 정지 (Stopped) - 0.00h, 0.02kWh",
-      "details": null
-    },
-    {
-      "id": "EVT202511261243390449",
-      "time": "2025-11-26T12:43:39.732026",
-      "type": "control",
-      "user": "System",
-      "message": "FAN1 운전 시작 (Started)",
-      "details": null
-    },
-    {
-      "id": "EVT202511261243380448",
-      "time": "2025-11-26T12:43:38.698597",
-      "type": "control",
-      "user": "System",
-      "message": "FAN4 운전 정지 (Stopped) - 0.00h, 0.02kWh",
-      "details": null
-    },
-    {
-      "id": "EVT202511261243370447",
-      "time": "2025-11-26T12:43:37.646321",
-      "type": "control",
-      "user": "System",
-      "message": "FAN4 운전 시작 (Started)",
-      "details": null
-    },
-    {
-      "id": "EVT202511261243360446",
-      "time": "2025-11-26T12:43:36.613161",
-      "type": "control",
-      "user": "System",
-      "message": "FAN3 운전 정지 (Stopped) - 0.00h, 0.02kWh",
-      "details": null
-    },
-    {
-      "id": "EVT202511261243350445",
-      "time": "2025-11-26T12:43:35.578047",
-      "type": "control",
-      "user": "System",
-      "message": "FAN3 운전 시작 (Started)",
-      "details": null
-    },
-    {
-      "id": "EVT202511261243340444",
-      "time": "2025-11-26T12:43:34.529297",
-      "type": "control",
-      "user": "System",
-      "message": "FAN2 운전 정지 (Stopped) - 0.00h, 0.02kWh",
-      "details": null
-    },
-    {
-      "id": "EVT202511261243330443",
-      "time": "2025-11-26T12:43:33.495994",
-      "type": "control",
-      "user": "System",
-      "message": "FAN2 운전 시작 (Started)",
-      "details": null
-    },
-    {
-      "id": "EVT202511261243320442",
-      "time": "2025-11-26T12:43:32.459334",
-      "type": "control",
-      "user": "System",
-      "message": "FAN1 운전 정지 (Stopped) - 0.00h, 0.02kWh",
-      "details": null
-    },
-    {
-      "id": "EVT202511261243310441",
-      "time": "2025-11-26T12:43:31.422459",
-      "type": "control",
-      "user": "System",
-      "message": "FAN1 운전 시작 (Started)",
-      "details": null
-    },
-    {
-      "id": "EVT202511261243300440",
-      "time": "2025-11-26T12:43:30.380994",
-      "type": "control",
-      "user": "System",
-      "message": "FAN4 운전 정지 (Stopped) - 0.00h, 0.02kWh",
-      "details": null
-    },
-    {
-      "id": "EVT202511261243290439",
-      "time": "2025-11-26T12:43:29.341818",
-      "type": "control",
-      "user": "System",
-      "message": "FAN4 운전 시작 (Started)",
-      "details": null
-    },
-    {
-      "id": "EVT202511261243290438",
-      "time": "2025-11-26T12:43:29.321981",
-      "type": "control",
-      "user": "System",
-      "message": "FAN3 운전 정지 (Stopped) - 0.00h, 0.02kWh",
-      "details": null
-    },
-    {
-      "id": "EVT202511261243280437",
-      "time": "2025-11-26T12:43:28.286503",
-      "type": "control",
-      "user": "System",
-      "message": "FAN3 운전 시작 (Started)",
-      "details": null
-    },
-    {
-      "id": "EVT202511261243270436",
-      "time": "2025-11-26T12:43:27.240837",
-      "type": "control",
-      "user": "System",
-      "message": "FAN2 운전 정지 (Stopped) - 0.00h, 0.02kWh",
-      "details": null
-    },
-    {
-      "id": "EVT202511261243260435",
-      "time": "2025-11-26T12:43:26.201762",
-      "type": "control",
-      "user": "System",
-      "message": "FAN2 운전 시작 (Started)",
-      "details": null
-    },
-    {
-      "id": "EVT202511261243250434",
-      "time": "2025-11-26T12:43:25.167011",
-      "type": "control",
-      "user": "System",
-      "message": "FAN4 운전 정지 (Stopped) - 0.00h, 0.02kWh",
-      "details": null
-    },
-    {
-      "id": "EVT202511261243240433",
-      "time": "2025-11-26T12:43:24.119762",
-      "type": "control",
-      "user": "System",
-      "message": "FAN4 운전 시작 (Started)",
-      "details": null
-    },
-    {
-      "id": "EVT202511261243230432",
-      "time": "2025-11-26T12:43:23.081996",
-      "type": "control",
-      "user": "System",
-      "message": "FAN3 운전 정지 (Stopped) - 0.00h, 0.02kWh",
-      "details": null
-    },
-    {
-      "id": "EVT202511261243220431",
-      "time": "2025-11-26T12:43:22.047782",
-      "type": "control",
-      "user": "System",
-      "message": "FAN3 운전 시작 (Started)",
-      "details": null
-    },
-    {
-      "id": "EVT202511261243210430",
-      "time": "2025-11-26T12:43:21.011764",
-      "type": "control",
-      "user": "System",
-      "message": "FAN2 운전 정지 (Stopped) - 0.00h, 0.02kWh",
-      "details": null
-    },
-    {
-      "id": "EVT202511261243190429",
-      "time": "2025-11-26T12:43:19.961355",
-      "type": "control",
-      "user": "System",
-      "message": "FAN2 운전 시작 (Started)",
-      "details": null
-    },
-    {
-      "id": "EVT202511261243180428",
-      "time": "2025-11-26T12:43:18.920219",
-      "type": "control",
-      "user": "System",
-      "message": "FAN1 운전 정지 (Stopped) - 0.00h, 0.03kWh",
-      "details": null
-    },
-    {
-      "id": "EVT202511261243160427",
-      "time": "2025-11-26T12:43:16.874633",
-      "type": "control",
-      "user": "System",
-      "message": "FAN1 운전 시작 (Started)",
-      "details": null
-    },
-    {
-      "id": "EVT202511261243150426",
-      "time": "2025-11-26T12:43:15.848370",
-      "type": "control",
-      "user": "System",
-      "message": "FAN4 운전 정지 (Stopped) - 0.00h, 0.02kWh",
-      "details": null
-    },
-    {
-      "id": "EVT202511261243140425",
-      "time": "2025-11-26T12:43:14.813400",
-      "type": "control",
-      "user": "System",
-      "message": "FAN4 운전 시작 (Started)",
-      "details": null
-    },
-    {
-      "id": "EVT202511261243130424",
-      "time": "2025-11-26T12:43:13.755688",
-      "type": "control",
-      "user": "System",
-      "message": "FAN3 운전 정지 (Stopped) - 0.00h, 0.02kWh",
-      "details": null
-    },
-    {
-      "id": "EVT202511261243120423",
-      "time": "2025-11-26T12:43:12.716967",
-      "type": "control",
-      "user": "System",
-      "message": "FAN3 운전 시작 (Started)",
-      "details": null
-    },
-    {
-      "id": "EVT202511261243110422",
-      "time": "2025-11-26T12:43:11.663243",
-      "type": "control",
-      "user": "System",
-      "message": "FAN2 운전 정지 (Stopped) - 0.00h, 0.02kWh",
-      "details": null
-    },
-    {
-      "id": "EVT202511261243100421",
-      "time": "2025-11-26T12:43:10.615998",
-      "type": "control",
-      "user": "System",
-      "message": "FAN2 운전 시작 (Started)",
-      "details": null
-    },
-    {
-      "id": "EVT202511261243090420",
-      "time": "2025-11-26T12:43:09.578585",
-      "type": "control",
-      "user": "System",
-      "message": "FAN1 운전 정지 (Stopped) - 0.00h, 0.02kWh",
-      "details": null
-    },
-    {
-      "id": "EVT202511261243080419",
-      "time": "2025-11-26T12:43:08.537971",
-      "type": "control",
-      "user": "System",
-      "message": "FAN1 운전 시작 (Started)",
-      "details": null
-    },
-    {
-      "id": "EVT202511261243070418",
-      "time": "2025-11-26T12:43:07.489961",
-      "type": "control",
-      "user": "System",
-      "message": "FAN4 운전 정지 (Stopped) - 0.00h, 0.02kWh",
-      "details": null
-    },
-    {
-      "id": "EVT202511261243060417",
-      "time": "2025-11-26T12:43:06.449013",
-      "type": "control",
-      "user": "System",
-      "message": "FAN4 운전 시작 (Started)",
-      "details": null
-    },
-    {
-      "id": "EVT202511261243050416",
-      "time": "2025-11-26T12:43:05.394139",
-      "type": "control",
-      "user": "System",
-      "message": "FAN3 운전 정지 (Stopped) - 0.00h, 0.02kWh",
-      "details": null
-    },
-    {
-      "id": "EVT202511261243040415",
-      "time": "2025-11-26T12:43:04.345850",
-      "type": "control",
-      "user": "System",
-      "message": "FAN3 운전 시작 (Started)",
-      "details": null
-    },
-    {
-      "id": "EVT202511261243020414",
-      "time": "2025-11-26T12:43:02.266970",
-      "type": "control",
-      "user": "System",
-      "message": "FAN1 운전 정지 (Stopped) - 0.00h, 0.02kWh",
-      "details": null
-    },
-    {
-      "id": "EVT202511261243010413",
-      "time": "2025-11-26T12:43:01.226648",
-      "type": "control",
-      "user": "System",
-      "message": "FAN1 운전 시작 (Started)",
-      "details": null
-    },
-    {
-      "id": "EVT202511261243000412",
-      "time": "2025-11-26T12:43:00.172514",
-      "type": "control",
-      "user": "System",
-      "message": "FAN4 운전 정지 (Stopped) - 0.00h, 0.02kWh",
-      "details": null
-    },
-    {
-      "id": "EVT202511261242590411",
-      "time": "2025-11-26T12:42:59.128697",
-      "type": "control",
-      "user": "System",
-      "message": "FAN4 운전 시작 (Started)",
-      "details": null
-    },
-    {
-      "id": "EVT202511261242580410",
-      "time": "2025-11-26T12:42:58.083177",
-      "type": "control",
-      "user": "System",
-      "message": "FAN3 운전 정지 (Stopped) - 0.00h, 0.02kWh",
-      "details": null
-    },
-    {
-      "id": "EVT202511261242570409",
-      "time": "2025-11-26T12:42:57.032946",
-      "type": "control",
-      "user": "System",
-      "message": "FAN3 운전 시작 (Started)",
-      "details": null
-    },
-    {
-      "id": "EVT202511261242550408",
-      "time": "2025-11-26T12:42:55.984103",
-      "type": "control",
-      "user": "System",
-      "message": "FAN2 운전 정지 (Stopped) - 0.00h, 0.02kWh",
-      "details": null
-    },
-    {
-      "id": "EVT202511261242540407",
-      "time": "2025-11-26T12:42:54.953257",
-      "type": "control",
-      "user": "System",
-      "message": "FAN2 운전 시작 (Started)",
-      "details": null
-    },
-    {
-      "id": "EVT202511261242530406",
-      "time": "2025-11-26T12:42:53.915384",
-      "type": "control",
-      "user": "System",
-      "message": "FAN1 운전 정지 (Stopped) - 0.00h, 0.02kWh",
-      "details": null
-    },
-    {
-      "id": "EVT202511261242520405",
-      "time": "2025-11-26T12:42:52.867653",
-      "type": "control",
-      "user": "System",
-      "message": "FAN1 운전 시작 (Started)",
-      "details": null
-    },
-    {
-      "id": "EVT202511261242510404",
-      "time": "2025-11-26T12:42:51.828042",
-      "type": "control",
-      "user": "System",
-      "message": "FAN4 운전 정지 (Stopped) - 0.00h, 0.02kWh",
-      "details": null
-    },
-    {
-      "id": "EVT202511261242500403",
-      "time": "2025-11-26T12:42:50.783520",
-      "type": "control",
-      "user": "System",
-      "message": "FAN4 운전 시작 (Started)",
-      "details": null
-    },
-    {
-      "id": "EVT202511261242490402",
-      "time": "2025-11-26T12:42:49.731676",
-      "type": "control",
-      "user": "System",
-      "message": "FAN3 운전 정지 (Stopped) - 0.00h, 0.02kWh",
-      "details": null
-    },
-    {
-      "id": "EVT202511261242480401",
-      "time": "2025-11-26T12:42:48.693929",
-      "type": "control",
-      "user": "System",
-      "message": "FAN3 운전 시작 (Started)",
-      "details": null
-    },
-    {
-      "id": "EVT202511261242470400",
-      "time": "2025-11-26T12:42:47.646261",
-      "type": "control",
-      "user": "System",
-      "message": "FAN2 운전 정지 (Stopped) - 0.00h, 0.02kWh",
-      "details": null
-    },
-    {
-      "id": "EVT202511261242460399",
-      "time": "2025-11-26T12:42:46.604502",
-      "type": "control",
-      "user": "System",
-      "message": "FAN2 운전 시작 (Started)",
-      "details": null
-    },
-    {
-      "id": "EVT202511261242450398",
-      "time": "2025-11-26T12:42:45.560934",
-      "type": "control",
-      "user": "System",
-      "message": "FAN1 운전 정지 (Stopped) - 0.00h, 0.02kWh",
-      "details": null
-    },
-    {
-      "id": "EVT202511261242440397",
-      "time": "2025-11-26T12:42:44.508296",
-      "type": "control",
-      "user": "System",
-      "message": "FAN1 운전 시작 (Started)",
-      "details": null
-    },
-    {
-      "id": "EVT202511261242430396",
-      "time": "2025-11-26T12:42:43.466397",
-      "type": "control",
-      "user": "System",
-      "message": "FAN4 운전 정지 (Stopped) - 0.00h, 0.02kWh",
-      "details": null
-    },
-    {
-      "id": "EVT202511261242420395",
-      "time": "2025-11-26T12:42:42.408191",
-      "type": "control",
-      "user": "System",
-      "message": "FAN4 운전 시작 (Started)",
-      "details": null
-    },
-    {
-      "id": "EVT202511261242410394",
-      "time": "2025-11-26T12:42:41.357782",
-      "type": "control",
-      "user": "System",
-      "message": "FAN3 운전 정지 (Stopped) - 0.00h, 0.02kWh",
-      "details": null
-    },
-    {
-      "id": "EVT202511261242400393",
-      "time": "2025-11-26T12:42:40.314979",
-      "type": "control",
-      "user": "System",
-      "message": "FAN3 운전 시작 (Started)",
-      "details": null
-    },
-    {
-      "id": "EVT202511261242400392",
-      "time": "2025-11-26T12:42:40.295509",
-      "type": "control",
-      "user": "System",
-      "message": "FAN2 운전 정지 (Stopped) - 0.00h, 0.02kWh",
-      "details": null
-    },
-    {
-      "id": "EVT202511261242390391",
-      "time": "2025-11-26T12:42:39.254032",
-      "type": "control",
-      "user": "System",
-      "message": "FAN2 운전 시작 (Started)",
-      "details": null
-    },
-    {
-      "id": "EVT202511261242380390",
-      "time": "2025-11-26T12:42:38.209661",
-      "type": "control",
-      "user": "System",
-      "message": "FAN1 운전 정지 (Stopped) - 0.00h, 0.02kWh",
-      "details": null
-    },
-    {
-      "id": "EVT202511261242370389",
-      "time": "2025-11-26T12:42:37.156825",
-      "type": "control",
-      "user": "System",
-      "message": "FAN1 운전 시작 (Started)",
-      "details": null
-    },
-    {
-      "id": "EVT202511261242360388",
-      "time": "2025-11-26T12:42:36.086630",
-      "type": "control",
-      "user": "System",
-      "message": "FAN4 운전 정지 (Stopped) - 0.00h, 0.02kWh",
-      "details": null
-    },
-    {
-      "id": "EVT202511261242350387",
-      "time": "2025-11-26T12:42:35.046580",
-      "type": "control",
-      "user": "System",
-      "message": "FAN4 운전 시작 (Started)",
-      "details": null
-    },
-    {
-      "id": "EVT202511261242340386",
-      "time": "2025-11-26T12:42:34.002740",
-      "type": "control",
-      "user": "System",
-      "message": "FAN3 운전 정지 (Stopped) - 0.00h, 0.02kWh",
-      "details": null
-    },
-    {
-      "id": "EVT202511261242320385",
-      "time": "2025-11-26T12:42:32.957228",
-      "type": "control",
-      "user": "System",
-      "message": "FAN3 운전 시작 (Started)",
-      "details": null
-    },
-    {
-      "id": "EVT202511261242310384",
-      "time": "2025-11-26T12:42:31.918486",
-      "type": "control",
-      "user": "System",
-      "message": "FAN2 운전 정지 (Stopped) - 0.00h, 0.02kWh",
-      "details": null
-    },
-    {
-      "id": "EVT202511261242300383",
-      "time": "2025-11-26T12:42:30.865953",
-      "type": "control",
-      "user": "System",
-      "message": "FAN2 운전 시작 (Started)",
-      "details": null
-    },
-    {
-      "id": "EVT202511261242290382",
-      "time": "2025-11-26T12:42:29.826511",
-      "type": "control",
-      "user": "System",
-      "message": "FAN1 운전 정지 (Stopped) - 0.00h, 0.02kWh",
-      "details": null
-    },
-    {
-      "id": "EVT202511261242280381",
-      "time": "2025-11-26T12:42:28.791514",
-      "type": "control",
-      "user": "System",
-      "message": "FAN1 운전 시작 (Started)",
-      "details": null
-    },
-    {
-      "id": "EVT202511261242270380",
-      "time": "2025-11-26T12:42:27.758656",
-      "type": "control",
-      "user": "System",
-      "message": "FAN4 운전 정지 (Stopped) - 0.00h, 0.02kWh",
-      "details": null
-    },
-    {
-      "id": "EVT202511261242260379",
-      "time": "2025-11-26T12:42:26.721722",
-      "type": "control",
-      "user": "System",
-      "message": "FAN4 운전 시작 (Started)",
-      "details": null
-    },
-    {
-      "id": "EVT202511261242250378",
-      "time": "2025-11-26T12:42:25.681098",
-      "type": "control",
-      "user": "System",
-      "message": "FAN3 운전 정지 (Stopped) - 0.00h, 0.02kWh",
-      "details": null
-    },
-    {
-      "id": "EVT202511261242240377",
-      "time": "2025-11-26T12:42:24.635635",
-      "type": "control",
-      "user": "System",
-      "message": "FAN3 운전 시작 (Started)",
-      "details": null
-    },
-    {
-      "id": "EVT202511261242230376",
-      "time": "2025-11-26T12:42:23.579314",
-      "type": "control",
-      "user": "System",
-      "message": "FAN2 운전 정지 (Stopped) - 0.00h, 0.02kWh",
-      "details": null
-    },
-    {
-      "id": "EVT202511261242220375",
-      "time": "2025-11-26T12:42:22.530858",
-      "type": "control",
-      "user": "System",
-      "message": "FAN2 운전 시작 (Started)",
-      "details": null
-    },
-    {
-      "id": "EVT202511261242210374",
-      "time": "2025-11-26T12:42:21.498828",
-      "type": "control",
-      "user": "System",
-      "message": "FAN1 운전 정지 (Stopped) - 0.00h, 0.02kWh",
-      "details": null
-    },
-    {
-      "id": "EVT202511261242200373",
-      "time": "2025-11-26T12:42:20.450702",
-      "type": "control",
-      "user": "System",
-      "message": "FAN1 운전 시작 (Started)",
-      "details": null
-    },
-    {
-      "id": "EVT202511261242190372",
-      "time": "2025-11-26T12:42:19.409999",
-      "type": "control",
-      "user": "System",
-      "message": "FAN4 운전 정지 (Stopped) - 0.00h, 0.02kWh",
-      "details": null
-    },
-    {
-      "id": "EVT202511261242180371",
-      "time": "2025-11-26T12:42:18.383001",
-      "type": "control",
-      "user": "System",
-      "message": "FAN4 운전 시작 (Started)",
-      "details": null
-    },
-    {
-      "id": "EVT202511261242170370",
-      "time": "2025-11-26T12:42:17.337017",
-      "type": "control",
-      "user": "System",
-      "message": "FAN3 운전 정지 (Stopped) - 0.00h, 0.02kWh",
-      "details": null
-    },
-    {
-      "id": "EVT202511261242160369",
-      "time": "2025-11-26T12:42:16.288923",
-      "type": "control",
-      "user": "System",
-      "message": "FAN3 운전 시작 (Started)",
-      "details": null
-    },
-    {
-      "id": "EVT202511261242140368",
-      "time": "2025-11-26T12:42:14.221350",
-      "type": "control",
-      "user": "System",
-      "message": "FAN1 운전 정지 (Stopped) - 0.00h, 0.02kWh",
-      "details": null
-    },
-    {
-      "id": "EVT202511261242130367",
-      "time": "2025-11-26T12:42:13.188205",
-      "type": "control",
-      "user": "System",
-      "message": "FAN1 운전 시작 (Started)",
-      "details": null
-    },
-    {
-      "id": "EVT202511261242120366",
-      "time": "2025-11-26T12:42:12.150886",
-      "type": "control",
-      "user": "System",
-      "message": "FAN4 운전 정지 (Stopped) - 0.00h, 0.02kWh",
-      "details": null
-    },
-    {
-      "id": "EVT202511261242110365",
-      "time": "2025-11-26T12:42:11.107872",
-      "type": "control",
-      "user": "System",
-      "message": "FAN4 운전 시작 (Started)",
-      "details": null
-    },
-    {
-      "id": "EVT202511261242100364",
-      "time": "2025-11-26T12:42:10.070284",
-      "type": "control",
-      "user": "System",
-      "message": "FAN3 운전 정지 (Stopped) - 0.00h, 0.02kWh",
-      "details": null
-    },
-    {
-      "id": "EVT202511261242090363",
-      "time": "2025-11-26T12:42:09.032145",
-      "type": "control",
-      "user": "System",
-      "message": "FAN3 운전 시작 (Started)",
-      "details": null
-    },
-    {
-      "id": "EVT202511261242070362",
-      "time": "2025-11-26T12:42:07.983083",
-      "type": "control",
-      "user": "System",
-      "message": "FAN2 운전 정지 (Stopped) - 0.00h, 0.02kWh",
-      "details": null
-    },
-    {
-      "id": "EVT202511261242060361",
-      "time": "2025-11-26T12:42:06.954100",
-      "type": "control",
-      "user": "System",
-      "message": "FAN2 운전 시작 (Started)",
-      "details": null
-    },
-    {
-      "id": "EVT202511261242050360",
-      "time": "2025-11-26T12:42:05.918721",
-      "type": "control",
-      "user": "System",
-      "message": "FAN1 운전 정지 (Stopped) - 0.00h, 0.02kWh",
-      "details": null
-    },
-    {
-      "id": "EVT202511261242040359",
-      "time": "2025-11-26T12:42:04.877932",
-      "type": "control",
-      "user": "System",
-      "message": "FAN1 운전 시작 (Started)",
-      "details": null
-    },
-    {
-      "id": "EVT202511261242030358",
-      "time": "2025-11-26T12:42:03.840633",
-      "type": "control",
-      "user": "System",
-      "message": "FAN4 운전 정지 (Stopped) - 0.00h, 0.02kWh",
-      "details": null
-    },
-    {
-      "id": "EVT202511261242020357",
-      "time": "2025-11-26T12:42:02.798712",
-      "type": "control",
-      "user": "System",
-      "message": "FAN4 운전 시작 (Started)",
-      "details": null
-    },
-    {
-      "id": "EVT202511261242010356",
-      "time": "2025-11-26T12:42:01.749194",
-      "type": "control",
-      "user": "System",
-      "message": "FAN3 운전 정지 (Stopped) - 0.00h, 0.02kWh",
-      "details": null
-    },
-    {
-      "id": "EVT202511261242000355",
-      "time": "2025-11-26T12:42:00.713725",
-      "type": "control",
-      "user": "System",
-      "message": "FAN3 운전 시작 (Started)",
-      "details": null
-    },
-    {
-      "id": "EVT202511261241590354",
-      "time": "2025-11-26T12:41:59.679482",
-      "type": "control",
-      "user": "System",
-      "message": "FAN2 운전 정지 (Stopped) - 0.00h, 0.02kWh",
-      "details": null
-    },
-    {
-      "id": "EVT202511261241580353",
-      "time": "2025-11-26T12:41:58.644016",
-      "type": "control",
-      "user": "System",
-      "message": "FAN2 운전 시작 (Started)",
-      "details": null
-    },
-    {
       "id": "EVT202511261241570352",
       "time": "2025-11-26T12:41:57.613632",
       "type": "control",
@@ -7995,6 +6131,1870 @@
     {
       "id": "EVT202511300842380003",
       "time": "2025-11-30T08:42:38.178139",
+      "type": "control",
+      "user": "System",
+      "message": "FAN4 운전 시작 (Started)",
+      "details": null
+    },
+    {
+      "id": "EVT202512010919460001",
+      "time": "2025-12-01T09:19:46.055019",
+      "type": "control",
+      "user": "System",
+      "message": "FAN4 운전 시작 (Started)",
+      "details": null
+    },
+    {
+      "id": "EVT202512010921000002",
+      "time": "2025-12-01T09:21:00.204248",
+      "type": "control",
+      "user": "System",
+      "message": "FAN4 운전 정지 (Stopped) - 0.02h, 1.12kWh",
+      "details": null
+    },
+    {
+      "id": "EVT202512010921200003",
+      "time": "2025-12-01T09:21:20.502528",
+      "type": "control",
+      "user": "System",
+      "message": "FAN3 운전 정지 (Stopped) - 0.03h, 1.44kWh",
+      "details": null
+    },
+    {
+      "id": "EVT202512010922210004",
+      "time": "2025-12-01T09:22:21.453316",
+      "type": "control",
+      "user": "System",
+      "message": "FAN3 운전 시작 (Started)",
+      "details": null
+    },
+    {
+      "id": "EVT202512010922370005",
+      "time": "2025-12-01T09:22:37.716821",
+      "type": "control",
+      "user": "System",
+      "message": "FAN4 운전 시작 (Started)",
+      "details": null
+    },
+    {
+      "id": "EVT202512010923590006",
+      "time": "2025-12-01T09:23:59.967218",
+      "type": "control",
+      "user": "System",
+      "message": "FAN4 운전 정지 (Stopped) - 0.02h, 1.24kWh",
+      "details": null
+    },
+    {
+      "id": "EVT202512010924200007",
+      "time": "2025-12-01T09:24:20.353117",
+      "type": "control",
+      "user": "System",
+      "message": "FAN3 운전 정지 (Stopped) - 0.03h, 1.79kWh",
+      "details": null
+    },
+    {
+      "id": "EVT202512010925220001",
+      "time": "2025-12-01T09:25:22.325970",
+      "type": "control",
+      "user": "System",
+      "message": "FAN3 운전 시작 (Started)",
+      "details": null
+    },
+    {
+      "id": "EVT202512010925380002",
+      "time": "2025-12-01T09:25:38.616482",
+      "type": "control",
+      "user": "System",
+      "message": "FAN4 운전 시작 (Started)",
+      "details": null
+    },
+    {
+      "id": "EVT202512010926590003",
+      "time": "2025-12-01T09:26:59.882220",
+      "type": "control",
+      "user": "System",
+      "message": "FAN4 운전 정지 (Stopped) - 0.02h, 1.23kWh",
+      "details": null
+    },
+    {
+      "id": "EVT202512010927190004",
+      "time": "2025-12-01T09:27:19.201251",
+      "type": "control",
+      "user": "System",
+      "message": "FAN3 운전 정지 (Stopped) - 0.03h, 1.76kWh",
+      "details": null
+    },
+    {
+      "id": "EVT202512010928200005",
+      "time": "2025-12-01T09:28:20.197386",
+      "type": "control",
+      "user": "System",
+      "message": "FAN3 운전 시작 (Started)",
+      "details": null
+    },
+    {
+      "id": "EVT202512010928360006",
+      "time": "2025-12-01T09:28:36.495622",
+      "type": "control",
+      "user": "System",
+      "message": "FAN4 운전 시작 (Started)",
+      "details": null
+    },
+    {
+      "id": "EVT202512010930010007",
+      "time": "2025-12-01T09:30:01.869637",
+      "type": "control",
+      "user": "System",
+      "message": "FAN4 운전 정지 (Stopped) - 0.02h, 1.29kWh",
+      "details": null
+    },
+    {
+      "id": "EVT202512010930210008",
+      "time": "2025-12-01T09:30:21.188059",
+      "type": "control",
+      "user": "System",
+      "message": "FAN3 운전 정지 (Stopped) - 0.03h, 1.82kWh",
+      "details": null
+    },
+    {
+      "id": "EVT202512010931070009",
+      "time": "2025-12-01T09:31:07.936415",
+      "type": "control",
+      "user": "System",
+      "message": "FAN3 운전 시작 (Started)",
+      "details": null
+    },
+    {
+      "id": "EVT202512010931250010",
+      "time": "2025-12-01T09:31:25.204460",
+      "type": "control",
+      "user": "System",
+      "message": "FAN4 운전 시작 (Started)",
+      "details": null
+    },
+    {
+      "id": "EVT202512010933010011",
+      "time": "2025-12-01T09:33:01.750388",
+      "type": "control",
+      "user": "System",
+      "message": "FAN4 운전 정지 (Stopped) - 0.03h, 1.46kWh",
+      "details": null
+    },
+    {
+      "id": "EVT202512010933220012",
+      "time": "2025-12-01T09:33:22.054694",
+      "type": "control",
+      "user": "System",
+      "message": "FAN3 운전 정지 (Stopped) - 0.04h, 2.02kWh",
+      "details": null
+    },
+    {
+      "id": "EVT202512010934240013",
+      "time": "2025-12-01T09:34:24.020596",
+      "type": "control",
+      "user": "System",
+      "message": "FAN3 운전 시작 (Started)",
+      "details": null
+    },
+    {
+      "id": "EVT202512010934390014",
+      "time": "2025-12-01T09:34:39.272105",
+      "type": "control",
+      "user": "System",
+      "message": "FAN4 운전 시작 (Started)",
+      "details": null
+    },
+    {
+      "id": "EVT202512010935580015",
+      "time": "2025-12-01T09:35:58.438373",
+      "type": "control",
+      "user": "System",
+      "message": "FAN4 운전 정지 (Stopped) - 0.02h, 1.19kWh",
+      "details": null
+    },
+    {
+      "id": "EVT202512010936180016",
+      "time": "2025-12-01T09:36:18.762500",
+      "type": "control",
+      "user": "System",
+      "message": "FAN3 운전 정지 (Stopped) - 0.03h, 1.73kWh",
+      "details": null
+    },
+    {
+      "id": "EVT202512010939270001",
+      "time": "2025-12-01T09:39:27.966867",
+      "type": "control",
+      "user": "Operator",
+      "message": "FAN3 START_FWD command executed",
+      "details": null
+    },
+    {
+      "id": "EVT202512010939290002",
+      "time": "2025-12-01T09:39:29.221423",
+      "type": "control",
+      "user": "System",
+      "message": "FAN3 운전 시작 (Started)",
+      "details": null
+    },
+    {
+      "id": "EVT202512010939310003",
+      "time": "2025-12-01T09:39:31.460513",
+      "type": "control",
+      "user": "Operator",
+      "message": "FAN4 START_FWD command executed",
+      "details": null
+    },
+    {
+      "id": "EVT202512010939330004",
+      "time": "2025-12-01T09:39:33.303292",
+      "type": "control",
+      "user": "System",
+      "message": "FAN4 운전 시작 (Started)",
+      "details": null
+    },
+    {
+      "id": "EVT202512010940010005",
+      "time": "2025-12-01T09:40:01.724936",
+      "type": "alarm",
+      "user": "Operator",
+      "message": "Alarm ALM202512010937190001 acknowledged",
+      "details": null
+    },
+    {
+      "id": "EVT202512010940030006",
+      "time": "2025-12-01T09:40:03.962148",
+      "type": "alarm",
+      "user": "Operator",
+      "message": "Alarm ALM202512010937190002 acknowledged",
+      "details": null
+    },
+    {
+      "id": "EVT202512010940060007",
+      "time": "2025-12-01T09:40:06.092227",
+      "type": "alarm",
+      "user": "Operator",
+      "message": "Alarm ALM202512010938370003 acknowledged",
+      "details": null
+    },
+    {
+      "id": "EVT202512010940320008",
+      "time": "2025-12-01T09:40:32.903688",
+      "type": "alarm",
+      "user": "Operator",
+      "message": "Alarm ALM202512010940060004 acknowledged",
+      "details": null
+    },
+    {
+      "id": "EVT202512010954490009",
+      "time": "2025-12-01T09:54:49.477439",
+      "type": "control",
+      "user": "Operator",
+      "message": "FAN4 STOP command executed",
+      "details": null
+    },
+    {
+      "id": "EVT202512010954500010",
+      "time": "2025-12-01T09:54:50.408243",
+      "type": "control",
+      "user": "System",
+      "message": "FAN4 운전 정지 (Stopped) - 0.25h, 13.83kWh",
+      "details": null
+    },
+    {
+      "id": "EVT202512010955350011",
+      "time": "2025-12-01T09:55:35.006287",
+      "type": "control",
+      "user": "Operator",
+      "message": "SWP2 STOP command executed",
+      "details": null
+    },
+    {
+      "id": "EVT202512010955360012",
+      "time": "2025-12-01T09:55:36.113932",
+      "type": "control",
+      "user": "System",
+      "message": "SWP2 운전 정지 (Stopped) - 0.30h, 40.23kWh",
+      "details": null
+    },
+    {
+      "id": "EVT202512010955380013",
+      "time": "2025-12-01T09:55:38.486660",
+      "type": "control",
+      "user": "Operator",
+      "message": "SWP3 START command executed",
+      "details": null
+    },
+    {
+      "id": "EVT202512010955390014",
+      "time": "2025-12-01T09:55:39.185426",
+      "type": "control",
+      "user": "System",
+      "message": "SWP3 운전 시작 (Started)",
+      "details": null
+    },
+    {
+      "id": "EVT202512010955430015",
+      "time": "2025-12-01T09:55:43.846736",
+      "type": "control",
+      "user": "Operator",
+      "message": "FWP1 STOP command executed",
+      "details": null
+    },
+    {
+      "id": "EVT202512010955440016",
+      "time": "2025-12-01T09:55:44.287926",
+      "type": "control",
+      "user": "System",
+      "message": "FWP1 운전 정지 (Stopped) - 0.31h, 23.03kWh",
+      "details": null
+    },
+    {
+      "id": "EVT202512010955460017",
+      "time": "2025-12-01T09:55:46.766614",
+      "type": "control",
+      "user": "Operator",
+      "message": "FWP3 START command executed",
+      "details": null
+    },
+    {
+      "id": "EVT202512010955470018",
+      "time": "2025-12-01T09:55:47.359289",
+      "type": "control",
+      "user": "System",
+      "message": "FWP3 운전 시작 (Started)",
+      "details": null
+    },
+    {
+      "id": "EVT202512010957100019",
+      "time": "2025-12-01T09:57:10.840739",
+      "type": "control",
+      "user": "Operator",
+      "message": "FAN4 START_BWD command executed",
+      "details": null
+    },
+    {
+      "id": "EVT202512010957110020",
+      "time": "2025-12-01T09:57:11.871555",
+      "type": "control",
+      "user": "System",
+      "message": "FAN4 운전 시작 (Started)",
+      "details": null
+    },
+    {
+      "id": "EVT202512011000360021",
+      "time": "2025-12-01T10:00:36.957037",
+      "type": "control",
+      "user": "Operator",
+      "message": "FAN1 STOP command executed",
+      "details": null
+    },
+    {
+      "id": "EVT202512011000380022",
+      "time": "2025-12-01T10:00:38.014321",
+      "type": "control",
+      "user": "System",
+      "message": "FAN1 운전 정지 (Stopped) - 0.39h, 21.10kWh",
+      "details": null
+    },
+    {
+      "id": "EVT202512011041120023",
+      "time": "2025-12-01T10:41:12.310686",
+      "type": "control",
+      "user": "System",
+      "message": "SWP1 운전 정지 (Stopped) - 1.06h, 140.55kWh",
+      "details": null
+    },
+    {
+      "id": "EVT202512011041120024",
+      "time": "2025-12-01T10:41:12.336607",
+      "type": "control",
+      "user": "System",
+      "message": "SWP3 운전 정지 (Stopped) - 0.76h, 100.21kWh",
+      "details": null
+    },
+    {
+      "id": "EVT202512011041120025",
+      "time": "2025-12-01T10:41:12.358342",
+      "type": "control",
+      "user": "System",
+      "message": "FWP2 운전 정지 (Stopped) - 1.06h, 79.86kWh",
+      "details": null
+    },
+    {
+      "id": "EVT202512011041120026",
+      "time": "2025-12-01T10:41:12.379994",
+      "type": "control",
+      "user": "System",
+      "message": "FWP3 운전 정지 (Stopped) - 0.76h, 56.77kWh",
+      "details": null
+    },
+    {
+      "id": "EVT202512011041120027",
+      "time": "2025-12-01T10:41:12.401684",
+      "type": "control",
+      "user": "System",
+      "message": "FAN2 운전 정지 (Stopped) - 1.06h, 57.82kWh",
+      "details": null
+    },
+    {
+      "id": "EVT202512011041120028",
+      "time": "2025-12-01T10:41:12.423668",
+      "type": "control",
+      "user": "System",
+      "message": "FAN3 운전 정지 (Stopped) - 1.03h, 55.85kWh",
+      "details": null
+    },
+    {
+      "id": "EVT202512011041120029",
+      "time": "2025-12-01T10:41:12.445453",
+      "type": "control",
+      "user": "System",
+      "message": "FAN4 운전 정지 (Stopped) - 0.73h, 39.83kWh",
+      "details": null
+    },
+    {
+      "id": "EVT202512011041160030",
+      "time": "2025-12-01T10:41:16.640056",
+      "type": "control",
+      "user": "System",
+      "message": "SWP1 운전 시작 (Started)",
+      "details": null
+    },
+    {
+      "id": "EVT202512011041160031",
+      "time": "2025-12-01T10:41:16.661878",
+      "type": "control",
+      "user": "System",
+      "message": "SWP2 운전 시작 (Started)",
+      "details": null
+    },
+    {
+      "id": "EVT202512011041160032",
+      "time": "2025-12-01T10:41:16.687628",
+      "type": "control",
+      "user": "System",
+      "message": "FWP1 운전 시작 (Started)",
+      "details": null
+    },
+    {
+      "id": "EVT202512011041160033",
+      "time": "2025-12-01T10:41:16.709512",
+      "type": "control",
+      "user": "System",
+      "message": "FWP2 운전 시작 (Started)",
+      "details": null
+    },
+    {
+      "id": "EVT202512011041160034",
+      "time": "2025-12-01T10:41:16.731847",
+      "type": "control",
+      "user": "System",
+      "message": "FAN1 운전 시작 (Started)",
+      "details": null
+    },
+    {
+      "id": "EVT202512011041160035",
+      "time": "2025-12-01T10:41:16.762887",
+      "type": "control",
+      "user": "System",
+      "message": "FAN2 운전 시작 (Started)",
+      "details": null
+    },
+    {
+      "id": "EVT202512011044250036",
+      "time": "2025-12-01T10:44:25.902488",
+      "type": "control",
+      "user": "System",
+      "message": "FAN3 운전 시작 (Started)",
+      "details": null
+    },
+    {
+      "id": "EVT202512011044410037",
+      "time": "2025-12-01T10:44:41.150425",
+      "type": "control",
+      "user": "System",
+      "message": "FAN4 운전 시작 (Started)",
+      "details": null
+    },
+    {
+      "id": "EVT202512011046040038",
+      "time": "2025-12-01T10:46:04.470753",
+      "type": "control",
+      "user": "System",
+      "message": "FAN4 운전 정지 (Stopped) - 0.02h, 1.26kWh",
+      "details": null
+    },
+    {
+      "id": "EVT202512011046240039",
+      "time": "2025-12-01T10:46:24.770727",
+      "type": "control",
+      "user": "System",
+      "message": "FAN3 운전 정지 (Stopped) - 0.03h, 1.79kWh",
+      "details": null
+    },
+    {
+      "id": "EVT202512011047260040",
+      "time": "2025-12-01T10:47:26.776799",
+      "type": "control",
+      "user": "System",
+      "message": "FAN3 운전 시작 (Started)",
+      "details": null
+    },
+    {
+      "id": "EVT202512011047430041",
+      "time": "2025-12-01T10:47:43.038559",
+      "type": "control",
+      "user": "System",
+      "message": "FAN4 운전 시작 (Started)",
+      "details": null
+    },
+    {
+      "id": "EVT202512011049030042",
+      "time": "2025-12-01T10:49:03.270759",
+      "type": "control",
+      "user": "System",
+      "message": "FAN4 운전 정지 (Stopped) - 0.02h, 1.21kWh",
+      "details": null
+    },
+    {
+      "id": "EVT202512011049230043",
+      "time": "2025-12-01T10:49:23.589907",
+      "type": "control",
+      "user": "System",
+      "message": "FAN3 운전 정지 (Stopped) - 0.03h, 1.76kWh",
+      "details": null
+    },
+    {
+      "id": "EVT202512011050240044",
+      "time": "2025-12-01T10:50:24.510931",
+      "type": "control",
+      "user": "System",
+      "message": "FAN3 운전 시작 (Started)",
+      "details": null
+    },
+    {
+      "id": "EVT202512011050400045",
+      "time": "2025-12-01T10:50:40.746994",
+      "type": "control",
+      "user": "System",
+      "message": "FAN4 운전 시작 (Started)",
+      "details": null
+    },
+    {
+      "id": "EVT202512011052050046",
+      "time": "2025-12-01T10:52:05.940433",
+      "type": "control",
+      "user": "System",
+      "message": "FAN4 운전 정지 (Stopped) - 0.02h, 1.29kWh",
+      "details": null
+    },
+    {
+      "id": "EVT202512011052250047",
+      "time": "2025-12-01T10:52:25.256493",
+      "type": "control",
+      "user": "System",
+      "message": "FAN3 운전 정지 (Stopped) - 0.03h, 1.82kWh",
+      "details": null
+    },
+    {
+      "id": "EVT202512011053110048",
+      "time": "2025-12-01T10:53:11.990645",
+      "type": "control",
+      "user": "System",
+      "message": "FAN3 운전 시작 (Started)",
+      "details": null
+    },
+    {
+      "id": "EVT202512011053290049",
+      "time": "2025-12-01T10:53:29.246697",
+      "type": "control",
+      "user": "System",
+      "message": "FAN4 운전 시작 (Started)",
+      "details": null
+    },
+    {
+      "id": "EVT202512011055050050",
+      "time": "2025-12-01T10:55:05.635298",
+      "type": "control",
+      "user": "System",
+      "message": "FAN4 운전 정지 (Stopped) - 0.03h, 1.45kWh",
+      "details": null
+    },
+    {
+      "id": "EVT202512011055250051",
+      "time": "2025-12-01T10:55:25.951671",
+      "type": "control",
+      "user": "System",
+      "message": "FAN3 운전 정지 (Stopped) - 0.04h, 2.02kWh",
+      "details": null
+    },
+    {
+      "id": "EVT202512011056270052",
+      "time": "2025-12-01T10:56:27.890318",
+      "type": "control",
+      "user": "System",
+      "message": "FAN3 운전 시작 (Started)",
+      "details": null
+    },
+    {
+      "id": "EVT202512011056440053",
+      "time": "2025-12-01T10:56:44.141893",
+      "type": "control",
+      "user": "System",
+      "message": "FAN4 운전 시작 (Started)",
+      "details": null
+    },
+    {
+      "id": "EVT202512011058030054",
+      "time": "2025-12-01T10:58:03.386933",
+      "type": "control",
+      "user": "System",
+      "message": "FAN4 운전 정지 (Stopped) - 0.02h, 1.20kWh",
+      "details": null
+    },
+    {
+      "id": "EVT202512011058220055",
+      "time": "2025-12-01T10:58:22.657017",
+      "type": "control",
+      "user": "System",
+      "message": "FAN3 운전 정지 (Stopped) - 0.03h, 1.73kWh",
+      "details": null
+    },
+    {
+      "id": "EVT202512011059270056",
+      "time": "2025-12-01T10:59:27.738481",
+      "type": "control",
+      "user": "System",
+      "message": "FAN3 운전 시작 (Started)",
+      "details": null
+    },
+    {
+      "id": "EVT202512011059430057",
+      "time": "2025-12-01T10:59:43.999351",
+      "type": "control",
+      "user": "System",
+      "message": "FAN4 운전 시작 (Started)",
+      "details": null
+    },
+    {
+      "id": "EVT202512011101060058",
+      "time": "2025-12-01T11:01:06.378045",
+      "type": "control",
+      "user": "System",
+      "message": "FAN4 운전 정지 (Stopped) - 0.02h, 1.24kWh",
+      "details": null
+    },
+    {
+      "id": "EVT202512011101250059",
+      "time": "2025-12-01T11:01:25.713978",
+      "type": "control",
+      "user": "System",
+      "message": "FAN3 운전 정지 (Stopped) - 0.03h, 1.78kWh",
+      "details": null
+    },
+    {
+      "id": "EVT202512011102260060",
+      "time": "2025-12-01T11:02:26.658438",
+      "type": "control",
+      "user": "System",
+      "message": "FAN3 운전 시작 (Started)",
+      "details": null
+    },
+    {
+      "id": "EVT202512011102420061",
+      "time": "2025-12-01T11:02:42.924698",
+      "type": "control",
+      "user": "System",
+      "message": "FAN4 운전 시작 (Started)",
+      "details": null
+    },
+    {
+      "id": "EVT202512011104050062",
+      "time": "2025-12-01T11:04:05.071121",
+      "type": "control",
+      "user": "System",
+      "message": "FAN4 운전 정지 (Stopped) - 0.02h, 1.24kWh",
+      "details": null
+    },
+    {
+      "id": "EVT202512011104250063",
+      "time": "2025-12-01T11:04:25.364017",
+      "type": "control",
+      "user": "System",
+      "message": "FAN3 운전 정지 (Stopped) - 0.03h, 1.79kWh",
+      "details": null
+    },
+    {
+      "id": "EVT202512011105120064",
+      "time": "2025-12-01T11:05:12.127751",
+      "type": "control",
+      "user": "System",
+      "message": "FAN3 운전 시작 (Started)",
+      "details": null
+    },
+    {
+      "id": "EVT202512011105300065",
+      "time": "2025-12-01T11:05:30.413829",
+      "type": "control",
+      "user": "System",
+      "message": "FAN4 운전 시작 (Started)",
+      "details": null
+    },
+    {
+      "id": "EVT202512011107050066",
+      "time": "2025-12-01T11:07:05.871681",
+      "type": "control",
+      "user": "System",
+      "message": "FAN4 운전 정지 (Stopped) - 0.03h, 1.44kWh",
+      "details": null
+    },
+    {
+      "id": "EVT202512011107260067",
+      "time": "2025-12-01T11:07:26.231528",
+      "type": "control",
+      "user": "System",
+      "message": "FAN3 운전 정지 (Stopped) - 0.04h, 2.02kWh",
+      "details": null
+    },
+    {
+      "id": "EVT202512011108280068",
+      "time": "2025-12-01T11:08:28.116684",
+      "type": "control",
+      "user": "System",
+      "message": "FAN3 운전 시작 (Started)",
+      "details": null
+    },
+    {
+      "id": "EVT202512011108440069",
+      "time": "2025-12-01T11:08:44.358210",
+      "type": "control",
+      "user": "System",
+      "message": "FAN4 운전 시작 (Started)",
+      "details": null
+    },
+    {
+      "id": "EVT202512011110330001",
+      "time": "2025-12-01T11:10:33.237383",
+      "type": "control",
+      "user": "System",
+      "message": "FAN3 운전 정지 (Stopped) - 0.00h, 0.02kWh",
+      "details": null
+    },
+    {
+      "id": "EVT202512011110450002",
+      "time": "2025-12-01T11:10:45.433568",
+      "type": "control",
+      "user": "System",
+      "message": "FAN3 운전 시작 (Started)",
+      "details": null
+    },
+    {
+      "id": "EVT202512011110460003",
+      "time": "2025-12-01T11:10:46.469865",
+      "type": "control",
+      "user": "System",
+      "message": "FAN3 운전 정지 (Stopped) - 0.00h, 0.02kWh",
+      "details": null
+    },
+    {
+      "id": "EVT202512011110470004",
+      "time": "2025-12-01T11:10:47.504295",
+      "type": "control",
+      "user": "System",
+      "message": "FAN3 운전 시작 (Started)",
+      "details": null
+    },
+    {
+      "id": "EVT202512011110480005",
+      "time": "2025-12-01T11:10:48.537235",
+      "type": "control",
+      "user": "System",
+      "message": "FAN3 운전 정지 (Stopped) - 0.00h, 0.02kWh",
+      "details": null
+    },
+    {
+      "id": "EVT202512011110490006",
+      "time": "2025-12-01T11:10:49.571358",
+      "type": "control",
+      "user": "System",
+      "message": "FAN3 운전 시작 (Started)",
+      "details": null
+    },
+    {
+      "id": "EVT202512011110500007",
+      "time": "2025-12-01T11:10:50.608282",
+      "type": "control",
+      "user": "System",
+      "message": "FAN3 운전 정지 (Stopped) - 0.00h, 0.02kWh",
+      "details": null
+    },
+    {
+      "id": "EVT202512011110510008",
+      "time": "2025-12-01T11:10:51.658532",
+      "type": "control",
+      "user": "System",
+      "message": "FAN3 운전 시작 (Started)",
+      "details": null
+    },
+    {
+      "id": "EVT202512011110520009",
+      "time": "2025-12-01T11:10:52.691782",
+      "type": "control",
+      "user": "System",
+      "message": "FAN3 운전 정지 (Stopped) - 0.00h, 0.02kWh",
+      "details": null
+    },
+    {
+      "id": "EVT202512011110530010",
+      "time": "2025-12-01T11:10:53.726386",
+      "type": "control",
+      "user": "System",
+      "message": "FAN3 운전 시작 (Started)",
+      "details": null
+    },
+    {
+      "id": "EVT202512011110540011",
+      "time": "2025-12-01T11:10:54.787370",
+      "type": "control",
+      "user": "System",
+      "message": "FAN3 운전 정지 (Stopped) - 0.00h, 0.02kWh",
+      "details": null
+    },
+    {
+      "id": "EVT202512011110550012",
+      "time": "2025-12-01T11:10:55.838268",
+      "type": "control",
+      "user": "System",
+      "message": "FAN3 운전 시작 (Started)",
+      "details": null
+    },
+    {
+      "id": "EVT202512011110560013",
+      "time": "2025-12-01T11:10:56.879828",
+      "type": "control",
+      "user": "System",
+      "message": "FAN3 운전 정지 (Stopped) - 0.00h, 0.02kWh",
+      "details": null
+    },
+    {
+      "id": "EVT202512011110570014",
+      "time": "2025-12-01T11:10:57.913702",
+      "type": "control",
+      "user": "System",
+      "message": "FAN3 운전 시작 (Started)",
+      "details": null
+    },
+    {
+      "id": "EVT202512011110580015",
+      "time": "2025-12-01T11:10:58.966489",
+      "type": "control",
+      "user": "System",
+      "message": "FAN3 운전 정지 (Stopped) - 0.00h, 0.02kWh",
+      "details": null
+    },
+    {
+      "id": "EVT202512011111000016",
+      "time": "2025-12-01T11:11:00.007376",
+      "type": "control",
+      "user": "System",
+      "message": "FAN3 운전 시작 (Started)",
+      "details": null
+    },
+    {
+      "id": "EVT202512011111010017",
+      "time": "2025-12-01T11:11:01.050838",
+      "type": "control",
+      "user": "System",
+      "message": "FAN3 운전 정지 (Stopped) - 0.00h, 0.02kWh",
+      "details": null
+    },
+    {
+      "id": "EVT202512011111020018",
+      "time": "2025-12-01T11:11:02.103232",
+      "type": "control",
+      "user": "System",
+      "message": "FAN3 운전 시작 (Started)",
+      "details": null
+    },
+    {
+      "id": "EVT202512011111170019",
+      "time": "2025-12-01T11:11:17.347072",
+      "type": "control",
+      "user": "System",
+      "message": "FAN4 운전 시작 (Started)",
+      "details": null
+    },
+    {
+      "id": "EVT202512011112070020",
+      "time": "2025-12-01T11:12:07.076463",
+      "type": "control",
+      "user": "System",
+      "message": "FAN4 운전 정지 (Stopped) - 0.01h, 0.75kWh",
+      "details": null
+    },
+    {
+      "id": "EVT202512011112280021",
+      "time": "2025-12-01T11:12:28.338552",
+      "type": "control",
+      "user": "System",
+      "message": "FAN3 운전 정지 (Stopped) - 0.02h, 1.30kWh",
+      "details": null
+    },
+    {
+      "id": "EVT202512011112290022",
+      "time": "2025-12-01T11:12:29.374323",
+      "type": "control",
+      "user": "System",
+      "message": "FAN3 운전 시작 (Started)",
+      "details": null
+    },
+    {
+      "id": "EVT202512011112310023",
+      "time": "2025-12-01T11:12:31.420093",
+      "type": "control",
+      "user": "System",
+      "message": "FAN3 운전 정지 (Stopped) - 0.00h, 0.03kWh",
+      "details": null
+    },
+    {
+      "id": "EVT202512011112320024",
+      "time": "2025-12-01T11:12:32.459099",
+      "type": "control",
+      "user": "System",
+      "message": "FAN3 운전 시작 (Started)",
+      "details": null
+    },
+    {
+      "id": "EVT202512011112330025",
+      "time": "2025-12-01T11:12:33.494042",
+      "type": "control",
+      "user": "System",
+      "message": "FAN3 운전 정지 (Stopped) - 0.00h, 0.02kWh",
+      "details": null
+    },
+    {
+      "id": "EVT202512011112340026",
+      "time": "2025-12-01T11:12:34.529201",
+      "type": "control",
+      "user": "System",
+      "message": "FAN3 운전 시작 (Started)",
+      "details": null
+    },
+    {
+      "id": "EVT202512011112350027",
+      "time": "2025-12-01T11:12:35.578655",
+      "type": "control",
+      "user": "System",
+      "message": "FAN3 운전 정지 (Stopped) - 0.00h, 0.02kWh",
+      "details": null
+    },
+    {
+      "id": "EVT202512011113300028",
+      "time": "2025-12-01T11:13:30.354396",
+      "type": "control",
+      "user": "System",
+      "message": "FAN3 운전 시작 (Started)",
+      "details": null
+    },
+    {
+      "id": "EVT202512011113310029",
+      "time": "2025-12-01T11:13:31.388728",
+      "type": "control",
+      "user": "System",
+      "message": "FAN3 운전 정지 (Stopped) - 0.00h, 0.02kWh",
+      "details": null
+    },
+    {
+      "id": "EVT202512011113330030",
+      "time": "2025-12-01T11:13:33.441024",
+      "type": "control",
+      "user": "System",
+      "message": "FAN3 운전 시작 (Started)",
+      "details": null
+    },
+    {
+      "id": "EVT202512011113340031",
+      "time": "2025-12-01T11:13:34.475025",
+      "type": "control",
+      "user": "System",
+      "message": "FAN3 운전 정지 (Stopped) - 0.00h, 0.02kWh",
+      "details": null
+    },
+    {
+      "id": "EVT202512011113440032",
+      "time": "2025-12-01T11:13:44.668901",
+      "type": "control",
+      "user": "System",
+      "message": "FAN3 운전 시작 (Started)",
+      "details": null
+    },
+    {
+      "id": "EVT202512011114170033",
+      "time": "2025-12-01T11:14:17.203036",
+      "type": "control",
+      "user": "System",
+      "message": "FAN4 운전 시작 (Started)",
+      "details": null
+    },
+    {
+      "id": "EVT202512011115070034",
+      "time": "2025-12-01T11:15:07.070941",
+      "type": "control",
+      "user": "System",
+      "message": "FAN4 운전 정지 (Stopped) - 0.01h, 0.75kWh",
+      "details": null
+    },
+    {
+      "id": "EVT202512011115270035",
+      "time": "2025-12-01T11:15:27.457857",
+      "type": "control",
+      "user": "System",
+      "message": "FAN3 운전 정지 (Stopped) - 0.03h, 1.55kWh",
+      "details": null
+    },
+    {
+      "id": "EVT202512011116270036",
+      "time": "2025-12-01T11:16:27.469647",
+      "type": "control",
+      "user": "System",
+      "message": "FAN3 운전 시작 (Started)",
+      "details": null
+    },
+    {
+      "id": "EVT202512011116420037",
+      "time": "2025-12-01T11:16:42.735373",
+      "type": "control",
+      "user": "System",
+      "message": "FAN4 운전 시작 (Started)",
+      "details": null
+    },
+    {
+      "id": "EVT202512011118080038",
+      "time": "2025-12-01T11:18:08.122284",
+      "type": "control",
+      "user": "System",
+      "message": "FAN4 운전 정지 (Stopped) - 0.02h, 1.29kWh",
+      "details": null
+    },
+    {
+      "id": "EVT202512011118280039",
+      "time": "2025-12-01T11:18:28.493803",
+      "type": "control",
+      "user": "System",
+      "message": "FAN3 운전 정지 (Stopped) - 0.03h, 1.83kWh",
+      "details": null
+    },
+    {
+      "id": "EVT202512011119290040",
+      "time": "2025-12-01T11:19:29.522566",
+      "type": "control",
+      "user": "System",
+      "message": "FAN3 운전 시작 (Started)",
+      "details": null
+    },
+    {
+      "id": "EVT202512011119440041",
+      "time": "2025-12-01T11:19:44.810666",
+      "type": "control",
+      "user": "System",
+      "message": "FAN4 운전 시작 (Started)",
+      "details": null
+    },
+    {
+      "id": "EVT202512011121080042",
+      "time": "2025-12-01T11:21:08.156628",
+      "type": "control",
+      "user": "System",
+      "message": "FAN4 운전 정지 (Stopped) - 0.02h, 1.26kWh",
+      "details": null
+    },
+    {
+      "id": "EVT202512011121280043",
+      "time": "2025-12-01T11:21:28.494165",
+      "type": "control",
+      "user": "System",
+      "message": "FAN3 운전 정지 (Stopped) - 0.03h, 1.79kWh",
+      "details": null
+    },
+    {
+      "id": "EVT202512011122140044",
+      "time": "2025-12-01T11:22:14.258065",
+      "type": "control",
+      "user": "System",
+      "message": "FAN3 운전 시작 (Started)",
+      "details": null
+    },
+    {
+      "id": "EVT202512011122320045",
+      "time": "2025-12-01T11:22:32.567638",
+      "type": "control",
+      "user": "System",
+      "message": "FAN4 운전 시작 (Started)",
+      "details": null
+    },
+    {
+      "id": "EVT202512011124080046",
+      "time": "2025-12-01T11:24:08.174067",
+      "type": "control",
+      "user": "System",
+      "message": "FAN4 운전 정지 (Stopped) - 0.03h, 1.44kWh",
+      "details": null
+    },
+    {
+      "id": "EVT202512011124280047",
+      "time": "2025-12-01T11:24:28.544668",
+      "type": "control",
+      "user": "System",
+      "message": "FAN3 운전 정지 (Stopped) - 0.04h, 2.03kWh",
+      "details": null
+    },
+    {
+      "id": "EVT202512011125280048",
+      "time": "2025-12-01T11:25:28.590060",
+      "type": "control",
+      "user": "System",
+      "message": "FAN3 운전 시작 (Started)",
+      "details": null
+    },
+    {
+      "id": "EVT202512011125430049",
+      "time": "2025-12-01T11:25:43.855520",
+      "type": "control",
+      "user": "System",
+      "message": "FAN4 운전 시작 (Started)",
+      "details": null
+    },
+    {
+      "id": "EVT202512011127070050",
+      "time": "2025-12-01T11:27:07.191086",
+      "type": "control",
+      "user": "System",
+      "message": "FAN4 운전 정지 (Stopped) - 0.02h, 1.26kWh",
+      "details": null
+    },
+    {
+      "id": "EVT202512011127270051",
+      "time": "2025-12-01T11:27:27.545008",
+      "type": "control",
+      "user": "System",
+      "message": "FAN3 운전 정지 (Stopped) - 0.03h, 1.79kWh",
+      "details": null
+    },
+    {
+      "id": "EVT202512011128280052",
+      "time": "2025-12-01T11:28:28.573991",
+      "type": "control",
+      "user": "System",
+      "message": "FAN3 운전 시작 (Started)",
+      "details": null
+    },
+    {
+      "id": "EVT202512011128440053",
+      "time": "2025-12-01T11:28:44.857531",
+      "type": "control",
+      "user": "System",
+      "message": "FAN4 운전 시작 (Started)",
+      "details": null
+    },
+    {
+      "id": "EVT202512011130060054",
+      "time": "2025-12-01T11:30:06.290693",
+      "type": "control",
+      "user": "System",
+      "message": "FAN4 운전 정지 (Stopped) - 0.02h, 1.23kWh",
+      "details": null
+    },
+    {
+      "id": "EVT202512011130260055",
+      "time": "2025-12-01T11:30:26.661272",
+      "type": "control",
+      "user": "System",
+      "message": "FAN3 운전 정지 (Stopped) - 0.03h, 1.78kWh",
+      "details": null
+    },
+    {
+      "id": "EVT202512011131280056",
+      "time": "2025-12-01T11:31:28.741858",
+      "type": "control",
+      "user": "System",
+      "message": "FAN3 운전 시작 (Started)",
+      "details": null
+    },
+    {
+      "id": "EVT202512011131440057",
+      "time": "2025-12-01T11:31:44.040714",
+      "type": "control",
+      "user": "System",
+      "message": "FAN4 운전 시작 (Started)",
+      "details": null
+    },
+    {
+      "id": "EVT202512011133060058",
+      "time": "2025-12-01T11:33:06.492197",
+      "type": "control",
+      "user": "System",
+      "message": "FAN4 운전 정지 (Stopped) - 0.02h, 1.24kWh",
+      "details": null
+    },
+    {
+      "id": "EVT202512011133260059",
+      "time": "2025-12-01T11:33:26.862887",
+      "type": "control",
+      "user": "System",
+      "message": "FAN3 운전 정지 (Stopped) - 0.03h, 1.78kWh",
+      "details": null
+    },
+    {
+      "id": "EVT202512011134140060",
+      "time": "2025-12-01T11:34:14.728154",
+      "type": "control",
+      "user": "System",
+      "message": "FAN3 운전 시작 (Started)",
+      "details": null
+    },
+    {
+      "id": "EVT202512011134330061",
+      "time": "2025-12-01T11:34:33.064008",
+      "type": "control",
+      "user": "System",
+      "message": "FAN4 운전 시작 (Started)",
+      "details": null
+    },
+    {
+      "id": "EVT202512011136080062",
+      "time": "2025-12-01T11:36:08.745481",
+      "type": "control",
+      "user": "System",
+      "message": "FAN4 운전 정지 (Stopped) - 0.03h, 1.44kWh",
+      "details": null
+    },
+    {
+      "id": "EVT202512011136290063",
+      "time": "2025-12-01T11:36:29.132500",
+      "type": "control",
+      "user": "System",
+      "message": "FAN3 운전 정지 (Stopped) - 0.04h, 2.03kWh",
+      "details": null
+    },
+    {
+      "id": "EVT202512011137310064",
+      "time": "2025-12-01T11:37:31.196117",
+      "type": "control",
+      "user": "System",
+      "message": "FAN3 운전 시작 (Started)",
+      "details": null
+    },
+    {
+      "id": "EVT202512011137460065",
+      "time": "2025-12-01T11:37:46.461680",
+      "type": "control",
+      "user": "System",
+      "message": "FAN4 운전 시작 (Started)",
+      "details": null
+    },
+    {
+      "id": "EVT202512011139090066",
+      "time": "2025-12-01T11:39:09.879973",
+      "type": "control",
+      "user": "System",
+      "message": "FAN4 운전 정지 (Stopped) - 0.02h, 1.26kWh",
+      "details": null
+    },
+    {
+      "id": "EVT202512011139300067",
+      "time": "2025-12-01T11:39:30.251837",
+      "type": "control",
+      "user": "System",
+      "message": "FAN3 운전 정지 (Stopped) - 0.03h, 1.80kWh",
+      "details": null
+    },
+    {
+      "id": "EVT202512011140290068",
+      "time": "2025-12-01T11:40:29.294962",
+      "type": "control",
+      "user": "System",
+      "message": "FAN3 운전 시작 (Started)",
+      "details": null
+    },
+    {
+      "id": "EVT202512011140440069",
+      "time": "2025-12-01T11:40:44.593964",
+      "type": "control",
+      "user": "System",
+      "message": "FAN4 운전 시작 (Started)",
+      "details": null
+    },
+    {
+      "id": "EVT202512011142090070",
+      "time": "2025-12-01T11:42:09.030529",
+      "type": "control",
+      "user": "System",
+      "message": "FAN4 운전 정지 (Stopped) - 0.02h, 1.27kWh",
+      "details": null
+    },
+    {
+      "id": "EVT202512011142290071",
+      "time": "2025-12-01T11:42:29.352392",
+      "type": "control",
+      "user": "System",
+      "message": "FAN3 운전 정지 (Stopped) - 0.03h, 1.81kWh",
+      "details": null
+    },
+    {
+      "id": "EVT202512011143290072",
+      "time": "2025-12-01T11:43:29.346512",
+      "type": "control",
+      "user": "System",
+      "message": "FAN3 운전 시작 (Started)",
+      "details": null
+    },
+    {
+      "id": "EVT202512011143440073",
+      "time": "2025-12-01T11:43:44.595410",
+      "type": "control",
+      "user": "System",
+      "message": "FAN4 운전 시작 (Started)",
+      "details": null
+    },
+    {
+      "id": "EVT202512011145080074",
+      "time": "2025-12-01T11:45:08.931513",
+      "type": "control",
+      "user": "System",
+      "message": "FAN4 운전 정지 (Stopped) - 0.02h, 1.27kWh",
+      "details": null
+    },
+    {
+      "id": "EVT202512011145290075",
+      "time": "2025-12-01T11:45:29.301792",
+      "type": "control",
+      "user": "System",
+      "message": "FAN3 운전 정지 (Stopped) - 0.03h, 1.81kWh",
+      "details": null
+    },
+    {
+      "id": "EVT202512011146290076",
+      "time": "2025-12-01T11:46:29.246906",
+      "type": "control",
+      "user": "System",
+      "message": "FAN3 운전 시작 (Started)",
+      "details": null
+    },
+    {
+      "id": "EVT202512011146450077",
+      "time": "2025-12-01T11:46:45.513236",
+      "type": "control",
+      "user": "System",
+      "message": "FAN4 운전 시작 (Started)",
+      "details": null
+    },
+    {
+      "id": "EVT202512011148080078",
+      "time": "2025-12-01T11:48:08.932627",
+      "type": "control",
+      "user": "System",
+      "message": "FAN4 운전 정지 (Stopped) - 0.02h, 1.26kWh",
+      "details": null
+    },
+    {
+      "id": "EVT202512011148290079",
+      "time": "2025-12-01T11:48:29.286425",
+      "type": "control",
+      "user": "System",
+      "message": "FAN3 운전 정지 (Stopped) - 0.03h, 1.81kWh",
+      "details": null
+    },
+    {
+      "id": "EVT202512011149290080",
+      "time": "2025-12-01T11:49:29.263653",
+      "type": "control",
+      "user": "System",
+      "message": "FAN3 운전 시작 (Started)",
+      "details": null
+    },
+    {
+      "id": "EVT202512011149450081",
+      "time": "2025-12-01T11:49:45.564171",
+      "type": "control",
+      "user": "System",
+      "message": "FAN4 운전 시작 (Started)",
+      "details": null
+    },
+    {
+      "id": "EVT202512011151090082",
+      "time": "2025-12-01T11:51:09.942627",
+      "type": "control",
+      "user": "System",
+      "message": "FAN4 운전 정지 (Stopped) - 0.02h, 1.27kWh",
+      "details": null
+    },
+    {
+      "id": "EVT202512011151300083",
+      "time": "2025-12-01T11:51:30.271356",
+      "type": "control",
+      "user": "System",
+      "message": "FAN3 운전 정지 (Stopped) - 0.03h, 1.83kWh",
+      "details": null
+    },
+    {
+      "id": "EVT202512011152300084",
+      "time": "2025-12-01T11:52:30.282288",
+      "type": "control",
+      "user": "System",
+      "message": "FAN3 운전 시작 (Started)",
+      "details": null
+    },
+    {
+      "id": "EVT202512011152460085",
+      "time": "2025-12-01T11:52:46.560092",
+      "type": "control",
+      "user": "System",
+      "message": "FAN4 운전 시작 (Started)",
+      "details": null
+    },
+    {
+      "id": "EVT202512011154080086",
+      "time": "2025-12-01T11:54:08.832405",
+      "type": "control",
+      "user": "System",
+      "message": "FAN4 운전 정지 (Stopped) - 0.02h, 1.24kWh",
+      "details": null
+    },
+    {
+      "id": "EVT202512011154290087",
+      "time": "2025-12-01T11:54:29.202951",
+      "type": "control",
+      "user": "System",
+      "message": "FAN3 운전 정지 (Stopped) - 0.03h, 1.79kWh",
+      "details": null
+    },
+    {
+      "id": "EVT202512011155310088",
+      "time": "2025-12-01T11:55:31.283852",
+      "type": "control",
+      "user": "System",
+      "message": "FAN3 운전 시작 (Started)",
+      "details": null
+    },
+    {
+      "id": "EVT202512011155470089",
+      "time": "2025-12-01T11:55:47.579740",
+      "type": "control",
+      "user": "System",
+      "message": "FAN4 운전 시작 (Started)",
+      "details": null
+    },
+    {
+      "id": "EVT202512011157080090",
+      "time": "2025-12-01T11:57:08.862026",
+      "type": "control",
+      "user": "System",
+      "message": "FAN4 운전 정지 (Stopped) - 0.02h, 1.23kWh",
+      "details": null
+    },
+    {
+      "id": "EVT202512011157280091",
+      "time": "2025-12-01T11:57:28.167988",
+      "type": "control",
+      "user": "System",
+      "message": "FAN3 운전 정지 (Stopped) - 0.03h, 1.76kWh",
+      "details": null
+    },
+    {
+      "id": "EVT202512011158300092",
+      "time": "2025-12-01T11:58:30.049752",
+      "type": "control",
+      "user": "System",
+      "message": "FAN3 운전 시작 (Started)",
+      "details": null
+    },
+    {
+      "id": "EVT202512011158460093",
+      "time": "2025-12-01T11:58:46.333486",
+      "type": "control",
+      "user": "System",
+      "message": "FAN4 운전 시작 (Started)",
+      "details": null
+    },
+    {
+      "id": "EVT202512011200100094",
+      "time": "2025-12-01T12:00:10.501986",
+      "type": "control",
+      "user": "System",
+      "message": "FAN4 운전 정지 (Stopped) - 0.02h, 1.27kWh",
+      "details": null
+    },
+    {
+      "id": "EVT202512011200300095",
+      "time": "2025-12-01T12:00:30.797627",
+      "type": "control",
+      "user": "System",
+      "message": "FAN3 운전 정지 (Stopped) - 0.03h, 1.82kWh",
+      "details": null
+    },
+    {
+      "id": "EVT202512011201150096",
+      "time": "2025-12-01T12:01:15.420559",
+      "type": "control",
+      "user": "System",
+      "message": "FAN3 운전 시작 (Started)",
+      "details": null
+    },
+    {
+      "id": "EVT202512011201320097",
+      "time": "2025-12-01T12:01:32.683956",
+      "type": "control",
+      "user": "System",
+      "message": "FAN4 운전 시작 (Started)",
+      "details": null
+    },
+    {
+      "id": "EVT202512011203080098",
+      "time": "2025-12-01T12:03:08.201157",
+      "type": "control",
+      "user": "System",
+      "message": "FAN4 운전 정지 (Stopped) - 0.03h, 1.44kWh",
+      "details": null
+    },
+    {
+      "id": "EVT202512011203280099",
+      "time": "2025-12-01T12:03:28.571943",
+      "type": "control",
+      "user": "System",
+      "message": "FAN3 운전 정지 (Stopped) - 0.04h, 2.01kWh",
+      "details": null
+    },
+    {
+      "id": "EVT202512011204150100",
+      "time": "2025-12-01T12:04:15.354479",
+      "type": "control",
+      "user": "System",
+      "message": "FAN3 운전 시작 (Started)",
+      "details": null
+    },
+    {
+      "id": "EVT202512011204330101",
+      "time": "2025-12-01T12:04:33.821557",
+      "type": "control",
+      "user": "System",
+      "message": "FAN4 운전 시작 (Started)",
+      "details": null
+    },
+    {
+      "id": "EVT202512011206100102",
+      "time": "2025-12-01T12:06:10.511590",
+      "type": "control",
+      "user": "System",
+      "message": "FAN4 운전 정지 (Stopped) - 0.03h, 1.46kWh",
+      "details": null
+    },
+    {
+      "id": "EVT202512011206300103",
+      "time": "2025-12-01T12:06:30.867834",
+      "type": "control",
+      "user": "System",
+      "message": "FAN3 운전 정지 (Stopped) - 0.04h, 2.04kWh",
+      "details": null
+    },
+    {
+      "id": "EVT202512011207290104",
+      "time": "2025-12-01T12:07:29.753338",
+      "type": "control",
+      "user": "System",
+      "message": "FAN3 운전 시작 (Started)",
+      "details": null
+    },
+    {
+      "id": "EVT202512011207460105",
+      "time": "2025-12-01T12:07:46.015178",
+      "type": "control",
+      "user": "System",
+      "message": "FAN4 운전 시작 (Started)",
+      "details": null
+    },
+    {
+      "id": "EVT202512011209080106",
+      "time": "2025-12-01T12:09:08.351503",
+      "type": "control",
+      "user": "System",
+      "message": "FAN4 운전 정지 (Stopped) - 0.02h, 1.24kWh",
+      "details": null
+    },
+    {
+      "id": "EVT202512011209280107",
+      "time": "2025-12-01T12:09:28.690602",
+      "type": "control",
+      "user": "System",
+      "message": "FAN3 운전 정지 (Stopped) - 0.03h, 1.79kWh",
+      "details": null
+    },
+    {
+      "id": "EVT202512011210300108",
+      "time": "2025-12-01T12:10:30.670188",
+      "type": "control",
+      "user": "System",
+      "message": "FAN3 운전 시작 (Started)",
+      "details": null
+    },
+    {
+      "id": "EVT202512011210460109",
+      "time": "2025-12-01T12:10:46.936227",
+      "type": "control",
+      "user": "System",
+      "message": "FAN4 운전 시작 (Started)",
+      "details": null
+    },
+    {
+      "id": "EVT202512011212090110",
+      "time": "2025-12-01T12:12:09.119279",
+      "type": "control",
+      "user": "System",
+      "message": "FAN4 운전 정지 (Stopped) - 0.02h, 1.24kWh",
+      "details": null
+    },
+    {
+      "id": "EVT202512011212280111",
+      "time": "2025-12-01T12:12:28.457911",
+      "type": "control",
+      "user": "System",
+      "message": "FAN3 운전 정지 (Stopped) - 0.03h, 1.78kWh",
+      "details": null
+    },
+    {
+      "id": "EVT202512011213300112",
+      "time": "2025-12-01T12:13:30.422584",
+      "type": "control",
+      "user": "System",
+      "message": "FAN3 운전 시작 (Started)",
+      "details": null
+    },
+    {
+      "id": "EVT202512011213460113",
+      "time": "2025-12-01T12:13:46.737449",
+      "type": "control",
+      "user": "System",
+      "message": "FAN4 운전 시작 (Started)",
+      "details": null
+    },
+    {
+      "id": "EVT202512011215110114",
+      "time": "2025-12-01T12:15:11.057736",
+      "type": "control",
+      "user": "System",
+      "message": "FAN4 운전 정지 (Stopped) - 0.02h, 1.27kWh",
+      "details": null
+    },
+    {
+      "id": "EVT202512011215310115",
+      "time": "2025-12-01T12:15:31.393189",
+      "type": "control",
+      "user": "System",
+      "message": "FAN3 운전 정지 (Stopped) - 0.03h, 1.82kWh",
+      "details": null
+    },
+    {
+      "id": "EVT202512011216310116",
+      "time": "2025-12-01T12:16:31.287570",
+      "type": "control",
+      "user": "System",
+      "message": "FAN3 운전 시작 (Started)",
+      "details": null
+    },
+    {
+      "id": "EVT202512011216460117",
+      "time": "2025-12-01T12:16:46.504291",
+      "type": "control",
+      "user": "System",
+      "message": "FAN4 운전 시작 (Started)",
+      "details": null
+    },
+    {
+      "id": "EVT202512011218080118",
+      "time": "2025-12-01T12:18:08.748624",
+      "type": "control",
+      "user": "System",
+      "message": "FAN4 운전 정지 (Stopped) - 0.02h, 1.24kWh",
+      "details": null
+    },
+    {
+      "id": "EVT202512011218290119",
+      "time": "2025-12-01T12:18:29.059809",
+      "type": "control",
+      "user": "System",
+      "message": "FAN3 운전 정지 (Stopped) - 0.03h, 1.78kWh",
+      "details": null
+    },
+    {
+      "id": "EVT202512011219290120",
+      "time": "2025-12-01T12:19:29.955738",
+      "type": "control",
+      "user": "System",
+      "message": "FAN3 운전 시작 (Started)",
+      "details": null
+    },
+    {
+      "id": "EVT202512011219460121",
+      "time": "2025-12-01T12:19:46.201906",
+      "type": "control",
+      "user": "System",
+      "message": "FAN4 운전 시작 (Started)",
+      "details": null
+    },
+    {
+      "id": "EVT202512011221110122",
+      "time": "2025-12-01T12:21:11.422580",
+      "type": "control",
+      "user": "System",
+      "message": "FAN4 운전 정지 (Stopped) - 0.02h, 1.29kWh",
+      "details": null
+    },
+    {
+      "id": "EVT202512011221300123",
+      "time": "2025-12-01T12:21:30.727375",
+      "type": "control",
+      "user": "System",
+      "message": "FAN3 운전 정지 (Stopped) - 0.03h, 1.82kWh",
+      "details": null
+    },
+    {
+      "id": "EVT202512011222160124",
+      "time": "2025-12-01T12:22:16.406403",
+      "type": "control",
+      "user": "System",
+      "message": "FAN3 운전 시작 (Started)",
+      "details": null
+    },
+    {
+      "id": "EVT202512011222330125",
+      "time": "2025-12-01T12:22:33.660355",
+      "type": "control",
+      "user": "System",
+      "message": "FAN4 운전 시작 (Started)",
+      "details": null
+    },
+    {
+      "id": "EVT202512011224090126",
+      "time": "2025-12-01T12:24:09.207435",
+      "type": "control",
+      "user": "System",
+      "message": "FAN4 운전 정지 (Stopped) - 0.03h, 1.44kWh",
+      "details": null
+    },
+    {
+      "id": "EVT202512011224290127",
+      "time": "2025-12-01T12:24:29.564712",
+      "type": "control",
+      "user": "System",
+      "message": "FAN3 운전 정지 (Stopped) - 0.04h, 2.01kWh",
+      "details": null
+    },
+    {
+      "id": "EVT202512011225320128",
+      "time": "2025-12-01T12:25:32.440635",
+      "type": "control",
+      "user": "System",
+      "message": "FAN3 운전 시작 (Started)",
+      "details": null
+    },
+    {
+      "id": "EVT202512011225480129",
+      "time": "2025-12-01T12:25:48.651308",
+      "type": "control",
+      "user": "System",
+      "message": "FAN4 운전 시작 (Started)",
+      "details": null
+    },
+    {
+      "id": "EVT202512011227100130",
+      "time": "2025-12-01T12:27:10.810169",
+      "type": "control",
+      "user": "System",
+      "message": "FAN4 운전 정지 (Stopped) - 0.02h, 1.24kWh",
+      "details": null
+    },
+    {
+      "id": "EVT202512011227310131",
+      "time": "2025-12-01T12:27:31.093692",
+      "type": "control",
+      "user": "System",
+      "message": "FAN3 운전 정지 (Stopped) - 0.03h, 1.79kWh",
+      "details": null
+    },
+    {
+      "id": "EVT202512011228300132",
+      "time": "2025-12-01T12:28:30.018589",
+      "type": "control",
+      "user": "System",
+      "message": "FAN3 운전 시작 (Started)",
+      "details": null
+    },
+    {
+      "id": "EVT202512011228460133",
+      "time": "2025-12-01T12:28:46.287922",
+      "type": "control",
+      "user": "System",
+      "message": "FAN4 운전 시작 (Started)",
+      "details": null
+    },
+    {
+      "id": "EVT202512011230090134",
+      "time": "2025-12-01T12:30:09.464707",
+      "type": "control",
+      "user": "System",
+      "message": "FAN4 운전 정지 (Stopped) - 0.02h, 1.25kWh",
+      "details": null
+    },
+    {
+      "id": "EVT202512011230290135",
+      "time": "2025-12-01T12:30:29.764477",
+      "type": "control",
+      "user": "System",
+      "message": "FAN3 운전 정지 (Stopped) - 0.03h, 1.81kWh",
+      "details": null
+    },
+    {
+      "id": "EVT202512011231310136",
+      "time": "2025-12-01T12:31:31.647978",
+      "type": "control",
+      "user": "System",
+      "message": "FAN3 운전 시작 (Started)",
+      "details": null
+    },
+    {
+      "id": "EVT202512011231470137",
+      "time": "2025-12-01T12:31:47.895483",
+      "type": "control",
+      "user": "System",
+      "message": "FAN4 운전 시작 (Started)",
+      "details": null
+    },
+    {
+      "id": "EVT202512011233100138",
+      "time": "2025-12-01T12:33:10.151981",
+      "type": "control",
+      "user": "System",
+      "message": "FAN4 운전 정지 (Stopped) - 0.02h, 1.24kWh",
+      "details": null
+    },
+    {
+      "id": "EVT202512011233300139",
+      "time": "2025-12-01T12:33:30.475667",
+      "type": "control",
+      "user": "System",
+      "message": "FAN3 운전 정지 (Stopped) - 0.03h, 1.79kWh",
+      "details": null
+    },
+    {
+      "id": "EVT202512011234320140",
+      "time": "2025-12-01T12:34:32.425950",
+      "type": "control",
+      "user": "System",
+      "message": "FAN3 운전 시작 (Started)",
+      "details": null
+    },
+    {
+      "id": "EVT202512011234480141",
+      "time": "2025-12-01T12:34:48.669476",
       "type": "control",
       "user": "System",
       "message": "FAN4 운전 시작 (Started)",

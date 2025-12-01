@@ -3,7 +3,7 @@
   flex-direction: column;
   gap: 0.75rem;
   height: 100%;
-  overflow: auto;
+  overflow: hidden;
 }
 
 .history-header {
@@ -61,16 +61,30 @@
   border-radius: 0.75rem;
   padding: 1rem;
   flex: 1;
-  overflow: auto;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+/* 각 탭 컨텐츠 영역 */
+.alarm-history,
+.event-history,
+.operation-history {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden;
 }
 
 /* 컨트롤 바 */
 .history-controls {
   display: flex;
   gap: 1rem;
-  margin-bottom: 1.5rem;
+  margin-bottom: 1rem;
   flex-wrap: wrap;
   align-items: center;
+  flex-shrink: 0;
+  min-height: fit-content;
 }
 
 .filter-group, .search-group, .date-range {
@@ -126,8 +140,10 @@
 
 /* 테이블 */
 .history-table {
-  overflow-x: auto;
-  margin-bottom: 1.5rem;
+  flex: 1;
+  overflow: auto;
+  margin-bottom: 1rem;
+  min-height: 0;  /* flexbox 스크롤을 위해 필요 */
 }
 
 .history-table table, .operation-table table {
@@ -203,10 +219,12 @@
 .history-summary {
   display: flex;
   gap: 2rem;
-  padding: 1.5rem;
+  padding: 1rem;
   background: #0f172a;
   border-radius: 0.75rem;
   border: 1px solid #334155;
+  flex-shrink: 0;
+  margin-top: 0.5rem;
 }
 
 .summary-item {
@@ -240,6 +258,10 @@
   display: flex;
   flex-direction: column;
   gap: 1rem;
+  flex: 1;
+  overflow: auto;
+  padding-right: 0.5rem;
+  min-height: 0;  /* flexbox 스크롤을 위해 필요 */
 }
 
 .event-item {
@@ -304,6 +326,88 @@
   padding-top: 1.5rem;
 }
 
+/* 차트 섹션 - 고정 영역 */
+.operation-charts {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin-bottom: 1rem;
+  flex-shrink: 0;
+}
+
+/* 운전 이력 테이블 스크롤 영역 */
+.operation-table-scroll {
+  flex: 1;
+  overflow: auto;
+  min-height: 0;
+  background: #0f172a;
+  border-radius: 0.75rem;
+  border: 1px solid #334155;
+}
+
+.operation-table-scroll table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.operation-table-scroll thead {
+  background: #0f172a;
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+
+.operation-table-scroll th {
+  padding: 1rem;
+  text-align: left;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #cbd5e1;
+  border-bottom: 2px solid #334155;
+}
+
+.operation-table-scroll td {
+  padding: 1rem;
+  font-size: 0.875rem;
+  color: #e2e8f0;
+  border-bottom: 1px solid #1e293b;
+}
+
+.operation-table-scroll tbody tr:hover {
+  background: #1e293b;
+}
+
+.operation-table-scroll .highlight {
+  color: #10b981;
+  font-weight: 600;
+}
+
+.operation-table-scroll .total-row {
+  background: #0f172a;
+  font-weight: 700;
+  position: sticky;
+  bottom: 0;
+}
+
+.operation-table-scroll .total-row td {
+  border-top: 2px solid #334155;
+  padding-top: 1rem;
+}
+
+.chart-section {
+  padding: 1.5rem;
+  background: #0f172a;
+  border-radius: 0.75rem;
+  border: 1px solid #334155;
+}
+
+.chart-section h4 {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #f1f5f9;
+  margin-bottom: 1rem;
+}
+
 .operation-chart {
   margin-top: 2rem;
   padding: 2rem;
@@ -327,6 +431,40 @@
   border: 2px dashed #334155;
   border-radius: 0.5rem;
   color: #64748b;
+}
+
+/* Recharts 커스텀 스타일 */
+.recharts-cartesian-grid-horizontal line,
+.recharts-cartesian-grid-vertical line {
+  stroke: #334155;
+}
+
+.recharts-tooltip-wrapper {
+  outline: none;
+}
+
+.recharts-default-tooltip {
+  background: #1a1a2e !important;
+  border: 1px solid #444 !important;
+  border-radius: 0.5rem;
+}
+
+.recharts-legend-item-text {
+  color: #cbd5e1 !important;
+}
+
+/* 데이터 없음 메시지 */
+.no-data-message {
+  text-align: center;
+  padding: 2rem;
+  color: #64748b;
+  font-size: 0.9rem;
+}
+
+@media (max-width: 1024px) {
+  .operation-charts {
+    grid-template-columns: 1fr;
+  }
 }
 
 @media (max-width: 768px) {

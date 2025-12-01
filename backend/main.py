@@ -649,7 +649,7 @@ async def get_active_alarms():
             "success": False,
             "error": "PLC 연결 안됨",
             "data": [],
-            "summary": {"critical": 0, "warning": 0, "info": 0, "total": 0},
+            "summary": {"critical": 0, "warning": 0, "total": 0},
             "timestamp": datetime.now().isoformat()
         }
     alarms = alarm_manager.get_active_alarms()
@@ -839,10 +839,10 @@ async def get_operation_records(start_date: str = None, end_date: str = None):
         params["end_date"] = end_date
 
     edge_result = await call_edge_api("GET", "/api/operations", params)
-    if edge_result and edge_result.get("success"):
+    if edge_result and edge_result.get("success") and len(edge_result.get("data", [])) > 0:
         return edge_result
 
-    # Edge 연결 실패 시 로컬 데이터 사용
+    # Edge 연결 실패 또는 데이터 없음 시 로컬 데이터 사용
     records = alarm_manager.get_operation_records(start_date=start_date, end_date=end_date)
     return {
         "success": True,
@@ -978,7 +978,7 @@ async def broadcast_realtime_data():
                             "details": {"equipment": eq_name, "action": "start"}
                         }))
 
-                        # 시작 횟수 기록
+                        # 시작 횟수 기록 (로컬 백업)
                         alarm_manager.update_operation_record(
                             equipment_name=eq_name,
                             runtime_hours=0,
@@ -986,6 +986,18 @@ async def broadcast_realtime_data():
                             saved_kwh=0,
                             start_count=1
                         )
+
+                        # Edge Computer에 운전 이력 저장
+                        today = current_time.strftime("%Y-%m-%d")
+                        asyncio.create_task(call_edge_api("POST", "/api/operations", {
+                            "equipment_name": eq_name,
+                            "date": today,
+                            "runtime_hours": 0,
+                            "start_count": 1,
+                            "energy_kwh": 0,
+                            "saved_kwh": 0
+                        }))
+
                         logger.info(f"⚙️ {eq_name} 운전 시작")
 
                     # 상태 변화 감지: running → stopped (장비 정지)
@@ -1036,7 +1048,7 @@ async def broadcast_realtime_data():
                                 }
                             }))
 
-                            # 운전 이력 업데이트
+                            # 운전 이력 업데이트 (로컬 백업)
                             alarm_manager.update_operation_record(
                                 equipment_name=eq_name,
                                 runtime_hours=runtime_hours,
@@ -1044,6 +1056,18 @@ async def broadcast_realtime_data():
                                 saved_kwh=saved_kwh,
                                 start_count=0
                             )
+
+                            # Edge Computer에 운전 이력 저장
+                            today = current_time.strftime("%Y-%m-%d")
+                            asyncio.create_task(call_edge_api("POST", "/api/operations", {
+                                "equipment_name": eq_name,
+                                "date": today,
+                                "runtime_hours": runtime_hours,
+                                "start_count": 0,
+                                "energy_kwh": energy_kwh,
+                                "saved_kwh": saved_kwh
+                            }))
+
                             logger.info(f"⚙️ {eq_name} 운전 정지 - {runtime_hours:.2f}시간, {energy_kwh:.2f}kWh")
 
             # 에너지 절감률 데이터 수신 (PLC를 통해 EDGE AI에서 계산된 데이터)
@@ -1083,7 +1107,7 @@ async def broadcast_realtime_data():
                     active_alarms = alarm_manager.get_active_alarms()
                 else:
                     active_alarms = []
-                    alarm_summary = {"critical": 0, "warning": 0, "info": 0, "total": 0}
+                    alarm_summary = {"critical": 0, "warning": 0, "total": 0}
 
                 message = {
                     "type": "realtime_update",
