@@ -259,34 +259,59 @@ class PLCClient:
 
     def get_vfd_data(self, equipment_index: int) -> Dict[str, Any]:
         """
-        VFD 데이터 읽기 (K400160~K400238)
+        VFD 데이터 읽기 (레지스터 160~359, 장비당 20개 레지스터)
         equipment_index: 0=SWP1, 1=SWP2, 2=SWP3, 3=FWP1, 4=FWP2, 5=FWP3,
                         6=FAN1, 7=FAN2, 8=FAN3, 9=FAN4
+
+        20개 레지스터 구조 (Edge Computer와 동일):
+        [0] frequency, [1] power, [2] avg_power
+        [3] motor_current, [4] motor_thermal, [5] heatsink_temp
+        [6] torque, [7] inverter_thermal, [8] system_temp
+        [9-10] kwh_counter (32bit), [11] num_starts, [12] over_temps
+        [13-15] phase_u/v/w_current, [16] warning_word, [17] dc_link_voltage
+        [18-19] run_hours (32bit)
         """
 
         # 시뮬레이션 모드: 가짜 데이터 생성
         if self.use_simulation:
             return self._get_simulated_vfd_data(equipment_index)
 
-        # VFD 데이터 시작 주소 (각 8 레지스터)
-        base_address = 160 + (equipment_index * 8)
+        # VFD 데이터 시작 주소 (각 20 레지스터)
+        base_address = 160 + (equipment_index * 20)
 
-        vfd_regs = self.read_holding_registers(base_address, 8)
+        vfd_regs = self.read_holding_registers(base_address, 20)
 
-        if not vfd_regs:
+        if not vfd_regs or len(vfd_regs) < 20:
             return self._get_default_vfd_data()
 
         return {
+            # 기본 운전 데이터
             "frequency": round(vfd_regs[0] / 10.0, 1),  # Hz
             "power_kw": vfd_regs[1],                    # kW
             "avg_power": vfd_regs[2],                   # Avg kW
-            "saved_kwh_low": vfd_regs[3],               # Savings Low Word
-            "saved_kwh_high": vfd_regs[4],              # Savings High Word
-            "saved_kwh": vfd_regs[3] + (vfd_regs[4] << 16),  # Total Savings
-            "saved_ratio": vfd_regs[5],                 # Savings Ratio %
-            "run_hours_low": vfd_regs[6],               # Run Hours Low
-            "run_hours_high": vfd_regs[7],              # Run Hours High
-            "run_hours": vfd_regs[6] + (vfd_regs[7] << 16),  # Total Hours
+
+            # VFD 예방진단 데이터 (Edge Computer와 동일)
+            "motor_current": round(vfd_regs[3] / 10.0, 1),  # A
+            "motor_thermal": vfd_regs[4],              # % (모터 열부하)
+            "heatsink_temp": vfd_regs[5],              # °C (방열판 온도)
+            "torque": vfd_regs[6],                     # Nm
+            "inverter_thermal": vfd_regs[7],           # % (인버터 열부하)
+            "system_temp": vfd_regs[8],                # °C
+
+            # 누적 통계
+            "kwh_counter": vfd_regs[9] + (vfd_regs[10] << 16),  # kWh
+            "num_starts": vfd_regs[11],                # 기동 횟수
+            "over_temps": vfd_regs[12],                # 과열 발생 횟수
+
+            # 3상 전류 데이터
+            "phase_u_current": round(vfd_regs[13] / 10.0, 1),  # A
+            "phase_v_current": round(vfd_regs[14] / 10.0, 1),  # A
+            "phase_w_current": round(vfd_regs[15] / 10.0, 1),  # A
+
+            # 기타
+            "warning_word": vfd_regs[16],              # 경고 비트
+            "dc_link_voltage": vfd_regs[17],           # V (DC 링크 전압)
+            "run_hours": vfd_regs[18] + (vfd_regs[19] << 16),  # 운전 시간
         }
 
     def get_all_equipment_data(self) -> List[Dict[str, Any]]:
@@ -1009,3 +1034,48 @@ class PLCClient:
             })
 
         return result
+
+    def read_vfd_diagnosis(self) -> Optional[Dict]:
+        """
+        Edge Computer가 계산한 VFD 진단 결과를 PLC에서 직접 읽기
+
+        PLC 레지스터:
+        - 5200-5209: 건강도 점수 (0-100, 100=정상)
+        - 5210-5219: 중증도 레벨 (0=정상, 1=주의, 2=경고, 3=위험)
+
+        Returns:
+            {
+                'health_scores': [10개 장비 건강도 점수],
+                'severity_levels': [10개 장비 중증도 레벨]
+            }
+        """
+        if not self.connected:
+            self.connect()
+
+        if not self.connected:
+            logger.warning("PLC 연결 안됨 - VFD 진단 결과 읽기 실패")
+            return None
+
+        try:
+            # 건강도 점수 읽기 (레지스터 5200-5209)
+            scores_raw = self.read_holding_registers(5200, 10)
+            if not scores_raw:
+                logger.warning("VFD 건강도 점수 읽기 실패")
+                return None
+
+            # 중증도 레벨 읽기 (레지스터 5210-5219)
+            levels_raw = self.read_holding_registers(5210, 10)
+            if not levels_raw:
+                logger.warning("VFD 중증도 레벨 읽기 실패")
+                return None
+
+            logger.debug(f"VFD 진단 읽기 성공: scores={scores_raw}, levels={levels_raw}")
+
+            return {
+                'health_scores': list(scores_raw),
+                'severity_levels': list(levels_raw)
+            }
+
+        except Exception as e:
+            logger.error(f"VFD 진단 결과 읽기 오류: {e}")
+            return None

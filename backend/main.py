@@ -290,14 +290,14 @@ async def get_fans():
     }
 
 
-# ===== VFD 예방진단 API (공유 파일에서 읽기) =====
+# ===== VFD 예방진단 API (PLC에서 직접 읽기 - Edge Computer 계산 결과) =====
 
 @app.get("/api/vfd/diagnostics")
 async def get_vfd_diagnostics():
-    """VFD 예방진단 데이터 조회 (Edge AI 분석 결과)"""
-    logger.info("🔍 get_vfd_diagnostics() 함수 호출됨!!!")
+    """VFD 예방진단 데이터 조회 (Edge Computer가 PLC에 쓴 결과를 직접 읽기)"""
+    logger.info("🔍 get_vfd_diagnostics() - PLC에서 Edge Computer 결과 읽기")
 
-    # PLC 연결 확인 - 연결되지 않으면 데이터 없음 반환
+    # PLC 연결 확인
     if not plc_client.connected:
         logger.warning("⚠️ PLC 연결 안됨 - VFD 진단 데이터 없음")
         return {
@@ -307,130 +307,38 @@ async def get_vfd_diagnostics():
             "timestamp": datetime.now().isoformat()
         }
 
-    # Windows 절대 경로 명확히 지정
-    shared_file = Path(r"C:\shared\vfd_diagnostics.json")
+    # PLC에서 Edge Computer가 계산한 VFD 진단 결과 읽기 (레지스터 5200-5219)
+    vfd_diagnosis_result = plc_client.read_vfd_diagnosis()
 
-    # 1. 먼저 공유 파일이 있으면 읽기 (Edge AI 데이터 우선)
-    try:
-        logger.info(f"🔍 공유 파일 경로: {shared_file}, 존재여부: {shared_file.exists()}")
-        if shared_file.exists():
-            logger.info(f"✅ 공유 파일 발견: {shared_file}")
-            with open(shared_file, 'r', encoding='utf-8') as f:
-                data = json.load(f)
+    if not vfd_diagnosis_result:
+        logger.warning("⚠️ VFD 진단 결과 읽기 실패")
+        return {
+            "success": False,
+            "error": "VFD 진단 데이터 읽기 실패",
+            "data": None,
+            "timestamp": datetime.now().isoformat()
+        }
 
-            # VFD별로 이상 징후 상태 및 확인/해제 상태 적용
-            for vfd_id, vfd_data in data.get('vfd_diagnostics', {}).items():
-                # severity_score > 20 이면 이상 징후로 간주 (caution 이상)
-                severity = vfd_data.get('severity_score', 0)
-                status_grade = vfd_data.get('status_grade', 'normal')
+    health_scores = vfd_diagnosis_result.get('health_scores', [100] * 10)
+    severity_levels = vfd_diagnosis_result.get('severity_levels', [0] * 10)
 
-                # 이상 징후 여부 확인 (정상이 아닌 경우)
-                has_anomaly = status_grade != 'normal' or severity > 20
+    logger.info(f"✅ PLC에서 VFD 진단 읽기 성공: health_scores={health_scores}, severity_levels={severity_levels}")
 
-                # 정상 상태로 돌아오면 cleared 목록에서 제거 (다음에 이상 발생 시 다시 표시되도록)
-                if not has_anomaly and vfd_id in vfd_cleared_ids:
-                    vfd_cleared_ids.discard(vfd_id)
-                    logger.info(f"✅ VFD {vfd_id}: 정상 상태 복귀, cleared 목록에서 제거")
-
-                # 해제(cleared) 여부를 플래그로 설정 (건강도 카드에는 표시, 이상징후 목록에서만 제외)
-                is_cleared_vfd = vfd_id in vfd_cleared_ids
-
-                # HMI 자체 관리 상태 확인
-                ack_info = vfd_ack_status.get(vfd_id, {})
-                ack_state = ack_info.get('status')  # None, "active", "acknowledged"
-
-                if has_anomaly:
-                    # 이상 징후가 있는 경우
-                    if is_cleared_vfd:
-                        # 해제된 VFD - 이상징후 목록에서는 숨기지만 건강도 카드에는 표시
-                        vfd_data['is_acknowledged'] = True
-                        vfd_data['acknowledged_at'] = None
-                        vfd_data['is_cleared'] = True  # 이상징후 목록에서 제외용 플래그
-                        vfd_data['cleared_at'] = None
-                    elif ack_state == "acknowledged":
-                        # 확인됨 상태 (해제 버튼 표시)
-                        vfd_data['is_acknowledged'] = True
-                        vfd_data['acknowledged_at'] = ack_info.get('acknowledged_at')
-                        vfd_data['is_cleared'] = False
-                        vfd_data['cleared_at'] = None
-                    else:
-                        # 새로 감지된 이상 (확인 버튼 표시)
-                        # 아직 vfd_ack_status에 없으면 active 상태로 등록
-                        if vfd_id not in vfd_ack_status:
-                            vfd_ack_status[vfd_id] = {"status": "active", "acknowledged_at": None}
-                        vfd_data['is_acknowledged'] = False
-                        vfd_data['acknowledged_at'] = None
-                        vfd_data['is_cleared'] = False
-                        vfd_data['cleared_at'] = None
-                else:
-                    # 정상인 경우 - 상태 관리에서 제거
-                    if vfd_id in vfd_ack_status:
-                        del vfd_ack_status[vfd_id]
-                    vfd_data['is_acknowledged'] = False
-                    vfd_data['acknowledged_at'] = None
-                    vfd_data['is_cleared'] = False  # 정상 상태는 cleared 아님
-                    vfd_data['cleared_at'] = None
-
-            logger.info(f"✅ 공유 파일 읽기 성공! VFD 개수: {len(data.get('vfd_diagnostics', {}))}")
-            return {
-                "success": True,
-                "data": data,
-                "timestamp": datetime.now().isoformat()
-            }
-        else:
-            logger.warning(f"⚠️ 공유 파일 없음: {shared_file}")
-    except Exception as e:
-        logger.error(f"❌ VFD 진단 데이터 읽기 실패: {e}, fallback으로 전환")
-
-    # 2. 공유 파일이 없으면 간단한 fallback 데이터 생성 (일관된 점수)
-    logger.info("📌 공유 파일 없음 - 간단한 fallback 데이터 생성")
-
-    # PLC 클라이언트에서 장비 데이터 가져오기
+    # PLC에서 장비 데이터 가져오기 (VFD 운전 데이터)
     equipment_data = plc_client.get_all_equipment_data()
 
-    # 랜덤 VFD 이상 신호 생성 비활성화 (테스트 생성기 사용)
-    target_vfd_for_anomaly = None
-
-    # # 2분마다 랜덤 VFD에 이상 신호 발생
-    # from datetime import timedelta
-    # current_time = datetime.now()
-    #
-    # if vfd_anomaly_timer["last_anomaly_time"] is None:
-    #     # 첫 실행 시 타이머 시작
-    #     vfd_anomaly_timer["last_anomaly_time"] = current_time
-    #     logger.info("🕐 VFD 이상 신호 타이머 시작")
-    #
-    # # 마지막 이상 발생으로부터 2분이 지났는지 확인
-    # time_elapsed = (current_time - vfd_anomaly_timer["last_anomaly_time"]).total_seconds()
-    # should_generate_anomaly = time_elapsed >= vfd_anomaly_timer["interval_seconds"]
-    #
-    # # 2분마다 랜덤 VFD 선택하여 이상 신호 발생
-    # target_vfd_for_anomaly = None
-    # if should_generate_anomaly:
-    #     # 모든 VFD ID 리스트
-    #     all_vfd_ids = list(vfd_anomaly_state.keys())
-    #     # 이미 이상 상태가 없는 VFD만 선택 (중복 방지)
-    #     available_vfds = [vfd_id for vfd_id in all_vfd_ids if vfd_anomaly_state[vfd_id] is None]
-    #
-    #     if available_vfds:
-    #         target_vfd_for_anomaly = random.choice(available_vfds)
-    #         logger.info(f"⏰ 2분 경과 - 새 이상 신호 발생 대상: {target_vfd_for_anomaly}")
-    #         vfd_anomaly_timer["last_anomaly_time"] = current_time
-    #     else:
-    #         logger.info("⏰ 2분 경과 - 모든 VFD에 이미 이상 상태 존재, 대기 중")
+    # 중증도 레벨 → 상태 등급 매핑
+    severity_to_grade = {0: "normal", 1: "caution", 2: "warning", 3: "critical"}
+    severity_to_name = {0: "정상", 1: "주의", 2: "경고", 3: "위험"}
 
     vfd_diagnostics = {}
 
-    # Edge Computer Dashboard와 동일한 점수 계산 (일관성 유지)
     for i, eq in enumerate(equipment_data):
-        # 장비 이름 (name 필드)
         eq_name = eq.get("name", "")
-
-        # VFD가 있는 장비만 처리 (펌프와 팬)
         if not eq_name:
             continue
 
-        # 장비 이름을 VFD ID로 변환 (SWP1 -> SW_PUMP_1)
+        # 장비 이름을 VFD ID로 변환
         if "SWP" in eq_name:
             vfd_id = eq_name.replace("SWP", "SW_PUMP_")
         elif "FWP" in eq_name:
@@ -440,99 +348,130 @@ async def get_vfd_diagnostics():
         else:
             continue
 
-        # 장비 데이터에서 값 추출 (딕셔너리 형태)
-        freq = eq.get("frequency", 0.0)
-        # 팬은 running_fwd 또는 running_bwd로 확인
-        is_running = eq.get("running", False) or eq.get("running_fwd", False) or eq.get("running_bwd", False)
-        run_hours = eq.get("run_hours", 0)
+        # Edge Computer가 계산한 건강도 점수와 중증도 레벨 사용
+        health_score = health_scores[i] if i < len(health_scores) else 100
+        severity_level = severity_levels[i] if i < len(severity_levels) else 0
 
-        # Edge Computer Dashboard와 동일한 일관된 점수 계산
-        base_score = 85
-        score_variation = (i * 7) % 30
-        health_score = base_score - score_variation
+        # 상태 등급 결정
+        status_grade = severity_to_grade.get(severity_level, "normal")
+        severity_name = severity_to_name.get(severity_level, "정상")
         severity_score = 100 - health_score
 
-        # 온도 시뮬레이션 (일관된 값)
-        temp = 65.0 + (i * 3) % 15
+        # 장비 데이터에서 실시간 운전 값 추출
+        freq = eq.get("frequency", 0.0)
+        is_running = eq.get("running", False) or eq.get("running_fwd", False) or eq.get("running_bwd", False)
+        run_hours = eq.get("run_hours", 0)
+        motor_temp = eq.get("motor_thermal", 0)
+        heatsink_temp = eq.get("heatsink_temp", 0)
+        motor_current = eq.get("motor_current", 0)
+        dc_voltage = eq.get("dc_link_voltage", 540)
 
-        # 전류 시뮬레이션 (주파수에 비례)
-        current = (freq / 60.0) * 150 if is_running else 0.0
+        # VFD 예방진단 데이터 추출 (Edge Computer 대시보드와 동일)
+        inverter_thermal = eq.get("inverter_thermal", 0)
+        num_starts = eq.get("num_starts", 0)
+        phase_u_current = eq.get("phase_u_current", 0)
+        phase_v_current = eq.get("phase_v_current", 0)
+        phase_w_current = eq.get("phase_w_current", 0)
 
-        # 상태 등급 결정 (Edge Computer와 동일)
-        if health_score >= 80:
-            status_grade = "normal"
-            anomaly_patterns = []
-            maintenance_priority = 0
-        elif health_score >= 60:
-            status_grade = "caution"
-            anomaly_patterns = ["MOTOR_TEMP_HIGH"]
-            maintenance_priority = 3
+        # 3상 전류 불평형률 계산
+        phase_currents = [phase_u_current, phase_v_current, phase_w_current]
+        avg_current = sum(phase_currents) / 3 if any(phase_currents) else 0
+        if avg_current > 0:
+            max_deviation = max(abs(c - avg_current) for c in phase_currents)
+            current_imbalance = round((max_deviation / avg_current) * 100, 1)
         else:
-            status_grade = "warning"
-            anomaly_patterns = ["VIBRATION_HIGH"]
+            current_imbalance = 0
+
+        # 이상 패턴 및 권장 조치 결정
+        anomaly_patterns = []
+        maintenance_priority = 0
+
+        if severity_level >= 3:
+            anomaly_patterns = ["CRITICAL_CONDITION"]
             maintenance_priority = 5
-
-        anomaly_score = severity_score
-
-        # 온도 추세 (간단 계산)
-        temp_rise_rate = 0.05 if is_running else -0.02
-        predicted_temp_30min = temp + (temp_rise_rate * 30)
-        logger.info(f"✅ VFD {vfd_id}: running={is_running}, temp_rise_rate={temp_rise_rate}, predicted={predicted_temp_30min}")
-
-        if temp_rise_rate > 0.03:
-            temp_trend = "rising"
-        elif temp_rise_rate < -0.03:
-            temp_trend = "falling"
+            recommendation = f"▶ 즉시 점검 필요! {eq_name} 상태 위험"
+        elif severity_level >= 2:
+            anomaly_patterns = ["WARNING_CONDITION"]
+            maintenance_priority = 3
+            recommendation = f"▶ 정비 계획 수립 필요. {eq_name} 점검 권장"
+        elif severity_level >= 1:
+            anomaly_patterns = ["ATTENTION_REQUIRED"]
+            maintenance_priority = 1
+            recommendation = f"▶ 모니터링 강화 권장. {eq_name} 주의"
         else:
-            temp_trend = "stable"
+            recommendation = f"정상 운전 중. {eq_name} 정기 점검 유지"
 
-        # 경고 횟수 누적 (새로운 이상 패턴이 감지되면 카운트 증가)
-        stats = vfd_stats[vfd_id]
-        current_patterns_set = set(anomaly_patterns)
-        prev_patterns_set = set(stats["prev_patterns"])
+        # 온도 추세
+        temp_rise_rate = 0.05 if is_running else -0.02
+        predicted_temp_30min = heatsink_temp + (temp_rise_rate * 30)
+        temp_trend = "rising" if temp_rise_rate > 0.03 else ("falling" if temp_rise_rate < -0.03 else "stable")
 
-        # 새로 감지된 패턴이 있으면 경고 횟수 증가
-        new_patterns = current_patterns_set - prev_patterns_set
-        if new_patterns:
-            stats["warning_count"] += len(new_patterns)
-            logger.info(f"⚠️ {vfd_id}: 새 이상 패턴 감지 {new_patterns}, 누적 경고 횟수: {stats['warning_count']}")
+        # 이상 징후 상태 관리
+        has_anomaly = severity_level > 0
+        is_cleared_vfd = vfd_id in vfd_cleared_ids
+        ack_info = vfd_ack_status.get(vfd_id, {})
+        ack_state = ack_info.get('status')
 
-        # 현재 패턴 저장
-        stats["prev_patterns"] = anomaly_patterns
+        is_acknowledged = False
+        acknowledged_at = None
+        is_cleared = False
+
+        if has_anomaly:
+            if is_cleared_vfd:
+                is_acknowledged = True
+                is_cleared = True
+            elif ack_state == "acknowledged":
+                is_acknowledged = True
+                acknowledged_at = ack_info.get('acknowledged_at')
+            else:
+                if vfd_id not in vfd_ack_status:
+                    vfd_ack_status[vfd_id] = {"status": "active", "acknowledged_at": None}
+        else:
+            if vfd_id in vfd_cleared_ids:
+                vfd_cleared_ids.discard(vfd_id)
+            if vfd_id in vfd_ack_status:
+                del vfd_ack_status[vfd_id]
 
         vfd_diagnostics[vfd_id] = {
             "vfd_id": vfd_id,
             "timestamp": datetime.now().isoformat(),
-
-            # 실시간 운전 데이터
             "current_frequency_hz": freq,
-            "output_current_a": current,
+            "output_current_a": motor_current,
             "output_voltage_v": 400,
-            "dc_bus_voltage_v": 540,
-            "motor_temperature_c": temp,
-            "heatsink_temperature_c": temp - 10,
-
-            # 진단 결과
+            "dc_bus_voltage_v": dc_voltage,
+            "motor_temperature_c": motor_temp,
+            "heatsink_temperature_c": heatsink_temp,
+            "health_score": health_score,
+            "severity_level": severity_level,
+            "severity_name": severity_name,
             "status_grade": status_grade,
             "severity_score": severity_score,
             "anomaly_patterns": anomaly_patterns,
-            "recommendation": f"{vfd_id} 정상 운전 중" if status_grade == "normal" else f"{vfd_id} 온도 상승 주의",
-
-            # 누적 통계
+            "recommendation": recommendation,
             "cumulative_runtime_hours": run_hours,
-            "trip_count": stats["trip_count"],
-            "error_count": stats["error_count"],
-            "warning_count": stats["warning_count"],
-
-            # 예측 데이터
+            "trip_count": 0,
+            "error_count": 0,
+            "warning_count": 0,
             "predicted_temp_30min": predicted_temp_30min,
             "temp_rise_rate": temp_rise_rate,
             "temp_trend": temp_trend,
-            "remaining_life_percent": 100.0,
-            "estimated_days_to_maintenance": 1282,
-            "anomaly_score": anomaly_score,
+            "remaining_life_percent": health_score,
+            "estimated_days_to_maintenance": 1282 if severity_level == 0 else (30 if severity_level == 1 else (7 if severity_level == 2 else 0)),
+            "anomaly_score": severity_score,
             "maintenance_priority": maintenance_priority,
-            "prediction_confidence": 0.85,
+            "prediction_confidence": 0.95,
+            "is_acknowledged": is_acknowledged,
+            "acknowledged_at": acknowledged_at,
+            "is_cleared": is_cleared,
+            "cleared_at": None,
+            # VFD 예방진단 데이터 (Edge Computer 대시보드와 동일)
+            "motor_thermal_pct": motor_temp,
+            "inverter_thermal_pct": inverter_thermal,
+            "num_starts": num_starts,
+            "phase_u_current": phase_u_current,
+            "phase_v_current": phase_v_current,
+            "phase_w_current": phase_w_current,
+            "current_imbalance_pct": current_imbalance,
         }
 
     response_data = {
@@ -771,6 +710,108 @@ async def clear_vfd_anomaly(vfd_id: str):
     except Exception as e:
         logger.error(f"❌ VFD {vfd_id} clear 실패: {e}")
         raise HTTPException(status_code=500, detail=str(e))
+
+
+# ===== VFD 이상 징후 히스토리 API (Edge Computer에서 가져오기) =====
+
+@app.get("/api/vfd/anomalies/active")
+async def get_active_vfd_anomalies():
+    """활성 VFD 이상 징후 조회 - Edge Computer에서 가져오기"""
+    edge_result = await call_edge_api("GET", "/api/vfd/anomalies/active")
+    if edge_result and edge_result.get("success"):
+        return edge_result
+
+    # Edge 연결 실패 시 빈 데이터 반환
+    return {
+        "success": True,
+        "data": [],
+        "summary": {"level_1": 0, "level_2": 0, "level_3": 0, "total": 0},
+        "source": "fallback",
+        "timestamp": datetime.now().isoformat()
+    }
+
+
+@app.get("/api/vfd/anomalies/history")
+async def get_vfd_anomaly_history(
+    limit: int = 100,
+    equipment_id: str = None,
+    status: str = None,
+    start_date: str = None,
+    end_date: str = None
+):
+    """VFD 이상 징후 히스토리 조회 - Edge Computer에서 가져오기"""
+    params = {"limit": limit}
+    if equipment_id:
+        params["equipment_id"] = equipment_id
+    if status:
+        params["status"] = status
+    if start_date:
+        params["start_date"] = start_date
+    if end_date:
+        params["end_date"] = end_date
+
+    edge_result = await call_edge_api("GET", "/api/vfd/anomalies/history", params)
+    if edge_result and edge_result.get("success"):
+        return edge_result
+
+    # Edge 연결 실패 시 빈 데이터 반환
+    return {
+        "success": True,
+        "data": [],
+        "count": 0,
+        "source": "fallback",
+        "timestamp": datetime.now().isoformat()
+    }
+
+
+@app.get("/api/vfd/anomalies/statistics")
+async def get_vfd_anomaly_statistics(days: int = 30):
+    """VFD 이상 징후 통계 조회 - Edge Computer에서 가져오기"""
+    edge_result = await call_edge_api("GET", "/api/vfd/anomalies/statistics", {"days": days})
+    if edge_result and edge_result.get("success"):
+        return edge_result
+
+    # Edge 연결 실패 시 빈 통계 반환
+    return {
+        "success": True,
+        "data": {
+            "period_days": days,
+            "total_anomalies": 0,
+            "active_anomalies": 0,
+            "by_severity": {},
+            "by_equipment": {},
+            "avg_duration_minutes": 0
+        },
+        "source": "fallback",
+        "timestamp": datetime.now().isoformat()
+    }
+
+
+@app.post("/api/vfd/anomalies/acknowledge")
+async def acknowledge_vfd_anomaly_history(anomaly_id: str, user: str = "Operator"):
+    """VFD 이상 징후 확인 처리 (히스토리용) - Edge Computer에 전송"""
+    edge_result = await call_edge_api("POST", "/api/vfd/anomalies/acknowledge", {
+        "anomaly_id": anomaly_id,
+        "user": user
+    })
+
+    if edge_result and edge_result.get("success"):
+        return edge_result
+
+    raise HTTPException(status_code=500, detail="Edge Computer 연결 실패")
+
+
+@app.post("/api/vfd/anomalies/clear/{anomaly_id}")
+async def clear_vfd_anomaly_history(anomaly_id: str, user: str = "Operator"):
+    """VFD 이상 징후 해제 처리 (히스토리용) - Edge Computer에 전송"""
+    edge_result = await call_edge_api("POST", f"/api/vfd/anomalies/clear/{anomaly_id}", {
+        "user": user
+    })
+
+    if edge_result and edge_result.get("success"):
+        return edge_result
+
+    raise HTTPException(status_code=500, detail="Edge Computer 연결 실패")
 
 
 @app.get("/api/events")
