@@ -13,9 +13,13 @@ import History from './components/History'
 import VFDDiagnostics from './components/VFDDiagnostics'
 import SystemOverview from './components/SystemOverview'
 import Home from './components/Home'
+import Login from './components/Login'
+import { AuthProvider, useAuth } from './AuthContext'
 import './App.css'
 
-function App() {
+function AppContent() {
+  const { isAuthenticated, user, canAccessTab, logout, loading } = useAuth()
+
   // State 관리
   const [sensors, setSensors] = useState({})
   const [pumps, setPumps] = useState([])
@@ -26,6 +30,7 @@ function App() {
   const [essData, setEssData] = useState(null)  // ESS 운전/에너지 데이터
   const [wsConnected, setWsConnected] = useState(false)  // WebSocket 연결 상태
   const [plcConnected, setPlcConnected] = useState(false)  // PLC 연결 상태
+  const [edgeConnected, setEdgeConnected] = useState(false)  // Edge AI 연결 상태
   const [ws, setWs] = useState(null)
   const [activeTab, setActiveTab] = useState('home')
 
@@ -277,6 +282,7 @@ function App() {
           setAlarms(data.alarms || [])
           setAlarmSummary(data.alarm_summary || {})
           setPlcConnected(data.plc_connected || false)  // PLC 연결 상태 업데이트
+          setEdgeConnected(data.edge_connected !== false)  // Edge AI 연결 상태 (WebSocket 데이터 받으면 연결됨)
           setEssData(data.ess_data || null)  // ESS 운전/에너지 데이터
         }
       } catch (error) {
@@ -288,12 +294,14 @@ function App() {
       console.error('❌ WebSocket 오류:', error)
       setWsConnected(false)
       setPlcConnected(false)
+      setEdgeConnected(false)
     }
 
     websocket.onclose = () => {
       console.log('WebSocket 연결 종료, 5초 후 재연결...')
       setWsConnected(false)
       setPlcConnected(false)
+      setEdgeConnected(false)
       setTimeout(connectWebSocket, 5000)
     }
 
@@ -351,85 +359,163 @@ function App() {
     return false
   }
 
+  // 로그인 팝업 상태
+  const [showLoginPopup, setShowLoginPopup] = useState(false)
+
+  // 로딩 중일 때 표시
+  if (loading) {
+    return (
+      <div className="app-loading">
+        <div className="loading-spinner"></div>
+        <p>로딩 중...</p>
+      </div>
+    )
+  }
+
+  // 로그인 성공 시 팝업 닫기
+  const handleLoginSuccess = () => {
+    setShowLoginPopup(false)
+  }
+
+  // 게스트(비로그인) 접근 가능 탭
+  const GUEST_TABS = ['home', 'system_overview', 'dashboard', 'vfd_diagnostics', 'trend', 'history', 'alarm']
+
+  // 권한 체크 (로그인 안 된 경우 게스트 탭만 허용)
+  const canAccessTabWithGuest = (tabName) => {
+    if (!isAuthenticated) {
+      return GUEST_TABS.includes(tabName)
+    }
+    return canAccessTab(tabName)
+  }
+
+  // 역할별 한글 표시
+  const roleNames = {
+    admin: '관리자',
+    operator: '운전자'
+  }
+
   return (
     <div className="app">
       {/* 헤더 */}
       <header className="app-header">
         <h1>🚢 ESS HMI - Energy Saving System</h1>
-        <div className="status-indicator">
-          <span className={`status-dot ${plcConnected ? 'connected' : 'disconnected'}`}></span>
-          <span>{plcConnected ? 'PLC 연결됨' : 'PLC 연결 안됨'}</span>
+        <div className="header-right">
+          <div className="status-indicators">
+            <div className={`status-indicator ${plcConnected ? 'connected' : 'disconnected'}`}>
+              <span className="status-dot"></span>
+              <span>{plcConnected ? 'PLC 연결됨' : 'PLC 연결 안됨'}</span>
+            </div>
+            <div className={`status-indicator ${edgeConnected ? 'connected' : 'disconnected'}`}>
+              <span className="status-dot"></span>
+              <span>{edgeConnected ? 'Edge AI 연결됨' : 'Edge AI 연결 안됨'}</span>
+            </div>
+          </div>
         </div>
       </header>
 
       {/* 탭 네비게이션 */}
       <nav className="tab-nav">
-        <button
-          className={activeTab === 'home' ? 'active' : ''}
-          onClick={() => setActiveTab('home')}
-        >
-          🏠 홈
-        </button>
-        <button
-          className={activeTab === 'system_overview' ? 'active' : ''}
-          onClick={() => setActiveTab('system_overview')}
-        >
-          📊 운전 현황
-        </button>
-        <button
-          className={activeTab === 'dashboard' ? 'active' : ''}
-          onClick={() => setActiveTab('dashboard')}
-        >
-          💡 에너지 절감 현황
-        </button>
-        <button
-          className={activeTab === 'diagram' ? 'active' : ''}
-          onClick={() => setActiveTab('diagram')}
-        >
-          🔧 냉각수 계통도
-        </button>
-        <button
-          className={activeTab === 'fan_diagram' ? 'active' : ''}
-          onClick={() => setActiveTab('fan_diagram')}
-        >
-          🌀 E/R 환기 계통도
-        </button>
-        <button
-          className={activeTab === 'advanced' ? 'active' : ''}
-          onClick={() => setActiveTab('advanced')}
-        >
-          🎛️ 운전 제어
-        </button>
-        <button
-          className={activeTab === 'vfd_diagnostics' ? 'active' : ''}
-          onClick={() => setActiveTab('vfd_diagnostics')}
-        >
-          🔍 VFD 진단
-        </button>
-        <button
-          className={activeTab === 'trend' ? 'active' : ''}
-          onClick={() => setActiveTab('trend')}
-        >
-          📈 센서 트렌드
-        </button>
-        <button
-          className={activeTab === 'settings' ? 'active' : ''}
-          onClick={() => setActiveTab('settings')}
-        >
-          ⚙️ 파라미터 설정
-        </button>
-        <button
-          className={activeTab === 'history' ? 'active' : ''}
-          onClick={() => setActiveTab('history')}
-        >
-          📋 이력
-        </button>
-        <button
-          className={`${activeTab === 'alarm' ? 'active' : ''} ${alarms.some(a => !a.acknowledged) ? 'has-unack-alarms' : ''}`}
-          onClick={() => setActiveTab('alarm')}
-        >
-          🔔 알람
-        </button>
+        {canAccessTabWithGuest('home') && (
+          <button
+            className={activeTab === 'home' ? 'active' : ''}
+            onClick={() => setActiveTab('home')}
+          >
+            홈
+          </button>
+        )}
+        {canAccessTabWithGuest('system_overview') && (
+          <button
+            className={activeTab === 'system_overview' ? 'active' : ''}
+            onClick={() => setActiveTab('system_overview')}
+          >
+            운전 현황
+          </button>
+        )}
+        {canAccessTabWithGuest('dashboard') && (
+          <button
+            className={activeTab === 'dashboard' ? 'active' : ''}
+            onClick={() => setActiveTab('dashboard')}
+          >
+            에너지 절감 현황
+          </button>
+        )}
+        {canAccessTabWithGuest('diagram') && (
+          <button
+            className={activeTab === 'diagram' ? 'active' : ''}
+            onClick={() => setActiveTab('diagram')}
+          >
+            냉각수 계통도
+          </button>
+        )}
+        {canAccessTabWithGuest('fan_diagram') && (
+          <button
+            className={activeTab === 'fan_diagram' ? 'active' : ''}
+            onClick={() => setActiveTab('fan_diagram')}
+          >
+            E/R 환기 계통도
+          </button>
+        )}
+        {canAccessTabWithGuest('advanced') && (
+          <button
+            className={activeTab === 'advanced' ? 'active' : ''}
+            onClick={() => setActiveTab('advanced')}
+          >
+            운전 제어
+          </button>
+        )}
+        {canAccessTabWithGuest('vfd_diagnostics') && (
+          <button
+            className={activeTab === 'vfd_diagnostics' ? 'active' : ''}
+            onClick={() => setActiveTab('vfd_diagnostics')}
+          >
+            VFD 진단
+          </button>
+        )}
+        {canAccessTabWithGuest('trend') && (
+          <button
+            className={activeTab === 'trend' ? 'active' : ''}
+            onClick={() => setActiveTab('trend')}
+          >
+            센서 트렌드
+          </button>
+        )}
+        {canAccessTabWithGuest('settings') && (
+          <button
+            className={activeTab === 'settings' ? 'active' : ''}
+            onClick={() => setActiveTab('settings')}
+          >
+            파라미터 설정
+          </button>
+        )}
+        {canAccessTabWithGuest('history') && (
+          <button
+            className={activeTab === 'history' ? 'active' : ''}
+            onClick={() => setActiveTab('history')}
+          >
+            이력
+          </button>
+        )}
+        {canAccessTabWithGuest('alarm') && (
+          <button
+            className={`${activeTab === 'alarm' ? 'active' : ''} ${alarms.some(a => !a.acknowledged) ? 'has-unack-alarms' : ''}`}
+            onClick={() => setActiveTab('alarm')}
+          >
+            알람
+          </button>
+        )}
+
+        {/* 사용자 정보 (탭 네비게이션 우측) */}
+        <div className="nav-user-section">
+          {isAuthenticated ? (
+            <div className="nav-user-info">
+              <span className="nav-user-name">{user?.display_name || user?.username}</span>
+              <span className="nav-user-role">({roleNames[user?.role] || user?.role})</span>
+              <button className="nav-logout-btn" onClick={logout}>로그아웃</button>
+            </div>
+          ) : (
+            <button className="nav-login-btn" onClick={() => setShowLoginPopup(true)}>로그인</button>
+          )}
+        </div>
       </nav>
 
       {/* 메인 컨텐츠 */}
@@ -497,7 +583,24 @@ function App() {
         <span>© 2025 ESS HMI System</span>
         <span>마지막 업데이트: {new Date().toLocaleTimeString('ko-KR')}</span>
       </footer>
+
+      {/* 로그인 팝업 모달 */}
+      {showLoginPopup && (
+        <div className="login-popup-overlay" onClick={() => setShowLoginPopup(false)}>
+          <div className="login-popup-content" onClick={(e) => e.stopPropagation()}>
+            <Login onLoginSuccess={handleLoginSuccess} isPopup={true} />
+          </div>
+        </div>
+      )}
     </div>
+  )
+}
+
+function App() {
+  return (
+    <AuthProvider>
+      <AppContent />
+    </AuthProvider>
   )
 }
 

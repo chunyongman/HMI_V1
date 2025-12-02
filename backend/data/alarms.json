@@ -1209,6 +1209,182 @@
       "ack_user": "Operator",
       "tag": "PX1_HIGH",
       "value": 4.19
+    },
+    {
+      "id": "ALM202512021210560001",
+      "level": "warning",
+      "message": "기관실 내부 온도 상승 (E/R Inside Temp High): 52.0°C",
+      "time": "2025-12-02T12:10:56.276373",
+      "acknowledged": true,
+      "ack_time": "2025-12-02T13:07:04.315232",
+      "ack_user": "Operator",
+      "tag": "T6_HIGH",
+      "value": 52.0
+    },
+    {
+      "id": "ALM202512021210560002",
+      "level": "warning",
+      "message": "냉각수 압력 저하 (CSW Pressure Low): 1.04 bar",
+      "time": "2025-12-02T12:10:56.276373",
+      "acknowledged": true,
+      "ack_time": "2025-12-02T13:07:06.168842",
+      "ack_user": "Operator",
+      "tag": "PX1_LOW",
+      "value": 1.04
+    },
+    {
+      "id": "ALM202512021212260003",
+      "level": "critical",
+      "message": "냉각수 압력 과다 (CSW Pressure High): 4.21 bar",
+      "time": "2025-12-02T12:12:26.514129",
+      "acknowledged": true,
+      "ack_time": "2025-12-02T13:07:07.821030",
+      "ack_user": "Operator",
+      "tag": "PX1_HIGH",
+      "value": 4.21
+    },
+    {
+      "id": "ALM202512021213560004",
+      "level": "critical",
+      "message": "주기관 부하 과다 (M/E Load High): 90.3%",
+      "time": "2025-12-02T12:13:56.777401",
+      "acknowledged": true,
+      "ack_time": "2025-12-02T13:07:09.799584",
+      "ack_user": "Operator",
+      "tag": "PU1_HIGH",
+      "value": 90.3
+    },
+    {
+      "id": "ALM202512021216560005",
+      "level": "warning",
+      "message": "청수 쿨러 입구 온도 상승 (FW Cooler FW In High): 52.2°C",
+      "time": "2025-12-02T12:16:56.028631",
+      "acknowledged": true,
+      "ack_time": "2025-12-02T13:07:11.906540",
+      "ack_user": "Operator",
+      "tag": "T4_HIGH",
+      "value": 52.2
+    },
+    {
+      "id": "ALM202512021216560006",
+      "level": "critical",
+      "message": "기관실 외부 온도 상승 (Outside Air Temp High): 41.5°C",
+      "time": "2025-12-02T12:16:56.028631",
+      "acknowledged": true,
+      "ack_time": "2025-12-02T13:07:13.891866",
+      "ack_user": "Operator",
+      "tag": "T7_HIGH",
+      "value": 41.5
+    },
+    {
+      "id": "ALM202512021218260007",
+      "level": "critical",
+      "message": "냉각수 토출 온도 상승 (CSW PP Disc Temp High): 32.0°C",
+      "time": "2025-12-02T12:18:26.753979",
+      "acknowledged": true,
+      "ack_time": "2025-12-02T13:07:16.100042",
+      "ack_user": "Operator",
+      "tag": "T1_HIGH",
+      "value": 32.0
+    },
+    {
+      "id": "ALM202512021234560008",
+      "level": "critical",
+      "message": "청수 쿨러 출구 온도 상승 (FW Cooler FW Out High): 42.4°C",
+      "time": "2025-12-02T12:34:56.796720",
+      "acknowledged": true,
+      "ack_time": "2025-12-02T13:07:18.083535",
+      "ack_user": "Operator",
+      "tag": "T5_HIGH",
+      "value": 42.4
+    },
+    {
+      "id": "ALM202512030656280001",
+      "level": "critical",
+      "message": "냉각수 토출 온도 상승 (CSW PP Disc Temp High): 31.9°C",
+      "time": "2025-12-03T06:56:28.237576",
+      "acknowledged": true,
+      "ack_time": "2025-12-03T07:46:15.239344",
+      "ack_user": "Operator",
+      "tag": "T1_HIGH",
+      "value": 31.9
+    },
+    {
+      "id": "ALM202512030657580002",
+      "level": "warning",
+      "message": "청수 쿨러 입구 온도 상승 (FW Cooler FW In High): 52.0°C",
+      "time": "2025-12-03T06:57:58.113513",
+      "acknowledged": true,
+      "ack_time": "2025-12-03T07:46:17.488275",
+      "ack_user": "Operator",
+      "tag": "T4_HIGH",
+      "value": 52.0
+    },
+    {
+      "id": "ALM202512030657580003",
+      "level": "critical",
+      "message": "냉각수 압력 과다 (CSW Pressure High): 4.21 bar",
+      "time": "2025-12-03T06:57:58.113513",
+      "acknowledged": true,
+      "ack_time": "2025-12-03T07:46:19.569409",
+      "ack_user": "Operator",
+      "tag": "PX1_HIGH",
+      "value": 4.21
+    },
+    {
+      "id": "ALM202512030659270004",
+      "level": "critical",
+      "message": "청수 쿨러 출구 온도 상승 (FW Cooler FW Out High): 42.3°C",
+      "time": "2025-12-03T06:59:27.903994",
+      "acknowledged": true,
+      "ack_time": "2025-12-03T07:46:21.442912",
+      "ack_user": "Operator",
+      "tag": "T5_HIGH",
+      "value": 42.3
+    },
+    {
+      "id": "ALM202512030700570005",
+      "level": "critical",
+      "message": "주기관 부하 과다 (M/E Load High): 90.3%",
+      "time": "2025-12-03T07:00:57.979459",
+      "acknowledged": true,
+      "ack_time": "2025-12-03T07:46:23.683091",
+      "ack_user": "Operator",
+      "tag": "PU1_HIGH",
+      "value": 90.3
+    },
+    {
+      "id": "ALM202512030703570006",
+      "level": "warning",
+      "message": "기관실 내부 온도 상승 (E/R Inside Temp High): 52.4°C",
+      "time": "2025-12-03T07:03:57.830231",
+      "acknowledged": true,
+      "ack_time": "2025-12-03T07:46:26.243224",
+      "ack_user": "Operator",
+      "tag": "T6_HIGH",
+      "value": 52.4
+    },
+    {
+      "id": "ALM202512030706570007",
+      "level": "warning",
+      "message": "냉각수 압력 저하 (CSW Pressure Low): 1.04 bar",
+      "time": "2025-12-03T07:06:57.758776",
+      "acknowledged": true,
+      "ack_time": "2025-12-03T07:46:28.383074",
+      "ack_user": "Operator",
+      "tag": "PX1_LOW",
+      "value": 1.04
+    },
+    {
+      "id": "ALM202512030718580008",
+      "level": "critical",
+      "message": "기관실 외부 온도 상승 (Outside Air Temp High): 41.6°C",
+      "time": "2025-12-03T07:18:58.784001",
+      "acknowledged": true,
+      "ack_time": "2025-12-03T07:46:30.094806",
+      "ack_user": "Operator",
+      "tag": "T7_HIGH",
+      "value": 41.6
     }
   ]
 }

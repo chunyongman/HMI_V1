@@ -587,26 +587,26 @@
     "FAN3_2025-12-02": {
       "equipment_name": "FAN3",
       "date": "2025-12-02",
-      "runtime_hours": 4.110317427499999,
-      "start_count": 214,
-      "energy_kwh": 223.19023631324993,
-      "saved_kwh": 66.957070893975
+      "runtime_hours": 5.698115038333333,
+      "start_count": 260,
+      "energy_kwh": 309.40764658149976,
+      "saved_kwh": 92.82229397445003
     },
     "FAN4_2025-12-02": {
       "equipment_name": "FAN4",
       "date": "2025-12-02",
-      "runtime_hours": 2.8237604347222214,
-      "start_count": 218,
-      "energy_kwh": 153.3301916054168,
-      "saved_kwh": 45.999057481625
+      "runtime_hours": 3.9363254155555554,
+      "start_count": 289,
+      "energy_kwh": 213.74247006466672,
+      "saved_kwh": 63.38708316235001
     },
     "SWP1_2025-12-02": {
       "equipment_name": "SWP1",
       "date": "2025-12-02",
-      "runtime_hours": 0.1452005313888889,
-      "start_count": 2,
-      "energy_kwh": 19.166470143333335,
-      "saved_kwh": 5.749941043000001
+      "runtime_hours": 0.34453056277777777,
+      "start_count": 5,
+      "energy_kwh": 45.47803428666667,
+      "saved_kwh": 13.643410286
     },
     "SWP2_2025-12-02": {
       "equipment_name": "SWP2",
@@ -619,10 +619,10 @@
     "FWP1_2025-12-02": {
       "equipment_name": "FWP1",
       "date": "2025-12-02",
-      "runtime_hours": 0.1452005313888889,
-      "start_count": 2,
-      "energy_kwh": 10.890039854166666,
-      "saved_kwh": 3.2670119562499997
+      "runtime_hours": 0.48662179222222224,
+      "start_count": 4,
+      "energy_kwh": 36.496634416666666,
+      "saved_kwh": 10.948990325
     },
     "FWP2_2025-12-02": {
       "equipment_name": "FWP2",
@@ -643,10 +643,42 @@
     "FAN2_2025-12-02": {
       "equipment_name": "FAN2",
       "date": "2025-12-02",
-      "runtime_hours": 0.1452005313888889,
+      "runtime_hours": 0.5236898372222222,
+      "start_count": 3,
+      "energy_kwh": 28.436358161166662,
+      "saved_kwh": 8.530907448349998
+    },
+    "FWP3_2025-12-02": {
+      "equipment_name": "FWP3",
+      "date": "2025-12-02",
+      "runtime_hours": 1.100319291111111,
+      "start_count": 3,
+      "energy_kwh": 82.52394683333333,
+      "saved_kwh": 24.75718405
+    },
+    "SWP3_2025-12-02": {
+      "equipment_name": "SWP3",
+      "date": "2025-12-02",
+      "runtime_hours": 1.0819449977777778,
       "start_count": 2,
-      "energy_kwh": 7.884388854416666,
-      "saved_kwh": 2.3653166563249997
+      "energy_kwh": 142.81673970666668,
+      "saved_kwh": 42.845021912
+    },
+    "FAN4_2025-12-03": {
+      "equipment_name": "FAN4",
+      "date": "2025-12-03",
+      "runtime_hours": 0.8155289186111113,
+      "start_count": 41,
+      "energy_kwh": 44.283220280583336,
+      "saved_kwh": 13.284966084175002
+    },
+    "FAN3_2025-12-03": {
+      "equipment_name": "FAN3",
+      "date": "2025-12-03",
+      "runtime_hours": 1.1890715272222223,
+      "start_count": 60,
+      "energy_kwh": 64.56658392816665,
+      "saved_kwh": 19.369975178450005
     }
   }
 }

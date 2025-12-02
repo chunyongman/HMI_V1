@@ -1,7 +1,13 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
+import { useAuth } from '../AuthContext'
+import VirtualKeyboard from './VirtualKeyboard'
 import './Settings.css'
 
+// Edge Computer API 주소
+const EDGE_API_URL = 'http://localhost:8000'
+
 function Settings() {
+  const { canManageUsers, token } = useAuth()
   const [activeTab, setActiveTab] = useState('temp')
   const [settings, setSettings] = useState({
     // 온도 설정
@@ -120,8 +126,16 @@ function Settings() {
           className={activeTab === 'alarm' ? 'active' : ''}
           onClick={() => setActiveTab('alarm')}
         >
-          🔔 알람 설정
+          알람 설정
         </button>
+        {canManageUsers() && (
+          <button
+            className={activeTab === 'users' ? 'active' : ''}
+            onClick={() => setActiveTab('users')}
+          >
+            사용자 관리
+          </button>
+        )}
       </div>
 
       {/* 설정 내용 */}
@@ -143,6 +157,9 @@ function Settings() {
         )}
         {activeTab === 'alarm' && (
           <AlarmSettings settings={settings} onChange={handleChange} />
+        )}
+        {activeTab === 'users' && canManageUsers() && (
+          <UserManagement token={token} />
         )}
       </div>
 
@@ -608,8 +625,8 @@ function SettingItem({ label, value, unit, onChange, min = 0, max = 100, step = 
     <div className="setting-item">
       <label>{label}</label>
       <div className="setting-input-group">
-        <input 
-          type="number" 
+        <input
+          type="number"
           value={value}
           onChange={(e) => onChange(e.target.value)}
           min={min}
@@ -618,6 +635,436 @@ function SettingItem({ label, value, unit, onChange, min = 0, max = 100, step = 
         />
         <span className="unit">{unit}</span>
       </div>
+    </div>
+  )
+}
+
+// 사용자 관리 탭
+function UserManagement({ token }) {
+  const [users, setUsers] = useState([])
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState('')
+  const [showCreateForm, setShowCreateForm] = useState(false)
+  const [showResetPassword, setShowResetPassword] = useState(null)
+  const [message, setMessage] = useState('')
+
+  // 새 사용자 생성 폼
+  const [newUser, setNewUser] = useState({
+    username: '',
+    password: '',
+    role: 'operator',
+    display_name: ''
+  })
+
+  // 비밀번호 초기화 폼
+  const [newPassword, setNewPassword] = useState('')
+
+  // 가상 키보드 상태
+  const [showKeyboard, setShowKeyboard] = useState(false)
+  const [activeInput, setActiveInput] = useState(null)
+
+  const roleNames = {
+    admin: '관리자',
+    operator: '운전자'
+  }
+
+  // 사용자 목록 조회
+  const fetchUsers = async () => {
+    try {
+      setLoading(true)
+      const response = await fetch(`${EDGE_API_URL}/api/users`, {
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      })
+      const result = await response.json()
+      if (result.success) {
+        setUsers(result.data)
+      } else {
+        setError('사용자 목록을 불러올 수 없습니다')
+      }
+    } catch (err) {
+      setError('서버 연결 실패')
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  useEffect(() => {
+    fetchUsers()
+  }, [token])
+
+  // 사용자 생성
+  const handleCreateUser = async () => {
+    if (!newUser.username || !newUser.password) {
+      setError('사용자명과 비밀번호를 입력하세요')
+      return
+    }
+    if (newUser.username.length < 3) {
+      setError('사용자명은 3자 이상이어야 합니다')
+      return
+    }
+    if (newUser.password.length < 6) {
+      setError('비밀번호는 6자 이상이어야 합니다')
+      return
+    }
+
+    try {
+      const response = await fetch(`${EDGE_API_URL}/api/users`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify(newUser)
+      })
+      const result = await response.json()
+      if (result.success) {
+        setMessage('사용자가 생성되었습니다')
+        setShowCreateForm(false)
+        setNewUser({ username: '', password: '', role: 'operator', display_name: '' })
+        fetchUsers()
+        setTimeout(() => setMessage(''), 3000)
+      } else {
+        setError(result.detail || '사용자 생성 실패')
+      }
+    } catch (err) {
+      setError('서버 연결 실패')
+    }
+  }
+
+  // 역할 변경
+  const handleRoleChange = async (userId, newRole) => {
+    try {
+      const response = await fetch(`${EDGE_API_URL}/api/users/${userId}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify({ role: newRole })
+      })
+      const result = await response.json()
+      if (result.success) {
+        setMessage('역할이 변경되었습니다')
+        fetchUsers()
+        setTimeout(() => setMessage(''), 3000)
+      } else {
+        setError(result.detail || '역할 변경 실패')
+      }
+    } catch (err) {
+      setError('서버 연결 실패')
+    }
+  }
+
+  // 비밀번호 초기화
+  const handleResetPassword = async (userId) => {
+    if (!newPassword || newPassword.length < 6) {
+      setError('비밀번호는 6자 이상이어야 합니다')
+      return
+    }
+
+    try {
+      const response = await fetch(`${EDGE_API_URL}/api/users/${userId}/reset-password`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify({ new_password: newPassword })
+      })
+      const result = await response.json()
+      if (result.success) {
+        setMessage('비밀번호가 초기화되었습니다')
+        setShowResetPassword(null)
+        setNewPassword('')
+        setTimeout(() => setMessage(''), 3000)
+      } else {
+        setError(result.detail || '비밀번호 초기화 실패')
+      }
+    } catch (err) {
+      setError('서버 연결 실패')
+    }
+  }
+
+  // 사용자 삭제 (비활성화)
+  const handleDeleteUser = async (userId, username) => {
+    if (!window.confirm(`정말 "${username}" 사용자를 삭제하시겠습니까?`)) {
+      return
+    }
+
+    try {
+      const response = await fetch(`${EDGE_API_URL}/api/users/${userId}`, {
+        method: 'DELETE',
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      })
+      const result = await response.json()
+      if (result.success) {
+        setMessage('사용자가 삭제되었습니다')
+        fetchUsers()
+        setTimeout(() => setMessage(''), 3000)
+      } else {
+        setError(result.detail || '사용자 삭제 실패')
+      }
+    } catch (err) {
+      setError('서버 연결 실패')
+    }
+  }
+
+  // 활성화/비활성화 토글
+  const handleToggleActive = async (userId, currentActive) => {
+    try {
+      const response = await fetch(`${EDGE_API_URL}/api/users/${userId}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify({ is_active: !currentActive })
+      })
+      const result = await response.json()
+      if (result.success) {
+        setMessage(currentActive ? '계정이 비활성화되었습니다' : '계정이 활성화되었습니다')
+        fetchUsers()
+        setTimeout(() => setMessage(''), 3000)
+      } else {
+        setError(result.detail || '상태 변경 실패')
+      }
+    } catch (err) {
+      setError('서버 연결 실패')
+    }
+  }
+
+  // 가상 키보드 키 입력 처리
+  const handleKeyPress = (key) => {
+    if (!activeInput) return
+
+    const setValueMap = {
+      'newUsername': (v) => setNewUser(prev => ({ ...prev, username: v })),
+      'newPassword': (v) => setNewUser(prev => ({ ...prev, password: v })),
+      'newDisplayName': (v) => setNewUser(prev => ({ ...prev, display_name: v })),
+      'resetPassword': setNewPassword
+    }
+
+    const currentValueMap = {
+      'newUsername': newUser.username,
+      'newPassword': newUser.password,
+      'newDisplayName': newUser.display_name,
+      'resetPassword': newPassword
+    }
+
+    const setValue = setValueMap[activeInput]
+    const currentValue = currentValueMap[activeInput]
+
+    if (key === 'BACKSPACE') {
+      setValue(currentValue.slice(0, -1))
+    } else if (key === 'CLEAR') {
+      setValue('')
+    } else if (key === 'ENTER') {
+      setShowKeyboard(false)
+      setActiveInput(null)
+    } else {
+      setValue(currentValue + key)
+    }
+  }
+
+  const handleInputFocus = (inputName) => {
+    setActiveInput(inputName)
+    setShowKeyboard(true)
+  }
+
+  if (loading) {
+    return (
+      <div className="settings-section">
+        <div className="loading-message">사용자 목록 로딩 중...</div>
+      </div>
+    )
+  }
+
+  return (
+    <div className="settings-section user-management">
+      <div className="user-management-header">
+        <h3>사용자 관리</h3>
+        <button className="btn-add-user" onClick={() => setShowCreateForm(true)}>
+          + 새 사용자 추가
+        </button>
+      </div>
+
+      {error && (
+        <div className="error-message" onClick={() => setError('')}>
+          {error}
+        </div>
+      )}
+
+      {message && (
+        <div className="success-message">
+          {message}
+        </div>
+      )}
+
+      {/* 사용자 목록 테이블 */}
+      <div className="user-table-container">
+        <table className="user-table">
+          <thead>
+            <tr>
+              <th>사용자명</th>
+              <th>표시명</th>
+              <th>역할</th>
+              <th>상태</th>
+              <th>마지막 로그인</th>
+              <th>관리</th>
+            </tr>
+          </thead>
+          <tbody>
+            {users.map(user => (
+              <tr key={user.id} className={!user.is_active ? 'inactive' : ''}>
+                <td>{user.username}</td>
+                <td>{user.display_name || '-'}</td>
+                <td>
+                  <select
+                    value={user.role}
+                    onChange={(e) => handleRoleChange(user.id, e.target.value)}
+                    disabled={user.username === 'admin'}
+                  >
+                    <option value="admin">관리자</option>
+                    <option value="operator">운전자</option>
+                  </select>
+                </td>
+                <td>
+                  <span className={`status-badge ${user.is_active ? 'active' : 'inactive'}`}>
+                    {user.is_active ? '활성' : '비활성'}
+                  </span>
+                </td>
+                <td>{user.last_login ? new Date(user.last_login).toLocaleString('ko-KR') : '-'}</td>
+                <td className="action-buttons">
+                  <button
+                    className="btn-reset-pw"
+                    onClick={() => setShowResetPassword(user.id)}
+                    title="비밀번호 초기화"
+                  >
+                    비번초기화
+                  </button>
+                  {user.username !== 'admin' && (
+                    <>
+                      <button
+                        className={`btn-toggle-active ${user.is_active ? 'deactivate' : 'activate'}`}
+                        onClick={() => handleToggleActive(user.id, user.is_active)}
+                        title={user.is_active ? '비활성화' : '활성화'}
+                      >
+                        {user.is_active ? '비활성화' : '활성화'}
+                      </button>
+                      <button
+                        className="btn-delete"
+                        onClick={() => handleDeleteUser(user.id, user.username)}
+                        title="삭제"
+                      >
+                        삭제
+                      </button>
+                    </>
+                  )}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+
+      {/* 새 사용자 생성 모달 */}
+      {showCreateForm && (
+        <div className="modal-overlay" onClick={() => { setShowCreateForm(false); setShowKeyboard(false); }}>
+          <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+            <div className="modal-header">
+              <h4>새 사용자 추가</h4>
+              <button className="modal-close" onClick={() => { setShowCreateForm(false); setShowKeyboard(false); }}>×</button>
+            </div>
+            <div className="modal-body">
+              <div className="form-group">
+                <label>사용자명 (3자 이상)</label>
+                <input
+                  type="text"
+                  value={newUser.username}
+                  onFocus={() => handleInputFocus('newUsername')}
+                  placeholder="터치하여 입력"
+                  readOnly
+                />
+              </div>
+              <div className="form-group">
+                <label>비밀번호 (6자 이상)</label>
+                <input
+                  type="password"
+                  value={newUser.password}
+                  onFocus={() => handleInputFocus('newPassword')}
+                  placeholder="터치하여 입력"
+                  readOnly
+                />
+              </div>
+              <div className="form-group">
+                <label>표시명</label>
+                <input
+                  type="text"
+                  value={newUser.display_name}
+                  onFocus={() => handleInputFocus('newDisplayName')}
+                  placeholder="터치하여 입력 (선택)"
+                  readOnly
+                />
+              </div>
+              <div className="form-group">
+                <label>역할</label>
+                <select
+                  value={newUser.role}
+                  onChange={(e) => setNewUser(prev => ({ ...prev, role: e.target.value }))}
+                >
+                  <option value="admin">관리자</option>
+                  <option value="operator">운전자</option>
+                </select>
+              </div>
+            </div>
+            <div className="modal-footer">
+              <button className="btn-cancel" onClick={() => { setShowCreateForm(false); setShowKeyboard(false); }}>취소</button>
+              <button className="btn-confirm" onClick={handleCreateUser}>생성</button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* 비밀번호 초기화 모달 */}
+      {showResetPassword && (
+        <div className="modal-overlay" onClick={() => { setShowResetPassword(null); setShowKeyboard(false); }}>
+          <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+            <div className="modal-header">
+              <h4>비밀번호 초기화</h4>
+              <button className="modal-close" onClick={() => { setShowResetPassword(null); setShowKeyboard(false); }}>×</button>
+            </div>
+            <div className="modal-body">
+              <div className="form-group">
+                <label>새 비밀번호 (6자 이상)</label>
+                <input
+                  type="password"
+                  value={newPassword}
+                  onFocus={() => handleInputFocus('resetPassword')}
+                  placeholder="터치하여 입력"
+                  readOnly
+                />
+              </div>
+            </div>
+            <div className="modal-footer">
+              <button className="btn-cancel" onClick={() => { setShowResetPassword(null); setShowKeyboard(false); }}>취소</button>
+              <button className="btn-confirm" onClick={() => handleResetPassword(showResetPassword)}>초기화</button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* 가상 키보드 */}
+      {showKeyboard && (
+        <VirtualKeyboard
+          onKeyPress={handleKeyPress}
+          onClose={() => { setShowKeyboard(false); setActiveInput(null); }}
+          isPassword={activeInput === 'newPassword' || activeInput === 'resetPassword'}
+        />
+      )}
     </div>
   )
 }

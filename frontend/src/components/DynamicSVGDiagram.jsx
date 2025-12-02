@@ -108,15 +108,17 @@ function DynamicSVGDiagram({ sensors = {}, pumps = [], onPumpCommand }) {
     if (!svgElement) return
 
     // 펌프별 클릭 영역 정의 (SVG 상의 실제 위치 기반)
+    // pumps 배열 순서 (백엔드): [SWP1, SWP2, SWP3, FWP1, FWP2, FWP3]
+    // SVG 화면 위치: SW Pump - 우측=SWP1, 중앙=SWP2, 좌측=SWP3
     const pumpAreas = [
-      // LT Pumps (왼쪽)
-      { index: 0, name: 'LT Pump No.1', x: 240, y: 360, width: 65, height: 60 },
-      { index: 1, name: 'LT Pump No.2', x: 240, y: 447, width: 65, height: 60 },
-      { index: 2, name: 'LT Pump No.3', x: 240, y: 557, width: 65, height: 60 },
-      // SW Pumps (아래쪽)
-      { index: 3, name: 'SW Pump No.1', x: 585, y: 478, width: 65, height: 60 },
-      { index: 4, name: 'SW Pump No.2', x: 680, y: 478, width: 65, height: 60 },
-      { index: 5, name: 'SW Pump No.3', x: 770, y: 478, width: 65, height: 60 },
+      // SW Pumps (아래쪽) - pumps[0~2] = SWP1, SWP2, SWP3
+      { index: 0, name: 'SW Pump No.1', x: 770, y: 478, width: 65, height: 60 },  // SWP1 = 우측
+      { index: 1, name: 'SW Pump No.2', x: 680, y: 478, width: 65, height: 60 },  // SWP2 = 중앙
+      { index: 2, name: 'SW Pump No.3', x: 585, y: 478, width: 65, height: 60 },  // SWP3 = 좌측
+      // LT Pumps (왼쪽) - pumps[3~5] = FWP1, FWP2, FWP3
+      { index: 3, name: 'LT Pump No.1', x: 240, y: 360, width: 65, height: 60 },  // FWP1
+      { index: 4, name: 'LT Pump No.2', x: 240, y: 447, width: 65, height: 60 },  // FWP2
+      { index: 5, name: 'LT Pump No.3', x: 240, y: 557, width: 65, height: 60 },  // FWP3
     ]
 
     pumpAreas.forEach(area => {
@@ -601,7 +603,7 @@ function DynamicSVGDiagram({ sensors = {}, pumps = [], onPumpCommand }) {
           <div className="pump-popup" onClick={(e) => e.stopPropagation()}>
             <div className="pump-popup-header">
               <h3>
-                {selectedPump.index < 3 ? 'LT' : 'SW'} Pump No.{(selectedPump.index % 3) + 1}
+                {selectedPump.index < 3 ? 'SW' : 'LT'} Pump No.{(selectedPump.index % 3) + 1}
               </h3>
               <button className="popup-close" onClick={() => setSelectedPump(null)}>×</button>
             </div>

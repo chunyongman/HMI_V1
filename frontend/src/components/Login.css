@@ -1,0 +1,233 @@
+/* 로그인 화면 스타일 */
+
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+  font-family: 'Noto Sans KR', sans-serif;
+}
+
+.login-box {
+  position: relative;
+  background: linear-gradient(145deg, rgba(30, 58, 95, 0.95) 0%, rgba(15, 52, 96, 0.95) 100%);
+  backdrop-filter: blur(10px);
+  border-radius: 16px;
+  padding: 40px;
+  width: 420px;
+  box-shadow:
+    0 8px 32px rgba(0, 0, 0, 0.4),
+    0 0 40px rgba(59, 130, 246, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  border: 2px solid rgba(59, 130, 246, 0.5);
+}
+
+/* 닫기 버튼 */
+.login-close-btn {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 36px;
+  height: 36px;
+  background: rgba(255, 255, 255, 0.15);
+  border: 2px solid rgba(255, 255, 255, 0.6);
+  border-radius: 50%;
+  color: #ffffff;
+  font-size: 18px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.login-close-btn:hover {
+  background: rgba(255, 255, 255, 0.3);
+  color: #ffffff;
+  border-color: #ffffff;
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.4);
+  transform: scale(1.1);
+}
+
+.login-header {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.login-header h1 {
+  color: #ffffff;
+  font-size: 30px;
+  margin: 0 0 10px 0;
+  font-weight: 700;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.login-header p {
+  color: #4fc3f7;
+  font-size: 14px;
+  margin: 0;
+  letter-spacing: 2px;
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.form-group label {
+  color: #b0bec5;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.form-group input {
+  padding: 16px 18px;
+  border: 2px solid rgba(255, 255, 255, 0.25);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.08);
+  color: #fff;
+  font-size: 18px;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.form-group input::placeholder {
+  color: #78909c;
+}
+
+.form-group input:focus {
+  outline: none;
+  border-color: #4fc3f7;
+  background: rgba(255, 255, 255, 0.1);
+  box-shadow: 0 0 0 3px rgba(79, 195, 247, 0.2);
+}
+
+.form-group input:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.error-message {
+  background: rgba(244, 67, 54, 0.2);
+  color: #ef9a9a;
+  padding: 12px 16px;
+  border-radius: 8px;
+  font-size: 14px;
+  border: 1px solid rgba(244, 67, 54, 0.3);
+}
+
+.login-button {
+  padding: 18px 24px;
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  color: #fff;
+  border: 2px solid rgba(16, 185, 129, 0.5);
+  border-radius: 10px;
+  font-size: 20px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: 10px;
+  box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+.login-button:hover:not(:disabled) {
+  background: linear-gradient(135deg, #34d399 0%, #10b981 100%);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(16, 185, 129, 0.5);
+  border-color: rgba(52, 211, 153, 0.7);
+}
+
+.login-button:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.login-button:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.login-footer {
+  margin-top: 30px;
+  padding-top: 20px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.login-footer p {
+  color: #90a4ae;
+  font-size: 16px;
+  font-weight: 600;
+  margin: 0 0 14px 0;
+  text-align: center;
+}
+
+.login-footer ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.login-footer li {
+  color: #b0bec5;
+  font-size: 16px;
+  text-align: center;
+}
+
+.login-footer li strong {
+  color: #e0e0e0;
+  font-weight: 700;
+}
+
+/* 가상 키보드 활성화 시 로그인 박스 위치 조정 */
+.login-box.keyboard-active {
+  transform: translateY(-150px);
+  transition: transform 0.3s ease;
+}
+
+/* 활성 입력 필드 스타일 */
+.form-group input.input-active {
+  border-color: #4fc3f7;
+  background: rgba(79, 195, 247, 0.15);
+  box-shadow: 0 0 0 3px rgba(79, 195, 247, 0.3);
+}
+
+/* 입력 필드 커서 스타일 (readOnly이므로 가짜 커서 효과) */
+.form-group input:focus {
+  caret-color: #4fc3f7;
+}
+
+/* 팝업 모드 스타일 */
+.login-container.login-popup-mode {
+  min-height: auto;
+  background: transparent;
+}
+
+.login-popup-mode .login-box {
+  width: 380px;
+  padding: 30px;
+}
+
+.login-popup-mode .login-header {
+  margin-bottom: 24px;
+}
+
+.login-popup-mode .login-header h1 {
+  font-size: 20px;
+}
+
+.login-popup-mode .login-footer {
+  margin-top: 20px;
+  padding-top: 15px;
+}

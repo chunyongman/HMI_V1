@@ -35,26 +35,26 @@ export const pipingDataMapping = [
   { name: 'LT Pump No.3 Hz(VFD)', symbolId: 'LT_Pump3_Hz', x: 300, y: 573, unit: ' Hz' },
   { name: 'LT Pump No.3 running hour', symbolId: 'LT_Pump3_hour', x: 300, y: 590, unit: ' h' },
 
-  // SW Pump No.1 정보
-  { name: 'SW Pump No.1', symbolId: 'g103', x: 599.923, y: 476.633, type: 'pump' },
-  { name: 'SW Pump No.1 Auto/Man mode', symbolId: 'SW_Pump1_Mode', x: 640, y: 470 },
-  { name: 'SW Pump No.1 VFD/ BYPASS', symbolId: 'SW_Pump1_VFD', x: 640, y: 487 },
-  { name: 'SW Pump No.1 Hz(VFD)', symbolId: 'SW_Pump1_Hz', x: 640, y: 504, unit: ' Hz' },
-  { name: 'SW Pump No.1 running hour', symbolId: 'SW_Pump1_hour', x: 640, y: 521, unit: ' h' },
+  // SW Pump No.1 정보 (화면 우측, x 좌표 가장 큼)
+  { name: 'SW Pump No.1', symbolId: 'g119', x: 786.444, y: 476.633, type: 'pump' },
+  { name: 'SW Pump No.1 Auto/Man mode', symbolId: 'SW_Pump1_Mode', x: 827, y: 470 },
+  { name: 'SW Pump No.1 VFD/ BYPASS', symbolId: 'SW_Pump1_VFD', x: 827, y: 487 },
+  { name: 'SW Pump No.1 Hz(VFD)', symbolId: 'SW_Pump1_Hz', x: 827, y: 504, unit: ' Hz' },
+  { name: 'SW Pump No.1 running hour', symbolId: 'SW_Pump1_hour', x: 827, y: 521, unit: ' h' },
 
-  // SW Pump No.2 정보
+  // SW Pump No.2 정보 (화면 중앙)
   { name: 'SW Pump No.2', symbolId: 'g1046', x: 695.023, y: 476.633, type: 'pump' },
   { name: 'SW Pump No.2 Auto/Man mode', symbolId: 'SW_Pump2_Mode', x: 735, y: 470 },
   { name: 'SW Pump No.2 VFD/ BYPASS', symbolId: 'SW_Pump2_VFD', x: 735, y: 487 },
   { name: 'SW Pump No.2 Hz(VFD)', symbolId: 'SW_Pump2_Hz', x: 735, y: 504, unit: ' Hz' },
   { name: 'SW Pump No.2 running hour', symbolId: 'SW_Pump2_hour', x: 735, y: 521, unit: ' h' },
 
-  // SW Pump No.3 정보
-  { name: 'SW Pump No.3', symbolId: 'g119', x: 786.444, y: 476.633, type: 'pump' },
-  { name: 'SW Pump No.3 Auto/Man mode', symbolId: 'SW_Pump3_Mode', x: 827, y: 470 },
-  { name: 'SW Pump No.3 VFD/ BYPASS', symbolId: 'SW_Pump3_VFD', x: 827, y: 487 },
-  { name: 'SW Pump No.3 Hz(VFD)', symbolId: 'SW_Pump3_Hz', x: 827, y: 504, unit: ' Hz' },
-  { name: 'SW Pump No.3 running hour', symbolId: 'SW_Pump3_hour', x: 827, y: 521, unit: ' h' },
+  // SW Pump No.3 정보 (화면 좌측, x 좌표 가장 작음)
+  { name: 'SW Pump No.3', symbolId: 'g103', x: 599.923, y: 476.633, type: 'pump' },
+  { name: 'SW Pump No.3 Auto/Man mode', symbolId: 'SW_Pump3_Mode', x: 640, y: 470 },
+  { name: 'SW Pump No.3 VFD/ BYPASS', symbolId: 'SW_Pump3_VFD', x: 640, y: 487 },
+  { name: 'SW Pump No.3 Hz(VFD)', symbolId: 'SW_Pump3_Hz', x: 640, y: 504, unit: ' Hz' },
+  { name: 'SW Pump No.3 running hour', symbolId: 'SW_Pump3_hour', x: 640, y: 521, unit: ' h' },
 ]
 
 // 센서 데이터만 필터링
@@ -63,33 +63,32 @@ export const pipingSensorMapping = pipingDataMapping.filter(item =>
 )
 
 // 펌프 데이터만 필터링
-// 백엔드 equipment 배열 순서: [SWP1, SWP2, SWP3, FWP1, FWP2, FWP3]
-// 화면 좌표: 우측=NO.1, 중앙=NO.2, 좌측=NO.3
-// SVG 그룹 이름을 화면 위치와 일치하도록 수정 완료
-// 운전제어 SWP1 → SVG SW_Pump_1 (화면 우측 NO.1)
-// 운전제어 SWP3 → SVG SW_Pump_3 (화면 좌측 NO.3)
+// pumps 배열 순서 (백엔드): [SWP1, SWP2, SWP3, FWP1, FWP2, FWP3]
+// SVG ID: SW_Pump_1 = 화면 우측, SW_Pump_3 = 화면 좌측
+// 운전제어 SWP1 = 화면 우측 = SVG SW_Pump_1
+// 운전제어 SWP3 = 화면 좌측 = SVG SW_Pump_3
 export const pipingPumpMapping = {
-  0: { // 백엔드 index 0 (SWP1) → SVG 우측 그룹 (SW_Pump_1)
+  0: { // pumps[0] = SWP1 → SVG SW_Pump_1 (화면 우측)
     name: 'SW_Pump_1',
-    data: pipingDataMapping.filter(item => item.name.includes('SW Pump No.3'))
+    data: pipingDataMapping.filter(item => item.name.includes('SW Pump No.1'))
   },
-  1: { // 백엔드 index 1 (SWP2) → SVG 중앙 그룹 (SW_Pump_2)
+  1: { // pumps[1] = SWP2 → SVG SW_Pump_2 (화면 중앙)
     name: 'SW_Pump_2',
     data: pipingDataMapping.filter(item => item.name.includes('SW Pump No.2'))
   },
-  2: { // 백엔드 index 2 (SWP3) → SVG 좌측 그룹 (SW_Pump_3)
+  2: { // pumps[2] = SWP3 → SVG SW_Pump_3 (화면 좌측)
     name: 'SW_Pump_3',
-    data: pipingDataMapping.filter(item => item.name.includes('SW Pump No.1'))
+    data: pipingDataMapping.filter(item => item.name.includes('SW Pump No.3'))
   },
-  3: { // 백엔드 index 3 (FWP1) → SVG 상단 그룹 (LT_Pump_1)
+  3: { // pumps[3] = FWP1 → SVG LT_Pump_1
     name: 'LT_Pump_1',
     data: pipingDataMapping.filter(item => item.name.includes('LT Pump No.1'))
   },
-  4: { // 백엔드 index 4 (FWP2) → SVG 중간 그룹 (LT_Pump_2)
+  4: { // pumps[4] = FWP2 → SVG LT_Pump_2
     name: 'LT_Pump_2',
     data: pipingDataMapping.filter(item => item.name.includes('LT Pump No.2'))
   },
-  5: { // 백엔드 index 5 (FWP3) → SVG 하단 그룹 (LT_Pump_3)
+  5: { // pumps[5] = FWP3 → SVG LT_Pump_3
     name: 'LT_Pump_3',
     data: pipingDataMapping.filter(item => item.name.includes('LT Pump No.3'))
   }

@@ -1,0 +1,225 @@
+/* 가상 키보드 스타일 */
+
+.virtual-keyboard-overlay {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  top: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding-bottom: 80px;
+  z-index: 1000;
+  animation: fadeIn 0.2s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.virtual-keyboard {
+  background: linear-gradient(180deg, #4a4a6e 0%, #3a3a5e 100%);
+  border-radius: 16px;
+  padding: 12px;
+  width: 100%;
+  max-width: 700px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  animation: slideUp 0.3s ease;
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(100%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+.keyboard-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 12px;
+  margin-bottom: 8px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.keyboard-header span {
+  color: #e0e0e0;
+  font-size: 17px;
+  font-weight: 700;
+}
+
+.keyboard-close {
+  background: rgba(255, 255, 255, 0.1);
+  border: none;
+  color: #fff;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  font-size: 20px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.keyboard-close:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.keyboard-body {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.keyboard-row {
+  display: flex;
+  justify-content: center;
+  gap: 4px;
+}
+
+.keyboard-key {
+  min-width: 46px;
+  height: 50px;
+  background: linear-gradient(180deg, #5a5a7e 0%, #4a4a6e 100%);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  color: #fff;
+  font-size: 20px;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.15s ease;
+  user-select: none;
+}
+
+.keyboard-key:hover {
+  background: linear-gradient(180deg, #6a6a8e 0%, #5a5a7e 100%);
+}
+
+.keyboard-key:active {
+  background: linear-gradient(180deg, #4fc3f7 0%, #29b6f6 100%);
+  transform: scale(0.95);
+}
+
+/* 특수 키 스타일 */
+.key-backspace {
+  min-width: 70px;
+  background: linear-gradient(180deg, #5a3a3e 0%, #4a2a2e 100%);
+}
+
+.key-backspace:hover {
+  background: linear-gradient(180deg, #6a4a4e 0%, #5a3a3e 100%);
+}
+
+.key-backspace:active {
+  background: linear-gradient(180deg, #ef5350 0%, #e53935 100%);
+}
+
+.key-caps,
+.key-shift {
+  min-width: 65px;
+  font-size: 14px;
+  background: linear-gradient(180deg, #5a6a7e 0%, #4a5a6e 100%);
+}
+
+.key-caps:hover,
+.key-shift:hover {
+  background: linear-gradient(180deg, #6a7a8e 0%, #5a6a7e 100%);
+}
+
+.key-caps.active,
+.key-shift.active {
+  background: linear-gradient(180deg, #4fc3f7 0%, #29b6f6 100%);
+  color: #000;
+}
+
+.key-enter {
+  min-width: 75px;
+  font-size: 14px;
+  font-weight: 600;
+  background: linear-gradient(180deg, #2e7d32 0%, #1b5e20 100%);
+}
+
+.key-enter:hover {
+  background: linear-gradient(180deg, #388e3c 0%, #2e7d32 100%);
+}
+
+.key-enter:active {
+  background: linear-gradient(180deg, #4caf50 0%, #43a047 100%);
+}
+
+.key-space {
+  flex: 1;
+  max-width: 300px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #b0bec5;
+}
+
+.key-clear {
+  min-width: 70px;
+  font-size: 14px;
+  font-weight: 600;
+  background: linear-gradient(180deg, #5a4a3e 0%, #4a3a2e 100%);
+}
+
+.key-clear:hover {
+  background: linear-gradient(180deg, #6a5a4e 0%, #5a4a3e 100%);
+}
+
+.key-clear:active {
+  background: linear-gradient(180deg, #ff9800 0%, #f57c00 100%);
+}
+
+.key-done {
+  min-width: 70px;
+  font-size: 14px;
+  font-weight: 600;
+  background: linear-gradient(180deg, #1565c0 0%, #0d47a1 100%);
+}
+
+.key-done:hover {
+  background: linear-gradient(180deg, #1976d2 0%, #1565c0 100%);
+}
+
+.key-done:active {
+  background: linear-gradient(180deg, #2196f3 0%, #1976d2 100%);
+}
+
+.key-spacer-half {
+  width: 22px;
+}
+
+/* 반응형 */
+@media (max-width: 600px) {
+  .keyboard-key {
+    min-width: 32px;
+    height: 42px;
+    font-size: 14px;
+  }
+
+  .key-backspace,
+  .key-caps,
+  .key-shift,
+  .key-enter,
+  .key-clear,
+  .key-done {
+    min-width: 50px;
+    font-size: 10px;
+  }
+
+  .key-space {
+    max-width: 200px;
+  }
+}
