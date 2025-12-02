@@ -202,8 +202,16 @@ function AutoManControl({ equipment = [], pumps = [], fans = [], onCommand }) {
 function EquipmentModeCard({ equipment, modes, onSetMode, isFan = false }) {
   const isRunning = isFan ? (equipment.running_fwd || equipment.running_bwd) : equipment.running
 
+  // 그룹별 테두리 색상 설정
+  const getGroupBorderColor = (name) => {
+    if (name && name.startsWith('SWP')) return '#3b82f6';  // 파란색 (해수펌프)
+    if (name && name.startsWith('FWP')) return '#10b981';  // 초록색 (청수펌프)
+    if (name && name.startsWith('FAN')) return '#a855f7';  // 보라색 (팬)
+    return '#334155';
+  }
+
   return (
-    <div className="pump-mode-card">
+    <div className="pump-mode-card" style={{ border: `2px solid ${getGroupBorderColor(equipment.name)}` }}>
       <div className="mode-card-header">
         <h5>{equipment.name}</h5>
         <span className={`status-dot ${isRunning ? 'running' : 'stopped'}`}></span>

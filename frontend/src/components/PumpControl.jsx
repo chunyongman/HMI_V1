@@ -106,8 +106,16 @@ function PumpControl({ pumps = [], fans = [], onCommand, onPumpCommand }) {
 function PumpControlCard({ pump, pumpIndex, isFan, onStart, onStartBwd, onStop, disabled }) {
   const isRunning = isFan ? (pump.running_fwd || pump.running_bwd) : pump.running
 
+  // 그룹별 테두리 색상 설정
+  const getGroupBorderColor = (name) => {
+    if (name && name.startsWith('SWP')) return '#3b82f6';  // 파란색 (해수펌프)
+    if (name && name.startsWith('FWP')) return '#10b981';  // 초록색 (청수펌프)
+    if (name && name.startsWith('FAN')) return '#a855f7';  // 보라색 (팬)
+    return '#334155';
+  }
+
   return (
-    <div className={`pump-control-card ${isRunning ? 'running' : 'stopped'}`}>
+    <div className={`pump-control-card ${isRunning ? 'running' : 'stopped'}`} style={{ border: `2px solid ${getGroupBorderColor(pump.name)}` }}>
       <div className="control-card-header">
         <h4>{pump.name}</h4>
         <span className={`status-indicator ${

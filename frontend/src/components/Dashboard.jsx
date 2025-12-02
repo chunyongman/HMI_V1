@@ -1,7 +1,13 @@
 import React, { useState, useEffect } from 'react'
 import './Dashboard.css'
 
+// Edge Computer API URL
+const EDGE_API_URL = 'http://localhost:8000'
+
 function Dashboard() {
+  // 하위 탭 상태 (realtime: 실시간 현황, accumulated: 누적 현황)
+  const [subTab, setSubTab] = useState('realtime')
+
   // 에너지 절감률 데이터
   const [energySavings, setEnergySavings] = useState(null)
 
@@ -11,6 +17,9 @@ function Dashboard() {
   // 에너지 절감 상세 요약 데이터
   const [energySavingsSummary, setEnergySavingsSummary] = useState([])
 
+  // ESS 운전/에너지 데이터 (Edge Computer에서 계산)
+  const [essData, setEssData] = useState(null)
+
   // 로딩 상태
   const [loading, setLoading] = useState(true)
 
@@ -18,21 +27,24 @@ function Dashboard() {
   useEffect(() => {
     const fetchAllData = async () => {
       try {
-        const [energyRes, aiFreqRes, summaryRes] = await Promise.all([
+        const [energyRes, aiFreqRes, summaryRes, essRes] = await Promise.all([
           fetch('http://localhost:8001/api/energy-savings'),
           fetch('http://localhost:8001/api/ai-frequency-control'),
-          fetch('http://localhost:8001/api/energy-savings-summary')
+          fetch('http://localhost:8001/api/energy-savings-summary'),
+          fetch('http://localhost:8001/api/ess-data')
         ])
 
-        const [energyData, aiFreqData, summaryData] = await Promise.all([
+        const [energyData, aiFreqData, summaryData, essDataRes] = await Promise.all([
           energyRes.json(),
           aiFreqRes.json(),
-          summaryRes.json()
+          summaryRes.json(),
+          essRes.json()
         ])
 
         if (energyData.success) setEnergySavings(energyData.data)
         if (aiFreqData.success) setAiFreqControl(aiFreqData.data)
         if (summaryData.success) setEnergySavingsSummary(summaryData.data)
+        if (essDataRes.success) setEssData(essDataRes.data)
       } catch (error) {
         console.error('데이터 로드 실패:', error)
       } finally {
@@ -60,35 +72,70 @@ function Dashboard() {
 
   return (
     <div className="dashboard-compact">
-      {/* 상단: 에너지 절감 현황 */}
-      {energySavings && (
-        <div className="top-section">
-          <CompactEnergySavingsCard data={energySavings} />
-        </div>
+      {/* 하위 탭 네비게이션 */}
+      <div className="sub-tab-nav">
+        <button
+          className={`sub-tab-btn ${subTab === 'realtime' ? 'active' : ''}`}
+          onClick={() => setSubTab('realtime')}
+        >
+          실시간 현황
+        </button>
+        <button
+          className={`sub-tab-btn ${subTab === 'accumulated' ? 'active' : ''}`}
+          onClick={() => setSubTab('accumulated')}
+        >
+          누적 현황
+        </button>
+      </div>
+
+      {/* 실시간 현황 탭 */}
+      {subTab === 'realtime' && (
+        <>
+          {/* 실시간 전력 비교 + 시스템별 절감 전력 */}
+          {energySavings && (
+            <div className="top-section">
+              <RealtimeEnergySavingsCard data={energySavings} />
+            </div>
+          )}
+
+          {/* AI 목표 vs 실제 주파수 현황 */}
+          <div className="bottom-section">
+            {aiFreqControl.length > 0 && (
+              <div className="table-panel full-width">
+                <h3>AI 목표 vs 실제 주파수</h3>
+                <div className="table-scroll">
+                  <CompactAIFreqTable data={aiFreqControl} />
+                </div>
+              </div>
+            )}
+          </div>
+        </>
       )}
 
-      {/* 하단: Summary Table + AI 주파수 테이블 */}
-      <div className="bottom-section">
-        {/* Energy Saving Summary Table */}
-        {energySavingsSummary.length > 0 && (
-          <div className="table-panel">
-            <h3>📋 Energy Saving Summary</h3>
-            <div className="table-scroll">
-              <CompactSummaryTable data={energySavingsSummary} />
+      {/* 누적 현황 탭 */}
+      {subTab === 'accumulated' && (
+        <>
+          {/* 오늘 누적 / 이번 달 누적 카드 (ESS DB 데이터 사용) */}
+          {essData && (
+            <div className="top-section">
+              <AccumulatedSavingsCard essData={essData} />
             </div>
-          </div>
-        )}
+          )}
 
-        {/* AI 목표 vs 실제 주파수 현황 */}
-        {aiFreqControl.length > 0 && (
-          <div className="table-panel">
-            <h3>📈 AI 목표 vs 실제 주파수</h3>
-            <div className="table-scroll">
-              <CompactAIFreqTable data={aiFreqControl} />
-            </div>
+          {/* ESS 운전 및 에너지 현황 + 보고서 다운로드 */}
+          <div className="bottom-section">
+            {essData && (
+              <div className="table-panel full-width">
+                <div className="table-header-with-export">
+                  <h3>ESS 운전 및 에너지 현황</h3>
+                  <ReportDownloadButton />
+                </div>
+                <ESSDataTable data={essData} />
+              </div>
+            )}
           </div>
-        )}
-      </div>
+        </>
+      )}
     </div>
   )
 }
@@ -225,21 +272,19 @@ function FanCard({ fan }) {
   )
 }
 
-// 컴팩트 에너지 절감률 카드
-function CompactEnergySavingsCard({ data }) {
+// 실시간 현황 카드 (실시간 전력 비교 + 시스템별 절감 전력)
+function RealtimeEnergySavingsCard({ data }) {
   const realtime = data?.realtime || {}
-  const today = data?.today || {}
-  const month = data?.month || {}
   const total = realtime?.total || {}
   const swp = realtime?.swp || {}
   const fwp = realtime?.fwp || {}
   const fan = realtime?.fan || {}
 
   return (
-    <div className="compact-energy-card">
-      {/* 좌측: 실시간 절감률 */}
+    <div className="compact-energy-card realtime-only">
+      {/* 좌측: 실시간 전력 비교 */}
       <div className="realtime-panel">
-        <div className="panel-title">🔴 실시간 순간 절감률</div>
+        <div className="panel-title">실시간 전력 비교</div>
         <div className="realtime-grid">
           <div className="realtime-item">
             <span className="label">60Hz 고정</span>
@@ -256,7 +301,88 @@ function CompactEnergySavingsCard({ data }) {
         </div>
       </div>
 
-      {/* 중앙: 누적 절감 */}
+      {/* 우측: 시스템별 순간 절감 전력 */}
+      <div className="system-panel">
+        <div className="panel-title">시스템별 순간 절감 전력</div>
+        <CompactSystemRow label="SWP" kw={swp.savings_kw || 0} rate={swp.savings_rate || 0} color="#38bdf8" />
+        <CompactSystemRow label="FWP" kw={fwp.savings_kw || 0} rate={fwp.savings_rate || 0} color="#34d399" />
+        <CompactSystemRow label="FAN" kw={fan.savings_kw || 0} rate={fan.savings_rate || 0} color="#fbbf24" />
+      </div>
+    </div>
+  )
+}
+
+// 누적 현황 카드 (오늘 누적 + 전체 누적) - ESS DB 데이터 사용
+function AccumulatedSavingsCard({ essData }) {
+  // ESS 데이터에서 TOTAL 그룹 데이터 추출
+  const todayTotal = essData?.today?.groups?.TOTAL || {}
+  const cumulativeTotal = essData?.groups?.TOTAL || {}
+
+  return (
+    <div className="compact-energy-card accumulated-only">
+      {/* 오늘 누적 */}
+      <div className="accumulated-card">
+        <div className="acc-header">
+          <span className="acc-icon">📅</span>
+          <span className="acc-title">오늘 누적 절감</span>
+        </div>
+        <div className="acc-main-value">{(todayTotal.saved_kwh || 0).toFixed(1)} kWh</div>
+        <div className="acc-sub-info">ESS 운전: {(todayTotal.ess_hours || 0).toFixed(1)}h | 절감률: {(todayTotal.savings_rate || 0).toFixed(1)}%</div>
+      </div>
+
+      {/* 전체 누적 (이번 달 → 전체 누적으로 변경) */}
+      <div className="accumulated-card">
+        <div className="acc-header">
+          <span className="acc-icon">📊</span>
+          <span className="acc-title">전체 누적 절감</span>
+        </div>
+        <div className="acc-main-value">{(cumulativeTotal.saved_kwh || 0).toFixed(1)} kWh</div>
+        <div className="acc-sub-info">ESS 운전: {(cumulativeTotal.ess_hours || 0).toFixed(1)}h | 절감률: {(cumulativeTotal.savings_rate || 0).toFixed(1)}%</div>
+      </div>
+    </div>
+  )
+}
+
+// 컴팩트 에너지 절감률 카드 (기존 - 호환성 유지)
+function CompactEnergySavingsCard({ data }) {
+  const realtime = data?.realtime || {}
+  const today = data?.today || {}
+  const month = data?.month || {}
+  const total = realtime?.total || {}
+  const swp = realtime?.swp || {}
+  const fwp = realtime?.fwp || {}
+  const fan = realtime?.fan || {}
+
+  return (
+    <div className="compact-energy-card">
+      {/* 좌측: 실시간 절감률 */}
+      <div className="realtime-panel">
+        <div className="panel-title">🔴 실시간 전력 비교</div>
+        <div className="realtime-grid">
+          <div className="realtime-item">
+            <span className="label">60Hz 고정</span>
+            <span className="value">{(total.power_60hz || 0).toLocaleString()} kW</span>
+          </div>
+          <div className="realtime-item">
+            <span className="label">VFD 가변</span>
+            <span className="value vfd">{(total.power_vfd || 0).toLocaleString()} kW</span>
+          </div>
+          <div className="realtime-item highlight">
+            <span className="label">절감 전력</span>
+            <span className="value saving">{(total.savings_kw || 0).toLocaleString()} kW ({total.savings_rate || 0}%↓)</span>
+          </div>
+        </div>
+      </div>
+
+      {/* 중앙: 시스템별 절감률 */}
+      <div className="system-panel">
+        <div className="panel-title">시스템별 절감 전력</div>
+        <CompactSystemRow label="SWP" kw={swp.savings_kw || 0} rate={swp.savings_rate || 0} color="#38bdf8" />
+        <CompactSystemRow label="FWP" kw={fwp.savings_kw || 0} rate={fwp.savings_rate || 0} color="#34d399" />
+        <CompactSystemRow label="FAN" kw={fan.savings_kw || 0} rate={fan.savings_rate || 0} color="#fbbf24" />
+      </div>
+
+      {/* 우측: 누적 절감 */}
       <div className="accumulated-panel">
         <div className="acc-item">
           <div className="panel-title">📅 오늘 누적</div>
@@ -268,14 +394,6 @@ function CompactEnergySavingsCard({ data }) {
           <div className="acc-value">{(month.total_kwh_saved || 0).toLocaleString()} kWh</div>
           <div className="acc-rate">평균 {month.avg_savings_rate || 0}% 절감</div>
         </div>
-      </div>
-
-      {/* 우측: 시스템별 절감률 */}
-      <div className="system-panel">
-        <div className="panel-title">시스템별 절감률</div>
-        <CompactSystemRow label="SWP" kw={swp.savings_kw || 0} rate={swp.savings_rate || 0} color="#38bdf8" />
-        <CompactSystemRow label="FWP" kw={fwp.savings_kw || 0} rate={fwp.savings_rate || 0} color="#34d399" />
-        <CompactSystemRow label="FAN" kw={fan.savings_kw || 0} rate={fan.savings_rate || 0} color="#fbbf24" />
       </div>
     </div>
   )
@@ -582,6 +700,313 @@ function EnergySavingSummaryTable({ data }) {
           })}
         </tbody>
       </table>
+    </div>
+  )
+}
+
+// 보고서 다운로드 버튼 컴포넌트
+function ReportDownloadButton() {
+  const [showMenu, setShowMenu] = useState(false)
+  const [reportType, setReportType] = useState('daily')
+  const [downloading, setDownloading] = useState(false)
+
+  // 날짜 입력 상태
+  const today = new Date().toISOString().split('T')[0]
+  const [selectedDate, setSelectedDate] = useState(today)
+  const [startDate, setStartDate] = useState(today)
+  const [endDate, setEndDate] = useState(today)
+  const [selectedEquipment, setSelectedEquipment] = useState('SWP1')
+  const [selectedYear, setSelectedYear] = useState(new Date().getFullYear())
+  const [selectedMonth, setSelectedMonth] = useState(new Date().getMonth() + 1)
+
+  const equipmentList = ['SWP1', 'SWP2', 'SWP3', 'FWP1', 'FWP2', 'FWP3', 'FAN1', 'FAN2', 'FAN3', 'FAN4']
+
+  const handleDownload = async () => {
+    setDownloading(true)
+    try {
+      let url = ''
+      let filename = ''
+
+      switch (reportType) {
+        case 'daily':
+          url = `${EDGE_API_URL}/api/reports/ess/csv/daily?date=${selectedDate}`
+          filename = `ESS_Daily_Report_${selectedDate}.csv`
+          break
+        case 'period':
+          url = `${EDGE_API_URL}/api/reports/ess/csv/period?start_date=${startDate}&end_date=${endDate}`
+          filename = `ESS_Period_Report_${startDate}_to_${endDate}.csv`
+          break
+        case 'equipment':
+          url = `${EDGE_API_URL}/api/reports/ess/csv/equipment/${selectedEquipment}?start_date=${startDate}&end_date=${endDate}`
+          filename = `ESS_Equipment_Report_${selectedEquipment}_${startDate}_to_${endDate}.csv`
+          break
+        case 'monthly':
+          url = `${EDGE_API_URL}/api/reports/ess/csv/monthly?year=${selectedYear}&month=${selectedMonth}`
+          filename = `ESS_Monthly_Report_${selectedYear}_${String(selectedMonth).padStart(2, '0')}.csv`
+          break
+        default:
+          return
+      }
+
+      const response = await fetch(url)
+      if (!response.ok) throw new Error('다운로드 실패')
+
+      const blob = await response.blob()
+      const downloadUrl = window.URL.createObjectURL(blob)
+      const a = document.createElement('a')
+      a.href = downloadUrl
+      a.download = filename
+      document.body.appendChild(a)
+      a.click()
+      document.body.removeChild(a)
+      window.URL.revokeObjectURL(downloadUrl)
+
+      setShowMenu(false)
+    } catch (error) {
+      console.error('보고서 다운로드 실패:', error)
+      alert('보고서 다운로드에 실패했습니다.')
+    } finally {
+      setDownloading(false)
+    }
+  }
+
+  return (
+    <div className="report-download-container">
+      <button
+        className="report-download-btn"
+        onClick={() => setShowMenu(!showMenu)}
+      >
+        CSV 보고서 다운로드
+      </button>
+
+      {showMenu && (
+        <div className="report-menu">
+          <div className="report-menu-header">
+            <span>보고서 유형 선택</span>
+            <button className="close-btn" onClick={() => setShowMenu(false)}>X</button>
+          </div>
+
+          <div className="report-type-selector">
+            <label>
+              <input
+                type="radio"
+                name="reportType"
+                value="daily"
+                checked={reportType === 'daily'}
+                onChange={(e) => setReportType(e.target.value)}
+              />
+              일별 보고서
+            </label>
+            <label>
+              <input
+                type="radio"
+                name="reportType"
+                value="period"
+                checked={reportType === 'period'}
+                onChange={(e) => setReportType(e.target.value)}
+              />
+              기간별 보고서
+            </label>
+            <label>
+              <input
+                type="radio"
+                name="reportType"
+                value="equipment"
+                checked={reportType === 'equipment'}
+                onChange={(e) => setReportType(e.target.value)}
+              />
+              장비별 보고서
+            </label>
+            <label>
+              <input
+                type="radio"
+                name="reportType"
+                value="monthly"
+                checked={reportType === 'monthly'}
+                onChange={(e) => setReportType(e.target.value)}
+              />
+              월별 보고서
+            </label>
+          </div>
+
+          <div className="report-options">
+            {reportType === 'daily' && (
+              <div className="option-group">
+                <label>날짜:</label>
+                <input
+                  type="date"
+                  value={selectedDate}
+                  onChange={(e) => setSelectedDate(e.target.value)}
+                />
+              </div>
+            )}
+
+            {(reportType === 'period' || reportType === 'equipment') && (
+              <>
+                <div className="option-group">
+                  <label>시작일:</label>
+                  <input
+                    type="date"
+                    value={startDate}
+                    onChange={(e) => setStartDate(e.target.value)}
+                  />
+                </div>
+                <div className="option-group">
+                  <label>종료일:</label>
+                  <input
+                    type="date"
+                    value={endDate}
+                    onChange={(e) => setEndDate(e.target.value)}
+                  />
+                </div>
+              </>
+            )}
+
+            {reportType === 'equipment' && (
+              <div className="option-group">
+                <label>장비:</label>
+                <select
+                  value={selectedEquipment}
+                  onChange={(e) => setSelectedEquipment(e.target.value)}
+                >
+                  {equipmentList.map(eq => (
+                    <option key={eq} value={eq}>{eq}</option>
+                  ))}
+                </select>
+              </div>
+            )}
+
+            {reportType === 'monthly' && (
+              <>
+                <div className="option-group">
+                  <label>연도:</label>
+                  <select
+                    value={selectedYear}
+                    onChange={(e) => setSelectedYear(Number(e.target.value))}
+                  >
+                    {[2024, 2025, 2026].map(y => (
+                      <option key={y} value={y}>{y}년</option>
+                    ))}
+                  </select>
+                </div>
+                <div className="option-group">
+                  <label>월:</label>
+                  <select
+                    value={selectedMonth}
+                    onChange={(e) => setSelectedMonth(Number(e.target.value))}
+                  >
+                    {Array.from({length: 12}, (_, i) => i + 1).map(m => (
+                      <option key={m} value={m}>{m}월</option>
+                    ))}
+                  </select>
+                </div>
+              </>
+            )}
+          </div>
+
+          <button
+            className="download-execute-btn"
+            onClick={handleDownload}
+            disabled={downloading}
+          >
+            {downloading ? '다운로드 중...' : 'CSV 다운로드'}
+          </button>
+        </div>
+      )}
+    </div>
+  )
+}
+
+// ESS 운전 및 에너지 데이터 테이블 (Edge Computer에서 계산한 데이터)
+function ESSDataTable({ data }) {
+  const equipment = data?.equipment || []
+  const groups = data?.groups || {}
+  const today = data?.today || {}
+
+  const getType = (name) => {
+    if (name.startsWith('SWP')) return 'swp'
+    if (name.startsWith('FWP')) return 'fwp'
+    if (name.startsWith('FAN')) return 'fan'
+    return ''
+  }
+
+  return (
+    <div className="ess-data-container">
+      {/* 그룹별 요약 */}
+      <div className="ess-group-summary">
+        <div className="ess-group-cards">
+          {['SWP', 'FWP', 'FAN', 'TOTAL'].map(group => {
+            const g = groups[group] || {}
+            const todayG = today?.groups?.[group] || {}
+            const label = group === 'TOTAL' ? '전체' :
+                          group === 'SWP' ? '해수펌프' :
+                          group === 'FWP' ? '청수펌프' : 'E/R 팬'
+            const color = group === 'TOTAL' ? '#f59e0b' :
+                          group === 'SWP' ? '#3b82f6' :
+                          group === 'FWP' ? '#10b981' : '#a855f7'
+
+            return (
+              <div key={group} className="ess-group-card" style={{ borderTop: `3px solid ${color}` }}>
+                <div className="ess-group-header">
+                  <span className="ess-group-label">{label}</span>
+                  <span className="ess-group-rate" style={{ color }}>
+                    {(g.savings_rate || 0).toFixed(1)}%
+                  </span>
+                </div>
+                <div className="ess-group-stats">
+                  <div className="ess-stat">
+                    <span className="ess-stat-label">ESS 운전</span>
+                    <span className="ess-stat-value">{(g.ess_hours || 0).toFixed(1)}h</span>
+                  </div>
+                  <div className="ess-stat">
+                    <span className="ess-stat-label">누적 절감</span>
+                    <span className="ess-stat-value">{(g.saved_kwh || 0).toFixed(1)} kWh</span>
+                  </div>
+                  <div className="ess-stat today">
+                    <span className="ess-stat-label">오늘 절감</span>
+                    <span className="ess-stat-value">{(todayG.saved_kwh || 0).toFixed(1)} kWh</span>
+                  </div>
+                </div>
+              </div>
+            )
+          })}
+        </div>
+      </div>
+
+      {/* 장비별 상세 테이블 */}
+      <div className="ess-equipment-table-wrapper">
+        <table className="compact-table ess-table">
+          <thead>
+            <tr>
+              <th>장비</th>
+              <th>ESS 운전 (h)</th>
+              <th>총 운전 (h)</th>
+              <th>ESS 소비 (kWh)</th>
+              <th>기준 전력 (kWh)</th>
+              <th>절감량 (kWh)</th>
+              <th>절감률 (%)</th>
+              <th>오늘 절감 (kWh)</th>
+            </tr>
+          </thead>
+          <tbody>
+            {equipment.map((eq, idx) => {
+              const todayEq = today?.equipment?.[idx] || {}
+              return (
+                <tr key={idx} className={getType(eq.name)}>
+                  <td className="name">{eq.name}</td>
+                  <td>{(eq.ess_hours || 0).toFixed(1)}</td>
+                  <td>{(eq.total_hours || 0).toFixed(1)}</td>
+                  <td>{(eq.ess_kwh || 0).toFixed(1)}</td>
+                  <td>{(eq.baseline_kwh || 0).toFixed(1)}</td>
+                  <td className="saved">{(eq.saved_kwh || 0).toFixed(1)}</td>
+                  <td className={eq.savings_rate > 0 ? 'positive' : ''}>{(eq.savings_rate || 0).toFixed(1)}</td>
+                  <td className="today">{(todayEq.saved_kwh || 0).toFixed(1)}</td>
+                </tr>
+              )
+            })}
+          </tbody>
+        </table>
+      </div>
     </div>
   )
 }

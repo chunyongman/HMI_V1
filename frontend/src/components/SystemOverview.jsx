@@ -1,12 +1,15 @@
 import React from 'react'
 import './SystemOverview.css'
 
-function SystemOverview({ sensors = {}, pumps = [], fans = [] }) {
+function SystemOverview({ sensors = {}, pumps = [], fans = [], essData = null }) {
   const swPumps = pumps.slice(0, 3) // SWP1, SWP2, SWP3
   const fwPumps = pumps.slice(3, 6) // FWP1, FWP2, FWP3
 
-  const totalSavedKwh = pumps.reduce((sum, pump) => sum + (pump.saved_kwh || 0), 0)
-  const totalRunHours = pumps.reduce((sum, pump) => sum + (pump.run_hours || 0), 0)
+  // ESS 데이터에서 총계 가져오기 (PLC에서 읽은 값)
+  const totalSavedKwh = essData?.groups?.TOTAL?.saved_kwh || 0
+  const totalEssHours = essData?.groups?.TOTAL?.ess_hours || 0  // HMI에서 'ess_hours'로 반환
+  const totalSavingsRate = essData?.groups?.TOTAL?.savings_rate || 0
+
   const runningPumps = pumps.filter(p => p.running).length
   const runningFans = fans.filter(f => f.running_fwd || f.running_bwd).length
 
@@ -24,8 +27,15 @@ function SystemOverview({ sensors = {}, pumps = [], fans = [] }) {
         <div className="stat-item">
           <span className="stat-icon">⏱️</span>
           <div className="stat-info">
-            <span className="stat-label">총 운전 시간</span>
-            <span className="stat-value">{totalRunHours.toLocaleString()} h</span>
+            <span className="stat-label">ESS 운전 시간</span>
+            <span className="stat-value">{totalEssHours.toLocaleString()} h</span>
+          </div>
+        </div>
+        <div className="stat-item">
+          <span className="stat-icon">📊</span>
+          <div className="stat-info">
+            <span className="stat-label">평균 절감률</span>
+            <span className="stat-value">{totalSavingsRate.toFixed(1)}%</span>
           </div>
         </div>
         <div className="stat-item">
@@ -54,7 +64,7 @@ function SystemOverview({ sensors = {}, pumps = [], fans = [] }) {
       {/* 중단: 펌프 (SWP + FWP) */}
       <div className="equipment-row">
         <div className="equipment-group">
-          <h3>🌊 해수 펌프 (SWP)</h3>
+          <h3>🌊 해수 펌프 (SWP) <span className="rated-power">모터 정격 132 kW</span></h3>
           <div className="equipment-cards">
             {swPumps.map((pump, idx) => (
               <CompactPumpCard key={idx} pump={pump} />
@@ -62,7 +72,7 @@ function SystemOverview({ sensors = {}, pumps = [], fans = [] }) {
           </div>
         </div>
         <div className="equipment-group">
-          <h3>💧 청수 펌프 (FWP)</h3>
+          <h3>💧 청수 펌프 (FWP) <span className="rated-power">모터 정격 75 kW</span></h3>
           <div className="equipment-cards">
             {fwPumps.map((pump, idx) => (
               <CompactPumpCard key={idx} pump={pump} />
@@ -73,7 +83,7 @@ function SystemOverview({ sensors = {}, pumps = [], fans = [] }) {
 
       {/* 하단: E/R Fan */}
       <div className="fan-row">
-        <h3>🌀 Engine Room 팬 (E/R Fan)</h3>
+        <h3>🌀 Engine Room 팬 (E/R Fan) <span className="rated-power">모터 정격 54.3 kW</span></h3>
         <div className="fan-cards">
           {fans.map((fan, idx) => (
             <CompactFanCard key={idx} fan={fan} />
@@ -99,10 +109,17 @@ function CompactPumpCard({ pump }) {
     }
   }
 
+  // 그룹별 테두리 색상 설정
+  const getGroupBorderColor = (name) => {
+    if (name && name.startsWith('SWP')) return '#3b82f6';  // 파란색 (해수펌프)
+    if (name && name.startsWith('FWP')) return '#10b981';  // 초록색 (청수펌프)
+    return '#334155';
+  }
+
   const operationMode = getOperationMode()
 
   return (
-    <div className={`compact-card ${isRunning ? 'running' : 'stopped'}`}>
+    <div className={`compact-card ${isRunning ? 'running' : 'stopped'}`} style={{ border: `2px solid ${getGroupBorderColor(pump.name)}` }}>
       <div className="compact-header">
         <span className="compact-name">
           {pump.name}
@@ -156,8 +173,11 @@ function CompactFanCard({ fan }) {
 
   const operationMode = getOperationMode()
 
+  // 팬 그룹 테두리 색상 (보라색)
+  const fanBorderColor = '#a855f7'
+
   return (
-    <div className={`compact-card ${isRunning ? 'running' : 'stopped'}`}>
+    <div className={`compact-card ${isRunning ? 'running' : 'stopped'}`} style={{ border: `2px solid ${fanBorderColor}` }}>
       <div className="compact-header">
         <span className="compact-name">
           {fan.name}

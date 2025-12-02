@@ -23,6 +23,7 @@ function App() {
   const [equipment, setEquipment] = useState([])
   const [alarms, setAlarms] = useState([])
   const [alarmSummary, setAlarmSummary] = useState({})
+  const [essData, setEssData] = useState(null)  // ESS 운전/에너지 데이터
   const [wsConnected, setWsConnected] = useState(false)  // WebSocket 연결 상태
   const [plcConnected, setPlcConnected] = useState(false)  // PLC 연결 상태
   const [ws, setWs] = useState(null)
@@ -276,6 +277,7 @@ function App() {
           setAlarms(data.alarms || [])
           setAlarmSummary(data.alarm_summary || {})
           setPlcConnected(data.plc_connected || false)  // PLC 연결 상태 업데이트
+          setEssData(data.ess_data || null)  // ESS 운전/에너지 데이터
         }
       } catch (error) {
         console.error('WebSocket 메시지 파싱 오류:', error)
@@ -486,7 +488,7 @@ function App() {
           <VFDDiagnostics />
         )}
         {activeTab === 'system_overview' && (
-          <SystemOverview sensors={sensors} pumps={pumps} fans={fans} />
+          <SystemOverview sensors={sensors} pumps={pumps} fans={fans} essData={essData} />
         )}
       </main>
 

@@ -587,18 +587,66 @@
     "FAN3_2025-12-02": {
       "equipment_name": "FAN3",
       "date": "2025-12-02",
-      "runtime_hours": 0.06572934805555555,
-      "start_count": 3,
-      "energy_kwh": 3.569103599416666,
-      "saved_kwh": 1.0707310798249998
+      "runtime_hours": 4.110317427499999,
+      "start_count": 214,
+      "energy_kwh": 223.19023631324993,
+      "saved_kwh": 66.957070893975
     },
     "FAN4_2025-12-02": {
       "equipment_name": "FAN4",
       "date": "2025-12-02",
-      "runtime_hours": 0.045704478611111106,
-      "start_count": 3,
-      "energy_kwh": 2.4817531885833333,
-      "saved_kwh": 0.744525956575
+      "runtime_hours": 2.8237604347222214,
+      "start_count": 218,
+      "energy_kwh": 153.3301916054168,
+      "saved_kwh": 45.999057481625
+    },
+    "SWP1_2025-12-02": {
+      "equipment_name": "SWP1",
+      "date": "2025-12-02",
+      "runtime_hours": 0.1452005313888889,
+      "start_count": 2,
+      "energy_kwh": 19.166470143333335,
+      "saved_kwh": 5.749941043000001
+    },
+    "SWP2_2025-12-02": {
+      "equipment_name": "SWP2",
+      "date": "2025-12-02",
+      "runtime_hours": 0.1452005313888889,
+      "start_count": 2,
+      "energy_kwh": 19.166470143333335,
+      "saved_kwh": 5.749941043000001
+    },
+    "FWP1_2025-12-02": {
+      "equipment_name": "FWP1",
+      "date": "2025-12-02",
+      "runtime_hours": 0.1452005313888889,
+      "start_count": 2,
+      "energy_kwh": 10.890039854166666,
+      "saved_kwh": 3.2670119562499997
+    },
+    "FWP2_2025-12-02": {
+      "equipment_name": "FWP2",
+      "date": "2025-12-02",
+      "runtime_hours": 0.1452005313888889,
+      "start_count": 2,
+      "energy_kwh": 10.890039854166666,
+      "saved_kwh": 3.2670119562499997
+    },
+    "FAN1_2025-12-02": {
+      "equipment_name": "FAN1",
+      "date": "2025-12-02",
+      "runtime_hours": 0.1452005313888889,
+      "start_count": 2,
+      "energy_kwh": 7.884388854416666,
+      "saved_kwh": 2.3653166563249997
+    },
+    "FAN2_2025-12-02": {
+      "equipment_name": "FAN2",
+      "date": "2025-12-02",
+      "runtime_hours": 0.1452005313888889,
+      "start_count": 2,
+      "energy_kwh": 7.884388854416666,
+      "saved_kwh": 2.3653166563249997
     }
   }
 }

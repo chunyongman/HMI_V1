@@ -869,6 +869,35 @@ async def get_energy_savings_summary():
     }
 
 
+@app.get("/api/ess-data")
+async def get_ess_data():
+    """
+    ESS 운전 데이터 조회 (Edge Computer가 계산하여 PLC에 쓴 데이터)
+
+    Returns:
+        {
+            'equipment': [10개 장비별 ESS 운전시간/에너지 데이터],
+            'groups': {'SWP': {...}, 'FWP': {...}, 'FAN': {...}, 'TOTAL': {...}},
+            'today': {'equipment': [...], 'groups': {...}}
+        }
+    """
+    ess_data = await asyncio.to_thread(plc_client.read_ess_data)
+
+    if ess_data:
+        return {
+            "success": True,
+            "data": ess_data,
+            "timestamp": datetime.now().isoformat()
+        }
+    else:
+        return {
+            "success": False,
+            "error": "ESS 데이터 읽기 실패",
+            "data": None,
+            "timestamp": datetime.now().isoformat()
+        }
+
+
 @app.get("/api/operations")
 async def get_operation_records(start_date: str = None, end_date: str = None):
     """운전 이력 조회 - Edge Computer에서 가져오기 (실패 시 로컬)"""
@@ -1138,6 +1167,13 @@ async def broadcast_realtime_data():
             except Exception as e:
                 logger.debug(f"VFD 진단 데이터 읽기 실패 (무시): {e}")
 
+            # ESS 운전 데이터 읽기 (Edge Computer가 계산하여 PLC에 쓴 데이터)
+            ess_data = None
+            try:
+                ess_data = plc_client.read_ess_data()
+            except Exception as e:
+                logger.debug(f"ESS 데이터 읽기 실패 (무시): {e}")
+
             # WebSocket 클라이언트에 데이터 전송 (연결이 있을 때만)
             if active_connections:
                 # 하위 호환성을 위해 pumps도 함께 전송
@@ -1156,6 +1192,7 @@ async def broadcast_realtime_data():
                     "equipment": equipment,
                     "pumps": pumps,  # 하위 호환용
                     "vfd_diagnostics": vfd_diagnostics if plc_client.connected else None,  # VFD 예방진단
+                    "ess_data": ess_data if plc_client.connected else None,  # ESS 운전/에너지 데이터
                     "alarms": active_alarms,  # 활성 알람 목록
                     "alarm_summary": alarm_summary,  # 알람 요약
                     "plc_connected": plc_client.connected,  # PLC 연결 상태

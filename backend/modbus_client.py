@@ -119,6 +119,31 @@ class PLCClient:
             self.connected = False
             return None
 
+    def read_coils(self, address: int, count: int) -> Optional[List[bool]]:
+        """코일 읽기"""
+        if not self.connected or not self.client:
+            self.connect()
+
+        if not self.connected:
+            return None
+
+        try:
+            result = self.client.read_coils(
+                address=address,
+                count=count,
+                device_id=self.slave_id
+            )
+
+            if result.isError():
+                logger.debug(f"코일 읽기 오류: {result}")
+                return None
+
+            return result.bits[:count]
+
+        except Exception as e:
+            logger.debug(f"코일 읽기 예외: {e}")
+            return None
+
     def write_coil(self, address: int, value: bool) -> bool:
         """코일 쓰기"""
         if not self.connected:
@@ -204,7 +229,7 @@ class PLCClient:
         }
 
     def get_equipment_status(self) -> Dict[str, Any]:
-        """장비 상태 읽기 (K4000~K4001)"""
+        """장비 상태 읽기 (K4000~K4001 + AUTO/VFD 코일)"""
 
         # 시뮬레이션 모드: 가짜 데이터 생성
         if self.use_simulation:
@@ -219,7 +244,7 @@ class PLCClient:
         word_4000 = status_regs[0]
         word_4001 = status_regs[1]
 
-        return {
+        status = {
             # SWP Status
             "SWP1_RUN": bool(word_4000 & (1 << 0)),
             "SWP1_ESS": bool(word_4000 & (1 << 1)),
@@ -256,6 +281,26 @@ class PLCClient:
             "FAN4_RUNBW": bool(word_4001 & (1 << 12)),
             "FAN4_ABNR": bool(word_4001 & (1 << 13)),
         }
+
+        # AUTO/MANUAL 및 VFD/BYPASS 코일 상태 읽기
+        equipment_names = ["SWP1", "SWP2", "SWP3", "FWP1", "FWP2", "FWP3",
+                          "FAN1", "FAN2", "FAN3", "FAN4"]
+        for i, name in enumerate(equipment_names):
+            # AUTO/MANUAL 코일 읽기 (64160 + eq_index)
+            try:
+                auto_coil = self.read_coils(64160 + i, 1)
+                status[f"{name}_AUTO"] = bool(auto_coil[0]) if auto_coil else True
+            except:
+                status[f"{name}_AUTO"] = True  # 기본값: AUTO
+
+            # VFD/BYPASS 코일 읽기 (64320 + eq_index)
+            try:
+                vfd_coil = self.read_coils(64320 + i, 1)
+                status[f"{name}_VFD"] = bool(vfd_coil[0]) if vfd_coil else True
+            except:
+                status[f"{name}_VFD"] = True  # 기본값: VFD
+
+        return status
 
     def get_vfd_data(self, equipment_index: int) -> Dict[str, Any]:
         """
@@ -315,12 +360,16 @@ class PLCClient:
         }
 
     def get_all_equipment_data(self) -> List[Dict[str, Any]]:
-        """모든 장비 데이터 읽기"""
+        """모든 장비 데이터 읽기 (VFD 데이터 + Edge AI 절감 데이터 포함)"""
 
         equipment_names = ["SWP1", "SWP2", "SWP3", "FWP1", "FWP2", "FWP3",
                           "FAN1", "FAN2", "FAN3", "FAN4"]
 
         status = self.get_equipment_status()
+
+        # Edge AI가 PLC에 쓴 절감 데이터 읽기 (레지스터 5100-5109)
+        savings_data = self._read_edge_ai_savings_data()
+
         equipment_list = []
 
         for i, name in enumerate(equipment_names):
@@ -329,6 +378,9 @@ class PLCClient:
             # 공통 상태: Auto/Manual, VFD/Bypass
             auto_mode = status.get(f"{name}_AUTO", True)
             vfd_mode = status.get(f"{name}_VFD", True)
+
+            # Edge AI 절감 데이터 추가
+            equipment_savings = savings_data.get(i, {}) if savings_data else {}
 
             # 장비 유형에 따라 상태 가져오기
             if i < 6:  # Pumps
@@ -344,7 +396,8 @@ class PLCClient:
                     "abnormal": abnormal,
                     "auto_mode": auto_mode,
                     "vfd_mode": vfd_mode,
-                    **vfd_data
+                    **vfd_data,
+                    **equipment_savings  # Edge AI 절감 데이터 추가
                 })
             else:  # Fans
                 running_fwd = status.get(f"{name}_RUNFW", False)
@@ -362,10 +415,99 @@ class PLCClient:
                     "abnormal": abnormal,
                     "auto_mode": auto_mode,
                     "vfd_mode": vfd_mode,
-                    **vfd_data
+                    **vfd_data,
+                    **equipment_savings  # Edge AI 절감 데이터 추가
                 })
 
         return equipment_list
+
+    def _read_edge_ai_savings_data(self) -> Optional[Dict[int, Dict]]:
+        """
+        Edge AI가 PLC에 쓴 절감 데이터 읽기
+
+        PLC 레지스터:
+        - 5100-5109: 개별 장비 절감 전력 (kW × 10)
+        - 5110-5119: 개별 장비 절감률 (% × 10)
+
+        Returns:
+            {장비인덱스: {"saved_kwh": 값, "saved_ratio": 값}}
+        """
+        if self.use_simulation:
+            return self._simulate_edge_ai_savings_data()
+
+        try:
+            # 개별 장비 절감 전력 읽기 (5100-5109)
+            equipment_savings_raw = self.read_holding_registers(5100, 10)
+            if not equipment_savings_raw:
+                logger.warning("Edge AI 장비별 절감 데이터 읽기 실패")
+                return None
+
+            # 개별 장비 절감률 읽기 (5110-5119) - Edge Computer에서 계산한 개별 절감률
+            equipment_ratio_raw = self.read_holding_registers(5110, 10)
+            if not equipment_ratio_raw:
+                logger.warning("Edge AI 장비별 절감률 읽기 실패")
+                equipment_ratio_raw = [0] * 10
+
+            result = {}
+            for i in range(10):
+                saved_kw = equipment_savings_raw[i] / 10.0
+                saved_ratio = equipment_ratio_raw[i] / 10.0
+
+                result[i] = {
+                    "saved_kwh": round(saved_kw, 1),
+                    "saved_ratio": round(saved_ratio, 1)
+                }
+
+            return result
+
+        except Exception as e:
+            logger.error(f"Edge AI 절감 데이터 읽기 오류: {e}")
+            return None
+
+    def _simulate_edge_ai_savings_data(self) -> Dict[int, Dict]:
+        """시뮬레이션 모드용 Edge AI 절감 데이터"""
+        # 장비별 정격 전력 (kW)
+        MOTOR_CAPACITY = [132, 132, 132, 75, 75, 75, 54.3, 54.3, 54.3, 54.3]
+
+        result = {}
+        for i in range(10):
+            name = ["SWP1", "SWP2", "SWP3", "FWP1", "FWP2", "FWP3",
+                    "FAN1", "FAN2", "FAN3", "FAN4"][i]
+            state = self.sim_equipment_states.get(name, {})
+
+            # 운전 여부 확인
+            if i < 6:
+                is_running = state.get("running", False)
+            else:
+                is_running = state.get("running_fwd", False) or state.get("running_bwd", False)
+
+            if is_running:
+                frequency = state.get("frequency", 0)
+                motor_capacity = MOTOR_CAPACITY[i]
+
+                # 실제 전력 (큐빅 법칙)
+                actual_power = motor_capacity * ((frequency / 60) ** 3)
+                # 60Hz 기준 전력
+                power_at_60hz = motor_capacity
+                # 절감 전력
+                saved_power = power_at_60hz - actual_power
+                # 절감률
+                saved_ratio = (saved_power / power_at_60hz * 100) if power_at_60hz > 0 else 0
+                # 누적 절감량 (운전시간 기반)
+                run_hours = state.get("run_hours", 0)
+                saved_kwh = saved_power * (run_hours / 1000) if run_hours > 0 else saved_power * 0.5
+            else:
+                # 정지 중인 장비는 절감 없음
+                saved_kwh = 0
+                saved_ratio = 0
+
+            result[i] = {
+                "saved_kwh": round(saved_kwh, 1),
+                "saved_ratio": round(saved_ratio, 1),
+                "is_running": is_running  # 운전 상태 포함
+            }
+
+        return result
 
     def send_equipment_command(self, equipment_name: str, command: str) -> bool:
         """
@@ -1022,15 +1164,20 @@ class PLCClient:
             saved_power = power_at_60hz - actual_power
             saved_ratio = (saved_power / power_at_60hz * 100) if power_at_60hz > 0 else 0.0
 
+            # 누적 절감량 계산 (운전시간 기반 추정)
+            run_hours = eq.get("run_hours", 0)
+            # 평균 절감 전력 (kW) × 운전 시간 (h) = 절감 에너지 (kWh)
+            saved_kwh = saved_power * (run_hours / 1000) if run_hours > 0 else saved_power * 0.5
+
             result.append({
                 "name": eq["name"],
                 "motor_capacity": round(motor_capacity, 1),
                 "actual_freq": round(actual_freq, 1),
                 "actual_power": round(actual_power, 1),
                 "kw_average": round(actual_power, 1),
-                "saved_kwh": 0.0,  # 시뮬레이션에서는 0
+                "saved_kwh": round(saved_kwh, 1),
                 "saved_ratio": round(saved_ratio, 1),
-                "run_hours_ess": 0
+                "run_hours_ess": run_hours
             })
 
         return result
@@ -1079,3 +1226,203 @@ class PLCClient:
         except Exception as e:
             logger.error(f"VFD 진단 결과 읽기 오류: {e}")
             return None
+
+    def read_ess_data(self) -> Optional[Dict]:
+        """
+        Edge Computer가 계산한 ESS 운전/에너지 데이터를 PLC에서 읽기
+
+        PLC 레지스터:
+        - 5700-5709: 개별 장비 ESS 운전시간 (hours × 10)
+        - 5710-5719: 개별 장비 총 운전시간 (hours × 10)
+        - 5720-5729: 개별 장비 ESS 모드 소비 전력량 (kWh × 10)
+        - 5730-5739: 개별 장비 60Hz 기준 전력량 (kWh × 10)
+        - 5740-5749: 개별 장비 절감 전력량 (kWh × 10)
+        - 5750-5759: 개별 장비 절감률 (% × 10)
+        - 5800-5803: 그룹별 ESS 운전시간 [SWP, FWP, FAN, TOTAL]
+        - 5804-5807: 그룹별 총 운전시간
+        - 5816-5819: 그룹별 절감량
+        - 5820-5823: 그룹별 절감률
+        - 5900-5909: 오늘 개별 ESS 운전시간 (hours × 100)
+        - 5910-5919: 오늘 개별 절감량 (kWh × 10)
+        - 5920-5923: 오늘 그룹별 절감량 [SWP, FWP, FAN, TOTAL]
+
+        Returns:
+            {
+                'equipment': [10개 장비 데이터],
+                'groups': {'SWP': {...}, 'FWP': {...}, 'FAN': {...}, 'TOTAL': {...}},
+                'today': {'equipment': [...], 'groups': {...}}
+            }
+        """
+        if self.use_simulation:
+            return self._simulate_ess_data()
+
+        if not self.connected:
+            self.connect()
+
+        if not self.connected:
+            logger.warning("PLC 연결 안됨 - ESS 데이터 읽기 실패")
+            return None
+
+        try:
+            equipment_names = ["SWP1", "SWP2", "SWP3", "FWP1", "FWP2", "FWP3",
+                               "FAN1", "FAN2", "FAN3", "FAN4"]
+
+            # === 개별 장비 누적 데이터 ===
+            ess_hours_raw = self.read_holding_registers(5700, 10) or [0] * 10
+            total_hours_raw = self.read_holding_registers(5710, 10) or [0] * 10
+            ess_kwh_raw = self.read_holding_registers(5720, 10) or [0] * 10
+            baseline_kwh_raw = self.read_holding_registers(5730, 10) or [0] * 10
+            saved_kwh_raw = self.read_holding_registers(5740, 10) or [0] * 10
+            savings_rate_raw = self.read_holding_registers(5750, 10) or [0] * 10
+
+            equipment = []
+            for i in range(10):
+                equipment.append({
+                    'name': equipment_names[i],
+                    'ess_hours': ess_hours_raw[i] / 10.0,
+                    'total_hours': total_hours_raw[i] / 10.0,
+                    'ess_kwh': ess_kwh_raw[i] / 10.0,
+                    'baseline_kwh': baseline_kwh_raw[i] / 10.0,
+                    'saved_kwh': saved_kwh_raw[i] / 10.0,
+                    'savings_rate': savings_rate_raw[i] / 10.0
+                })
+
+            # === 그룹별 데이터 ===
+            group_ess_hours = self.read_holding_registers(5800, 4) or [0] * 4
+            group_total_hours = self.read_holding_registers(5804, 4) or [0] * 4
+            group_saved_kwh = self.read_holding_registers(5816, 4) or [0] * 4
+            group_savings_rate = self.read_holding_registers(5820, 4) or [0] * 4
+
+            group_names = ['SWP', 'FWP', 'FAN', 'TOTAL']
+            groups = {}
+            for i, name in enumerate(group_names):
+                groups[name] = {
+                    'ess_hours': group_ess_hours[i] / 10.0,
+                    'total_hours': group_total_hours[i] / 10.0,
+                    'saved_kwh': group_saved_kwh[i] / 10.0,
+                    'savings_rate': group_savings_rate[i] / 10.0
+                }
+
+            # === 오늘 데이터 ===
+            today_ess_hours = self.read_holding_registers(5900, 10) or [0] * 10
+            today_saved_kwh = self.read_holding_registers(5910, 10) or [0] * 10
+            today_group_saved = self.read_holding_registers(5920, 4) or [0] * 4
+
+            today_equipment = []
+            for i in range(10):
+                today_equipment.append({
+                    'name': equipment_names[i],
+                    'ess_hours': today_ess_hours[i] / 100.0,  # hours × 100
+                    'saved_kwh': today_saved_kwh[i] / 10.0
+                })
+
+            today_groups = {}
+            for i, name in enumerate(group_names):
+                today_groups[name] = {
+                    'saved_kwh': today_group_saved[i] / 10.0
+                }
+
+            return {
+                'equipment': equipment,
+                'groups': groups,
+                'today': {
+                    'equipment': today_equipment,
+                    'groups': today_groups
+                }
+            }
+
+        except Exception as e:
+            logger.error(f"ESS 데이터 읽기 오류: {e}")
+            return None
+
+    def _simulate_ess_data(self) -> Dict:
+        """시뮬레이션 모드용 ESS 데이터"""
+        import random
+
+        equipment_names = ["SWP1", "SWP2", "SWP3", "FWP1", "FWP2", "FWP3",
+                           "FAN1", "FAN2", "FAN3", "FAN4"]
+
+        # 개별 장비 데이터 (시뮬레이션)
+        equipment = []
+        for i, name in enumerate(equipment_names):
+            state = self.sim_equipment_states.get(name, {})
+            running = state.get("running", False) or state.get("running_fwd", False)
+
+            # 운전 중인 장비는 ESS 시간과 절감량 있음
+            if running:
+                ess_hours = random.uniform(50, 200)
+                total_hours = ess_hours + random.uniform(10, 50)
+                saved_kwh = random.uniform(100, 500)
+                baseline_kwh = saved_kwh * random.uniform(1.3, 1.6)
+                savings_rate = (saved_kwh / baseline_kwh) * 100 if baseline_kwh > 0 else 0
+            else:
+                ess_hours = random.uniform(0, 50)
+                total_hours = ess_hours
+                saved_kwh = random.uniform(0, 100)
+                baseline_kwh = saved_kwh * 1.5
+                savings_rate = 0
+
+            equipment.append({
+                'name': name,
+                'ess_hours': round(ess_hours, 1),
+                'total_hours': round(total_hours, 1),
+                'ess_kwh': round(saved_kwh * 0.8, 1),
+                'baseline_kwh': round(baseline_kwh, 1),
+                'saved_kwh': round(saved_kwh, 1),
+                'savings_rate': round(savings_rate, 1)
+            })
+
+        # 그룹별 집계
+        groups = {
+            'SWP': {'ess_hours': 0, 'total_hours': 0, 'saved_kwh': 0, 'savings_rate': 0},
+            'FWP': {'ess_hours': 0, 'total_hours': 0, 'saved_kwh': 0, 'savings_rate': 0},
+            'FAN': {'ess_hours': 0, 'total_hours': 0, 'saved_kwh': 0, 'savings_rate': 0},
+            'TOTAL': {'ess_hours': 0, 'total_hours': 0, 'saved_kwh': 0, 'savings_rate': 0}
+        }
+
+        for eq in equipment:
+            name = eq['name']
+            if name.startswith('SWP'):
+                group = 'SWP'
+            elif name.startswith('FWP'):
+                group = 'FWP'
+            else:
+                group = 'FAN'
+
+            groups[group]['ess_hours'] += eq['ess_hours']
+            groups[group]['total_hours'] += eq['total_hours']
+            groups[group]['saved_kwh'] += eq['saved_kwh']
+
+        for g in ['SWP', 'FWP', 'FAN']:
+            for key in groups[g]:
+                if key != 'savings_rate':
+                    groups['TOTAL'][key] += groups[g][key]
+
+        # 절감률 계산
+        for g in groups:
+            if groups[g]['total_hours'] > 0:
+                groups[g]['savings_rate'] = round(random.uniform(35, 55), 1)
+
+        # 오늘 데이터
+        today_equipment = []
+        for eq in equipment:
+            today_equipment.append({
+                'name': eq['name'],
+                'ess_hours': round(eq['ess_hours'] * 0.1, 2),
+                'saved_kwh': round(eq['saved_kwh'] * 0.1, 1)
+            })
+
+        today_groups = {}
+        for g in groups:
+            today_groups[g] = {
+                'saved_kwh': round(groups[g]['saved_kwh'] * 0.1, 1)
+            }
+
+        return {
+            'equipment': equipment,
+            'groups': groups,
+            'today': {
+                'equipment': today_equipment,
+                'groups': today_groups
+            }
+        }

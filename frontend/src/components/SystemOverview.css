@@ -71,6 +71,20 @@
   margin: 0 0 0.75rem 0;
   padding-bottom: 0.5rem;
   border-bottom: 1px solid #334155;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+/* 정격 전력 표시 */
+.rated-power {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #e2e8f0;
+  background: #334155;
+  padding: 0.3rem 0.8rem;
+  border-radius: 0.3rem;
+  margin-left: auto;
 }
 
 .equipment-cards {
@@ -97,6 +111,9 @@
   margin: 0 0 0.75rem 0;
   padding-bottom: 0.5rem;
   border-bottom: 1px solid #334155;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
 }
 
 .fan-cards {
