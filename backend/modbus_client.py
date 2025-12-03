@@ -620,7 +620,11 @@ class PLCClient:
             return True
         elif command == "bypass":
             state["vfd_mode"] = False
-            logger.info(f"✅ 시뮬레이션: {equipment_name} Bypass 모드")
+            # Bypass 모드 전환 시 운전 중이면 60Hz로 즉시 변경
+            is_running = state.get("running", False) or state.get("running_fwd", False) or state.get("running_bwd", False)
+            if is_running:
+                state["frequency"] = 60.0
+            logger.info(f"✅ 시뮬레이션: {equipment_name} Bypass 모드 (60Hz 고정)")
             return True
 
         # Fan 장비
@@ -708,7 +712,15 @@ class PLCClient:
         return status
 
     def _get_simulated_vfd_data(self, equipment_index: int) -> Dict[str, Any]:
-        """시뮬레이션 VFD 데이터"""
+        """
+        시뮬레이션 VFD 데이터
+
+        실제 PLC처럼 모드에 따라 주파수 동작:
+        - 정지 상태: 0.0 Hz
+        - Bypass 모드 (vfd_mode=False): 60.0 Hz 고정
+        - 수동 + VFD (auto_mode=False, vfd_mode=True): 현재 주파수 유지 (변동 없음)
+        - 자동 + VFD (auto_mode=True, vfd_mode=True): AI 제어로 변동 (±0.5Hz noise)
+        """
         equipment_names = ["SWP1", "SWP2", "SWP3", "FWP1", "FWP2", "FWP3",
                           "FAN1", "FAN2", "FAN3", "FAN4"]
 
@@ -718,15 +730,47 @@ class PLCClient:
         name = equipment_names[equipment_index]
         state = self.sim_equipment_states.get(name, {})
 
+        # 모드 확인
+        auto_mode = state.get("auto_mode", True)
+        vfd_mode = state.get("vfd_mode", True)
+
         frequency = state.get("frequency", 0.0)
+
         # Pump는 running, Fan은 running_fwd 또는 running_bwd 체크
         if equipment_index < 6:  # Pump
             running = state.get("running", False)
         else:  # Fan
             running = state.get("running_fwd", False) or state.get("running_bwd", False)
 
-        # 주파수에 따라 전력 계산 (대략적)
-        power_kw = int(frequency * 2) if running else 0
+        # === 모드별 주파수 결정 로직 (실제 PLC 동작 모사) ===
+        if not running:
+            # 정지 상태
+            final_frequency = 0.0
+        elif not vfd_mode:
+            # Bypass 모드: 60Hz 고정 (VFD 가변 주파수 비활성)
+            final_frequency = 60.0
+        elif not auto_mode:
+            # 수동 모드 + VFD: 현재 주파수 유지 (Edge AI 목표 무시)
+            final_frequency = frequency
+        else:
+            # 자동 + VFD 모드: AI 제어로 변동 (약간의 noise 추가)
+            final_frequency = round(frequency + random.uniform(-0.5, 0.5), 1)
+            # 주파수 범위 제한 (40~60Hz)
+            final_frequency = max(40.0, min(60.0, final_frequency))
+
+        # 주파수에 따라 전력 계산 (팬/펌프 법칙: P ∝ N³)
+        if running and final_frequency > 0:
+            # 정격 전력 기준 (장비 타입별)
+            if equipment_index < 3:  # SWP
+                rated_power = 132
+            elif equipment_index < 6:  # FWP
+                rated_power = 75
+            else:  # FAN
+                rated_power = 54
+            # 팬/펌프 법칙 적용
+            power_kw = int(rated_power * ((final_frequency / 60.0) ** 3))
+        else:
+            power_kw = 0
 
         # 절감 데이터는 누적 데이터로 상태에 저장
         if "saved_kwh" not in state:
@@ -739,7 +783,7 @@ class PLCClient:
             state["saved_kwh"] += random.randint(0, 1)
 
         return {
-            "frequency": round(frequency + random.uniform(-0.5, 0.5), 1) if running else 0.0,
+            "frequency": final_frequency,
             "power_kw": power_kw + random.randint(-2, 2) if running else 0,
             "avg_power": power_kw if running else 0,
             "saved_kwh_low": state["saved_kwh"] & 0xFFFF,

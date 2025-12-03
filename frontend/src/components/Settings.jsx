@@ -3,8 +3,8 @@ import { useAuth } from '../AuthContext'
 import VirtualKeyboard from './VirtualKeyboard'
 import './Settings.css'
 
-// Edge Computer API 주소
-const EDGE_API_URL = 'http://localhost:8000'
+// HMI Backend API 주소 (사용자 관리는 HMI Backend에서 독립적으로 처리)
+const HMI_API_URL = 'http://localhost:8001'
 
 function Settings() {
   const { canManageUsers, token } = useAuth()
@@ -92,7 +92,7 @@ function Settings() {
 
       {/* 설정 탭 */}
       <div className="settings-tabs">
-        <button 
+        <button
           className={activeTab === 'temp' ? 'active' : ''}
           onClick={() => setActiveTab('temp')}
         >
@@ -104,13 +104,19 @@ function Settings() {
         >
           ⚡ 주파수 설정
         </button>
-        <button 
+        <button
           className={activeTab === 'operation' ? 'active' : ''}
           onClick={() => setActiveTab('operation')}
         >
           🔧 운전 설정
         </button>
-        <button 
+        <button
+          className={activeTab === 'alarm' ? 'active' : ''}
+          onClick={() => setActiveTab('alarm')}
+        >
+          🔔 알람 설정
+        </button>
+        <button
           className={activeTab === 'departure' ? 'active' : ''}
           onClick={() => setActiveTab('departure')}
         >
@@ -122,18 +128,12 @@ function Settings() {
         >
           💻 시스템
         </button>
-        <button
-          className={activeTab === 'alarm' ? 'active' : ''}
-          onClick={() => setActiveTab('alarm')}
-        >
-          알람 설정
-        </button>
         {canManageUsers() && (
           <button
             className={activeTab === 'users' ? 'active' : ''}
             onClick={() => setActiveTab('users')}
           >
-            사용자 관리
+            👤 사용자 관리
           </button>
         )}
       </div>
@@ -527,11 +527,150 @@ function DepartureMode({ settings, onChange }) {
 
 // 시스템 설정 탭
 function SystemSettings() {
+  const { canManageUsers, user } = useAuth()
+  const [edgeStatus, setEdgeStatus] = useState({
+    connected: false,
+    blocked: false,
+    blocked_by: null,
+    blocked_at: null,
+    fallback_mode: true
+  })
+  const [isBlocking, setIsBlocking] = useState(false)
+  const [showConfirmDialog, setShowConfirmDialog] = useState(false)
+  const [confirmAction, setConfirmAction] = useState(null) // 'block' or 'unblock'
+
+  // Edge 상태 주기적 조회
+  useEffect(() => {
+    const fetchEdgeStatus = async () => {
+      try {
+        const response = await fetch('http://localhost:8001/api/edge/status')
+        const data = await response.json()
+        if (data.success) {
+          setEdgeStatus({
+            connected: data.connected,
+            blocked: data.blocked,
+            blocked_by: data.blocked_by,
+            blocked_at: data.blocked_at,
+            fallback_mode: data.fallback_mode
+          })
+        }
+      } catch (error) {
+        console.error('Edge 상태 조회 실패:', error)
+      }
+    }
+
+    fetchEdgeStatus()
+    const interval = setInterval(fetchEdgeStatus, 3000)
+    return () => clearInterval(interval)
+  }, [])
+
+  // Edge 차단/해제 처리
+  const handleEdgeAction = async (action) => {
+    setIsBlocking(true)
+    try {
+      const endpoint = action === 'block' ? 'http://localhost:8001/api/edge/block' : 'http://localhost:8001/api/edge/unblock'
+      const response = await fetch(endpoint, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ username: user?.username || 'admin' })
+      })
+      const data = await response.json()
+      if (data.success) {
+        // 상태 즉시 업데이트
+        setEdgeStatus(prev => ({
+          ...prev,
+          blocked: action === 'block',
+          blocked_by: action === 'block' ? (user?.username || 'admin') : null,
+          blocked_at: action === 'block' ? new Date().toISOString() : null,
+          connected: action === 'unblock' ? prev.connected : false,
+          fallback_mode: action === 'block' ? true : prev.fallback_mode
+        }))
+      } else {
+        alert(data.error || '작업 실패')
+      }
+    } catch (error) {
+      console.error('Edge 작업 실패:', error)
+      alert('Edge 작업 실패: ' + error.message)
+    } finally {
+      setIsBlocking(false)
+      setShowConfirmDialog(false)
+      setConfirmAction(null)
+    }
+  }
+
+  // 확인 다이얼로그 표시
+  const showConfirm = (action) => {
+    setConfirmAction(action)
+    setShowConfirmDialog(true)
+  }
+
   return (
     <div className="settings-section">
       <h3>💻 시스템 설정</h3>
 
       <div className="system-info">
+        {/* Edge Computer 연결 관리 카드 - 관리자만 표시 */}
+        {canManageUsers && (
+          <div className="info-card edge-control-card">
+            <h4>🤖 Edge Computer 연결 관리</h4>
+
+            <div className="edge-status-display">
+              <div className="info-row">
+                <span>상태:</span>
+                <span className={`edge-status-badge ${edgeStatus.blocked ? 'blocked' : edgeStatus.connected ? 'connected' : 'disconnected'}`}>
+                  {edgeStatus.blocked ? '● 수동 차단됨' : edgeStatus.connected ? '● 연결됨' : '● 연결 안됨'}
+                </span>
+              </div>
+
+              <div className="info-row">
+                <span>제어 모드:</span>
+                <span className={`control-mode ${edgeStatus.fallback_mode ? 'fallback' : 'ai'}`}>
+                  {edgeStatus.fallback_mode ? 'Fallback PID' : 'AI 최적화'}
+                </span>
+              </div>
+
+              {edgeStatus.blocked && (
+                <>
+                  <div className="info-row">
+                    <span>차단자:</span>
+                    <span>{edgeStatus.blocked_by || '-'}</span>
+                  </div>
+                  <div className="info-row">
+                    <span>차단 시간:</span>
+                    <span>{edgeStatus.blocked_at ? new Date(edgeStatus.blocked_at).toLocaleString('ko-KR') : '-'}</span>
+                  </div>
+                </>
+              )}
+            </div>
+
+            <div className="edge-control-buttons">
+              {edgeStatus.blocked ? (
+                <button
+                  className="edge-btn unblock-btn"
+                  onClick={() => showConfirm('unblock')}
+                  disabled={isBlocking}
+                >
+                  {isBlocking ? '처리 중...' : '▶️ 연결 재개'}
+                </button>
+              ) : (
+                <button
+                  className="edge-btn block-btn"
+                  onClick={() => showConfirm('block')}
+                  disabled={isBlocking}
+                >
+                  {isBlocking ? '처리 중...' : '⏸️ 연결 차단'}
+                </button>
+              )}
+            </div>
+
+            <div className="edge-warning">
+              {edgeStatus.blocked
+                ? '💡 재개 시 AI 최적화 제어 모드로 복귀합니다'
+                : '⚠️ 차단 시 PLC가 자체 PID 제어로 전환됩니다'}
+            </div>
+          </div>
+        )}
+
         <div className="info-card">
           <h4>🔌 PLC 연결 정보</h4>
           <div className="info-row">
@@ -580,6 +719,40 @@ function SystemSettings() {
           </div>
         </div>
       </div>
+
+      {/* 확인 다이얼로그 */}
+      {showConfirmDialog && (
+        <div className="edge-confirm-overlay">
+          <div className="edge-confirm-dialog">
+            <h4>
+              {confirmAction === 'block' ? '⏸️ Edge Computer 연결 차단' : '▶️ Edge Computer 연결 재개'}
+            </h4>
+            <p>
+              {confirmAction === 'block'
+                ? 'Edge Computer 연결을 차단하시겠습니까?\nPLC가 자체 PID 제어 모드로 전환됩니다.'
+                : 'Edge Computer 연결을 재개하시겠습니까?\nAI 최적화 제어 모드로 복귀합니다.'}
+            </p>
+            <div className="edge-confirm-buttons">
+              <button
+                className="confirm-btn cancel"
+                onClick={() => {
+                  setShowConfirmDialog(false)
+                  setConfirmAction(null)
+                }}
+              >
+                취소
+              </button>
+              <button
+                className={`confirm-btn ${confirmAction === 'block' ? 'block' : 'unblock'}`}
+                onClick={() => handleEdgeAction(confirmAction)}
+                disabled={isBlocking}
+              >
+                {isBlocking ? '처리 중...' : confirmAction === 'block' ? '차단' : '재개'}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   )
 }
@@ -672,7 +845,7 @@ function UserManagement({ token }) {
   const fetchUsers = async () => {
     try {
       setLoading(true)
-      const response = await fetch(`${EDGE_API_URL}/api/users`, {
+      const response = await fetch(`${HMI_API_URL}/api/users`, {
         headers: {
           'Authorization': `Bearer ${token}`
         }
@@ -710,7 +883,7 @@ function UserManagement({ token }) {
     }
 
     try {
-      const response = await fetch(`${EDGE_API_URL}/api/users`, {
+      const response = await fetch(`${HMI_API_URL}/api/users`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -736,7 +909,7 @@ function UserManagement({ token }) {
   // 역할 변경
   const handleRoleChange = async (userId, newRole) => {
     try {
-      const response = await fetch(`${EDGE_API_URL}/api/users/${userId}`, {
+      const response = await fetch(`${HMI_API_URL}/api/users/${userId}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -765,7 +938,7 @@ function UserManagement({ token }) {
     }
 
     try {
-      const response = await fetch(`${EDGE_API_URL}/api/users/${userId}/reset-password`, {
+      const response = await fetch(`${HMI_API_URL}/api/users/${userId}/reset-password`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -794,7 +967,7 @@ function UserManagement({ token }) {
     }
 
     try {
-      const response = await fetch(`${EDGE_API_URL}/api/users/${userId}`, {
+      const response = await fetch(`${HMI_API_URL}/api/users/${userId}`, {
         method: 'DELETE',
         headers: {
           'Authorization': `Bearer ${token}`
@@ -816,7 +989,7 @@ function UserManagement({ token }) {
   // 활성화/비활성화 토글
   const handleToggleActive = async (userId, currentActive) => {
     try {
-      const response = await fetch(`${EDGE_API_URL}/api/users/${userId}`, {
+      const response = await fetch(`${HMI_API_URL}/api/users/${userId}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',

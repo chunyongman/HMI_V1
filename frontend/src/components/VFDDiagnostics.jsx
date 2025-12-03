@@ -37,9 +37,88 @@ const getTrendIcon = (trend) => {
   }
 };
 
+// 항목별 임계값 정의 (경고/위험 수준)
+const THRESHOLDS = {
+  motor_thermal_pct: { warning: 85, danger: 100 },
+  inverter_thermal_pct: { warning: 85, danger: 95 },
+  heatsink_temperature_c: { warning: 70, danger: 85 },
+  output_current_a: { warning: 300, danger: 400 },
+  dc_bus_voltage_v: { low_warning: 500, low_danger: 450, high_warning: 650, high_danger: 700 },
+  current_imbalance_pct: { warning: 3, danger: 5 },
+  predicted_temp_30min: { warning: 80, danger: 90 },
+  temp_rise_rate: { warning: 0.1, danger: 0.2 },
+  anomaly_score: { warning: 30, danger: 50 },
+  remaining_life_percent: { warning: 30, danger: 15 }
+};
+
+// 값의 상태 판정 (normal/warning/danger)
+const getValueStatus = (key, value) => {
+  if (value === null || value === undefined || value === '-') return 'normal';
+
+  const threshold = THRESHOLDS[key];
+  if (!threshold) return 'normal';
+
+  // DC 링크 전압은 상한/하한 모두 체크
+  if (key === 'dc_bus_voltage_v') {
+    if (value <= threshold.low_danger || value >= threshold.high_danger) return 'danger';
+    if (value <= threshold.low_warning || value >= threshold.high_warning) return 'warning';
+    return 'normal';
+  }
+
+  // 수명 잔여율은 낮을수록 위험
+  if (key === 'remaining_life_percent') {
+    if (value <= threshold.danger) return 'danger';
+    if (value <= threshold.warning) return 'warning';
+    return 'normal';
+  }
+
+  // 일반적인 경우: 높을수록 위험
+  if (value >= threshold.danger) return 'danger';
+  if (value >= threshold.warning) return 'warning';
+  return 'normal';
+};
+
+// 상태에 따른 클래스명 반환
+const getMetricClassName = (key, value) => {
+  const status = getValueStatus(key, value);
+  if (status === 'danger') return 'popup-metric metric-danger';
+  if (status === 'warning') return 'popup-metric metric-warning';
+  return 'popup-metric';
+};
+
+// 상태에 따른 값 스타일 반환
+const getValueStyle = (key, value) => {
+  const status = getValueStatus(key, value);
+  if (status === 'danger') return { color: '#f44336', fontWeight: 700 };
+  if (status === 'warning') return { color: '#ff9800', fontWeight: 700 };
+  return {};
+};
+
 // 상세 진단 정보 팝업 컴포넌트 (외부로 분리)
 const DetailPopup = React.memo(({ vfd, onClose }) => {
   if (!vfd) return null;
+
+  // 문제가 되는 항목 수 계산
+  const getProblematicItems = () => {
+    const items = [];
+    if (getValueStatus('motor_thermal_pct', vfd.motor_thermal_pct) !== 'normal')
+      items.push('모터 열부하');
+    if (getValueStatus('inverter_thermal_pct', vfd.inverter_thermal_pct) !== 'normal')
+      items.push('인버터 열부하');
+    if (getValueStatus('heatsink_temperature_c', vfd.heatsink_temperature_c) !== 'normal')
+      items.push('방열판 온도');
+    if (getValueStatus('output_current_a', vfd.output_current_a) !== 'normal')
+      items.push('모터 전류');
+    if (getValueStatus('dc_bus_voltage_v', vfd.dc_bus_voltage_v) !== 'normal')
+      items.push('DC 링크 전압');
+    if (getValueStatus('current_imbalance_pct', vfd.current_imbalance_pct) !== 'normal')
+      items.push('전류 불평형');
+    if (getValueStatus('anomaly_score', vfd.anomaly_score) !== 'normal')
+      items.push('이상 점수');
+    return items;
+  };
+
+  const problematicItems = getProblematicItems();
 
   return (
     <div className="popup-overlay" onClick={onClose}>
@@ -60,6 +139,12 @@ const DetailPopup = React.memo(({ vfd, onClose }) => {
                 {getSeverityText(vfd.severityLevel)} (Lv.{vfd.severityLevel})
               </div>
               <div className="popup-recommendation">{vfd.recommendation}</div>
+              {/* 문제 원인 항목 표시 */}
+              {problematicItems.length > 0 && vfd.severityLevel > 0 && (
+                <div className="popup-problem-causes">
+                  주요 원인: {problematicItems.join(', ')}
+                </div>
+              )}
             </div>
           </div>
 
@@ -71,25 +156,35 @@ const DetailPopup = React.memo(({ vfd, onClose }) => {
                 <span className="popup-metric-label">주파수</span>
                 <span className="popup-metric-value">{vfd.current_frequency_hz?.toFixed(1) || 0} Hz</span>
               </div>
-              <div className="popup-metric">
+              <div className={getMetricClassName('motor_thermal_pct', vfd.motor_thermal_pct)}>
                 <span className="popup-metric-label">모터 열부하</span>
-                <span className="popup-metric-value">{vfd.motor_thermal_pct || 0} %</span>
+                <span className="popup-metric-value" style={getValueStyle('motor_thermal_pct', vfd.motor_thermal_pct)}>
+                  {vfd.motor_thermal_pct || 0} %
+                </span>
               </div>
-              <div className="popup-metric">
+              <div className={getMetricClassName('inverter_thermal_pct', vfd.inverter_thermal_pct)}>
                 <span className="popup-metric-label">인버터 열부하</span>
-                <span className="popup-metric-value">{vfd.inverter_thermal_pct || 0} %</span>
+                <span className="popup-metric-value" style={getValueStyle('inverter_thermal_pct', vfd.inverter_thermal_pct)}>
+                  {vfd.inverter_thermal_pct || 0} %
+                </span>
               </div>
-              <div className="popup-metric">
+              <div className={getMetricClassName('heatsink_temperature_c', vfd.heatsink_temperature_c)}>
                 <span className="popup-metric-label">방열판 온도</span>
-                <span className="popup-metric-value">{vfd.heatsink_temperature_c || 0} °C</span>
+                <span className="popup-metric-value" style={getValueStyle('heatsink_temperature_c', vfd.heatsink_temperature_c)}>
+                  {vfd.heatsink_temperature_c || 0} °C
+                </span>
               </div>
-              <div className="popup-metric">
+              <div className={getMetricClassName('output_current_a', vfd.output_current_a)}>
                 <span className="popup-metric-label">모터 전류</span>
-                <span className="popup-metric-value">{vfd.output_current_a?.toFixed(1) || 0} A</span>
+                <span className="popup-metric-value" style={getValueStyle('output_current_a', vfd.output_current_a)}>
+                  {vfd.output_current_a?.toFixed(1) || 0} A
+                </span>
               </div>
-              <div className="popup-metric">
+              <div className={getMetricClassName('dc_bus_voltage_v', vfd.dc_bus_voltage_v)}>
                 <span className="popup-metric-label">DC 링크 전압</span>
-                <span className="popup-metric-value">{vfd.dc_bus_voltage_v || 0} V</span>
+                <span className="popup-metric-value" style={getValueStyle('dc_bus_voltage_v', vfd.dc_bus_voltage_v)}>
+                  {vfd.dc_bus_voltage_v || 0} V
+                </span>
               </div>
               <div className="popup-metric">
                 <span className="popup-metric-label">운전 시간</span>
@@ -118,9 +213,11 @@ const DetailPopup = React.memo(({ vfd, onClose }) => {
                 <span className="popup-metric-label">W상 전류</span>
                 <span className="popup-metric-value">{vfd.phase_w_current?.toFixed(1) || 0} A</span>
               </div>
-              <div className="popup-metric">
+              <div className={getMetricClassName('current_imbalance_pct', vfd.current_imbalance_pct)}>
                 <span className="popup-metric-label">불평형률</span>
-                <span className="popup-metric-value">{vfd.current_imbalance_pct?.toFixed(1) || 0} %</span>
+                <span className="popup-metric-value" style={getValueStyle('current_imbalance_pct', vfd.current_imbalance_pct)}>
+                  {vfd.current_imbalance_pct?.toFixed(1) || 0} %
+                </span>
               </div>
             </div>
           </div>
@@ -129,25 +226,33 @@ const DetailPopup = React.memo(({ vfd, onClose }) => {
           <div className="popup-section">
             <h4>🔮 예측 분석</h4>
             <div className="popup-metrics-grid">
-              <div className="popup-metric">
+              <div className={getMetricClassName('predicted_temp_30min', vfd.predicted_temp_30min)}>
                 <span className="popup-metric-label">30분 후 예측 온도</span>
-                <span className="popup-metric-value">{vfd.predicted_temp_30min?.toFixed(1) || '-'} °C</span>
+                <span className="popup-metric-value" style={getValueStyle('predicted_temp_30min', vfd.predicted_temp_30min)}>
+                  {vfd.predicted_temp_30min?.toFixed(1) || '-'} °C
+                </span>
               </div>
-              <div className="popup-metric">
+              <div className={getMetricClassName('temp_rise_rate', vfd.temp_rise_rate)}>
                 <span className="popup-metric-label">온도 상승률</span>
-                <span className="popup-metric-value">{vfd.temp_rise_rate?.toFixed(3) || '-'} °C/min</span>
+                <span className="popup-metric-value" style={getValueStyle('temp_rise_rate', vfd.temp_rise_rate)}>
+                  {vfd.temp_rise_rate?.toFixed(3) || '-'} °C/min
+                </span>
               </div>
               <div className="popup-metric">
                 <span className="popup-metric-label">온도 트렌드</span>
                 <span className="popup-metric-value">{getTrendIcon(vfd.temp_trend)}</span>
               </div>
-              <div className="popup-metric">
+              <div className={getMetricClassName('anomaly_score', vfd.anomaly_score)}>
                 <span className="popup-metric-label">이상 점수</span>
-                <span className="popup-metric-value">{vfd.anomaly_score?.toFixed(1) || '-'}</span>
+                <span className="popup-metric-value" style={getValueStyle('anomaly_score', vfd.anomaly_score)}>
+                  {vfd.anomaly_score?.toFixed(1) || '-'}
+                </span>
               </div>
-              <div className="popup-metric">
+              <div className={getMetricClassName('remaining_life_percent', vfd.remaining_life_percent)}>
                 <span className="popup-metric-label">수명 잔여율</span>
-                <span className="popup-metric-value">{vfd.remaining_life_percent?.toFixed(1) || '-'} %</span>
+                <span className="popup-metric-value" style={getValueStyle('remaining_life_percent', vfd.remaining_life_percent)}>
+                  {vfd.remaining_life_percent?.toFixed(1) || '-'} %
+                </span>
               </div>
               <div className="popup-metric">
                 <span className="popup-metric-label">정비 예상</span>

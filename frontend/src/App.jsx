@@ -31,6 +31,8 @@ function AppContent() {
   const [wsConnected, setWsConnected] = useState(false)  // WebSocket 연결 상태
   const [plcConnected, setPlcConnected] = useState(false)  // PLC 연결 상태
   const [edgeConnected, setEdgeConnected] = useState(false)  // Edge AI 연결 상태
+  const [edgeBlocked, setEdgeBlocked] = useState(false)  // Edge 수동 차단 상태
+  const [fallbackMode, setFallbackMode] = useState(true)  // Fallback PID 모드
   const [ws, setWs] = useState(null)
   const [activeTab, setActiveTab] = useState('home')
 
@@ -283,6 +285,8 @@ function AppContent() {
           setAlarmSummary(data.alarm_summary || {})
           setPlcConnected(data.plc_connected || false)  // PLC 연결 상태 업데이트
           setEdgeConnected(data.edge_connected !== false)  // Edge AI 연결 상태 (WebSocket 데이터 받으면 연결됨)
+          setEdgeBlocked(data.edge_blocked || false)  // Edge 수동 차단 상태
+          setFallbackMode(data.fallback_mode !== false)  // Fallback PID 모드
           setEssData(data.ess_data || null)  // ESS 운전/에너지 데이터
         }
       } catch (error) {
@@ -295,6 +299,7 @@ function AppContent() {
       setWsConnected(false)
       setPlcConnected(false)
       setEdgeConnected(false)
+      setFallbackMode(true)
     }
 
     websocket.onclose = () => {
@@ -302,6 +307,7 @@ function AppContent() {
       setWsConnected(false)
       setPlcConnected(false)
       setEdgeConnected(false)
+      setFallbackMode(true)
       setTimeout(connectWebSocket, 5000)
     }
 
@@ -484,7 +490,7 @@ function AppContent() {
             className={activeTab === 'settings' ? 'active' : ''}
             onClick={() => setActiveTab('settings')}
           >
-            파라미터 설정
+            설정
           </button>
         )}
         {canAccessTabWithGuest('history') && (

@@ -8,8 +8,8 @@ import React, { createContext, useContext, useState, useEffect } from 'react'
 
 const AuthContext = createContext(null)
 
-// Edge Computer API 주소
-const EDGE_API_URL = 'http://localhost:8000'
+// HMI Backend API 주소 (인증은 HMI Backend에서 독립적으로 처리)
+const HMI_API_URL = 'http://localhost:8001'
 
 export function AuthProvider({ children }) {
   const [user, setUser] = useState(null)
@@ -23,7 +23,7 @@ export function AuthProvider({ children }) {
       const savedToken = localStorage.getItem('authToken')
       if (savedToken) {
         try {
-          const response = await fetch(`${EDGE_API_URL}/api/auth/me`, {
+          const response = await fetch(`${HMI_API_URL}/api/auth/me`, {
             headers: {
               'Authorization': `Bearer ${savedToken}`
             }
@@ -60,7 +60,7 @@ export function AuthProvider({ children }) {
   // 로그인
   const login = async (username, password) => {
     try {
-      const response = await fetch(`${EDGE_API_URL}/api/auth/login`, {
+      const response = await fetch(`${HMI_API_URL}/api/auth/login`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -89,7 +89,7 @@ export function AuthProvider({ children }) {
   const logout = async () => {
     try {
       if (token) {
-        await fetch(`${EDGE_API_URL}/api/auth/logout`, {
+        await fetch(`${HMI_API_URL}/api/auth/logout`, {
           method: 'POST',
           headers: {
             'Authorization': `Bearer ${token}`
@@ -109,7 +109,7 @@ export function AuthProvider({ children }) {
   // 비밀번호 변경
   const changePassword = async (currentPassword, newPassword) => {
     try {
-      const response = await fetch(`${EDGE_API_URL}/api/auth/change-password`, {
+      const response = await fetch(`${HMI_API_URL}/api/auth/change-password`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

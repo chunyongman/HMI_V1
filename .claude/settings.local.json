@@ -59,7 +59,8 @@
       "Bash(ping:*)",
       "Bash(powershell -Command \"Stop-Process -Id 28920 -Force\")",
       "Bash(powershell:*)",
-      "Bash(cmd /c copy \"c:\\Users\\my\\Desktop\\HMI_REAL\\simulator\\plc_simulator.py\" \"c:\\Users\\my\\Desktop\\PLC_Simulator\\plc_simulator.py\")"
+      "Bash(cmd /c copy \"c:\\Users\\my\\Desktop\\HMI_REAL\\simulator\\plc_simulator.py\" \"c:\\Users\\my\\Desktop\\PLC_Simulator\\plc_simulator.py\")",
+      "Bash(cmd /c \"taskkill /F /PID 26108\")"
     ],
     "deny": [],
     "ask": []
