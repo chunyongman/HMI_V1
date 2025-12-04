@@ -586,9 +586,12 @@ class PLCClient:
         elif command == "start_bwd" and "FAN" in equipment_name:
             # Fan BWD 명령은 별도 비트 사용
             coil_address = 64084 + (eq_index - 6)  # FAN1~4용 BWD 비트
+            logger.info(f"📤 {equipment_name} BWD 명령 전송 시도: coil_address={coil_address}, eq_index={eq_index}")
             success = self.write_coil(coil_address, True)
             if success:
                 logger.info(f"✅ {equipment_name} BWD 명령 전송 성공")
+            else:
+                logger.error(f"❌ {equipment_name} BWD 명령 전송 실패")
             return success
 
         else:

@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import './CoolingDiagramImage.css'
-import coolingDiagramImage from '../assets/cooling_diagram_new.svg'
+import coolingDiagramImage from '../assets/piping_diagram.svg'
 
 function CoolingDiagramImage({ sensors = {}, pumps = [], onPumpCommand }) {
   const [selectedPump, setSelectedPump] = useState(null)

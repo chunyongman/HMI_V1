@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { sensorMapping, pumpMapping } from '../config/svgMapping'
 import { pipingDataMapping, pipingSensorMapping, pipingPumpMapping } from '../config/pipingMapping'
-import svgDiagram from '../assets/piping_diagram3.svg?raw'
+import svgDiagram from '../assets/piping_diagram.svg?raw'
 import './DynamicSVGDiagram.css'
 
 function DynamicSVGDiagram({ sensors = {}, pumps = [], onPumpCommand }) {
@@ -109,12 +109,21 @@ function DynamicSVGDiagram({ sensors = {}, pumps = [], onPumpCommand }) {
 
     // 펌프별 클릭 영역 정의 (SVG 상의 실제 위치 기반)
     // pumps 배열 순서 (백엔드): [SWP1, SWP2, SWP3, FWP1, FWP2, FWP3]
-    // SVG 화면 위치: SW Pump - 우측=SWP1, 중앙=SWP2, 좌측=SWP3
+    //
+    // ★★★ 화면 배치 원칙 (절대 규칙) ★★★
+    //   - 화면 우측 = No.1
+    //   - 화면 중앙 = No.2
+    //   - 화면 좌측 = No.3
+    //
+    // piping_diagram.svg 펌프 X 좌표:
+    //   SW_Pump_3: x=803 (우측) → SWP1 클릭 영역
+    //   SW_Pump_2: x=712 (중앙) → SWP2 클릭 영역
+    //   SW_Pump_1: x=617 (좌측) → SWP3 클릭 영역
     const pumpAreas = [
-      // SW Pumps (아래쪽) - pumps[0~2] = SWP1, SWP2, SWP3
-      { index: 0, name: 'SW Pump No.1', x: 770, y: 478, width: 65, height: 60 },  // SWP1 = 우측
-      { index: 1, name: 'SW Pump No.2', x: 680, y: 478, width: 65, height: 60 },  // SWP2 = 중앙
-      { index: 2, name: 'SW Pump No.3', x: 585, y: 478, width: 65, height: 60 },  // SWP3 = 좌측
+      // SW Pumps (아래쪽) - 화면 배치 원칙 적용
+      { index: 0, name: 'SW Pump No.1', x: 770, y: 478, width: 65, height: 60 },  // SWP1 = 화면 우측
+      { index: 1, name: 'SW Pump No.2', x: 680, y: 478, width: 65, height: 60 },  // SWP2 = 화면 중앙
+      { index: 2, name: 'SW Pump No.3', x: 585, y: 478, width: 65, height: 60 },  // SWP3 = 화면 좌측
       // LT Pumps (왼쪽) - pumps[3~5] = FWP1, FWP2, FWP3
       { index: 3, name: 'LT Pump No.1', x: 240, y: 360, width: 65, height: 60 },  // FWP1
       { index: 4, name: 'LT Pump No.2', x: 240, y: 447, width: 65, height: 60 },  // FWP2

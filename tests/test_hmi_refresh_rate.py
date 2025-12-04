@@ -65,19 +65,31 @@ class RefreshMeasurement:
 class PLCSimulatorClient:
     """PLC 시뮬레이터 Modbus 클라이언트"""
 
-    def __init__(self, host: str = "127.0.0.1", port: int = 502):
+    def __init__(self, host: str = "127.0.0.1", port: int = 502, slave_id: int = 3):
         self.host = host
         self.port = port
+        self.slave_id = slave_id
         self.client = None
         self.connected = False
 
     def connect(self) -> bool:
         """PLC 연결"""
         try:
-            from pymodbus.client.sync import ModbusTcpClient
+            # pymodbus 3.x 버전
+            from pymodbus.client import ModbusTcpClient
             self.client = ModbusTcpClient(self.host, port=self.port)
             self.connected = self.client.connect()
             return self.connected
+        except ImportError:
+            try:
+                # pymodbus 2.x 버전 (레거시)
+                from pymodbus.client.sync import ModbusTcpClient
+                self.client = ModbusTcpClient(self.host, port=self.port)
+                self.connected = self.client.connect()
+                return self.connected
+            except Exception as e:
+                print(f"  PLC 연결 실패: {e}")
+                return False
         except Exception as e:
             print(f"  PLC 연결 실패: {e}")
             return False
@@ -93,7 +105,9 @@ class PLCSimulatorClient:
         if not self.connected:
             return None
         try:
-            result = self.client.read_holding_registers(register, 1, unit=3)
+            result = self.client.read_holding_registers(
+                address=register, count=1, device_id=self.slave_id
+            )
             if result.isError():
                 return None
             return result.registers[0] / 10.0
@@ -105,7 +119,9 @@ class PLCSimulatorClient:
         if not self.connected:
             return {}
         try:
-            result = self.client.read_holding_registers(10, 7, unit=3)
+            result = self.client.read_holding_registers(
+                address=10, count=7, device_id=self.slave_id
+            )
             if result.isError():
                 return {}
             return {

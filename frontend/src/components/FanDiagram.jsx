@@ -78,7 +78,7 @@ function FanDiagram({ sensors = {}, fans = [], equipment = [], onCommand }) {
 
   const loadSVG = async () => {
     try {
-      const response = await fetch(`/src/assets/fan_diagram3.svg?t=${Date.now()}`)
+      const response = await fetch(`/src/assets/fan_diagram.svg?t=${Date.now()}`)
       let svgText = await response.text()
 
       console.log('📄 SVG 파일 로드 완료, g28 제거 시작...')
