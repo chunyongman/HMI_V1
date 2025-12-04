@@ -260,3 +260,85 @@
 .btn-fan-stop:active:not(:disabled) {
   transform: translateY(0);
 }
+
+/* 방향 전환 버튼 스타일 */
+.btn-direction-change {
+  background: linear-gradient(135deg, #f97316 0%, #ea580c 100%) !important;
+  animation: pulse-orange 1.5s infinite;
+}
+
+.btn-direction-change:hover:not(:disabled) {
+  background: linear-gradient(135deg, #ea580c 0%, #c2410c 100%) !important;
+  box-shadow: 0 4px 12px rgba(249, 115, 22, 0.4) !important;
+}
+
+@keyframes pulse-orange {
+  0%, 100% {
+    box-shadow: 0 2px 6px rgba(249, 115, 22, 0.3);
+  }
+  50% {
+    box-shadow: 0 2px 15px rgba(249, 115, 22, 0.6);
+  }
+}
+
+/* 방향 전환 진행 표시 */
+.direction-change-indicator {
+  padding: 0.75rem 1.5rem;
+  background: rgba(249, 115, 22, 0.15);
+  border-top: 1px solid rgba(249, 115, 22, 0.3);
+  color: #f97316;
+  font-weight: 600;
+  font-size: 0.9rem;
+  text-align: center;
+  animation: blink 1s infinite;
+}
+
+@keyframes blink {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.6;
+  }
+}
+
+/* 토스트 메시지 */
+.fan-toast {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -120px);
+  padding: 1rem 2rem;
+  border-radius: 0.5rem;
+  font-weight: 700;
+  font-size: 1rem;
+  z-index: 2000;
+  animation: toastFadeIn 0.3s ease-out;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
+  border: 2px solid rgba(255, 255, 255, 0.3);
+}
+
+.fan-toast.success {
+  background: linear-gradient(135deg, #00c853 0%, #009624 100%);
+  color: white;
+  border: 3px solid #69f0ae;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.fan-toast.error {
+  background: linear-gradient(135deg, #ff1744 0%, #d50000 100%);
+  color: white;
+  border: 3px solid #ff8a80;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+@keyframes toastFadeIn {
+  from {
+    transform: translate(-50%, -100px);
+    opacity: 0;
+  }
+  to {
+    transform: translate(-50%, -120px);
+    opacity: 1;
+  }
+}

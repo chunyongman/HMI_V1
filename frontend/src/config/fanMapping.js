@@ -3,7 +3,7 @@
 
 export const fanSensorMapping = {
   // 온도 센서
-  TX7: { labelId: 'TX7', x: 406, y: 293, unit: '°C', decimal: 1 },  // E/R Outside Temp
+  TX7: { labelId: 'TX7', x: 406, y: 278, unit: '°C', decimal: 1 },  // E/R Outside Temp
   TX6: { labelId: 'TX6', x: 490, y: 311, unit: '°C', decimal: 1 },  // E/R Inside Temp
 
   // 압력 센서

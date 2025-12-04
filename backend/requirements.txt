@@ -1,6 +1,6 @@
 fastapi
 uvicorn[standard]
-pymodbus>=3.5.0
+pymodbus>=3.0.0
 websockets
 python-multipart
 pydantic

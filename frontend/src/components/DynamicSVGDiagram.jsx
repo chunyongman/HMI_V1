@@ -677,20 +677,33 @@ function DynamicSVGDiagram({ sensors = {}, pumps = [], onPumpCommand }) {
             </div>
 
             <div className="pump-popup-controls">
-              <button
-                className="btn-pump-start"
-                onClick={() => sendPumpCommand(selectedPump.index, 'start')}
-                disabled={selectedPump.running}
-              >
-                ▶️ START
-              </button>
-              <button
-                className="btn-pump-stop"
-                onClick={() => sendPumpCommand(selectedPump.index, 'stop')}
-                disabled={!selectedPump.running}
-              >
-                ⏹️ STOP
-              </button>
+              {(() => {
+                // 인터록 체크: 같은 그룹(SW/LT)에서 2대가 운전 중이면 START 비활성화
+                const isSWPump = selectedPump.index < 3
+                const groupPumps = isSWPump ? pumps.slice(0, 3) : pumps.slice(3, 6)
+                const runningCount = groupPumps.filter(p => p?.running).length
+                const startDisabled = selectedPump.running || runningCount >= 2
+
+                return (
+                  <>
+                    <button
+                      className="btn-pump-start"
+                      onClick={() => sendPumpCommand(selectedPump.index, 'start')}
+                      disabled={startDisabled}
+                      title={runningCount >= 2 && !selectedPump.running ? '2대 운전 중 - 추가 기동 불가' : ''}
+                    >
+                      ▶️ START
+                    </button>
+                    <button
+                      className="btn-pump-stop"
+                      onClick={() => sendPumpCommand(selectedPump.index, 'stop')}
+                      disabled={!selectedPump.running}
+                    >
+                      ⏹️ STOP
+                    </button>
+                  </>
+                )
+              })()}
             </div>
           </div>
         </div>

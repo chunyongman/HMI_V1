@@ -6,6 +6,8 @@ function FanDiagram({ sensors = {}, fans = [], equipment = [], onCommand }) {
   const svgContainerRef = useRef(null)
   const [svgLoaded, setSvgLoaded] = useState(false)
   const [selectedFan, setSelectedFan] = useState(null)
+  const [directionChangeInProgress, setDirectionChangeInProgress] = useState(null)
+  const [toastMessage, setToastMessage] = useState(null)
 
   const fanData = fans.length > 0 ? fans : (equipment.length >= 10 ? equipment.slice(6, 10) : [])
 
@@ -64,15 +66,134 @@ function FanDiagram({ sensors = {}, fans = [], equipment = [], onCommand }) {
     }
   }, [fanData])
 
-  const sendFanCommand = async (fanIndex, command) => {
-    if (onCommand && fanData[fanIndex]) {
-      const fan = fanData[fanIndex]
-      const success = await onCommand(fan.name, command)
-      if (success) {
-        alert(`✅ ${fan.name} ${command === 'start_fwd' ? '정방향 시작' : command === 'start_bwd' ? '역방향 시작' : command === 'start' ? '시작' : '정지'} 명령 성공`)
+  // 토스트 메시지 자동 숨김
+  useEffect(() => {
+    if (toastMessage) {
+      const timer = setTimeout(() => setToastMessage(null), 3000)
+      return () => clearTimeout(timer)
+    }
+  }, [toastMessage])
+
+  const showToast = (message, type = 'success') => {
+    setToastMessage({ message, type })
+  }
+
+  // 방향 전환 중인 팬의 주파수 확인 (0Hz가 되면 새 방향으로 시작)
+  useEffect(() => {
+    if (!directionChangeInProgress) return
+
+    const { fanIndex, targetDirection } = directionChangeInProgress
+    const fan = fanData[fanIndex]
+
+    if (!fan) {
+      setDirectionChangeInProgress(null)
+      return
+    }
+
+    // 주파수가 0Hz 이하이고, 운전 상태가 모두 정지인 경우
+    const frequency = fan.frequency || 0
+    const isStopped = !fan.running_fwd && !fan.running_bwd
+
+    if (frequency <= 0.5 && isStopped) {
+      // 정지 완료 - 새 방향으로 시작
+      const startCommand = targetDirection === 'fwd' ? 'start_fwd' : 'start_bwd'
+      const directionText = targetDirection === 'fwd' ? '정방향' : '역방향'
+
+      showToast(`🔄 ${fan.name} 정지 완료 - ${directionText} 시작 중...`, 'success')
+
+      // 새 방향으로 시작 명령 전송
+      if (onCommand) {
+        onCommand(fan.name, startCommand).then(success => {
+          if (success) {
+            showToast(`✅ ${fan.name} ${directionText} 전환 완료`, 'success')
+          } else {
+            showToast(`❌ ${fan.name} ${directionText} 시작 실패`, 'error')
+          }
+          setDirectionChangeInProgress(null)
+        })
       } else {
-        alert(`❌ 명령 실패`)
+        setDirectionChangeInProgress(null)
       }
+    }
+  }, [fanData, directionChangeInProgress, onCommand])
+
+  // 방향 전환 타임아웃 (30초)
+  useEffect(() => {
+    if (!directionChangeInProgress) return
+
+    const timeout = setTimeout(() => {
+      if (directionChangeInProgress) {
+        const fan = fanData[directionChangeInProgress.fanIndex]
+        showToast(`⚠️ ${fan?.name || '팬'} 방향 전환 타임아웃 (30초)`, 'error')
+        setDirectionChangeInProgress(null)
+      }
+    }, 30000)
+
+    return () => clearTimeout(timeout)
+  }, [directionChangeInProgress, fanData])
+
+  // 팬 방향 전환 처리
+  const handleDirectionChange = async (fanIndex, targetDirection) => {
+    const fan = fanData[fanIndex]
+    if (!fan || !onCommand) return
+
+    const currentDirection = fan.running_fwd ? 'fwd' : 'bwd'
+    const currentDirText = currentDirection === 'fwd' ? '정방향' : '역방향'
+    const targetDirText = targetDirection === 'fwd' ? '정방향' : '역방향'
+
+    // 이미 같은 방향이면 무시
+    if (currentDirection === targetDirection) return
+
+    showToast(`⏳ ${fan.name} 방향 전환 중... (${currentDirText} → ${targetDirText})`, 'success')
+
+    // 1. 정지 명령 전송
+    try {
+      const stopSuccess = await onCommand(fan.name, 'stop')
+      if (!stopSuccess) {
+        showToast(`❌ ${fan.name} 정지 명령 실패`, 'error')
+        return
+      }
+
+      // 2. 방향 전환 상태 설정 (useEffect에서 주파수 0Hz 모니터링)
+      setDirectionChangeInProgress({
+        fanIndex: fanIndex,
+        targetDirection: targetDirection,
+        startTime: Date.now()
+      })
+
+      showToast(`⏳ ${fan.name} 감속 중... (0Hz 대기)`, 'success')
+
+    } catch (error) {
+      showToast(`❌ 오류: ${error.message}`, 'error')
+    }
+  }
+
+  const sendFanCommand = async (fanIndex, command) => {
+    if (!onCommand || !fanData[fanIndex]) return
+
+    const fan = fanData[fanIndex]
+    const isRunning = fan.running_fwd || fan.running_bwd
+
+    // 운전 중에 반대 방향 버튼 클릭 시 방향 전환 처리
+    if (isRunning) {
+      if (command === 'start_fwd' && fan.running_bwd) {
+        handleDirectionChange(fanIndex, 'fwd')
+        return
+      }
+      if (command === 'start_bwd' && fan.running_fwd) {
+        handleDirectionChange(fanIndex, 'bwd')
+        return
+      }
+    }
+
+    // 일반 명령 처리
+    const success = await onCommand(fan.name, command)
+    if (success) {
+      const cmdText = command === 'start_fwd' ? '정방향 시작' :
+                      command === 'start_bwd' ? '역방향 시작' : '정지'
+      showToast(`✅ ${fan.name} ${cmdText} 성공`, 'success')
+    } else {
+      showToast(`❌ 명령 실패`, 'error')
     }
   }
 
@@ -305,13 +426,13 @@ function FanDiagram({ sensors = {}, fans = [], equipment = [], onCommand }) {
             })
             console.log(`🔄 ${mapping.fanId} 임펠러 역방향 회전 (보라색)`)
           } else {
-            // 정방향: 시계 방향 회전 + 파란색
+            // 정방향: 시계 방향 회전 + 주황색
             impellerElement.style.animation = 'fanRotate 3s linear infinite'
             blades.forEach(blade => {
-              blade.setAttribute('fill', '#1E90FF')
+              blade.setAttribute('fill', '#f97316')
               blade.setAttribute('opacity', '0.95')
             })
-            console.log(`✅ ${mapping.fanId} 임펠러 정방향 회전 (파란색)`)
+            console.log(`✅ ${mapping.fanId} 임펠러 정방향 회전 (주황색)`)
           }
         } else {
           // 정지 시: 애니메이션 정지 + 회색
@@ -410,6 +531,13 @@ function FanDiagram({ sensors = {}, fans = [], equipment = [], onCommand }) {
         {/* SVG가 여기에 로드됩니다 */}
       </div>
 
+      {/* 토스트 메시지 */}
+      {toastMessage && (
+        <div className={`fan-toast ${toastMessage.type}`}>
+          {toastMessage.message}
+        </div>
+      )}
+
       {/* 팬 정보 팝업 */}
       {selectedFan && (
         <div className="fan-popup-overlay" onClick={() => setSelectedFan(null)}>
@@ -460,28 +588,47 @@ function FanDiagram({ sensors = {}, fans = [], equipment = [], onCommand }) {
             </div>
 
             <div className="fan-popup-controls">
-              <button
-                className="btn-fan-start-fwd"
-                onClick={() => sendFanCommand(selectedFan.index, 'start_fwd')}
-                disabled={selectedFan.running_fwd || selectedFan.running_bwd}
-              >
-                ▶️ 정방향
-              </button>
-              <button
-                className="btn-fan-start-bwd"
-                onClick={() => sendFanCommand(selectedFan.index, 'start_bwd')}
-                disabled={selectedFan.running_fwd || selectedFan.running_bwd}
-              >
-                ◀️ 역방향
-              </button>
-              <button
-                className="btn-fan-stop"
-                onClick={() => sendFanCommand(selectedFan.index, 'stop')}
-                disabled={!selectedFan.running_fwd && !selectedFan.running_bwd && !selectedFan.running}
-              >
-                ⏹️ 정지
-              </button>
+              {(() => {
+                const isChangingDirection = directionChangeInProgress?.fanIndex === selectedFan.index
+                const isRunningFwd = selectedFan.running_fwd
+                const isRunningBwd = selectedFan.running_bwd
+                const isRunning = isRunningFwd || isRunningBwd || selectedFan.running
+
+                return (
+                  <>
+                    <button
+                      className={`btn-fan-start-fwd ${isRunningBwd ? 'btn-direction-change' : ''}`}
+                      onClick={() => sendFanCommand(selectedFan.index, 'start_fwd')}
+                      disabled={isRunningFwd || isChangingDirection}
+                      title={isRunningBwd ? '정방향으로 전환 (정지 후 자동 시작)' : ''}
+                    >
+                      {isRunningBwd ? '🔄 정방향 전환' : '▶️ 정방향'}
+                    </button>
+                    <button
+                      className={`btn-fan-start-bwd ${isRunningFwd ? 'btn-direction-change' : ''}`}
+                      onClick={() => sendFanCommand(selectedFan.index, 'start_bwd')}
+                      disabled={isRunningBwd || isChangingDirection}
+                      title={isRunningFwd ? '역방향으로 전환 (정지 후 자동 시작)' : ''}
+                    >
+                      {isRunningFwd ? '🔄 역방향 전환' : '◀️ 역방향'}
+                    </button>
+                    <button
+                      className="btn-fan-stop"
+                      onClick={() => sendFanCommand(selectedFan.index, 'stop')}
+                      disabled={!isRunning || isChangingDirection}
+                    >
+                      ⏹️ 정지
+                    </button>
+                  </>
+                )
+              })()}
             </div>
+            {/* 방향 전환 진행 표시 */}
+            {directionChangeInProgress?.fanIndex === selectedFan.index && (
+              <div className="direction-change-indicator">
+                ⏳ 감속 중... ({selectedFan.frequency?.toFixed(1) || 0} Hz → 0 Hz)
+              </div>
+            )}
           </div>
         </div>
       )}
